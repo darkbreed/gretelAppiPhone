@@ -1,0 +1,42 @@
+<gpx version="1.0" creator="Gretel 1.0 - http://www.benreed.me" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/0" xsi:schemaLocation="http://www.topografix.com/GPX/1/0/gpx.xsd">
+<wpt lat="51.46465443" lon="-2.57678436">
+<ele>0.000000</ele>
+<time>2012-12-14 09:24:04 +0000</time>
+</wpt>
+<wpt lat="51.47627195" lon="-2.58705287">
+<ele>0.000000</ele>
+<time>2012-12-14 09:24:03 +0000</time>
+</wpt>
+<wpt lat="51.44130009" lon="-2.6084724">
+<ele>0.000000</ele>
+<time>2012-12-14 09:24:02 +0000</time>
+</wpt>
+<wpt lat="51.46065467" lon="-2.59560781">
+<ele>0.000000</ele>
+<time>2012-12-14 09:24:01 +0000</time>
+</wpt>
+<wpt lat="51.45732076" lon="-2.62024462">
+<ele>0.000000</ele>
+<time>2012-12-14 09:24:00 +0000</time>
+</wpt>
+<wpt lat="51.4837688" lon="-2.5927201">
+<ele>0.000000</ele>
+<time>2012-12-14 09:23:59 +0000</time>
+</wpt>
+<wpt lat="51.46575482" lon="-2.5765138">
+<ele>0.000000</ele>
+<time>2012-12-14 09:23:58 +0000</time>
+</wpt>
+<wpt lat="51.43688466" lon="-2.63863734">
+<ele>0.000000</ele>
+<time>2012-12-14 09:23:57 +0000</time>
+</wpt>
+<wpt lat="51.45192443" lon="-2.63565395">
+<ele>0.000000</ele>
+<time>2012-12-14 09:23:56 +0000</time>
+</wpt>
+<wpt lat="51.43513898" lon="-2.63522353">
+<ele>0.000000</ele>
+<time>2012-12-14 09:23:55 +0000</time>
+</wpt>
+</gpx>

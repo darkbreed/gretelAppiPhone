@@ -1,0 +1,511 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3A04326B1678FFBB009485B3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A04326A1678FFBB009485B3 /* CoreData.framework */; };
+		3A072B70167F699D00349316 /* BRDateUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A072B6F167F699C00349316 /* BRDateUtils.m */; };
+		3A072B73167F796C00349316 /* BRMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A072B72167F796C00349316 /* BRMapAnnotation.m */; };
+		3A072B7B167FC7A900349316 /* BRBaseMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A072B7A167FC7A900349316 /* BRBaseMapViewController.m */; };
+		3A072B7E167FD6F200349316 /* VoiceMemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A072B7D167FD6F200349316 /* VoiceMemoViewController.m */; };
+		3A072B81167FD83300349316 /* NoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A072B80167FD83300349316 /* NoteViewController.m */; };
+		3A2059A916945AA700E81FB4 /* ExtendedManagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2059A316945AA700E81FB4 /* ExtendedManagedObject.m */; };
+		3A2059AA16945AA700E81FB4 /* GPSPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2059A516945AA700E81FB4 /* GPSPoint.m */; };
+		3A2059AB16945AA700E81FB4 /* Gretel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 3A2059A616945AA700E81FB4 /* Gretel.xcdatamodel */; };
+		3A2059AC16945AA700E81FB4 /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2059A816945AA700E81FB4 /* Trip.m */; };
+		3A43D62A16761D1F007E9A84 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A43D62916761D1F007E9A84 /* UIKit.framework */; };
+		3A43D62C16761D1F007E9A84 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A43D62B16761D1F007E9A84 /* Foundation.framework */; };
+		3A43D62E16761D1F007E9A84 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A43D62D16761D1F007E9A84 /* CoreGraphics.framework */; };
+		3A43D63416761D1F007E9A84 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3A43D63216761D1F007E9A84 /* InfoPlist.strings */; };
+		3A43D63616761D1F007E9A84 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A43D63516761D1F007E9A84 /* main.m */; };
+		3A43D63A16761D1F007E9A84 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A43D63916761D1F007E9A84 /* AppDelegate.m */; };
+		3A43D63C16761D1F007E9A84 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A43D63B16761D1F007E9A84 /* Default.png */; };
+		3A43D63E16761D1F007E9A84 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A43D63D16761D1F007E9A84 /* Default@2x.png */; };
+		3A43D64016761D1F007E9A84 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A43D63F16761D1F007E9A84 /* Default-568h@2x.png */; };
+		3A43D64316761D1F007E9A84 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A43D64116761D1F007E9A84 /* MainStoryboard_iPhone.storyboard */; };
+		3A43D64916761D1F007E9A84 /* RecordNewTripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A43D64816761D1F007E9A84 /* RecordNewTripViewController.m */; };
+		3A43D65216761D64007E9A84 /* GeoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A43D65116761D64007E9A84 /* GeoManager.m */; };
+		3A43D65416761D75007E9A84 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A43D65316761D75007E9A84 /* CoreLocation.framework */; };
+		3A43D66B1678B629007E9A84 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A43D66A1678B629007E9A84 /* MapKit.framework */; };
+		3A43D66E1678C536007E9A84 /* GTConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A43D66D1678C536007E9A84 /* GTConstants.m */; };
+		3A43D6781678DEB4007E9A84 /* morrocco.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3A43D6771678DEB4007E9A84 /* morrocco.gpx */; };
+		3A8C97481679E9A8000E2259 /* PointsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C97461679E9A8000E2259 /* PointsListViewController.m */; };
+		3A8C974C167A137D000E2259 /* LaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C974B167A137D000E2259 /* LaunchViewController.m */; };
+		3A8C974F167A1A18000E2259 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C974E167A1A18000E2259 /* HistoryViewController.m */; };
+		3A8C975E167A8518000E2259 /* CompletedTripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C975D167A8518000E2259 /* CompletedTripViewController.m */; };
+		3A8C9763167B123A000E2259 /* GPXFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C9762167B123A000E2259 /* GPXFactory.m */; };
+		3A8C9774167B2F3E000E2259 /* ShareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C9773167B2F3D000E2259 /* ShareManager.m */; };
+		3A8C9776167B2F7A000E2259 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A8C9775167B2F7A000E2259 /* MessageUI.framework */; };
+		3AA12B911684551D0003FE03 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA12B901684551D0003FE03 /* GameKit.framework */; };
+		A6FBA14610DC4D3C8654D5C3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B116D4037E14E9D9793F966 /* libPods.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0B116D4037E14E9D9793F966 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2DBC77A785094963AD97707F /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		3A04326A1678FFBB009485B3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		3A072B6E167F699C00349316 /* BRDateUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRDateUtils.h; sourceTree = "<group>"; };
+		3A072B6F167F699C00349316 /* BRDateUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRDateUtils.m; sourceTree = "<group>"; };
+		3A072B71167F796B00349316 /* BRMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMapAnnotation.h; sourceTree = "<group>"; };
+		3A072B72167F796C00349316 /* BRMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMapAnnotation.m; sourceTree = "<group>"; };
+		3A072B79167FC7A900349316 /* BRBaseMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRBaseMapViewController.h; sourceTree = "<group>"; };
+		3A072B7A167FC7A900349316 /* BRBaseMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRBaseMapViewController.m; sourceTree = "<group>"; };
+		3A072B7C167FD6F100349316 /* VoiceMemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceMemoViewController.h; sourceTree = "<group>"; };
+		3A072B7D167FD6F200349316 /* VoiceMemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoiceMemoViewController.m; sourceTree = "<group>"; };
+		3A072B7F167FD83300349316 /* NoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteViewController.h; sourceTree = "<group>"; };
+		3A072B80167FD83300349316 /* NoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteViewController.m; sourceTree = "<group>"; };
+		3A2059A216945AA700E81FB4 /* ExtendedManagedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtendedManagedObject.h; sourceTree = "<group>"; };
+		3A2059A316945AA700E81FB4 /* ExtendedManagedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtendedManagedObject.m; sourceTree = "<group>"; };
+		3A2059A416945AA700E81FB4 /* GPSPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPSPoint.h; sourceTree = "<group>"; };
+		3A2059A516945AA700E81FB4 /* GPSPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPSPoint.m; sourceTree = "<group>"; };
+		3A2059A616945AA700E81FB4 /* Gretel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Gretel.xcdatamodel; sourceTree = "<group>"; };
+		3A2059A716945AA700E81FB4 /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
+		3A2059A816945AA700E81FB4 /* Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trip.m; sourceTree = "<group>"; };
+		3A43D62516761D1F007E9A84 /* Gretel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gretel.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A43D62916761D1F007E9A84 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		3A43D62B16761D1F007E9A84 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		3A43D62D16761D1F007E9A84 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		3A43D63116761D1F007E9A84 /* Gretel-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Gretel-Info.plist"; sourceTree = "<group>"; };
+		3A43D63316761D1F007E9A84 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		3A43D63516761D1F007E9A84 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3A43D63716761D1F007E9A84 /* Gretel-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Gretel-Prefix.pch"; sourceTree = "<group>"; };
+		3A43D63816761D1F007E9A84 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		3A43D63916761D1F007E9A84 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		3A43D63B16761D1F007E9A84 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		3A43D63D16761D1F007E9A84 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		3A43D63F16761D1F007E9A84 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		3A43D64216761D1F007E9A84 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
+		3A43D64716761D1F007E9A84 /* RecordNewTripViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordNewTripViewController.h; sourceTree = "<group>"; };
+		3A43D64816761D1F007E9A84 /* RecordNewTripViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordNewTripViewController.m; sourceTree = "<group>"; };
+		3A43D65016761D64007E9A84 /* GeoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoManager.h; sourceTree = "<group>"; };
+		3A43D65116761D64007E9A84 /* GeoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoManager.m; sourceTree = "<group>"; };
+		3A43D65316761D75007E9A84 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		3A43D66A1678B629007E9A84 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		3A43D66C1678C535007E9A84 /* GTConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTConstants.h; sourceTree = "<group>"; };
+		3A43D66D1678C536007E9A84 /* GTConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTConstants.m; sourceTree = "<group>"; };
+		3A43D6771678DEB4007E9A84 /* morrocco.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = morrocco.gpx; sourceTree = "<group>"; };
+		3A46C56316844B6800C79C29 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		3A8C97451679E9A8000E2259 /* PointsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointsListViewController.h; sourceTree = "<group>"; };
+		3A8C97461679E9A8000E2259 /* PointsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PointsListViewController.m; sourceTree = "<group>"; };
+		3A8C974A167A137D000E2259 /* LaunchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchViewController.h; sourceTree = "<group>"; };
+		3A8C974B167A137D000E2259 /* LaunchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchViewController.m; sourceTree = "<group>"; };
+		3A8C974D167A1A18000E2259 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
+		3A8C974E167A1A18000E2259 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
+		3A8C975C167A8518000E2259 /* CompletedTripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompletedTripViewController.h; sourceTree = "<group>"; };
+		3A8C975D167A8518000E2259 /* CompletedTripViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompletedTripViewController.m; sourceTree = "<group>"; };
+		3A8C9761167B123A000E2259 /* GPXFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPXFactory.h; sourceTree = "<group>"; };
+		3A8C9762167B123A000E2259 /* GPXFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPXFactory.m; sourceTree = "<group>"; };
+		3A8C9772167B2F3D000E2259 /* ShareManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareManager.h; sourceTree = "<group>"; };
+		3A8C9773167B2F3D000E2259 /* ShareManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareManager.m; sourceTree = "<group>"; };
+		3A8C9775167B2F7A000E2259 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		3AA12B901684551D0003FE03 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3A43D62216761D1F007E9A84 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3AA12B911684551D0003FE03 /* GameKit.framework in Frameworks */,
+				3A8C9776167B2F7A000E2259 /* MessageUI.framework in Frameworks */,
+				3A04326B1678FFBB009485B3 /* CoreData.framework in Frameworks */,
+				3A43D66B1678B629007E9A84 /* MapKit.framework in Frameworks */,
+				3A43D65416761D75007E9A84 /* CoreLocation.framework in Frameworks */,
+				3A43D62A16761D1F007E9A84 /* UIKit.framework in Frameworks */,
+				3A43D62C16761D1F007E9A84 /* Foundation.framework in Frameworks */,
+				3A43D62E16761D1F007E9A84 /* CoreGraphics.framework in Frameworks */,
+				A6FBA14610DC4D3C8654D5C3 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3A072B78167FBC1C00349316 /* GPX */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = GPX;
+			sourceTree = "<group>";
+		};
+		3A2059A016945A9C00E81FB4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3A2059A216945AA700E81FB4 /* ExtendedManagedObject.h */,
+				3A2059A316945AA700E81FB4 /* ExtendedManagedObject.m */,
+				3A2059A416945AA700E81FB4 /* GPSPoint.h */,
+				3A2059A516945AA700E81FB4 /* GPSPoint.m */,
+				3A2059A616945AA700E81FB4 /* Gretel.xcdatamodel */,
+				3A2059A716945AA700E81FB4 /* Trip.h */,
+				3A2059A816945AA700E81FB4 /* Trip.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		3A43D61A16761D1F007E9A84 = {
+			isa = PBXGroup;
+			children = (
+				3A43D62F16761D1F007E9A84 /* Gretel */,
+				3A43D62816761D1F007E9A84 /* Frameworks */,
+				3A43D62616761D1F007E9A84 /* Products */,
+				2DBC77A785094963AD97707F /* Pods.xcconfig */,
+			);
+			sourceTree = "<group>";
+		};
+		3A43D62616761D1F007E9A84 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3A43D62516761D1F007E9A84 /* Gretel.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3A43D62816761D1F007E9A84 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3AA12B901684551D0003FE03 /* GameKit.framework */,
+				3A46C56316844B6800C79C29 /* ExternalAccessory.framework */,
+				3A8C9775167B2F7A000E2259 /* MessageUI.framework */,
+				3A04326A1678FFBB009485B3 /* CoreData.framework */,
+				3A43D66A1678B629007E9A84 /* MapKit.framework */,
+				3A43D65316761D75007E9A84 /* CoreLocation.framework */,
+				3A43D62916761D1F007E9A84 /* UIKit.framework */,
+				3A43D62B16761D1F007E9A84 /* Foundation.framework */,
+				3A43D62D16761D1F007E9A84 /* CoreGraphics.framework */,
+				0B116D4037E14E9D9793F966 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3A43D62F16761D1F007E9A84 /* Gretel */ = {
+			isa = PBXGroup;
+			children = (
+				3A2059A016945A9C00E81FB4 /* Model */,
+				3A8C9777167B455D000E2259 /* Categories */,
+				3A43D66C1678C535007E9A84 /* GTConstants.h */,
+				3A43D66D1678C536007E9A84 /* GTConstants.m */,
+				3A43D63816761D1F007E9A84 /* AppDelegate.h */,
+				3A43D63916761D1F007E9A84 /* AppDelegate.m */,
+				3A43D64F16761D45007E9A84 /* Helpers */,
+				3A8C9771167B1EC8000E2259 /* View Controllers */,
+				3A43D63016761D1F007E9A84 /* Supporting Files */,
+			);
+			path = Gretel;
+			sourceTree = "<group>";
+		};
+		3A43D63016761D1F007E9A84 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3A072B78167FBC1C00349316 /* GPX */,
+				3A43D64116761D1F007E9A84 /* MainStoryboard_iPhone.storyboard */,
+				3A43D6771678DEB4007E9A84 /* morrocco.gpx */,
+				3A43D63116761D1F007E9A84 /* Gretel-Info.plist */,
+				3A43D63216761D1F007E9A84 /* InfoPlist.strings */,
+				3A43D63516761D1F007E9A84 /* main.m */,
+				3A43D63716761D1F007E9A84 /* Gretel-Prefix.pch */,
+				3A43D63B16761D1F007E9A84 /* Default.png */,
+				3A43D63D16761D1F007E9A84 /* Default@2x.png */,
+				3A43D63F16761D1F007E9A84 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3A43D64F16761D45007E9A84 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				3A43D65016761D64007E9A84 /* GeoManager.h */,
+				3A43D65116761D64007E9A84 /* GeoManager.m */,
+				3A8C9761167B123A000E2259 /* GPXFactory.h */,
+				3A8C9762167B123A000E2259 /* GPXFactory.m */,
+				3A8C9772167B2F3D000E2259 /* ShareManager.h */,
+				3A8C9773167B2F3D000E2259 /* ShareManager.m */,
+				3A072B6E167F699C00349316 /* BRDateUtils.h */,
+				3A072B6F167F699C00349316 /* BRDateUtils.m */,
+				3A92499B16A00855000F62AD /* BRMap */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		3A8C9771167B1EC8000E2259 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3A8C97451679E9A8000E2259 /* PointsListViewController.h */,
+				3A8C97461679E9A8000E2259 /* PointsListViewController.m */,
+				3A8C974A167A137D000E2259 /* LaunchViewController.h */,
+				3A8C974B167A137D000E2259 /* LaunchViewController.m */,
+				3A8C974D167A1A18000E2259 /* HistoryViewController.h */,
+				3A8C974E167A1A18000E2259 /* HistoryViewController.m */,
+				3A8C975C167A8518000E2259 /* CompletedTripViewController.h */,
+				3A8C975D167A8518000E2259 /* CompletedTripViewController.m */,
+				3A43D64716761D1F007E9A84 /* RecordNewTripViewController.h */,
+				3A43D64816761D1F007E9A84 /* RecordNewTripViewController.m */,
+				3A072B7C167FD6F100349316 /* VoiceMemoViewController.h */,
+				3A072B7D167FD6F200349316 /* VoiceMemoViewController.m */,
+				3A072B7F167FD83300349316 /* NoteViewController.h */,
+				3A072B80167FD83300349316 /* NoteViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		3A8C9777167B455D000E2259 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		3A92499B16A00855000F62AD /* BRMap */ = {
+			isa = PBXGroup;
+			children = (
+				3A072B71167F796B00349316 /* BRMapAnnotation.h */,
+				3A072B72167F796C00349316 /* BRMapAnnotation.m */,
+				3A072B79167FC7A900349316 /* BRBaseMapViewController.h */,
+				3A072B7A167FC7A900349316 /* BRBaseMapViewController.m */,
+			);
+			name = BRMap;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3A43D62416761D1F007E9A84 /* Gretel */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3A43D64C16761D1F007E9A84 /* Build configuration list for PBXNativeTarget "Gretel" */;
+			buildPhases = (
+				3A43D62116761D1F007E9A84 /* Sources */,
+				3A43D62216761D1F007E9A84 /* Frameworks */,
+				3A43D62316761D1F007E9A84 /* Resources */,
+				CF16922D37D245D6BAD15708 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Gretel;
+			productName = Gretel;
+			productReference = 3A43D62516761D1F007E9A84 /* Gretel.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3A43D61C16761D1F007E9A84 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Ben Reed";
+			};
+			buildConfigurationList = 3A43D61F16761D1F007E9A84 /* Build configuration list for PBXProject "Gretel" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 3A43D61A16761D1F007E9A84;
+			productRefGroup = 3A43D62616761D1F007E9A84 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3A43D62416761D1F007E9A84 /* Gretel */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3A43D62316761D1F007E9A84 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3A43D63416761D1F007E9A84 /* InfoPlist.strings in Resources */,
+				3A43D63C16761D1F007E9A84 /* Default.png in Resources */,
+				3A43D63E16761D1F007E9A84 /* Default@2x.png in Resources */,
+				3A43D64016761D1F007E9A84 /* Default-568h@2x.png in Resources */,
+				3A43D64316761D1F007E9A84 /* MainStoryboard_iPhone.storyboard in Resources */,
+				3A43D6781678DEB4007E9A84 /* morrocco.gpx in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		CF16922D37D245D6BAD15708 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3A43D62116761D1F007E9A84 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3A43D63616761D1F007E9A84 /* main.m in Sources */,
+				3A43D63A16761D1F007E9A84 /* AppDelegate.m in Sources */,
+				3A43D64916761D1F007E9A84 /* RecordNewTripViewController.m in Sources */,
+				3A43D65216761D64007E9A84 /* GeoManager.m in Sources */,
+				3A43D66E1678C536007E9A84 /* GTConstants.m in Sources */,
+				3A8C97481679E9A8000E2259 /* PointsListViewController.m in Sources */,
+				3A8C974C167A137D000E2259 /* LaunchViewController.m in Sources */,
+				3A8C974F167A1A18000E2259 /* HistoryViewController.m in Sources */,
+				3A8C975E167A8518000E2259 /* CompletedTripViewController.m in Sources */,
+				3A8C9763167B123A000E2259 /* GPXFactory.m in Sources */,
+				3A8C9774167B2F3E000E2259 /* ShareManager.m in Sources */,
+				3A072B70167F699D00349316 /* BRDateUtils.m in Sources */,
+				3A072B73167F796C00349316 /* BRMapAnnotation.m in Sources */,
+				3A072B7B167FC7A900349316 /* BRBaseMapViewController.m in Sources */,
+				3A072B7E167FD6F200349316 /* VoiceMemoViewController.m in Sources */,
+				3A072B81167FD83300349316 /* NoteViewController.m in Sources */,
+				3A2059A916945AA700E81FB4 /* ExtendedManagedObject.m in Sources */,
+				3A2059AA16945AA700E81FB4 /* GPSPoint.m in Sources */,
+				3A2059AB16945AA700E81FB4 /* Gretel.xcdatamodel in Sources */,
+				3A2059AC16945AA700E81FB4 /* Trip.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		3A43D63216761D1F007E9A84 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3A43D63316761D1F007E9A84 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		3A43D64116761D1F007E9A84 /* MainStoryboard_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3A43D64216761D1F007E9A84 /* en */,
+			);
+			name = MainStoryboard_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		3A43D64A16761D1F007E9A84 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3A43D64B16761D1F007E9A84 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3A43D64D16761D1F007E9A84 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2DBC77A785094963AD97707F /* Pods.xcconfig */;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Gretel/Gretel-Prefix.pch";
+				INFOPLIST_FILE = "Gretel/Gretel-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/Gretel-elelkzhvkwmfwabtpjyapkwihpby/Build/Products/Debug-iphoneos\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		3A43D64E16761D1F007E9A84 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2DBC77A785094963AD97707F /* Pods.xcconfig */;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Gretel/Gretel-Prefix.pch";
+				INFOPLIST_FILE = "Gretel/Gretel-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/Gretel-elelkzhvkwmfwabtpjyapkwihpby/Build/Products/Debug-iphoneos\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3A43D61F16761D1F007E9A84 /* Build configuration list for PBXProject "Gretel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3A43D64A16761D1F007E9A84 /* Debug */,
+				3A43D64B16761D1F007E9A84 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3A43D64C16761D1F007E9A84 /* Build configuration list for PBXNativeTarget "Gretel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3A43D64D16761D1F007E9A84 /* Debug */,
+				3A43D64E16761D1F007E9A84 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3A43D61C16761D1F007E9A84 /* Project object */;
+}
