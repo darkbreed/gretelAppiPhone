@@ -13,20 +13,23 @@
 #import "GPSPoint.h"
 #import "GPXFactory.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import "BRBluetoothManager.h"
 
 extern NSString * const kGPXExtension;
 
 typedef enum {
     kShareManagerShareByEmail,
-    kShareManagerShareWithDevice
+    kShareManagerShareWithDevice,
+    kShareManagerDebug
 } kShareManagerShareType;
 
-@interface ShareManager : NSObject <MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, GKSessionDelegate, GKPeerPickerControllerDelegate> {
+@interface ShareManager : NSObject <MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, GKSessionDelegate, GKPeerPickerControllerDelegate, BRBluetoothManagerDelegate> {
     
     //Email sharing
     UIViewController *parentViewController;
     Trip *tripData;
     MBProgressHUD *hud;
+    BRBluetoothManager *bluetoothManager;
 }
 
 @property (nonatomic, strong) GKSession *gameKitSession;
@@ -35,7 +38,6 @@ typedef enum {
 
 -(void)displayShareOptionsInViewController:(UIViewController *)viewController withTripData:(Trip *)data;
 -(void)shareTripDataByEmail:(Trip *)trip fromViewController:(UIViewController *)viewController;
--(void)scanForDevicesViaBluetooth;
--(void)connectToLocalDevice:(BOOL)local;
+-(void)shareTripDataWithLocalDevice;
 
 @end

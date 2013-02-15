@@ -31,23 +31,18 @@ NSString * const kGPXExtension = @"gpx";
     self = [super init];
     
     if(self != nil){
-
+        bluetoothManager = [[BRBluetoothManager alloc] init];
     }
     
     return self;
 }
 
-/***
- 
- Generic methods
- 
- ***/
 -(void)displayShareOptionsInViewController:(UIViewController *)viewController withTripData:(Trip *)data {
     
     tripData = data;
     parentViewController = viewController;
     
-    UIActionSheet *shareOptions = [[UIActionSheet alloc] initWithTitle:@"Share vua" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Email", @"Bluetooth", nil];
+    UIActionSheet *shareOptions = [[UIActionSheet alloc] initWithTitle:@"Share via" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Email", @"Bluetooth",@"Debug",nil];
     
     [shareOptions showInView:parentViewController.view];
 }
@@ -64,8 +59,13 @@ NSString * const kGPXExtension = @"gpx";
         
         case kShareManagerShareWithDevice:
             
-            [self connectToLocalDevice:YES];
+            [self shareTripDataWithLocalDevice];
             
+            break;
+            
+        case kShareManagerDebug:
+            
+
             break;
             
         default:
@@ -81,20 +81,9 @@ NSString * const kGPXExtension = @"gpx";
     return gpx;
 }
 
--(void)connectToLocalDevice:(BOOL)local {
+-(void)shareTripDataWithLocalDevice {
     
-    //create peer picker and show picker of connections available...
-    GKPeerPickerController *peerPicker = [[GKPeerPickerController alloc] init];
-    peerPicker.delegate = self;
-    
-    if (self.gameKitSession == nil) {
-        
-        //...over bluetooth
-        peerPicker.connectionTypesMask = GKPeerPickerConnectionTypeNearby;
-        
-    }
-    
-    [peerPicker show];
+    [bluetoothManager displayPeerPicker];
     
 }
 
@@ -134,81 +123,21 @@ NSString * const kGPXExtension = @"gpx";
     }
 }
 
-/***
- 
- Bluetooth sharing methods
- http://mobile.tutsplus.com/tutorials/iphone/bluetooth-connectivity-with-gamekit/
- 
- ***/
+#pragma BRBluetoothManagerDelegate methods
+-(void)bluetoothManager:(BRBluetoothManager *)manager didConnectToPeer:(NSString *)peer {
+    [bluetoothManager sendData:[tripData toData] toReceivers:nil];
+}
 
--(void)resetSession {
-    
-    [self.gameKitSession disconnectFromAllPeers];
-    self.gameKitSession.delegate = nil;
-    self.gameKitSession = nil;
+-(void)bluetoothManager:(BRBluetoothManager *)manager didDisconnectFromPeer:(NSString *)peer {
     
 }
 
--(GKSession *)peerPickerController:(GKPeerPickerController *)picker sessionForConnectionType:(GKPeerPickerConnectionType)type {
-    
-    //create ID for session
-    NSString *sessionIDString = @"com.benreed.Gretel";
-    //create GKSession object
-    GKSession *session = [[GKSession alloc] initWithSessionID:sessionIDString displayName:nil sessionMode:GKSessionModePeer];
-    return session;
+-(void)bluetoothManager:(BRBluetoothManager *)manager didReceiveDataOfLength:(int)length fromTotal:(int)totalLength withRemaining:(int)remaining {
     
 }
 
-- (void)peerPickerController:(GKPeerPickerController *)picker didConnectPeer:(NSString *)peerID toSession:(GKSession *)session {
-    //set session delegate and dismiss the picker
-    session.delegate = self;
-    self.gameKitSession = session;
-    picker.delegate = nil;
-    [picker dismiss];
+-(void)bluetoothManager:(BRBluetoothManager *)manager didCompleteTransferOfData:(NSData *)data {
     
-}
-
--(void)session:(GKSession *)session peer:(NSString *)peerID didChangeState:(GKPeerConnectionState)state {
-    
-    switch (state) {
-        case GKPeerStateAvailable:
-            
-            break;
-        
-        case GKPeerStateUnavailable:
-            
-            break;  
-            
-        case GKPeerStateConnected:
-            
-            hud = [MBProgressHUD showHUDAddedTo:parentViewController.view animated:YES];
-            
-            [hud setMode:MBProgressHUDModeIndeterminate];
-            [hud setLabelText:@"Sending data to Hansel"];
-            
-            //send data to all connected devices
-            [self.gameKitSession sendDataToAllPeers:[tripData toData] withDataMode:GKSendDataReliable error:nil];
-            
-            [hud setLabelText:@"Complete"];
-            [hud hide:YES afterDelay:1.0];
-            
-            break;
-            
-        case GKPeerStateDisconnected:
-            
-            [self resetSession];
-            break;
-            
-        case GKPeerStateConnecting:
-            
-            break;
-        default:
-            
-            [self resetSession];
-            
-            break;
-    }
-
 }
 
 @end
