@@ -11,7 +11,10 @@
 
 @interface HistoryViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>{
     
+    ///An array to hold the trips that will be pulled from CoreData
     NSMutableArray *trips;
+    
+    ///The selected trip to load the details for.
     Trip *selectedTrip;
     
 }

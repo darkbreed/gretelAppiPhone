@@ -11,7 +11,15 @@
 #import "RecordNewTripViewController.h"
 #import "HistoryViewController.h"
 
-@interface LaunchViewController : UIViewController
+/**
+ * Definitions for button indexes in the UIAlertView for creating a new trip
+ */
+typedef enum {
+    TripAlertViewButtonIndexCancel,
+    TripAlertViewButtonIndexCreate
+}TripAlertViewButtonIndexType;
+
+@interface LaunchViewController : UIViewController <UIAlertViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UIButton *startNewTripButton;
 

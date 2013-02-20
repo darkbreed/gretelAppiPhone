@@ -11,9 +11,12 @@
 #import "Trip.h"
 
 @interface CompletedTripViewController : BRBaseMapViewController {
+    
+    ///The trip points as an array to feed the map view
     NSArray *route;
 }
 
+///The trip to be viewed
 @property (nonatomic, strong) Trip *trip;
 
 @end

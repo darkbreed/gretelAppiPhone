@@ -10,9 +10,9 @@
 
 #ifdef __OBJC__
     #define MR_ENABLE_ACTIVE_RECORD_LOGGING 0
+    #define MR_SHORTHAND 1
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
     #import "CoreData+MagicalRecord.h"
-    #import "GTConstants.h"
 #endif
