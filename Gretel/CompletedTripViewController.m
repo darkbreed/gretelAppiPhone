@@ -69,7 +69,7 @@
     
     switch (buttonIndex) {
         case 0:
-            [self.trip MR_deleteInContext:[NSManagedObjectContext MR_defaultContext]];
+            [self.trip deleteInContext:[NSManagedObjectContext defaultContext]];
             [self.navigationController popViewControllerAnimated:YES];
             break;
         default:

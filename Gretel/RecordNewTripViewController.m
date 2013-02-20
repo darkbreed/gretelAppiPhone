@@ -22,7 +22,8 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     [self.mapView setUserTrackingMode:MKUserTrackingModeFollow];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLocation) name:@"locationUpdatedSuccessfully" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLocation) name:GTLocationUpdatedSuccessfully object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCompassWithHeading) name:GTLocationHeadingDidUpdate object:nil];
     
     recordedPoints = [[NSMutableArray alloc] init];
     
@@ -41,6 +42,8 @@
     if(recording){
         [self setCurrentTripState:kTripStateRecording];
     }
+    
+    [self setTitle:self.tripName];
 }
 
 - (void)didReceiveMemoryWarning
@@ -120,7 +123,7 @@
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     Trip *trip = [Trip MR_createInContext:context];
     [trip setDate:[NSDate date]];
-    [trip setTripName:@"Trip"];
+    [trip setTripName:self.tripName];
     
     [context MR_save];
     
@@ -160,9 +163,28 @@
     //Update the views
     self.latLabel.text = [NSString stringWithFormat:@"%f",self.mapView.userLocation.coordinate.latitude];
     self.lonLabel.text = [NSString stringWithFormat:@"%f",self.mapView.userLocation.coordinate.longitude];
+    self.currentSpeedLabel.text = [NSString stringWithFormat:@"%f",[[GeoManager sharedManager] currentSpeed]];
     
     [self drawRoute:recordedPoints onMapView:self.mapView];
 
+}
+
+-(IBAction)switchDisplayModeButtonHandler:(id)sender {
+    
+    if(self.mapView.hidden){
+        [self.modeChangeButton setTitle:@"HUD"];
+    }else{
+        [self.modeChangeButton setTitle:@"Map"];
+    }
+    
+    [UIView transitionWithView:self.mapHudContainer
+                      duration:0.7
+                       options:UIViewAnimationOptionTransitionFlipFromLeft|UIViewAnimationCurveEaseInOut
+                    animations:^{
+                        [self.mapView setHidden:!self.mapView.hidden],
+                        [self.hudView setHidden:!self.hudView.hidden];
+                    }
+                    completion:NULL];
 }
 
 #pragma CoreData methods
@@ -230,9 +252,19 @@
         }
         
     }
-    
-    
 }
 
+-(void)updateCompassWithHeading {
+    
+    CABasicAnimation *theAnimation;
+    
+	theAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+    
+	theAnimation.fromValue = [NSNumber numberWithFloat:[[GeoManager sharedManager] fromHeadingAsRad]];
+	theAnimation.toValue = [NSNumber numberWithFloat:[[GeoManager sharedManager] toHeadingAsRad]];
+	
+    [self.compassNeedle.layer addAnimation:theAnimation forKey:@"animateMyRotation"];
+	self.compassNeedle.transform = CGAffineTransformMakeRotation([[GeoManager sharedManager] toHeadingAsRad]);
+}
 
 @end

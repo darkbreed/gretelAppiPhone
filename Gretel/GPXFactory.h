@@ -17,8 +17,26 @@ extern NSString * const kGPXSchemaLocation;
 
 @interface GPXFactory : NSObject
 
+/**
+ * Creates a full GPX XML file from a set of points.
+ * 
+ * @param NSSet - set of GPS points
+ * @return NSString - the XML output.
+ */
 -(NSString *)createGPXFileFromGPSPoints:(NSSet *)points;
+
+/**
+ * Creates a single waypoint XML node, called as pare of parent method that creates XML document
+ * @param GPSPoint - Object that stores GPS properties
+ * @return NSString - the XML output.
+ */
 -(NSString *)createWaypointNodeFromGPSPoint:(GPSPoint *)point;
+
+/**
+ * Creates an array of points from an NSSet.
+ * @param NSSet - set of GPS points
+ * @return NSArray - sorted array of GPS points.
+ */
 -(NSArray *)createArrayOfPointsFromSet:(NSSet *)dataSet;
 
 @end

@@ -32,6 +32,8 @@ NSString * const kGPXExtension = @"gpx";
     
     if(self != nil){
         bluetoothManager = [[BRBluetoothManager alloc] init];
+        [bluetoothManager setDelegate:self];
+        hud = [[MBProgressHUD alloc] init];
     }
     
     return self;
@@ -125,19 +127,42 @@ NSString * const kGPXExtension = @"gpx";
 
 #pragma BRBluetoothManagerDelegate methods
 -(void)bluetoothManager:(BRBluetoothManager *)manager didConnectToPeer:(NSString *)peer {
-    [bluetoothManager sendData:[tripData toData] toReceivers:nil];
+    
+    [hud setLabelText:@"Preparing to send"];
+    [hud setMode:MBProgressHUDModeDeterminate];
+    [hud show:YES];
+    
+    NSData *dataToSend = [tripData toData];
+    
+    [bluetoothManager sendData:dataToSend toReceivers:nil];
+}
+
+-(void)bluetoothManager:(BRBluetoothManager *)manager didBeginToSendData:(NSData *)data {
+    
+    [hud setLabelText:@"Preparing to send"];
+    
 }
 
 -(void)bluetoothManager:(BRBluetoothManager *)manager didDisconnectFromPeer:(NSString *)peer {
     
 }
 
--(void)bluetoothManager:(BRBluetoothManager *)manager didReceiveDataOfLength:(int)length fromTotal:(int)totalLength withRemaining:(int)remaining {
+-(void)bluetoothManager:(BRBluetoothManager *)manager didSendDataOfLength:(int)length fromTotal:(int)totalLength withRemaining:(int)remaining {
+    float fRemaining = remaining;
+    float fTotalLength = totalLength;
+    
+    float percent = fRemaining/fTotalLength;
+    
+    [hud setProgress:percent];
+
+    
+    NSLog(@"Sending is %f%% complete",percent);
     
 }
 
 -(void)bluetoothManager:(BRBluetoothManager *)manager didCompleteTransferOfData:(NSData *)data {
-    
+    [hud setLabelText:@"Complete"];
+    [hud hide:YES afterDelay:1.0];
 }
 
 @end

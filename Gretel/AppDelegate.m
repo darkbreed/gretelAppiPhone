@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "HistoryViewController.h"
 
 @implementation AppDelegate
 

@@ -1,5 +1,24 @@
 
-COCOAPODS: 0.16.0
+DEPENDENCIES: 
+- AFNetworking (= 0.9.1)
+- BRBluetoothManager (= 0.0.1)
+- BlocksKit (= 1.8.1)
+- Dropbox-iOS-SDK (= 1.3.2)
+- MBProgressHUD (= 0.5)
+- MagicalRecord (= 2.0.8)
+- ViewDeck (= 2.2.2)
+
+COCOAPODS: 0.16.2
+
+SPEC CHECKSUMS: 
+  AFNetworking: 081ec3c1f4768c87ae79d69a96fcc9479e232e81
+  BRBluetoothManager: 1310aa50564d50a8503803ae1d4cd2ed27d28bb9
+  libffi: 8a1d9ba43c0c84b546b42c6f742714e73aa07ae1
+  Dropbox-iOS-SDK: 3e041f67271ba591280b329cc376d8ad1a587c51
+  ViewDeck: b0ad0749bceabdc4027cd1e8273fe31de8a42174
+  BlocksKit: 18102744fd7c44b54f1e54ce6ffe9258bcb5df81
+  MagicalRecord: daa15d6c83bd7d30e074c8923e53c64248ae6930
+  MBProgressHUD: b23ee11c42253d6d804e8e0bfabdc334e8b2571f
 
 PODS: 
 - AFNetworking (0.9.1)
@@ -9,21 +28,5 @@ PODS:
 - Dropbox-iOS-SDK (1.3.2)
 - MBProgressHUD (0.5)
 - MagicalRecord (2.0.8)
+- ViewDeck (2.2.2)
 - libffi (3.0.11)
-
-DEPENDENCIES: 
-- AFNetworking (= 0.9.1)
-- BRBluetoothManager (= 0.0.1)
-- BlocksKit (= 1.8.1)
-- Dropbox-iOS-SDK (= 1.3.2)
-- MBProgressHUD (= 0.5)
-- MagicalRecord (= 2.0.8)
-
-SPEC CHECKSUMS: 
-  MagicalRecord: daa15d6c83bd7d30e074c8923e53c64248ae6930
-  BRBluetoothManager: 1310aa50564d50a8503803ae1d4cd2ed27d28bb9
-  libffi: 8a1d9ba43c0c84b546b42c6f742714e73aa07ae1
-  AFNetworking: 081ec3c1f4768c87ae79d69a96fcc9479e232e81
-  Dropbox-iOS-SDK: 3e041f67271ba591280b329cc376d8ad1a587c51
-  BlocksKit: 18102744fd7c44b54f1e54ce6ffe9258bcb5df81
-  MBProgressHUD: b23ee11c42253d6d804e8e0bfabdc334e8b2571f
