@@ -55,6 +55,10 @@ NSString *const GTLocationHeadingDidUpdate = @"headingDidUpdate";
     [locationManager setPausesLocationUpdatesAutomatically:NO];
     [locationManager setHeadingFilter:1];
     
+    //Locate the user
+    //[locationManager startUpdatingLocation];
+    //[locationManager startUpdatingHeading];
+    
 }
 
 #pragma mark CLLocationManagerDelegate methods
@@ -99,25 +103,14 @@ NSString *const GTLocationHeadingDidUpdate = @"headingDidUpdate";
 #pragma LocationManager methods
 -(void)startTrackingPosition {
     
-    if(!self.recording){
-        
-        //Begin tracking the users location and sending notifications on change
-        [locationManager startUpdatingLocation];
-        [locationManager startUpdatingHeading];
-        [self notifyObserversOfLocationUpdate];
-        
-        //Update the recording state
-        self.recording = YES;
-    
-    }
+    //Begin tracking the users location and sending notifications on change
+    [locationManager startUpdatingLocation];
+    [locationManager startUpdatingHeading];
     
 }
 
 -(void)stopTrackingPosition {
-    
     [locationManager stopUpdatingLocation];
-    self.recording = NO;
-    
 }
 
 -(void)notifyObserversOfLocationUpdate {

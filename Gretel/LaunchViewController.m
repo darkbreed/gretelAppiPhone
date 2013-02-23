@@ -83,11 +83,6 @@
     
 }
 
--(IBAction)handleLongTap:(id)sender {
-    
-    [TestFlight openFeedbackView];
-}
-
 
 - (void)viewDidLoad
 {

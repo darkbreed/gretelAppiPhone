@@ -24,6 +24,8 @@
     
 #endif
     
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navigationBarBackground.png"] forBarMetrics:UIBarMetricsDefault];
+    
     return YES;
 }
 							

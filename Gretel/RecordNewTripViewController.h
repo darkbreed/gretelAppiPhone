@@ -11,6 +11,7 @@
 #import "GeoManager.h"
 #import "Trip.h"
 #import "BRBaseMapViewController.h"
+#import <GCDiscreetNotificationView/GCDiscreetNotificationView.h>
 
 /**
  * Defines the states that a trip can exist in to help determine how the view should behave.
@@ -45,6 +46,13 @@ typedef enum {
 @property (nonatomic, strong) IBOutlet UIView *hudView;
 ///Container for map and HUD view, needed for transition effects
 @property (nonatomic, strong) IBOutlet UIView *mapHudContainer;
+
+@property (nonatomic, strong) GCDiscreetNotificationView *notificationView;
+
+@property (nonatomic, readwrite) BOOL isRecording;
+
+@property (nonatomic, strong) IBOutlet UIView *recordingIndicatorContainer;
+@property (nonatomic, strong) UIImageView *recordingLight;
 
 /** @section HUD UI Properties */
 ///Used to display the latitude

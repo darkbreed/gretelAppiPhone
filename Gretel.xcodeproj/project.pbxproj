@@ -38,7 +38,26 @@
 		3A8C9776167B2F7A000E2259 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A8C9775167B2F7A000E2259 /* MessageUI.framework */; };
 		3AA12B911684551D0003FE03 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA12B901684551D0003FE03 /* GameKit.framework */; };
 		A6FBA14610DC4D3C8654D5C3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B116D4037E14E9D9793F966 /* libPods.a */; };
+		B507473916D9029900CEC1DE /* pauseButton.png in Resources */ = {isa = PBXBuildFile; fileRef = B507473716D9029900CEC1DE /* pauseButton.png */; };
+		B507473A16D9029900CEC1DE /* pauseButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B507473816D9029900CEC1DE /* pauseButton@2x.png */; };
+		B507473D16D9039600CEC1DE /* BaseNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B507473C16D9039600CEC1DE /* BaseNavigationViewController.m */; };
+		B507474416D9065B00CEC1DE /* navigationBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = B507474216D9065B00CEC1DE /* navigationBarBackground.png */; };
+		B507474516D9065B00CEC1DE /* navigationBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B507474316D9065B00CEC1DE /* navigationBarBackground@2x.png */; };
+		B507474816D907C200CEC1DE /* viewBackgrond.png in Resources */ = {isa = PBXBuildFile; fileRef = B507474616D907C200CEC1DE /* viewBackgrond.png */; };
+		B507474916D907C200CEC1DE /* viewBackgrond@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B507474716D907C200CEC1DE /* viewBackgrond@2x.png */; };
+		B507474E16D91CE400CEC1DE /* recordLight.png in Resources */ = {isa = PBXBuildFile; fileRef = B507474A16D91CE400CEC1DE /* recordLight.png */; };
+		B507474F16D91CE400CEC1DE /* recordLight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B507474B16D91CE400CEC1DE /* recordLight@2x.png */; };
+		B507475016D91CE400CEC1DE /* recordLightBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = B507474C16D91CE400CEC1DE /* recordLightBackground.png */; };
+		B507475116D91CE400CEC1DE /* recordLightBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B507474D16D91CE400CEC1DE /* recordLightBackground@2x.png */; };
 		B50EBE1E16D4BE5C0090433B /* compass_needle.png in Resources */ = {isa = PBXBuildFile; fileRef = B50EBE1D16D4BE5C0090433B /* compass_needle.png */; };
+		B599F91516D8FB1D003C0D37 /* optionsBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = B599F91316D8FB1D003C0D37 /* optionsBackground.png */; };
+		B599F91616D8FB1D003C0D37 /* optionsBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B599F91416D8FB1D003C0D37 /* optionsBackground@2x.png */; };
+		B599F91D16D8FCF4003C0D37 /* compassButton.png in Resources */ = {isa = PBXBuildFile; fileRef = B599F91716D8FCF4003C0D37 /* compassButton.png */; };
+		B599F91E16D8FCF4003C0D37 /* compassButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B599F91816D8FCF4003C0D37 /* compassButton@2x.png */; };
+		B599F91F16D8FCF4003C0D37 /* recordButton.png in Resources */ = {isa = PBXBuildFile; fileRef = B599F91916D8FCF4003C0D37 /* recordButton.png */; };
+		B599F92016D8FCF4003C0D37 /* recordButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B599F91A16D8FCF4003C0D37 /* recordButton@2x.png */; };
+		B599F92116D8FCF4003C0D37 /* stopButton.png in Resources */ = {isa = PBXBuildFile; fileRef = B599F91B16D8FCF4003C0D37 /* stopButton.png */; };
+		B599F92216D8FCF4003C0D37 /* stopButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B599F91C16D8FCF4003C0D37 /* stopButton@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,7 +111,27 @@
 		3A8C9773167B2F3D000E2259 /* ShareManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareManager.m; sourceTree = "<group>"; };
 		3A8C9775167B2F7A000E2259 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		3AA12B901684551D0003FE03 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		B507473716D9029900CEC1DE /* pauseButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pauseButton.png; sourceTree = "<group>"; };
+		B507473816D9029900CEC1DE /* pauseButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pauseButton@2x.png"; sourceTree = "<group>"; };
+		B507473B16D9039600CEC1DE /* BaseNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavigationViewController.h; sourceTree = "<group>"; };
+		B507473C16D9039600CEC1DE /* BaseNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationViewController.m; sourceTree = "<group>"; };
+		B507474216D9065B00CEC1DE /* navigationBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationBarBackground.png; sourceTree = "<group>"; };
+		B507474316D9065B00CEC1DE /* navigationBarBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigationBarBackground@2x.png"; sourceTree = "<group>"; };
+		B507474616D907C200CEC1DE /* viewBackgrond.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = viewBackgrond.png; sourceTree = "<group>"; };
+		B507474716D907C200CEC1DE /* viewBackgrond@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "viewBackgrond@2x.png"; sourceTree = "<group>"; };
+		B507474A16D91CE400CEC1DE /* recordLight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recordLight.png; sourceTree = "<group>"; };
+		B507474B16D91CE400CEC1DE /* recordLight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "recordLight@2x.png"; sourceTree = "<group>"; };
+		B507474C16D91CE400CEC1DE /* recordLightBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recordLightBackground.png; sourceTree = "<group>"; };
+		B507474D16D91CE400CEC1DE /* recordLightBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "recordLightBackground@2x.png"; sourceTree = "<group>"; };
 		B50EBE1D16D4BE5C0090433B /* compass_needle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compass_needle.png; sourceTree = "<group>"; };
+		B599F91316D8FB1D003C0D37 /* optionsBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = optionsBackground.png; sourceTree = "<group>"; };
+		B599F91416D8FB1D003C0D37 /* optionsBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "optionsBackground@2x.png"; sourceTree = "<group>"; };
+		B599F91716D8FCF4003C0D37 /* compassButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compassButton.png; sourceTree = "<group>"; };
+		B599F91816D8FCF4003C0D37 /* compassButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compassButton@2x.png"; sourceTree = "<group>"; };
+		B599F91916D8FCF4003C0D37 /* recordButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recordButton.png; sourceTree = "<group>"; };
+		B599F91A16D8FCF4003C0D37 /* recordButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "recordButton@2x.png"; sourceTree = "<group>"; };
+		B599F91B16D8FCF4003C0D37 /* stopButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stopButton.png; sourceTree = "<group>"; };
+		B599F91C16D8FCF4003C0D37 /* stopButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stopButton@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -230,6 +269,8 @@
 				3A8C975D167A8518000E2259 /* CompletedTripViewController.m */,
 				3A43D64716761D1F007E9A84 /* RecordNewTripViewController.h */,
 				3A43D64816761D1F007E9A84 /* RecordNewTripViewController.m */,
+				B507473B16D9039600CEC1DE /* BaseNavigationViewController.h */,
+				B507473C16D9039600CEC1DE /* BaseNavigationViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -263,6 +304,24 @@
 		B50EBE1C16D4BE5C0090433B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B507474A16D91CE400CEC1DE /* recordLight.png */,
+				B507474B16D91CE400CEC1DE /* recordLight@2x.png */,
+				B507474C16D91CE400CEC1DE /* recordLightBackground.png */,
+				B507474D16D91CE400CEC1DE /* recordLightBackground@2x.png */,
+				B507474616D907C200CEC1DE /* viewBackgrond.png */,
+				B507474716D907C200CEC1DE /* viewBackgrond@2x.png */,
+				B507474216D9065B00CEC1DE /* navigationBarBackground.png */,
+				B507474316D9065B00CEC1DE /* navigationBarBackground@2x.png */,
+				B507473716D9029900CEC1DE /* pauseButton.png */,
+				B507473816D9029900CEC1DE /* pauseButton@2x.png */,
+				B599F91716D8FCF4003C0D37 /* compassButton.png */,
+				B599F91816D8FCF4003C0D37 /* compassButton@2x.png */,
+				B599F91916D8FCF4003C0D37 /* recordButton.png */,
+				B599F91A16D8FCF4003C0D37 /* recordButton@2x.png */,
+				B599F91B16D8FCF4003C0D37 /* stopButton.png */,
+				B599F91C16D8FCF4003C0D37 /* stopButton@2x.png */,
+				B599F91316D8FB1D003C0D37 /* optionsBackground.png */,
+				B599F91416D8FB1D003C0D37 /* optionsBackground@2x.png */,
 				B50EBE1D16D4BE5C0090433B /* compass_needle.png */,
 			);
 			path = Images;
@@ -327,6 +386,24 @@
 				3A43D64316761D1F007E9A84 /* MainStoryboard_iPhone.storyboard in Resources */,
 				3A43D6781678DEB4007E9A84 /* morrocco.gpx in Resources */,
 				B50EBE1E16D4BE5C0090433B /* compass_needle.png in Resources */,
+				B599F91516D8FB1D003C0D37 /* optionsBackground.png in Resources */,
+				B599F91616D8FB1D003C0D37 /* optionsBackground@2x.png in Resources */,
+				B599F91D16D8FCF4003C0D37 /* compassButton.png in Resources */,
+				B599F91E16D8FCF4003C0D37 /* compassButton@2x.png in Resources */,
+				B599F91F16D8FCF4003C0D37 /* recordButton.png in Resources */,
+				B599F92016D8FCF4003C0D37 /* recordButton@2x.png in Resources */,
+				B599F92116D8FCF4003C0D37 /* stopButton.png in Resources */,
+				B599F92216D8FCF4003C0D37 /* stopButton@2x.png in Resources */,
+				B507473916D9029900CEC1DE /* pauseButton.png in Resources */,
+				B507473A16D9029900CEC1DE /* pauseButton@2x.png in Resources */,
+				B507474416D9065B00CEC1DE /* navigationBarBackground.png in Resources */,
+				B507474516D9065B00CEC1DE /* navigationBarBackground@2x.png in Resources */,
+				B507474816D907C200CEC1DE /* viewBackgrond.png in Resources */,
+				B507474916D907C200CEC1DE /* viewBackgrond@2x.png in Resources */,
+				B507474E16D91CE400CEC1DE /* recordLight.png in Resources */,
+				B507474F16D91CE400CEC1DE /* recordLight@2x.png in Resources */,
+				B507475016D91CE400CEC1DE /* recordLightBackground.png in Resources */,
+				B507475116D91CE400CEC1DE /* recordLightBackground@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,6 +447,7 @@
 				3A2059AA16945AA700E81FB4 /* GPSPoint.m in Sources */,
 				3A2059AB16945AA700E81FB4 /* Gretel.xcdatamodel in Sources */,
 				3A2059AC16945AA700E81FB4 /* Trip.m in Sources */,
+				B507473D16D9039600CEC1DE /* BaseNavigationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

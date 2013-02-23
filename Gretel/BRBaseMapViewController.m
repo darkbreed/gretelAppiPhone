@@ -190,7 +190,7 @@
     float bounceDuration = 0.2;
     float bounceDelay = 0.0;
     
-    float bounceOffset = 20.0;
+    float bounceOffset = 10.0;
     
     if(shouldHide){
         

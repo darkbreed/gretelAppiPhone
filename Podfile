@@ -1,4 +1,5 @@
 platform :ios, '6.0'
+pod 'GCDiscreetNotificationView', '1.0.0'
 pod 'InAppSettingsKit', '1.0'
 pod 'AwesomeMenu', '1.0.0'
 pod 'BRBluetoothManager', '0.0.1'
