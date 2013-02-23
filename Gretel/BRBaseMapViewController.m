@@ -23,6 +23,13 @@
     return self;
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    
+    [super viewDidAppear:animated];
+    [self configureFrames];
+    
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -162,6 +169,109 @@
         }
         
         [mapView addAnnotation:annotation];
+        
+    }
+    
+}
+
+-(void)configureFrames {
+    mapOnFrame = self.mapView.frame;
+    optionsOnFrame = self.optionButtonWrapper.frame;
+    
+    mapOffFrame = CGRectMake(self.mapView.frame.origin.x, -self.mapView.frame.size.height - 50, self.mapView.frame.size.width, self.mapView.frame.size.height);
+    optionsOffFrame = CGRectMake(self.optionButtonWrapper.frame.origin.x,self.optionButtonWrapper.frame.origin.y + self.optionButtonWrapper.frame.size.height + 100, self.optionButtonWrapper.frame.size.width, self.optionButtonWrapper.frame.size.height);
+}
+
+-(void)hideMapViewAndOptions:(BOOL)shouldHide {
+    
+    float duration = 0.5;
+    float delay = 0.0;
+    
+    float bounceDuration = 0.2;
+    float bounceDelay = 0.0;
+    
+    float bounceOffset = 20.0;
+    
+    if(shouldHide){
+        
+        //Bounce the map slightly, then move it off screen
+        [UIView animateWithDuration:bounceDuration
+                              delay:delay
+                            options:UIViewAnimationCurveEaseInOut
+                         animations:^{
+                             [self.mapView setFrame:CGRectMake(self.mapView.frame.origin.x, self.formContainer.frame.origin.y + bounceOffset, self.mapView.frame.size.width, self.mapView.frame.size.height)];
+                         }
+                         completion:^(BOOL finished) {
+                             
+                             if(finished){
+                                 [UIView animateWithDuration:duration delay:delay options:UIViewAnimationCurveEaseInOut
+                                                  animations:^{
+                                                      [self.mapView setFrame:mapOffFrame];
+                                                  }
+                                                  completion:nil];
+                             }
+                         }];
+        
+        //Bounce the options slightly, then move it off screen
+        [UIView animateWithDuration:bounceDuration
+                              delay:delay
+                            options:UIViewAnimationCurveEaseInOut
+                         animations:^{
+                             
+                             [self.optionButtonWrapper setFrame:CGRectMake(self.optionButtonWrapper.frame.origin.x,self.optionButtonWrapper.frame.origin.y - bounceOffset, self.optionButtonWrapper.frame.size.width, self.optionButtonWrapper.frame.size.height)];
+                             
+                         }
+                         completion:^(BOOL finished){
+                             
+                             if (finished) {
+                                 [UIView animateWithDuration:duration delay:delay options:UIViewAnimationCurveEaseInOut
+                                                  animations:^{
+                                                      [self.optionButtonWrapper setFrame:optionsOffFrame];
+                                                  }
+                                                  completion:nil];
+                                 
+                             }
+                             
+                         }];
+    }else{
+        
+        [UIView animateWithDuration:duration
+                              delay:delay
+                            options:UIViewAnimationCurveEaseInOut
+                         animations:^{
+                             [self.mapView setFrame:CGRectMake(mapOnFrame.origin.x, mapOnFrame.origin.y + bounceOffset, mapOnFrame.size.width, mapOnFrame.size.height)];
+                         }
+                         completion:^(BOOL finished){
+                             
+                             if (finished) {
+                                 [UIView animateWithDuration:bounceDuration
+                                                       delay:bounceDelay
+                                                     options:UIViewAnimationCurveEaseInOut
+                                                  animations:^{
+                                                      [self.mapView setFrame:mapOnFrame];
+                                                  }
+                                                  completion:nil];
+                                 
+                             }
+                             
+                         }];
+        
+        
+        [UIView animateWithDuration:duration
+                              delay:delay
+                            options:UIViewAnimationCurveEaseInOut
+                         animations:^{
+                             [self.optionButtonWrapper setFrame:CGRectMake(optionsOnFrame.origin.x, optionsOnFrame.origin.y - bounceOffset, optionsOnFrame.size.width, optionsOnFrame.size.height)];
+                         }
+                         completion:^(BOOL finished){
+                             
+                             if(finished){
+                                 [UIView animateWithDuration:bounceDuration delay:bounceDelay options:UIViewAnimationCurveEaseInOut animations:^{
+                                     [self.optionButtonWrapper setFrame:optionsOnFrame];
+                                 } completion:nil];
+                             }
+                             
+                         }];
         
     }
     

@@ -140,19 +140,36 @@
 
 -(IBAction)stopTrackingButtonHandler:(id)sender {
     
-    UIActionSheet *stopOptions = [[UIActionSheet alloc] initWithTitle:@"Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Save and quit", @"Save and share", nil];
-    [stopOptions setTag:kTripActionSheetStop];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Stop recording?" message:@"Stopping the recording will end the trip, stop now?" delegate:self cancelButtonTitle:@"Keep recording" otherButtonTitles:@"Stop and save", nil];
     
-    [stopOptions showInView:self.view];
+    [alertView show];
+    
 }
 
+#pragma mark UIAlertView message
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    switch (buttonIndex) {
+        case 0:
+            //Do nothing and keep recording
+            break;
+            
+        case 1:
+            
+            //Stop the location manager
+            [[GeoManager sharedManager] stopTrackingPosition];
+            [self setCurrentTripState:kTripStateNew];
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            
+        default:
+            break;
+    }
+    
+}
 -(IBAction)addButtonHandler:(id)sender {
     
-    UIActionSheet *addOptionsActionSheet = [[UIActionSheet alloc] initWithTitle:@"Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add voice memo", @"Add note", nil];
-    [addOptionsActionSheet setTag:kTripActionSheetOptions];
-    
-    [addOptionsActionSheet showInView:self.view];
-    
+    [self hideMapViewAndOptions:YES];
+
 }
 
 -(void)updateLocation {
@@ -160,31 +177,23 @@
     //Store the data point
     [self storeLocationPoint:[GeoManager sharedManager].currentLocation];
     
-    //Update the views
-    self.latLabel.text = [NSString stringWithFormat:@"%f",self.mapView.userLocation.coordinate.latitude];
-    self.lonLabel.text = [NSString stringWithFormat:@"%f",self.mapView.userLocation.coordinate.longitude];
-    self.currentSpeedLabel.text = [NSString stringWithFormat:@"%f",[[GeoManager sharedManager] currentSpeed]];
+    //Check to see if the view is off screen as otherwise the frame is reset
+    if(self.mapView.frame.origin.y != mapOffFrame.origin.y){
     
-    [self drawRoute:recordedPoints onMapView:self.mapView];
+        //Update the views
+        self.latLabel.text = [NSString stringWithFormat:@"%f",self.mapView.userLocation.coordinate.latitude];
+        self.lonLabel.text = [NSString stringWithFormat:@"%f",self.mapView.userLocation.coordinate.longitude];
+        self.currentSpeedLabel.text = [NSString stringWithFormat:@"%f",[[GeoManager sharedManager] currentSpeed]];
+        
+        [self drawRoute:recordedPoints onMapView:self.mapView];
+        
+    }
 
 }
 
--(IBAction)switchDisplayModeButtonHandler:(id)sender {
-    
-    if(self.mapView.hidden){
-        [self.modeChangeButton setTitle:@"HUD"];
-    }else{
-        [self.modeChangeButton setTitle:@"Map"];
-    }
-    
-    [UIView transitionWithView:self.mapHudContainer
-                      duration:0.7
-                       options:UIViewAnimationOptionTransitionFlipFromLeft|UIViewAnimationCurveEaseInOut
-                    animations:^{
-                        [self.mapView setHidden:!self.mapView.hidden],
-                        [self.hudView setHidden:!self.hudView.hidden];
-                    }
-                    completion:NULL];
+
+-(IBAction)displayMap:(id)sender {
+    [self hideMapViewAndOptions:NO];
 }
 
 #pragma CoreData methods
@@ -209,48 +218,6 @@
         [[NSManagedObjectContext MR_defaultContext] MR_saveNestedContextsErrorHandler:^(NSError *error) {
             NSLog(@"%@",error.description);
         }];
-    }
-}
-
-#pragma mark UIActionSheetDelegate methods
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
-    if(actionSheet.tag == kTripActionSheetOptions){
-        switch (buttonIndex) {
-            case 0:
-                
-                NSLog(@"Add voice memo");
-                [self performSegueWithIdentifier:@"DisplayVoiceMemoController" sender:self];
-                
-                break;
-                
-            case 1:
-                NSLog(@"Add note");
-                [self performSegueWithIdentifier:@"DisplayNoteController" sender:self];
-                break;
-                
-            default:
-                break;
-        }
-    }else if(actionSheet.tag == kTripActionSheetStop){
-        
-        switch (buttonIndex) {
-            case 0:
-                //Save and quit
-                
-                //Stop the location manager
-                [[GeoManager sharedManager] stopTrackingPosition];
-                [self setCurrentTripState:kTripStateNew];
-                [self.navigationController popToRootViewControllerAnimated:YES];
-                
-                break;
-                
-            case 1:
-                //Save and share
-#warning Implement the share view controller
-                break;
-        }
-        
     }
 }
 

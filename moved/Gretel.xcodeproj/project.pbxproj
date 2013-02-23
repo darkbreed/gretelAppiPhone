@@ -11,6 +11,8 @@
 		3A072B70167F699D00349316 /* BRDateUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A072B6F167F699C00349316 /* BRDateUtils.m */; };
 		3A072B73167F796C00349316 /* BRMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A072B72167F796C00349316 /* BRMapAnnotation.m */; };
 		3A072B7B167FC7A900349316 /* BRBaseMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A072B7A167FC7A900349316 /* BRBaseMapViewController.m */; };
+		3A072B7E167FD6F200349316 /* VoiceMemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A072B7D167FD6F200349316 /* VoiceMemoViewController.m */; };
+		3A072B81167FD83300349316 /* NoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A072B80167FD83300349316 /* NoteViewController.m */; };
 		3A2059A916945AA700E81FB4 /* ExtendedManagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2059A316945AA700E81FB4 /* ExtendedManagedObject.m */; };
 		3A2059AA16945AA700E81FB4 /* GPSPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2059A516945AA700E81FB4 /* GPSPoint.m */; };
 		3A2059AB16945AA700E81FB4 /* Gretel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 3A2059A616945AA700E81FB4 /* Gretel.xcdatamodel */; };
@@ -29,7 +31,9 @@
 		3A43D65216761D64007E9A84 /* GeoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A43D65116761D64007E9A84 /* GeoManager.m */; };
 		3A43D65416761D75007E9A84 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A43D65316761D75007E9A84 /* CoreLocation.framework */; };
 		3A43D66B1678B629007E9A84 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A43D66A1678B629007E9A84 /* MapKit.framework */; };
+		3A43D66E1678C536007E9A84 /* GTConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A43D66D1678C536007E9A84 /* GTConstants.m */; };
 		3A43D6781678DEB4007E9A84 /* morrocco.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3A43D6771678DEB4007E9A84 /* morrocco.gpx */; };
+		3A8C97481679E9A8000E2259 /* PointsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C97461679E9A8000E2259 /* PointsListViewController.m */; };
 		3A8C974C167A137D000E2259 /* LaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C974B167A137D000E2259 /* LaunchViewController.m */; };
 		3A8C974F167A1A18000E2259 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C974E167A1A18000E2259 /* HistoryViewController.m */; };
 		3A8C975E167A8518000E2259 /* CompletedTripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C975D167A8518000E2259 /* CompletedTripViewController.m */; };
@@ -38,7 +42,6 @@
 		3A8C9776167B2F7A000E2259 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A8C9775167B2F7A000E2259 /* MessageUI.framework */; };
 		3AA12B911684551D0003FE03 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA12B901684551D0003FE03 /* GameKit.framework */; };
 		A6FBA14610DC4D3C8654D5C3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B116D4037E14E9D9793F966 /* libPods.a */; };
-		B50EBE1E16D4BE5C0090433B /* compass_needle.png in Resources */ = {isa = PBXBuildFile; fileRef = B50EBE1D16D4BE5C0090433B /* compass_needle.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +54,10 @@
 		3A072B72167F796C00349316 /* BRMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMapAnnotation.m; sourceTree = "<group>"; };
 		3A072B79167FC7A900349316 /* BRBaseMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRBaseMapViewController.h; sourceTree = "<group>"; };
 		3A072B7A167FC7A900349316 /* BRBaseMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRBaseMapViewController.m; sourceTree = "<group>"; };
+		3A072B7C167FD6F100349316 /* VoiceMemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceMemoViewController.h; sourceTree = "<group>"; };
+		3A072B7D167FD6F200349316 /* VoiceMemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoiceMemoViewController.m; sourceTree = "<group>"; };
+		3A072B7F167FD83300349316 /* NoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteViewController.h; sourceTree = "<group>"; };
+		3A072B80167FD83300349316 /* NoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteViewController.m; sourceTree = "<group>"; };
 		3A2059A216945AA700E81FB4 /* ExtendedManagedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtendedManagedObject.h; sourceTree = "<group>"; };
 		3A2059A316945AA700E81FB4 /* ExtendedManagedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtendedManagedObject.m; sourceTree = "<group>"; };
 		3A2059A416945AA700E81FB4 /* GPSPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPSPoint.h; sourceTree = "<group>"; };
@@ -78,8 +85,12 @@
 		3A43D65116761D64007E9A84 /* GeoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoManager.m; sourceTree = "<group>"; };
 		3A43D65316761D75007E9A84 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		3A43D66A1678B629007E9A84 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		3A43D66C1678C535007E9A84 /* GTConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTConstants.h; sourceTree = "<group>"; };
+		3A43D66D1678C536007E9A84 /* GTConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTConstants.m; sourceTree = "<group>"; };
 		3A43D6771678DEB4007E9A84 /* morrocco.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = morrocco.gpx; sourceTree = "<group>"; };
 		3A46C56316844B6800C79C29 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		3A8C97451679E9A8000E2259 /* PointsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointsListViewController.h; sourceTree = "<group>"; };
+		3A8C97461679E9A8000E2259 /* PointsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PointsListViewController.m; sourceTree = "<group>"; };
 		3A8C974A167A137D000E2259 /* LaunchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchViewController.h; sourceTree = "<group>"; };
 		3A8C974B167A137D000E2259 /* LaunchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchViewController.m; sourceTree = "<group>"; };
 		3A8C974D167A1A18000E2259 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
@@ -92,7 +103,6 @@
 		3A8C9773167B2F3D000E2259 /* ShareManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareManager.m; sourceTree = "<group>"; };
 		3A8C9775167B2F7A000E2259 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		3AA12B901684551D0003FE03 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
-		B50EBE1D16D4BE5C0090433B /* compass_needle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compass_needle.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,12 +184,12 @@
 		3A43D62F16761D1F007E9A84 /* Gretel */ = {
 			isa = PBXGroup;
 			children = (
-				B50EBE1B16D4BE5C0090433B /* Resources */,
 				3A2059A016945A9C00E81FB4 /* Model */,
 				3A8C9777167B455D000E2259 /* Categories */,
+				3A43D66C1678C535007E9A84 /* GTConstants.h */,
+				3A43D66D1678C536007E9A84 /* GTConstants.m */,
 				3A43D63816761D1F007E9A84 /* AppDelegate.h */,
 				3A43D63916761D1F007E9A84 /* AppDelegate.m */,
-				3A43D64116761D1F007E9A84 /* MainStoryboard_iPhone.storyboard */,
 				3A43D64F16761D45007E9A84 /* Helpers */,
 				3A8C9771167B1EC8000E2259 /* View Controllers */,
 				3A43D63016761D1F007E9A84 /* Supporting Files */,
@@ -191,6 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				3A072B78167FBC1C00349316 /* GPX */,
+				3A43D64116761D1F007E9A84 /* MainStoryboard_iPhone.storyboard */,
 				3A43D6771678DEB4007E9A84 /* morrocco.gpx */,
 				3A43D63116761D1F007E9A84 /* Gretel-Info.plist */,
 				3A43D63216761D1F007E9A84 /* InfoPlist.strings */,
@@ -222,6 +233,8 @@
 		3A8C9771167B1EC8000E2259 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3A8C97451679E9A8000E2259 /* PointsListViewController.h */,
+				3A8C97461679E9A8000E2259 /* PointsListViewController.m */,
 				3A8C974A167A137D000E2259 /* LaunchViewController.h */,
 				3A8C974B167A137D000E2259 /* LaunchViewController.m */,
 				3A8C974D167A1A18000E2259 /* HistoryViewController.h */,
@@ -230,6 +243,10 @@
 				3A8C975D167A8518000E2259 /* CompletedTripViewController.m */,
 				3A43D64716761D1F007E9A84 /* RecordNewTripViewController.h */,
 				3A43D64816761D1F007E9A84 /* RecordNewTripViewController.m */,
+				3A072B7C167FD6F100349316 /* VoiceMemoViewController.h */,
+				3A072B7D167FD6F200349316 /* VoiceMemoViewController.m */,
+				3A072B7F167FD83300349316 /* NoteViewController.h */,
+				3A072B80167FD83300349316 /* NoteViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -250,22 +267,6 @@
 				3A072B7A167FC7A900349316 /* BRBaseMapViewController.m */,
 			);
 			name = BRMap;
-			sourceTree = "<group>";
-		};
-		B50EBE1B16D4BE5C0090433B /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				B50EBE1C16D4BE5C0090433B /* Images */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		B50EBE1C16D4BE5C0090433B /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				B50EBE1D16D4BE5C0090433B /* compass_needle.png */,
-			);
-			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -326,7 +327,6 @@
 				3A43D64016761D1F007E9A84 /* Default-568h@2x.png in Resources */,
 				3A43D64316761D1F007E9A84 /* MainStoryboard_iPhone.storyboard in Resources */,
 				3A43D6781678DEB4007E9A84 /* morrocco.gpx in Resources */,
-				B50EBE1E16D4BE5C0090433B /* compass_needle.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,6 +358,8 @@
 				3A43D63A16761D1F007E9A84 /* AppDelegate.m in Sources */,
 				3A43D64916761D1F007E9A84 /* RecordNewTripViewController.m in Sources */,
 				3A43D65216761D64007E9A84 /* GeoManager.m in Sources */,
+				3A43D66E1678C536007E9A84 /* GTConstants.m in Sources */,
+				3A8C97481679E9A8000E2259 /* PointsListViewController.m in Sources */,
 				3A8C974C167A137D000E2259 /* LaunchViewController.m in Sources */,
 				3A8C974F167A1A18000E2259 /* HistoryViewController.m in Sources */,
 				3A8C975E167A8518000E2259 /* CompletedTripViewController.m in Sources */,
@@ -366,6 +368,8 @@
 				3A072B70167F699D00349316 /* BRDateUtils.m in Sources */,
 				3A072B73167F796C00349316 /* BRMapAnnotation.m in Sources */,
 				3A072B7B167FC7A900349316 /* BRBaseMapViewController.m in Sources */,
+				3A072B7E167FD6F200349316 /* VoiceMemoViewController.m in Sources */,
+				3A072B81167FD83300349316 /* NoteViewController.m in Sources */,
 				3A2059A916945AA700E81FB4 /* ExtendedManagedObject.m in Sources */,
 				3A2059AA16945AA700E81FB4 /* GPSPoint.m in Sources */,
 				3A2059AB16945AA700E81FB4 /* Gretel.xcdatamodel in Sources */,
@@ -404,8 +408,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ben Reed (2Z5J3XQ9P8)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ben Reed (2Z5J3XQ9P8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -419,8 +422,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				PROVISIONING_PROFILE = "DCB3A64B-70AE-434E-89F9-BD179DAB1F22";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DCB3A64B-70AE-434E-89F9-BD179DAB1F22";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -435,8 +436,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Ben Reed";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ben Reed";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -444,8 +444,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "624F0F1C-BC1E-41D9-8231-4D25D119D083";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "624F0F1C-BC1E-41D9-8231-4D25D119D083";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -459,7 +457,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Gretel/Gretel-Prefix.pch";
 				INFOPLIST_FILE = "Gretel/Gretel-Info.plist";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/Gretel-elelkzhvkwmfwabtpjyapkwihpby/Build/Products/Debug-iphoneos\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -473,7 +474,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Gretel/Gretel-Prefix.pch";
 				INFOPLIST_FILE = "Gretel/Gretel-Info.plist";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/Gretel-elelkzhvkwmfwabtpjyapkwihpby/Build/Products/Debug-iphoneos\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;

@@ -15,7 +15,19 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "BRBluetoothManager.h"
 
-extern NSString * const kGPXExtension;
+@class ShareManager;
+
+extern NSString * const ShareManagerGPXExtension;
+
+@protocol ShareManagerDelegate
+
+@optional
+-(void)shareManagerDidFinishSharingSuccessfully:(ShareManager *)manager;
+-(void)shareManagerDidCancelSharing;
+-(void)shareManagerDidSaveMailForLater;
+-(void)shareManagerDidFailWithError:(NSError *)error;
+
+@end
 
 /**
  * Enum of share types. Defines how the data should be shared. Currently data can be shared by:
@@ -23,10 +35,11 @@ extern NSString * const kGPXExtension;
  * - bluetooth: NSKeyedArchived that is broken into chunks and sent via GameKit APIs
  */
 typedef enum {
-    kShareManagerShareByEmail,
-    kShareManagerShareWithDevice,
-    kShareManagerDebug
-} kShareManagerShareType;
+    ShareManagerShareTypeEmail,
+    ShareManagerShareTypeBluetooth,
+    ShareManagerShareTypeDropbox,
+    ShareManagerShareTypeBump
+} ShareManagerShareType;
 
 @interface ShareManager : NSObject <MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, GKSessionDelegate, GKPeerPickerControllerDelegate, BRBluetoothManagerDelegate> {
     
@@ -36,21 +49,24 @@ typedef enum {
     ///The trip data to be shared
     Trip *tripData;
     
-    ///Progress meter to be shown in the parent view controller to update the user.
-    MBProgressHUD *hud;
-    
     ///An instance of BRBluetoothManager for sending the data via GameKit.
     BRBluetoothManager *bluetoothManager;
+    
 }
 
 ///GameKit session. Required for connecting to other devices.
 @property (nonatomic, strong) GKSession *gameKitSession;
 
+///Delegate
+@property (nonatomic, strong) id <ShareManagerDelegate> delegate;
+
 /**
- * Creates a singleton instance of the ShareManager.
- * @return ShareManager - singleton instance of the manager.
+ * Init method override
+ * @param ShareManagerShareType - Initialise the share manager with a specific share type
+ * @param UIViewController - the parent view controller. Used to display the mail composer view
+ * @return id - self
  */
-+(ShareManager*)sharedManager;
+-(id)initWithShareType:(ShareManagerShareType)shareType fromViewController:(UIViewController *)viewController;
 
 /**
  * Creates a singleton instance of the ShareManager.
@@ -62,11 +78,10 @@ typedef enum {
 
 /**
  * Shares the trip via email. The trip data is passed into the GPX factory class and converted to GPX XML and attached to an email using the native email client.
- * @param UIViewController - the view controller to display the mail composer in.
  * @param Trip - the trip data to share
  * @return void
  */
--(void)shareTripDataByEmail:(Trip *)trip fromViewController:(UIViewController *)viewController;
+-(void)shareTripDataByEmail:(Trip *)trip;
 
 /**
  * Triggers the bluetooth sharing methods

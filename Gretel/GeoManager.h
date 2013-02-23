@@ -45,7 +45,7 @@ extern NSNumber *const GTDistanceFilterInMetres;
 @property (nonatomic, readwrite) float fromHeadingAsRad;
 @property (nonatomic, readwrite) float toHeadingAsRad;
 
-@property (nonatomic, readwrite) float currentSpeed;
+@property (nonatomic, readwrite) float speed;
 
 /**
  * Singleton init method
@@ -67,11 +67,5 @@ extern NSNumber *const GTDistanceFilterInMetres;
  * @return CLLocation speed in metres per second
  */
 -(CLLocationSpeed)currentSpeed;
-
-/**
- * Returns direction in degrees starting at due north and continue clockwise around the compass
- * @return CLLocationDirection
- */
--(CLLocationDirection)currentDirection;
 
 @end

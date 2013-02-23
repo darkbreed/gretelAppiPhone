@@ -17,6 +17,13 @@
     // Override point for customization after application launch.
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"Gretel.sqlite"];
     
+#ifdef TESTING
+    
+    NSString *uuid = [NSString stringWithFormat:@"%@",[[UIDevice currentDevice] identifierForVendor]];
+    [TestFlight setDeviceIdentifier:uuid];
+    
+#endif
+    
     return YES;
 }
 							

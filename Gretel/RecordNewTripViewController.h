@@ -29,7 +29,7 @@ typedef enum {
     kTripActionSheetOptions
 } kTripActionSheetType;
 
-@interface RecordNewTripViewController : BRBaseMapViewController <MKMapViewDelegate> {
+@interface RecordNewTripViewController : BRBaseMapViewController <MKMapViewDelegate, UIAlertViewDelegate> {
     int currentPointId;
     NSMutableArray *recordedPoints;
 }

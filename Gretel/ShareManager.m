@@ -9,85 +9,45 @@
 #import "ShareManager.h"
 #import <MessageUI/MessageUI.h>
 
-NSString * const kGPXExtension = @"gpx";
+NSString * const ShareManagerGPXExtension = @"gpx";
 
 @implementation ShareManager
 
-#pragma mark - Singleton methods
-+(ShareManager*)sharedManager {
-    
-    static ShareManager *sharedManager = nil;
-    static dispatch_once_t oncePredicate;
-    
-    dispatch_once(&oncePredicate, ^{
-        sharedManager = [[self alloc] init];
-    });
-    
-    return sharedManager;
-}
-
--(id)init {
+-(id)initWithShareType:(ShareManagerShareType)shareType fromViewController:(UIViewController *)viewController {
     
     self = [super init];
+    parentViewController = viewController;
     
-    if(self != nil){
-        bluetoothManager = [[BRBluetoothManager alloc] init];
-        [bluetoothManager setDelegate:self];
-        hud = [[MBProgressHUD alloc] init];
+    if(self){
+        
+        switch (shareType) {
+            case ShareManagerShareTypeEmail:
+                //Set up email sharing
+                break;
+            
+            case ShareManagerShareTypeBluetooth:
+                //Set up bluetooth sharing
+                
+                bluetoothManager = [[BRBluetoothManager alloc] init];
+                [bluetoothManager setDelegate:self];
+                
+                break;
+                
+            case ShareManagerShareTypeDropbox:
+                //Set up Dropbox sharing
+                
+            case ShareManagerShareTypeBump:
+                //Set up Bump sharing
+                
+            default:
+                break;
+        }
+        
     }
     
     return self;
 }
 
--(void)displayShareOptionsInViewController:(UIViewController *)viewController withTripData:(Trip *)data {
-    
-    tripData = data;
-    parentViewController = viewController;
-    
-    UIActionSheet *shareOptions = [[UIActionSheet alloc] initWithTitle:@"Share via" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Email", @"Bluetooth",@"Debug",nil];
-    
-    [shareOptions showInView:parentViewController.view];
-}
-
-#pragma mark UIActionSheetDelegateMethods
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    switch (buttonIndex) {
-        
-        case kShareManagerShareByEmail:
-            
-            [self shareTripDataByEmail:tripData fromViewController:parentViewController];
-            
-            break;
-        
-        case kShareManagerShareWithDevice:
-            
-            [self shareTripDataWithLocalDevice];
-            
-            break;
-            
-        case kShareManagerDebug:
-            
-
-            break;
-            
-        default:
-            break;
-    }
-}
-
--(NSString *)getGPXStringFromTrip:(Trip *)trip {
-    
-    GPXFactory *factory = [[GPXFactory alloc] init];
-    NSString *gpx = [factory createGPXFileFromGPSPoints:trip.points];
-    
-    return gpx;
-}
-
--(void)shareTripDataWithLocalDevice {
-    
-    [bluetoothManager displayPeerPicker];
-    
-}
 
 /***
  
@@ -95,17 +55,19 @@ NSString * const kGPXExtension = @"gpx";
  
  ***/
 #pragma mark Share By Mail
--(void)shareTripDataByEmail:(Trip *)trip fromViewController:(UIViewController *)viewController {
+-(void)shareTripDataByEmail:(Trip *)trip {
     
-    parentViewController = viewController;
-    
-    NSString *gpx = [self getGPXStringFromTrip:trip];
+    //Convert the trip into the GPX file format
+    GPXFactory *factory = [[GPXFactory alloc] init];
+    NSString *gpx = [factory createGPXFileFromGPSPoints:trip.points];
     NSString *fileName = [trip.tripName stringByReplacingOccurrencesOfString:@" " withString:@"-"];
     
+    //Set up the mail composer
     MFMailComposeViewController *composeMailViewController = [[MFMailComposeViewController alloc] init];
-    [composeMailViewController addAttachmentData:[gpx dataUsingEncoding:NSUTF8StringEncoding] mimeType:@"application/xml" fileName:[NSString stringWithFormat:@"%@.%@",fileName, kGPXExtension]];
+    [composeMailViewController addAttachmentData:[gpx dataUsingEncoding:NSUTF8StringEncoding] mimeType:@"application/xml" fileName:[NSString stringWithFormat:@"%@.%@",fileName, ShareManagerGPXExtension]];
     [composeMailViewController setMailComposeDelegate:self];
     
+    //Display the composer
     [parentViewController presentViewController:composeMailViewController animated:YES completion:nil];
     
 }
@@ -115,8 +77,11 @@ NSString * const kGPXExtension = @"gpx";
     
     switch (result) {
         case MFMailComposeResultSent:
+            
         case MFMailComposeResultSaved:
+            
         case MFMailComposeResultCancelled:
+            
             [parentViewController dismissViewControllerAnimated:YES completion:nil];
             break;
             
@@ -125,22 +90,27 @@ NSString * const kGPXExtension = @"gpx";
     }
 }
 
+-(void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
+    //Here for completeness
+}
+
 #pragma BRBluetoothManagerDelegate methods
+
+-(void)shareTripDataWithLocalDevice {
+    
+    [bluetoothManager displayPeerPicker];
+    
+}
+
 -(void)bluetoothManager:(BRBluetoothManager *)manager didConnectToPeer:(NSString *)peer {
     
-    [hud setLabelText:@"Preparing to send"];
-    [hud setMode:MBProgressHUDModeDeterminate];
-    [hud show:YES];
-    
     NSData *dataToSend = [tripData toData];
-    
     [bluetoothManager sendData:dataToSend toReceivers:nil];
+    
 }
 
 -(void)bluetoothManager:(BRBluetoothManager *)manager didBeginToSendData:(NSData *)data {
-    
-    [hud setLabelText:@"Preparing to send"];
-    
+        
 }
 
 -(void)bluetoothManager:(BRBluetoothManager *)manager didDisconnectFromPeer:(NSString *)peer {
@@ -153,16 +123,12 @@ NSString * const kGPXExtension = @"gpx";
     
     float percent = fRemaining/fTotalLength;
     
-    [hud setProgress:percent];
-
-    
     NSLog(@"Sending is %f%% complete",percent);
     
 }
 
 -(void)bluetoothManager:(BRBluetoothManager *)manager didCompleteTransferOfData:(NSData *)data {
-    [hud setLabelText:@"Complete"];
-    [hud hide:YES afterDelay:1.0];
+
 }
 
 @end

@@ -62,7 +62,7 @@ NSString *const GTLocationHeadingDidUpdate = @"headingDidUpdate";
     
     //Store the current location in the property for easy access
     self.currentLocation = (CLLocation *)[locations lastObject];
-    self.currentSpeed = self.currentLocation.speed;
+    self.speed = self.currentLocation.speed;
     
     //Update any observers
     [self notifyObserversOfLocationUpdate];
@@ -83,17 +83,18 @@ NSString *const GTLocationHeadingDidUpdate = @"headingDidUpdate";
 }
 
 -(void)locationManagerDidPauseLocationUpdates:(CLLocationManager *)manager {
-#warning TODO: Handle pauses
+
 }
 
 -(void)locationManagerDidResumeLocationUpdates:(CLLocationManager *)manager {
-#warning TODO: Handle resumes
+
 }
 
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     //Post a notfication to update observers that updates have failed
     [[NSNotificationCenter defaultCenter] postNotificationName:GTLocationLocationUpdatesDidFail object:nil];
 }
+
 
 #pragma LocationManager methods
 -(void)startTrackingPosition {
@@ -124,5 +125,8 @@ NSString *const GTLocationHeadingDidUpdate = @"headingDidUpdate";
     [[NSNotificationCenter defaultCenter] postNotificationName:GTLocationUpdatedSuccessfully object:nil];
 }
 
+-(CLLocationSpeed)currentSpeed {
+    return self.speed;
+}
 
 @end
