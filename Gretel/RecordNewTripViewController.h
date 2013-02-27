@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
+#import <GCDiscreetNotificationView/GCDiscreetNotificationView.h>
 #import "GeoManager.h"
 #import "Trip.h"
 #import "BRBaseMapViewController.h"
-#import <GCDiscreetNotificationView/GCDiscreetNotificationView.h>
+#import "SettingsViewController.h"
 
 /**
  * Defines the states that a trip can exist in to help determine how the view should behave.

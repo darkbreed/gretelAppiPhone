@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <TestFlightSDK/TestFlight.h>
+#import "ECSlidingViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

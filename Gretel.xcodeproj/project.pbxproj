@@ -49,6 +49,9 @@
 		B507475016D91CE400CEC1DE /* recordLightBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = B507474C16D91CE400CEC1DE /* recordLightBackground.png */; };
 		B507475116D91CE400CEC1DE /* recordLightBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B507474D16D91CE400CEC1DE /* recordLightBackground@2x.png */; };
 		B50EBE1E16D4BE5C0090433B /* compass_needle.png in Resources */ = {isa = PBXBuildFile; fileRef = B50EBE1D16D4BE5C0090433B /* compass_needle.png */; };
+		B568976A16DDFC2300A07DFC /* SettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B568976916DDFC2300A07DFC /* SettingsManager.m */; };
+		B568976C16DE0D1B00A07DFC /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B568976B16DE0D1B00A07DFC /* Icon.png */; };
+		B568976E16DE0D2100A07DFC /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B568976D16DE0D2100A07DFC /* Icon@2x.png */; };
 		B578C0E816DB5356007A36A1 /* compass_needle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B578C0E716DB5356007A36A1 /* compass_needle@2x.png */; };
 		B578C0EB16DB53F6007A36A1 /* compassBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = B578C0E916DB53F6007A36A1 /* compassBackground.png */; };
 		B578C0EC16DB53F6007A36A1 /* compassBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B578C0EA16DB53F6007A36A1 /* compassBackground@2x.png */; };
@@ -88,6 +91,7 @@
 		B5F6166E16DD7405005BDB7C /* backSymbol@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F6166C16DD7405005BDB7C /* backSymbol@2x.png */; };
 		B5F6167116DD7568005BDB7C /* acceptSymbol.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F6166F16DD7568005BDB7C /* acceptSymbol.png */; };
 		B5F6167216DD7568005BDB7C /* acceptSymbol@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F6167016DD7568005BDB7C /* acceptSymbol@2x.png */; };
+		B5F6167816DDF389005BDB7C /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F6167716DDF389005BDB7C /* SettingsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -152,6 +156,10 @@
 		B507474C16D91CE400CEC1DE /* recordLightBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recordLightBackground.png; sourceTree = "<group>"; };
 		B507474D16D91CE400CEC1DE /* recordLightBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "recordLightBackground@2x.png"; sourceTree = "<group>"; };
 		B50EBE1D16D4BE5C0090433B /* compass_needle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compass_needle.png; sourceTree = "<group>"; };
+		B568976816DDFC2300A07DFC /* SettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsManager.h; sourceTree = "<group>"; };
+		B568976916DDFC2300A07DFC /* SettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsManager.m; sourceTree = "<group>"; };
+		B568976B16DE0D1B00A07DFC /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		B568976D16DE0D2100A07DFC /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		B578C0E716DB5356007A36A1 /* compass_needle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compass_needle@2x.png"; sourceTree = "<group>"; };
 		B578C0E916DB53F6007A36A1 /* compassBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compassBackground.png; sourceTree = "<group>"; };
 		B578C0EA16DB53F6007A36A1 /* compassBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compassBackground@2x.png"; sourceTree = "<group>"; };
@@ -191,6 +199,8 @@
 		B5F6166C16DD7405005BDB7C /* backSymbol@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backSymbol@2x.png"; sourceTree = "<group>"; };
 		B5F6166F16DD7568005BDB7C /* acceptSymbol.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = acceptSymbol.png; sourceTree = "<group>"; };
 		B5F6167016DD7568005BDB7C /* acceptSymbol@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "acceptSymbol@2x.png"; sourceTree = "<group>"; };
+		B5F6167616DDF389005BDB7C /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		B5F6167716DDF389005BDB7C /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -237,6 +247,8 @@
 		3A43D61A16761D1F007E9A84 = {
 			isa = PBXGroup;
 			children = (
+				B568976D16DE0D2100A07DFC /* Icon@2x.png */,
+				B568976B16DE0D1B00A07DFC /* Icon.png */,
 				3A43D62F16761D1F007E9A84 /* Gretel */,
 				3A43D62816761D1F007E9A84 /* Frameworks */,
 				3A43D62616761D1F007E9A84 /* Products */,
@@ -313,6 +325,8 @@
 				3A072B6E167F699C00349316 /* BRDateUtils.h */,
 				3A072B6F167F699C00349316 /* BRDateUtils.m */,
 				3A92499B16A00855000F62AD /* BRMap */,
+				B568976816DDFC2300A07DFC /* SettingsManager.h */,
+				B568976916DDFC2300A07DFC /* SettingsManager.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -328,6 +342,8 @@
 				3A43D64816761D1F007E9A84 /* RecordNewTripViewController.m */,
 				B507473B16D9039600CEC1DE /* BaseNavigationViewController.h */,
 				B507473C16D9039600CEC1DE /* BaseNavigationViewController.m */,
+				B5F6167616DDF389005BDB7C /* SettingsViewController.h */,
+				B5F6167716DDF389005BDB7C /* SettingsViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -523,6 +539,8 @@
 				B5F6166E16DD7405005BDB7C /* backSymbol@2x.png in Resources */,
 				B5F6167116DD7568005BDB7C /* acceptSymbol.png in Resources */,
 				B5F6167216DD7568005BDB7C /* acceptSymbol@2x.png in Resources */,
+				B568976C16DE0D1B00A07DFC /* Icon.png in Resources */,
+				B568976E16DE0D2100A07DFC /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -566,6 +584,8 @@
 				3A2059AB16945AA700E81FB4 /* Gretel.xcdatamodel in Sources */,
 				3A2059AC16945AA700E81FB4 /* Trip.m in Sources */,
 				B507473D16D9039600CEC1DE /* BaseNavigationViewController.m in Sources */,
+				B5F6167816DDF389005BDB7C /* SettingsViewController.m in Sources */,
+				B568976A16DDFC2300A07DFC /* SettingsManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

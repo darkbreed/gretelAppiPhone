@@ -26,6 +26,8 @@
                                                      inPresentationMode:GCDiscreetNotificationViewPresentationModeTop
                                                                  inView:self.mapView];
     
+    [self configureSettingsViewController];
+    
     [self setUpViewForNewTrip];
     
     [self.mapView setUserTrackingMode:MKUserTrackingModeFollow];
@@ -35,6 +37,17 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pauseRecording) name:GTLocationDidPauseUpdates object:nil];
     
     [self setInitialLocate:YES];
+    
+    
+}
+
+-(void)configureSettingsViewController {
+    
+    
+}
+
+-(IBAction)settingsButtonHandler:(id)sender {
+    
     
 }
 

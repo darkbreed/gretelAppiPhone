@@ -1,32 +1,26 @@
 
-SPEC CHECKSUMS: 
-  TestFlightSDK: f638b08651a37af099e40c47241fc58fd3cb1a66
-  MagicalRecord: daa15d6c83bd7d30e074c8923e53c64248ae6930
-  BRBluetoothManager: 1310aa50564d50a8503803ae1d4cd2ed27d28bb9
-  AwesomeMenu: c2014d6d6f4a2b6bbb91ca2f67183bc2674a9cff
-  InAppSettingsKit: 8d5ae557a5890ca48c6e2085d6301194e4e2b48a
-  GCDiscreetNotificationView: 4824641e498556cba2c7a9aadd8101aa77e4d965
-  MBProgressHUD: b23ee11c42253d6d804e8e0bfabdc334e8b2571f
-  Dropbox-iOS-SDK: 3e041f67271ba591280b329cc376d8ad1a587c51
-
-PODS: 
-- AwesomeMenu (1.0.0)
-- BRBluetoothManager (0.0.1)
-- Dropbox-iOS-SDK (1.3.2)
-- GCDiscreetNotificationView (1.0.0)
-- InAppSettingsKit (1.0)
-- MBProgressHUD (0.5)
-- MagicalRecord (2.0.8)
-- TestFlightSDK (1.2.3.beta1)
-
 COCOAPODS: 0.16.2
 
+SPEC CHECKSUMS: 
+  Dropbox-iOS-SDK: 3e041f67271ba591280b329cc376d8ad1a587c51
+  BRBluetoothManager: 1310aa50564d50a8503803ae1d4cd2ed27d28bb9
+  ECSlidingViewController: 46cb6a6cc72e359a19d2f232728be08685450d90
+  TestFlightSDK: f638b08651a37af099e40c47241fc58fd3cb1a66
+  GCDiscreetNotificationView: 4824641e498556cba2c7a9aadd8101aa77e4d965
+  MagicalRecord: daa15d6c83bd7d30e074c8923e53c64248ae6930
+
 DEPENDENCIES: 
-- AwesomeMenu (= 1.0.0)
 - BRBluetoothManager (= 0.0.1)
 - Dropbox-iOS-SDK (= 1.3.2)
+- ECSlidingViewController (= 0.9.0)
 - GCDiscreetNotificationView (= 1.0.0)
-- InAppSettingsKit (= 1.0)
-- MBProgressHUD (= 0.5)
 - MagicalRecord (= 2.0.8)
 - TestFlightSDK (= 1.2.3.beta1)
+
+PODS: 
+- BRBluetoothManager (0.0.1)
+- Dropbox-iOS-SDK (1.3.2)
+- ECSlidingViewController (0.9.0)
+- GCDiscreetNotificationView (1.0.0)
+- MagicalRecord (2.0.8)
+- TestFlightSDK (1.2.3.beta1)

@@ -12,7 +12,6 @@
 #import "Trip.h"
 #import "GPSPoint.h"
 #import "GPXFactory.h"
-#import <MBProgressHUD/MBProgressHUD.h>
 #import "BRBluetoothManager.h"
 
 @class ShareManager;

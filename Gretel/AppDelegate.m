@@ -33,7 +33,7 @@
     [[UINavigationBar appearance] setTitleTextAttributes:appearance];
     
     [[UINavigationBar appearance] setTintColor:[UIColor lightGrayColor]];
-    
+        
     
     return YES;
 }
