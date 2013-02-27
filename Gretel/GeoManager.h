@@ -14,6 +14,7 @@
 extern NSString *const GTLocationUpdatedSuccessfully;
 extern NSString *const GTLocationLocationUpdatesDidFail;
 extern NSString *const GTLocationHeadingDidUpdate;
+extern NSString *const GTLocationDidPauseUpdates;
 
 ///Distance filter for accuracy settings
 extern NSNumber *const GTDistanceFilterInMetres;
@@ -36,11 +37,6 @@ extern NSNumber *const GTDistanceFilterInMetres;
  * The delegate to handle callbacks
  */
 @property (nonatomic, strong) id delegate;
-
-/**
- * Flag to set the state of the location manager, behavior differs if we are recording.
- */
-@property (nonatomic, readwrite) BOOL recording;
 
 @property (nonatomic, readwrite) float fromHeadingAsRad;
 @property (nonatomic, readwrite) float toHeadingAsRad;

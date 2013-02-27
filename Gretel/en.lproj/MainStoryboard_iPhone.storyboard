@@ -78,27 +78,33 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="viewBackgrond@2x.png" id="dEC-Rh-lx1">
+                                <rect key="frame" x="0.0" y="-64" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <view contentMode="scaleToFill" id="naW-4E-yCc">
                                 <rect key="frame" x="-20" y="-20" width="360" height="544"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" id="opD-M9-frj">
                                         <rect key="frame" x="20" y="20" width="320" height="504"/>
                                         <subviews>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="BxJ-7h-aUp">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="TRIP NAME" textAlignment="center" minimumFontSize="17" id="BxJ-7h-aUp">
                                                 <rect key="frame" x="20" y="126" width="280" height="30"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="textColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Trip name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7gf-XJ-Z7F">
-                                                <rect key="frame" x="121" y="100" width="77" height="21"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="SET TRIP NAME" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7gf-XJ-Z7F">
+                                                <rect key="frame" x="20" y="100" width="280" height="21"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
+                                                <color key="textColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Avg-5x-aQU">
-                                                <rect key="frame" x="20" y="165" width="280" height="32"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Avg-5x-aQU">
+                                                <rect key="frame" x="88.5" y="168.5" width="45" height="45"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <state key="normal" title="Save">
+                                                <state key="normal" backgroundImage="acceptSymbol@2x.png">
                                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -109,10 +115,10 @@
                                                     <action selector="cancelButtonHandler:" destination="tdh-9Y-gfp" eventType="touchDragInside" id="BcY-0S-cQb"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Cxb-j1-P7D">
-                                                <rect key="frame" x="20" y="205" width="280" height="32"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Cxb-j1-P7D">
+                                                <rect key="frame" x="177.5" y="168.5" width="45" height="45"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <state key="normal" title="Cancel">
+                                                <state key="normal" backgroundImage="backSymbol@2x.png">
                                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -124,15 +130,15 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" id="Yec-8P-7SG">
                                         <rect key="frame" x="20" y="20" width="320" height="504"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="UNs-Me-SOs">
-                                                <rect key="frame" x="113" y="230" width="94" height="44"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="UNs-Me-SOs">
+                                                <rect key="frame" x="63.5" y="229.5" width="45" height="45"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <state key="normal" title="Bluetooth">
+                                                <state key="normal" backgroundImage="bluetoothSymbol@2x.png">
                                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -143,10 +149,10 @@
                                                     <action selector="shareByBluetoothButtonHandler:" destination="tdh-9Y-gfp" eventType="touchUpInside" id="Dtc-lM-Tiw"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="v2Z-DI-CKj">
-                                                <rect key="frame" x="113" y="281" width="94" height="44"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="v2Z-DI-CKj">
+                                                <rect key="frame" x="137.5" y="230" width="45" height="44"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <state key="normal" title="Email">
+                                                <state key="normal" backgroundImage="mailSymbol@2x.png">
                                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -157,16 +163,10 @@
                                                     <action selector="shareByEmailButtonHandler:" destination="tdh-9Y-gfp" eventType="touchUpInside" id="mCz-lt-Rfb"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Share" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="F0S-Ay-tCT">
-                                                <rect key="frame" x="137" y="201" width="46" height="21"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="gQC-1v-tqi">
-                                                <rect key="frame" x="113" y="332" width="94" height="44"/>
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gQC-1v-tqi">
+                                                <rect key="frame" x="212.5" y="229.5" width="45" height="45"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <state key="normal" title="Cancel">
+                                                <state key="normal" backgroundImage="backSymbol@2x.png">
                                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -177,8 +177,14 @@
                                                     <action selector="cancelButtonHandler:" destination="tdh-9Y-gfp" eventType="touchUpInside" id="Jin-sz-gBR"/>
                                                 </connections>
                                             </button>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="SHARE TRIP" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="c0Z-7Y-wan">
+                                                <rect key="frame" x="20" y="198" width="280" height="21"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
+                                                <color key="textColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="ZIE-Y8-Og7">
                                         <rect key="frame" x="20" y="-13" width="320" height="570"/>
@@ -187,12 +193,16 @@
                                         </connections>
                                     </mapView>
                                     <view contentMode="scaleToFill" id="Sfb-64-cF3">
-                                        <rect key="frame" x="20" y="411" width="320" height="83"/>
+                                        <rect key="frame" x="20" y="429.5" width="320" height="112"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="FGv-vd-InG">
-                                                <rect key="frame" x="20" y="20" width="141" height="44"/>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="optionsBackground@2x.png" id="CCx-CR-Vc0">
+                                                <rect key="frame" x="0.0" y="14" width="320" height="112"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="FGv-vd-InG">
+                                                <rect key="frame" x="75" y="40" width="45" height="45"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <state key="normal" title="Share">
+                                                <state key="normal" backgroundImage="shareIcon@2x.png">
                                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -204,9 +214,9 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Wvv-Rb-TDT">
-                                                <rect key="frame" x="169" y="20" width="53" height="44"/>
+                                                <rect key="frame" x="138" y="40" width="45" height="45"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <state key="normal" title="Edit">
+                                                <state key="normal" backgroundImage="infoSymbol@2x.png">
                                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -218,9 +228,9 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ozx-Lp-CbW">
-                                                <rect key="frame" x="230" y="20" width="70" height="44"/>
+                                                <rect key="frame" x="200" y="41" width="45" height="45"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <state key="normal" title="Delete">
+                                                <state key="normal" backgroundImage="deleteSymbol@2x.png">
                                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -232,10 +242,10 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -264,41 +274,92 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="viewBackgrond@2x.png" id="Lv0-6s-uTW">
+                                <rect key="frame" x="0.0" y="-64" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <view contentMode="scaleToFill" id="xau-fP-Gmr">
                                 <rect key="frame" x="0.0" y="-8" width="320" height="524"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" id="Dfd-eL-QTx">
-                                        <rect key="frame" x="-20" y="7" width="340" height="415"/>
+                                        <rect key="frame" x="0.0" y="7" width="320" height="504"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" id="aQw-Vc-PQ7">
-                                                <rect key="frame" x="20" y="20" width="172" height="104"/>
+                                                <rect key="frame" x="0.0" y="395" width="320" height="109"/>
                                                 <subviews>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Current Lon" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RXh-KT-WGq">
-                                                        <rect key="frame" x="20" y="34" width="132" height="21"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="LONGITUDE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RXh-KT-WGq">
+                                                        <rect key="frame" x="61" y="68" width="84" height="21"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
+                                                        <color key="textColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Current Lat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kNQ-E6-AdG">
-                                                        <rect key="frame" x="20" y="5" width="132" height="21"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="latLonSymbol@2x.png" id="8bV-Sq-mF6">
+                                                        <rect key="frame" x="31" y="5.5" width="22" height="22"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="speedometerSymbol@2x.png" id="eoe-8n-zKO">
+                                                        <rect key="frame" x="172" y="6" width="22" height="22"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="latLonSymbol@2x.png" id="jDM-ll-nW2">
+                                                        <rect key="frame" x="31" y="51" width="22" height="22"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="clockSymbol@2x.png" id="TOi-Ca-XL3">
+                                                        <rect key="frame" x="172" y="51" width="22" height="22"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    </imageView>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="LATITUDE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kNQ-E6-AdG">
+                                                        <rect key="frame" x="60" y="23" width="85" height="21"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
+                                                        <color key="textColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Current Speed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Wl6-AS-Kxt">
-                                                        <rect key="frame" x="20" y="63" width="132" height="21"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="SPEED" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Wl6-AS-Kxt">
+                                                        <rect key="frame" x="202" y="23" width="98" height="21"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
+                                                        <color key="textColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="TRIP TIME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="S7q-Q4-Fps">
+                                                        <rect key="frame" x="202" y="68" width="98" height="21"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
+                                                        <color key="textColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="50 MPH" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UOI-Vm-yt0">
+                                                        <rect key="frame" x="202" y="5" width="98" height="21"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                                        <color key="textColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="00:00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SAZ-wA-xiK">
+                                                        <rect key="frame" x="202" y="50" width="98" height="21"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                                        <color key="textColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="+40.689" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EIJ-3B-zZs">
+                                                        <rect key="frame" x="60" y="5" width="85" height="21"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                                        <color key="textColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="-74.044" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Iub-2r-jKO">
+                                                        <rect key="frame" x="60" y="50" width="85" height="21"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                                        <color key="textColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="scl-Ue-BJd">
-                                                <rect key="frame" x="40" y="352" width="280" height="44"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="scl-Ue-BJd">
+                                                <rect key="frame" x="15" y="15.5" width="35" height="35"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <state key="normal" title="Back to map">
+                                                <color key="tintColor" red="0.7843137255" green="0.76078431369999999" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <state key="normal" backgroundImage="mapButton@2x.png">
                                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -309,23 +370,33 @@
                                                     <action selector="displayMap:" destination="DsA-4Z-czd" eventType="touchUpInside" id="mA3-vD-5zo"/>
                                                 </connections>
                                             </button>
-                                            <imageView userInteractionEnabled="NO" contentMode="center" image="compass_needle.png" id="rbi-tO-cQK">
-                                                <rect key="frame" x="40" y="116" width="280" height="213"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="MAP" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MDC-3y-pxA">
+                                                <rect key="frame" x="15" y="49" width="35" height="21"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
+                                                <color key="textColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="compassBackground@2x.png" id="snD-oa-LRU">
+                                                <rect key="frame" x="28" y="82" width="263" height="269"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="compass_needle@2x.png" id="rbi-tO-cQK">
+                                                <rect key="frame" x="142" y="137" width="41" height="161"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="TyS-3D-HfR">
-                                <rect key="frame" x="0.0" y="-2" width="320" height="450"/>
+                                <rect key="frame" x="0.0" y="-2" width="320" height="506"/>
                                 <connections>
                                     <outlet property="delegate" destination="DsA-4Z-czd" id="AsA-OD-ghJ"/>
                                 </connections>
                             </mapView>
                             <view contentMode="scaleToFill" id="xio-6h-rSR">
-                                <rect key="frame" x="20" y="20" width="24" height="24"/>
+                                <rect key="frame" x="276" y="20" width="24" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="recordLightBackground@2x.png" id="jTy-R1-QO7">
@@ -333,20 +404,21 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="recordLight@2x.png" id="D8e-sJ-CHP">
-                                        <rect key="frame" x="4" y="5" width="16" height="16"/>
+                                        <rect key="frame" x="4" y="4" width="16" height="16"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="8iu-Fc-DkO">
-                                <rect key="frame" x="0.0" y="395" width="320" height="121"/>
+                                <rect key="frame" x="0.0" y="392" width="320" height="112"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="optionsBackground@2x.png" id="Uop-5H-SqI">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="121"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="optionsBackground@2x.png" id="rtD-Ip-ae0">
+                                        <rect key="frame" x="0.0" y="14" width="320" height="112"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5T6-gm-M2d">
-                                        <rect key="frame" x="125" y="27" width="70" height="70"/>
+                                        <rect key="frame" x="127" y="38" width="67" height="67"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" backgroundImage="recordButton@2x.png">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -360,7 +432,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ygq-fq-ZTY">
-                                        <rect key="frame" x="213" y="52" width="33" height="33"/>
+                                        <rect key="frame" x="214" y="54" width="33" height="33"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" backgroundImage="stopButton@2x.png">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -374,9 +446,9 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="WMS-dS-Xb6">
-                                        <rect key="frame" x="73" y="52" width="33" height="33"/>
+                                        <rect key="frame" x="73" y="54" width="33" height="33"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" backgroundImage="compassButton@2x.png">
+                                        <state key="normal" backgroundImage="speedometerSymbol@2x.png">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -394,8 +466,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="Wts-wo-MrN">
-                        <barButtonItem key="rightBarButtonItem" systemItem="bookmarks" id="poz-4d-JvD">
-                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="bookmarks" id="poz-4d-JvD">
+                            <color key="tintColor" red="0.7843137255" green="0.76078431369999999" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="RN9-EI-9KB" kind="push" id="cFc-1U-0eA"/>
                             </connections>
@@ -403,10 +475,10 @@
                     </navigationItem>
                     <connections>
                         <outlet property="compassNeedle" destination="rbi-tO-cQK" id="pto-vE-QnF"/>
-                        <outlet property="currentSpeedLabel" destination="Wl6-AS-Kxt" id="dYT-tY-oTw"/>
+                        <outlet property="currentSpeedLabel" destination="UOI-Vm-yt0" id="eTr-bX-eoz"/>
                         <outlet property="hudView" destination="xau-fP-Gmr" id="G5h-YV-a9J"/>
-                        <outlet property="latLabel" destination="kNQ-E6-AdG" id="gdN-5R-tZG"/>
-                        <outlet property="lonLabel" destination="RXh-KT-WGq" id="Tdg-Xo-HPy"/>
+                        <outlet property="latLabel" destination="EIJ-3B-zZs" id="oqz-Hx-mFs"/>
+                        <outlet property="lonLabel" destination="Iub-2r-jKO" id="qaq-Cl-GCb"/>
                         <outlet property="mapView" destination="TyS-3D-HfR" id="ISu-vS-XHF"/>
                         <outlet property="optionButtonWrapper" destination="8iu-Fc-DkO" id="4ck-Vu-xz4"/>
                         <outlet property="recordingIndicatorContainer" destination="xio-6h-rSR" id="rmX-Ug-riQ"/>
@@ -420,13 +492,25 @@
         </scene>
     </scenes>
     <resources>
-        <image name="compassButton@2x.png" width="66" height="66"/>
-        <image name="compass_needle.png" width="300" height="289"/>
-        <image name="optionsBackground@2x.png" width="640" height="242"/>
-        <image name="recordButton@2x.png" width="140" height="140"/>
+        <image name="acceptSymbol@2x.png" width="90" height="90"/>
+        <image name="backSymbol@2x.png" width="90" height="90"/>
+        <image name="bluetoothSymbol@2x.png" width="90" height="90"/>
+        <image name="clockSymbol@2x.png" width="41" height="41"/>
+        <image name="compassBackground@2x.png" width="565" height="559"/>
+        <image name="compass_needle@2x.png" width="82" height="323"/>
+        <image name="deleteSymbol@2x.png" width="90" height="90"/>
+        <image name="infoSymbol@2x.png" width="45" height="45"/>
+        <image name="latLonSymbol@2x.png" width="41" height="41"/>
+        <image name="mailSymbol@2x.png" width="90" height="90"/>
+        <image name="mapButton@2x.png" width="90" height="90"/>
+        <image name="optionsBackground@2x.png" width="640" height="223"/>
+        <image name="recordButton@2x.png" width="150" height="150"/>
         <image name="recordLight@2x.png" width="31" height="31"/>
         <image name="recordLightBackground@2x.png" width="47" height="47"/>
-        <image name="stopButton@2x.png" width="66" height="66"/>
+        <image name="shareIcon@2x.png" width="90" height="90"/>
+        <image name="speedometerSymbol@2x.png" width="90" height="90"/>
+        <image name="stopButton@2x.png" width="90" height="90"/>
+        <image name="viewBackgrond@2x.png" width="640" height="1135"/>
     </resources>
     <classes>
         <class className="BRBaseMapViewController" superclassName="UIViewController">
@@ -472,6 +556,7 @@
                 <relationship kind="outlet" name="recordingIndicatorContainer" candidateClass="UIView"/>
                 <relationship kind="outlet" name="startButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="stopButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="tripNameField" candidateClass="UITextField"/>
             </relationships>
         </class>
     </classes>

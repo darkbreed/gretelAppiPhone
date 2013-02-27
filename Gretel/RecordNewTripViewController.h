@@ -17,9 +17,9 @@
  * Defines the states that a trip can exist in to help determine how the view should behave.
  */
 typedef enum {
+    kTripStateNew,
     kTripStateRecording,
-    kTripStatePaused,
-    kTripStateNew
+    kTripStatePaused
 } kTripState;
 
 /**
@@ -33,6 +33,7 @@ typedef enum {
 @interface RecordNewTripViewController : BRBaseMapViewController <MKMapViewDelegate, UIAlertViewDelegate> {
     int currentPointId;
     NSMutableArray *recordedPoints;
+    NSManagedObjectContext *context;
 }
 
 /** @section General UI Properties */
@@ -46,11 +47,11 @@ typedef enum {
 @property (nonatomic, strong) IBOutlet UIView *hudView;
 ///Container for map and HUD view, needed for transition effects
 @property (nonatomic, strong) IBOutlet UIView *mapHudContainer;
-
+///Notification view
 @property (nonatomic, strong) GCDiscreetNotificationView *notificationView;
-
+///handles recording states
 @property (nonatomic, readwrite) BOOL isRecording;
-
+///Indicates to the user whether they are recording
 @property (nonatomic, strong) IBOutlet UIView *recordingIndicatorContainer;
 @property (nonatomic, strong) UIImageView *recordingLight;
 
@@ -62,6 +63,8 @@ typedef enum {
 ///Used to display the curernt speed
 @property (nonatomic, strong) IBOutlet UILabel *currentSpeedLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *compassNeedle;
+///Allows the user to set the trip name.
+@property (nonatomic, strong) IBOutlet UITextField *tripNameField;
 
 /** @section Non UI Properties */
 ///Current trip state

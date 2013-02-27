@@ -21,105 +21,92 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    self.notificationView = [[GCDiscreetNotificationView alloc] initWithText:@"YAYAYAYYAYYA"
+    self.notificationView = [[GCDiscreetNotificationView alloc] initWithText:@""
                                                            showActivity:NO
                                                      inPresentationMode:GCDiscreetNotificationViewPresentationModeTop
                                                                  inView:self.mapView];
     
-    [self.notificationView hideAnimatedAfter:1.0];
-    
-    [self setTripState:kTripStateNew];
+    [self setUpViewForNewTrip];
     
     [self.mapView setUserTrackingMode:MKUserTrackingModeFollow];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLocation) name:GTLocationUpdatedSuccessfully object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCompassWithHeading) name:GTLocationHeadingDidUpdate object:nil];
-    
-    recordedPoints = [[NSMutableArray alloc] init];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pauseRecording) name:GTLocationDidPauseUpdates object:nil];
     
     [self setInitialLocate:YES];
-
-    [self.recordingIndicatorContainer setHidden:YES];
     
-    self.isRecording = NO;
-
 }
 
 - (void)viewWillAppear:(BOOL)animated {
    
     [super viewWillAppear:animated];
-    
-    //Check if we are recording a trip
-    BOOL recording = [[GeoManager sharedManager] recording];
-    
+        
     //If we are, set up the button accordingly
-    if(recording){
-        [self setCurrentTripState:kTripStateRecording];
+    if(self.isRecording){
+        [self setViewStateForTripState:kTripStateRecording];
     }
     
     [self setTitle:self.tripName];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}   
 
-- (void)setCurrentTripState:(kTripState)tripState {
-        
-    switch (tripState) {
-        case kTripStateNew:
-            
-            self.tripState = tripState;
-            
-            break;
-        
-        case kTripStateRecording:
-            
-            self.tripState = tripState;
-            
-            break;
-            
-        case kTripStatePaused:
-            
-            self.tripState = tripState;
-            
-            break;
-    }
+-(void)setUpViewForNewTrip {
+    
+    self.currentTrip = nil;
+    self.isRecording = NO;
+    recordedPoints = [[NSMutableArray alloc] init];
+    
+    [self setViewStateForTripState:kTripStateNew];
 }
 
+- (void)setCurrentTripState:(kTripState)tripState {
+    self.tripState = tripState;
+}
 
-#pragma Button Handlers
--(IBAction)startTrackingButtonHandler:(id)sender {
+-(void)beginRecording {
     
-    switch (self.tripState) {
-        case kTripStateNew:
+    if(!context){
+        
+        //Create a new trip object and save it
+        context = [NSManagedObjectContext MR_contextForCurrentThread];
+        Trip *trip = [Trip MR_createInContext:context];
+        [trip setDate:[NSDate date]];
+        [trip setTripName:self.tripName];
+        
+        [context MR_save];
+        
+        //Set the current trip so we can save points to it
+        self.currentTrip = trip;
+    }
+    
+    [self setViewStateForTripState:kTripStateRecording];
+    [self setIsRecording:YES];
+}
+
+-(void)stopRecording {
+    [self setIsRecording:NO];
+}
+
+-(void)pauseRecording {
+    [self setIsRecording:NO];
+    [self setViewStateForTripState:kTripStatePaused];
+}
+
+-(void)setViewStateForTripState:(kTripState)tripState {
+    
+    switch (tripState) {
             
-            //Start a new trip
-            [self startNewTrip];
+        case kTripStateNew: {
+            
+            [self.recordingIndicatorContainer setHidden:YES];
+            [self.notificationView hide:YES];
             
             break;
             
-        case kTripStatePaused:
-            //We are paused, the user is resuming tracking
-            self.isRecording = YES;
+        }
             
-            //Start tracking the users location
-            [[GeoManager sharedManager] startTrackingPosition];
-            
-            //change the recording button to pause
-            [self setCurrentTripState:kTripStateRecording];
-            
-            [self.notificationView setTextLabel:@"Recording resumed"];
-            [self.notificationView showAndDismissAutomaticallyAnimated];
-            [self.recordingIndicatorContainer setHidden:NO];
-            
-            [self.startButton setBackgroundImage:[UIImage imageNamed:@"pauseButton.png"] forState:UIControlStateNormal];
-            
-            
-            break;
-            
-        case kTripStateRecording:
+        case kTripStatePaused: {
             //we are recording, the user has paused the tracking
             self.isRecording = NO;
             
@@ -137,38 +124,53 @@
             
             [self.startButton setBackgroundImage:[UIImage imageNamed:@"recordButton.png"] forState:UIControlStateNormal];
             
+            
             break;
+        }
+            
+        case kTripStateRecording: {
+            //We are paused, the user is resuming tracking
+            self.isRecording = YES;
+            
+            //Start tracking the users location
+            [[GeoManager sharedManager] startTrackingPosition];
+            
+            //change the recording button to pause
+            [self setCurrentTripState:kTripStateRecording];
+            
+            [self.notificationView setTextLabel:@"Recording"];
+            [self.notificationView showAndDismissAutomaticallyAnimated];
+            [self.recordingIndicatorContainer setHidden:NO];
+            
+            [self.startButton setBackgroundImage:[UIImage imageNamed:@"pauseButton.png"] forState:UIControlStateNormal];
+            
+            break;
+        }
     }
     
 }
 
--(void)startNewTrip {
+
+#pragma Button Handlers
+-(IBAction)startTrackingButtonHandler:(id)sender {
     
-    self.isRecording = YES;
+    switch (self.tripState) {
+        case kTripStateNew:
+            [self beginRecording];
+            break;
+        
+        case kTripStateRecording:
+            [self pauseRecording];
+            break;
+            
+        case kTripStatePaused:
+            [self beginRecording];
+            break;
+            
+        default:
+            break;
+    }
     
-    //Create a new trip object and save it
-    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    Trip *trip = [Trip MR_createInContext:context];
-    [trip setDate:[NSDate date]];
-    [trip setTripName:self.tripName];
-    
-    [context MR_save];
-    
-    //Set the current trip so we can save points to it
-    self.currentTrip = trip;
-    
-    //Start tracking the users location
-    [[GeoManager sharedManager] startTrackingPosition];
-    
-    //change the recording button to pause
-    [self setCurrentTripState:kTripStateRecording];
-    
-    //Notify the user
-    [self.notificationView setTextLabel:@"Recording started"];
-    [self.notificationView showAndDismissAfter:1.0];
-    
-    [self.startButton setBackgroundImage:[UIImage imageNamed:@"pauseButton.png"] forState:UIControlStateNormal];
-    [self.recordingIndicatorContainer setHidden:NO];
 }
 
 -(IBAction)stopTrackingButtonHandler:(id)sender {
@@ -179,6 +181,22 @@
     
 }
 
+-(IBAction)addButtonHandler:(id)sender {
+    
+    [self hideMapViewAndOptions:YES];
+    
+}
+
+-(IBAction)saveButtonHandler:(id)sender {
+    
+    
+}
+
+-(IBAction)displayMap:(id)sender {
+    [self hideMapViewAndOptions:NO];
+}
+
+
 #pragma mark UIAlertView message
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
@@ -188,24 +206,14 @@
             break;
             
         case 1:
-            
-            //Stop the location manager
-            [[GeoManager sharedManager] stopTrackingPosition];
-            [self setCurrentTripState:kTripStateNew];
-            [self.startButton setBackgroundImage:[UIImage imageNamed:@"recordButton.png"] forState:UIControlStateNormal];
-            [self.recordingIndicatorContainer setHidden:YES];
-            [self resetMapView];
-            self.isRecording = NO;
+        
+            [self setTripState:kTripStateNew];
+            [self setUpViewForNewTrip];
             
         default:
             break;
     }
     
-}
--(IBAction)addButtonHandler:(id)sender {
-    
-    [self hideMapViewAndOptions:YES];
-
 }
 
 -(void)updateLocation {
@@ -231,17 +239,6 @@
 
 }
 
-
--(IBAction)displayMap:(id)sender {
-    [self hideMapViewAndOptions:NO];
-}
-
--(void)resetMapView {
-    
-    [self.mapView removeAnnotations:self.mapView.annotations];
-    [self.mapView removeOverlays:self.mapView.overlays];
-    
-}
 
 #pragma CoreData methods
 -(void)storeLocationPoint:(CLLocation *)location {
@@ -279,6 +276,11 @@
     
     [self.compassNeedle.layer addAnimation:theAnimation forKey:@"animateMyRotation"];
     self.compassNeedle.transform = CGAffineTransformMakeRotation([[GeoManager sharedManager] toHeadingAsRad]);
+}
+
+#pragma memory handling
+- (void)didReceiveMemoryWarning{
+    [super didReceiveMemoryWarning];
 }
 
 @end

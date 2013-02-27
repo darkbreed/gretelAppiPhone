@@ -25,9 +25,9 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
     
-    //[self.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigationBarBackground.png"] forBarMetrics:UIBarMetricsDefault];
+    [super viewWillAppear:animated];
+
 }
 
 - (void)viewDidLoad

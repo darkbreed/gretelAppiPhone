@@ -26,6 +26,15 @@
     
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navigationBarBackground.png"] forBarMetrics:UIBarMetricsDefault];
     
+    NSMutableDictionary *appearance = [NSMutableDictionary dictionary];
+    [appearance setValue:[UIColor grayColor] forKey:UITextAttributeTextColor];
+    [appearance setValue:[UIColor clearColor] forKey:UITextAttributeTextShadowColor];
+    
+    [[UINavigationBar appearance] setTitleTextAttributes:appearance];
+    
+    [[UINavigationBar appearance] setTintColor:[UIColor lightGrayColor]];
+    
+    
     return YES;
 }
 							

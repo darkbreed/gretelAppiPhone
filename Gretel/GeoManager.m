@@ -11,6 +11,7 @@
 NSString *const GTLocationUpdatedSuccessfully = @"locationUpdatedSuccessfully";
 NSString *const GTLocationLocationUpdatesDidFail = @"locationUpdatesFailed";
 NSString *const GTLocationHeadingDidUpdate = @"headingDidUpdate";
+NSString *const GTLocationDidPauseUpdates = @"updatesPaused";
 
 @implementation GeoManager
 
@@ -52,12 +53,13 @@ NSString *const GTLocationHeadingDidUpdate = @"headingDidUpdate";
     [locationManager setDistanceFilter:25.0];
     [locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
     [locationManager setDelegate:self];
-    [locationManager setPausesLocationUpdatesAutomatically:NO];
+    [locationManager setPausesLocationUpdatesAutomatically:YES];
     [locationManager setHeadingFilter:1];
+    [locationManager setActivityType:CLActivityTypeOtherNavigation];
     
     //Locate the user
-    //[locationManager startUpdatingLocation];
-    //[locationManager startUpdatingHeading];
+    [locationManager startUpdatingLocation];
+    [locationManager startUpdatingHeading];
     
 }
 
@@ -87,7 +89,11 @@ NSString *const GTLocationHeadingDidUpdate = @"headingDidUpdate";
 }
 
 -(void)locationManagerDidPauseLocationUpdates:(CLLocationManager *)manager {
-
+    
+    [self stopTrackingPosition];
+    //Post a notfication to update observers that updates have failed
+    [[NSNotificationCenter defaultCenter] postNotificationName:GTLocationDidPauseUpdates object:nil];
+    
 }
 
 -(void)locationManagerDidResumeLocationUpdates:(CLLocationManager *)manager {
@@ -105,12 +111,12 @@ NSString *const GTLocationHeadingDidUpdate = @"headingDidUpdate";
     
     //Begin tracking the users location and sending notifications on change
     [locationManager startUpdatingLocation];
-    [locationManager startUpdatingHeading];
     
 }
 
 -(void)stopTrackingPosition {
     [locationManager stopUpdatingLocation];
+    
 }
 
 -(void)notifyObserversOfLocationUpdate {

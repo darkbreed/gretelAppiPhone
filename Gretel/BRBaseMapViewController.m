@@ -26,8 +26,11 @@
 -(void)viewDidAppear:(BOOL)animated {
     
     [super viewDidAppear:animated];
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
     [self configureFrames];
-    
 }
 
 - (void)viewDidLoad
