@@ -9,14 +9,20 @@
 #import <Foundation/Foundation.h>
 
 typedef enum {
-    GTSettingsUnitTypeMPH,
-    GTSettingsUnitTypeKPH
-}GTSettingsUnitType;
+    GTAppSettingsUnitTypeMPH,
+    GTAppSettingsUnitTypeKPH
+}GTAppSettingsUnitType;
 
+extern NSString * const GTAppSettingsCurrentUnitType;
 
 @interface SettingsManager : NSObject
 
+@property (nonatomic, readwrite) GTAppSettingsUnitType unitType;
+@property (nonatomic, strong) NSString *unitLabel;
 
 +(SettingsManager*)sharedManager;
+-(void)setApplicationUnitType:(GTAppSettingsUnitType)unitType;
+-(GTAppSettingsUnitType)getApplicationUnitType;
+
 
 @end

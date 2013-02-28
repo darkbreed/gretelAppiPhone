@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import "GPSPoint.h"
+#import "SettingsManager.h"
 
 ///Notification name for classes to subscribe to. Fires when the app detects a change in the users location
 extern NSString *const GTLocationUpdatedSuccessfully;
@@ -60,8 +61,8 @@ extern NSNumber *const GTDistanceFilterInMetres;
 
 /**
  * Returns the current speed the device is travelling in metres per second
- * @return CLLocation speed in metres per second
+ * @return float speed in metres per second
  */
--(CLLocationSpeed)currentSpeed;
+-(float)currentSpeed;
 
 @end

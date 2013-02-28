@@ -26,8 +26,6 @@
                                                      inPresentationMode:GCDiscreetNotificationViewPresentationModeTop
                                                                  inView:self.mapView];
     
-    [self configureSettingsViewController];
-    
     [self setUpViewForNewTrip];
     
     [self.mapView setUserTrackingMode:MKUserTrackingModeFollow];
@@ -38,16 +36,7 @@
     
     [self setInitialLocate:YES];
     
-    
-}
-
--(void)configureSettingsViewController {
-    
-    
-}
-
--(IBAction)settingsButtonHandler:(id)sender {
-    
+    [self.currentSpeedLabel setText:[NSString stringWithFormat:@"0.0 %@",[[SettingsManager sharedManager] unitLabel]]];
     
 }
 
@@ -61,6 +50,7 @@
     }
     
     [self setTitle:self.tripName];
+    
 }
 
 
@@ -69,6 +59,8 @@
     self.currentTrip = nil;
     self.isRecording = NO;
     recordedPoints = [[NSMutableArray alloc] init];
+    
+    [self.mapView removeOverlays:self.mapView.overlays];
     
     [self setViewStateForTripState:kTripStateNew];
 }
@@ -79,22 +71,19 @@
 
 -(void)beginRecording {
     
-    if(!context){
+    if(!self.currentTrip){
         
-        //Create a new trip object and save it
-        context = [NSManagedObjectContext MR_contextForCurrentThread];
-        Trip *trip = [Trip MR_createInContext:context];
-        [trip setDate:[NSDate date]];
-        [trip setTripName:self.tripName];
+        UIAlertView *newTripAlertView = [[UIAlertView alloc] initWithTitle:@"Name your trip" message:@"Give your trip a name, this can be changed later" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Start recording", nil];
+        [newTripAlertView setAlertViewStyle:UIAlertViewStylePlainTextInput];
+        [[newTripAlertView textFieldAtIndex:0] setPlaceholder:@"Trip name..."];
+        [newTripAlertView setTag:GTAlertViewTagBeginRecordingAlert];
         
-        [context MR_save];
-        
-        //Set the current trip so we can save points to it
-        self.currentTrip = trip;
+        [newTripAlertView show];
     }
-    
+}
+
+-(void)resumeRecording {
     [self setViewStateForTripState:kTripStateRecording];
-    [self setIsRecording:YES];
 }
 
 -(void)stopRecording {
@@ -114,6 +103,8 @@
             
             [self.recordingIndicatorContainer setHidden:YES];
             [self.notificationView hide:YES];
+            [self.stopButton setEnabled:NO];
+            [self.startButton setBackgroundImage:[UIImage imageNamed:@"recordButton.png"] forState:UIControlStateNormal];
             
             break;
             
@@ -137,6 +128,9 @@
             
             [self.startButton setBackgroundImage:[UIImage imageNamed:@"recordButton.png"] forState:UIControlStateNormal];
             
+            [self.stopButton setEnabled:YES];
+            
+            [[UIApplication sharedApplication] setApplicationIconBadgeNumber:nil];
             
             break;
         }
@@ -156,6 +150,10 @@
             [self.recordingIndicatorContainer setHidden:NO];
             
             [self.startButton setBackgroundImage:[UIImage imageNamed:@"pauseButton.png"] forState:UIControlStateNormal];
+            
+            [self.stopButton setEnabled:YES];
+            
+            [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
             
             break;
         }
@@ -177,7 +175,7 @@
             break;
             
         case kTripStatePaused:
-            [self beginRecording];
+            [self resumeRecording];
             break;
             
         default:
@@ -189,6 +187,7 @@
 -(IBAction)stopTrackingButtonHandler:(id)sender {
     
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Stop recording?" message:@"Stopping the recording will end the trip, stop now?" delegate:self cancelButtonTitle:@"Keep recording" otherButtonTitles:@"Stop and save", nil];
+    [alertView setTag:GTAlertViewTagStopRecordingAlert];
     
     [alertView show];
     
@@ -202,7 +201,6 @@
 
 -(IBAction)saveButtonHandler:(id)sender {
     
-    
 }
 
 -(IBAction)displayMap:(id)sender {
@@ -213,20 +211,49 @@
 #pragma mark UIAlertView message
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
-    switch (buttonIndex) {
-        case 0:
-            //Do nothing and keep recording
-            break;
-            
-        case 1:
+    if(alertView.tag == GTAlertViewTagStopRecordingAlert){
+       
+        if(buttonIndex == 1){
+            [self saveAndFinishTrip];
+        }
         
-            [self setTripState:kTripStateNew];
-            [self setUpViewForNewTrip];
+    }else if(alertView.tag == GTAlertViewTagBeginRecordingAlert){
+        
+        if(buttonIndex == 1){
+            self.tripName = [[alertView textFieldAtIndex:0] text];
             
-        default:
-            break;
+            [self setViewStateForTripState:kTripStateRecording];
+            [self setIsRecording:YES];
+            
+            [self createNewTrip];
+        }
     }
+}
+
+-(void)createNewTrip {
+    [self setTitle:self.tripName];
     
+    //Create a new trip object and save it
+    context = [NSManagedObjectContext MR_contextForCurrentThread];
+    self.currentTrip = [Trip MR_createInContext:context];
+    [self.currentTrip setStartDate:[NSDate date]];
+    [self.currentTrip setTripName:self.tripName];
+    [self.currentTrip setRecording:[NSNumber numberWithBool:YES]];
+        
+    [context MR_save];
+}
+
+-(void)saveAndFinishTrip {
+    
+    [self.currentTrip setFinishDate:[NSDate date]];
+    [self.currentTrip setRecording:[NSNumber numberWithBool:NO]];
+    [context MR_save];
+    
+    self.currentTrip = nil;
+    
+    [self setTripState:kTripStateNew];
+    [self setUpViewForNewTrip];
+
 }
 
 -(void)updateLocation {
@@ -235,20 +262,23 @@
     
         //Store the data point
         [self storeLocationPoint:[GeoManager sharedManager].currentLocation];
-        
-        //Check to see if the view is off screen as otherwise the frame is reset
-        if(self.mapView.frame.origin.y != mapOffFrame.origin.y){
-        
-            //Update the views
-            self.latLabel.text = [NSString stringWithFormat:@"%f",self.mapView.userLocation.coordinate.latitude];
-            self.lonLabel.text = [NSString stringWithFormat:@"%f",self.mapView.userLocation.coordinate.longitude];
-            self.currentSpeedLabel.text = [NSString stringWithFormat:@"%f",[[GeoManager sharedManager] currentSpeed]];
-            
-            [self drawRoute:recordedPoints onMapView:self.mapView];
-            
-        }
+        [self drawRoute:recordedPoints onMapView:self.mapView];
         
     }
+    
+    //Update the views
+    self.latLabel.text = [NSString stringWithFormat:@"%.3f",self.mapView.userLocation.coordinate.latitude];
+    self.lonLabel.text = [NSString stringWithFormat:@"%.3f",self.mapView.userLocation.coordinate.longitude];
+    
+    float currentSpeed = 0.0f;
+    
+    if([[SettingsManager sharedManager] getApplicationUnitType] == GTAppSettingsUnitTypeKPH){
+        currentSpeed = [[GeoManager sharedManager] currentSpeed] * 2.23693629;
+    }else {
+        currentSpeed = [[GeoManager sharedManager] currentSpeed] * 3.6;
+    }
+    
+    self.currentSpeedLabel.text = [NSString stringWithFormat:@"%.2f %@",currentSpeed,[[SettingsManager sharedManager] unitLabel]];
 
 }
 
@@ -290,6 +320,7 @@
     [self.compassNeedle.layer addAnimation:theAnimation forKey:@"animateMyRotation"];
     self.compassNeedle.transform = CGAffineTransformMakeRotation([[GeoManager sharedManager] toHeadingAsRad]);
 }
+
 
 #pragma memory handling
 - (void)didReceiveMemoryWarning{

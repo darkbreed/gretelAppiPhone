@@ -2,8 +2,8 @@
 //  Trip.h
 //  Gretel
 //
-//  Created by Ben Reed on 14/12/2012.
-//  Copyright (c) 2012 Ben Reed. All rights reserved.
+//  Created by Ben Reed on 27/02/2013.
+//  Copyright (c) 2013 Ben Reed. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -14,8 +14,10 @@
 
 @interface Trip : ExtendedManagedObject
 
+@property (nonatomic, retain) NSDate * startDate;
 @property (nonatomic, retain) NSString * tripName;
-@property (nonatomic, retain) NSDate * date;
+@property (nonatomic, retain) NSNumber * recording;
+@property (nonatomic, retain) NSDate * finishDate;
 @property (nonatomic, retain) NSSet *points;
 @end
 

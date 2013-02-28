@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SettingsManager.h"
 
-@interface SettingsViewController : UIViewController
+@interface SettingsViewController : UIViewController {
+    SettingsManager *settingsManager;
+}
 
-@property (nonatomic, strong) IBOutlet UISegmentedControl *speedDisplayOptions;
+@property (nonatomic, strong) IBOutlet UISegmentedControl *unitOptions;
 @property (nonatomic, strong) IBOutlet UISegmentedControl *accuracySettings;
 
 @end

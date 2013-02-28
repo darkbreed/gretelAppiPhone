@@ -124,7 +124,7 @@ NSString *const GTLocationDidPauseUpdates = @"updatesPaused";
     [[NSNotificationCenter defaultCenter] postNotificationName:GTLocationUpdatedSuccessfully object:nil];
 }
 
--(CLLocationSpeed)currentSpeed {
+-(float)currentSpeed {
     return self.speed;
 }
 

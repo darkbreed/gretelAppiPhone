@@ -8,6 +8,8 @@
 
 #import "SettingsManager.h"
 
+NSString * const GTAppSettingsCurrentUnitType = @"currentUnitType";
+
 @implementation SettingsManager {
     NSUserDefaults *appDefaults;
 }
@@ -30,21 +32,30 @@
     self = [super init];
     
     if(self){
-        
-        
-        
+        if(![appDefaults valueForKey:GTAppSettingsCurrentUnitType]){
+            [appDefaults setInteger:GTAppSettingsUnitTypeMPH forKey:GTAppSettingsCurrentUnitType];
+            self.unitLabel = @"MPH";
+        }
     }
     
     return self;
 }
 
--(void)setDisplayUnits:(GTSettingsUnitType)unitType {
+-(void)setApplicationUnitType:(GTAppSettingsUnitType)unitType {
+
+    [appDefaults setInteger:unitType forKey:GTAppSettingsCurrentUnitType];
+    if(unitType == GTAppSettingsUnitTypeMPH){
+        self.unitLabel = @"MPH";
+    }else{
+        self.unitLabel = @"KPH";
+    }
     
 }
 
--(void)setAccuracy {
+-(GTAppSettingsUnitType)getApplicationUnitType {
+    
+    return [appDefaults integerForKey:GTAppSettingsCurrentUnitType];
     
 }
-
 
 @end

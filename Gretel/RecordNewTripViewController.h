@@ -14,6 +14,11 @@
 #import "BRBaseMapViewController.h"
 #import "SettingsViewController.h"
 
+typedef enum {
+    GTAlertViewTagBeginRecordingAlert,
+    GTAlertViewTagStopRecordingAlert
+} GTAlertViewType;
+
 /**
  * Defines the states that a trip can exist in to help determine how the view should behave.
  */

@@ -8,15 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "Trip.h"
+#import "TripHistoryTableViewCell.h"
 
-@interface HistoryViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>{
+@interface HistoryViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate>{
     
     ///An array to hold the trips that will be pulled from CoreData
     NSMutableArray *trips;
     
     ///The selected trip to load the details for.
     Trip *selectedTrip;
-    
+
 }
+
+@property (nonatomic, strong) IBOutlet UISearchBar *searchBar;
 
 @end

@@ -18,14 +18,14 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        settingsManager = [SettingsManager sharedManager];
     }
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
+    [self.unitOptions setSelectedSegmentIndex:[settingsManager getApplicationUnitType]];
 
 }
 
@@ -38,12 +38,11 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark UISegmentedControls handlers
--(IBAction)accuracySettingsChangeHandler:(id)sender {
-    
-}
 
--(IBAction)speedSettingsChangeHandler:(id)sender {
+
+-(IBAction)unitsControlDidChange:(UISegmentedControl *)control {
+
+    [settingsManager setApplicationUnitType:control.selectedSegmentIndex];
     
 }
 
