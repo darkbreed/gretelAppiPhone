@@ -75,9 +75,6 @@
         
     [cell.tripNameLabel setText:[NSString stringWithFormat:@"%@",trip.tripName]];
     [cell zoomMapViewToFitTrip:trip];
-    [cell drawRoute:[trip.points allObjects] onMapView:cell.mapView];
-    
-    [cell setAccessoryView:nil];
     [cell.mapView setUserInteractionEnabled:NO];
     [cell.mapView setScrollEnabled:NO];
     
