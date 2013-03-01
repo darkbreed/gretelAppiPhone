@@ -27,6 +27,8 @@
 ///UIView for option buttons
 @property (nonatomic, strong) IBOutlet UIView *optionButtonWrapper;
 
+@property (nonatomic, strong) IBOutlet UIView *mapViewWrapper;
+
 /**
  * Sets up the frames for animating the map and options views
  * @return void

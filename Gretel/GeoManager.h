@@ -65,4 +65,10 @@ extern NSNumber *const GTDistanceFilterInMetres;
  */
 -(float)currentSpeed;
 
+/**
+ * Wrapper for CLLocationManager method to check if location service are enabled.
+ * @return BOOL enabled
+ */
+-(BOOL)locationServicesEnabled;
+
 @end

@@ -178,10 +178,10 @@
 }
 
 -(void)configureFrames {
-    mapOnFrame = self.mapView.frame;
+    mapOnFrame = self.mapViewWrapper.frame;
     optionsOnFrame = self.optionButtonWrapper.frame;
     
-    mapOffFrame = CGRectMake(self.mapView.frame.origin.x, -self.mapView.frame.size.height - 50, self.mapView.frame.size.width, self.mapView.frame.size.height);
+    mapOffFrame = CGRectMake(self.mapViewWrapper.frame.origin.x, -self.mapViewWrapper.frame.size.height - 50, self.mapViewWrapper.frame.size.width, self.mapViewWrapper.frame.size.height);
     optionsOffFrame = CGRectMake(self.optionButtonWrapper.frame.origin.x,self.optionButtonWrapper.frame.origin.y + self.optionButtonWrapper.frame.size.height + 100, self.optionButtonWrapper.frame.size.width, self.optionButtonWrapper.frame.size.height);
 }
 
@@ -202,14 +202,14 @@
                               delay:delay
                             options:UIViewAnimationCurveEaseInOut
                          animations:^{
-                             [self.mapView setFrame:CGRectMake(self.mapView.frame.origin.x, self.formContainer.frame.origin.y + bounceOffset, self.mapView.frame.size.width, self.mapView.frame.size.height)];
+                             [self.mapViewWrapper setFrame:CGRectMake(self.mapViewWrapper.frame.origin.x, self.formContainer.frame.origin.y + bounceOffset, self.mapViewWrapper.frame.size.width, self.mapViewWrapper.frame.size.height)];
                          }
                          completion:^(BOOL finished) {
                              
                              if(finished){
                                  [UIView animateWithDuration:duration delay:delay options:UIViewAnimationCurveEaseInOut
                                                   animations:^{
-                                                      [self.mapView setFrame:mapOffFrame];
+                                                      [self.mapViewWrapper setFrame:mapOffFrame];
                                                   }
                                                   completion:nil];
                              }
@@ -242,7 +242,7 @@
                               delay:delay
                             options:UIViewAnimationCurveEaseInOut
                          animations:^{
-                             [self.mapView setFrame:CGRectMake(mapOnFrame.origin.x, mapOnFrame.origin.y + bounceOffset, mapOnFrame.size.width, mapOnFrame.size.height)];
+                             [self.mapViewWrapper setFrame:CGRectMake(mapOnFrame.origin.x, mapOnFrame.origin.y + bounceOffset, mapOnFrame.size.width, mapOnFrame.size.height)];
                          }
                          completion:^(BOOL finished){
                              
@@ -251,7 +251,7 @@
                                                        delay:bounceDelay
                                                      options:UIViewAnimationCurveEaseInOut
                                                   animations:^{
-                                                      [self.mapView setFrame:mapOnFrame];
+                                                      [self.mapViewWrapper setFrame:mapOnFrame];
                                                   }
                                                   completion:nil];
                                  

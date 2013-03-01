@@ -72,6 +72,8 @@ typedef enum {
 ///Allows the user to set the trip name.
 @property (nonatomic, strong) IBOutlet UITextField *tripNameField;
 
+@property (nonatomic, strong) IBOutlet UIButton *locateMeButton;
+
 /** @section Non UI Properties */
 ///Current trip state
 @property (nonatomic, readwrite) kTripState tripState;

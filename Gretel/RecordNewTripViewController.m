@@ -38,6 +38,13 @@
     
     [self.currentSpeedLabel setText:[NSString stringWithFormat:@"0.0 %@",[[SettingsManager sharedManager] unitLabel]]];
     
+    if([[GeoManager sharedManager] locationServicesEnabled]){
+        
+        NSLog(@"Location services enabled: %i",[[GeoManager sharedManager] locationServicesEnabled]);
+        
+        [self.locateMeButton setBackgroundImage:[UIImage imageNamed:@"locationSymbolEnabled.png"] forState:UIControlStateNormal];
+    }
+        
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -53,6 +60,15 @@
     
 }
 
+-(IBAction)locateMeButtonHandler:(id)sender {
+    
+    if([[GeoManager sharedManager] locationServicesEnabled]){
+        [[GeoManager sharedManager] startTrackingPosition];
+        [self.locateMeButton setBackgroundImage:[UIImage imageNamed:@"locationSymbolEnabled.png"] forState:UIControlStateNormal];
+    }else{
+        [self displayLocationServicesDisabledAlert];
+    }
+}
 
 -(void)setUpViewForNewTrip {
     
@@ -71,15 +87,26 @@
 
 -(void)beginRecording {
     
-    if(!self.currentTrip){
+    if([[GeoManager sharedManager] locationServicesEnabled]){
+        if(!self.currentTrip){
         
-        UIAlertView *newTripAlertView = [[UIAlertView alloc] initWithTitle:@"Name your trip" message:@"Give your trip a name, this can be changed later" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Start recording", nil];
-        [newTripAlertView setAlertViewStyle:UIAlertViewStylePlainTextInput];
-        [[newTripAlertView textFieldAtIndex:0] setPlaceholder:@"Trip name..."];
-        [newTripAlertView setTag:GTAlertViewTagBeginRecordingAlert];
-        
-        [newTripAlertView show];
+            UIAlertView *newTripAlertView = [[UIAlertView alloc] initWithTitle:@"Name your trip" message:@"Give your trip a name, this can be changed later" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Start recording", nil];
+            [newTripAlertView setAlertViewStyle:UIAlertViewStylePlainTextInput];
+            [[newTripAlertView textFieldAtIndex:0] setPlaceholder:@"Trip name..."];
+            [newTripAlertView setTag:GTAlertViewTagBeginRecordingAlert];
+            
+            [newTripAlertView show];
+        }
+    }else{
+        [self displayLocationServicesDisabledAlert];
     }
+}
+
+-(void)displayLocationServicesDisabledAlert {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Location services disabled" message:@"Gretel cannot track your location as your location services have been disabled. Please enable them in the Settings, then return to the app." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alertView show];
+    
+    [self.locateMeButton setBackgroundImage:[UIImage imageNamed:@"locationSymbolDisabled.png"] forState:UIControlStateNormal];
 }
 
 -(void)resumeRecording {

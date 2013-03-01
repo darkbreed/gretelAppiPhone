@@ -128,4 +128,13 @@ NSString *const GTLocationDidPauseUpdates = @"updatesPaused";
     return self.speed;
 }
 
+-(BOOL)locationServicesEnabled {
+    
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied || [CLLocationManager locationServicesEnabled] == NO) {
+        return NO;
+    }else{
+        return YES;
+    }
+}
+
 @end
