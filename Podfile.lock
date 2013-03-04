@@ -1,13 +1,11 @@
 
-COCOAPODS: 0.16.2
-
 SPEC CHECKSUMS: 
-  Dropbox-iOS-SDK: 3e041f67271ba591280b329cc376d8ad1a587c51
   BRBluetoothManager: 1310aa50564d50a8503803ae1d4cd2ed27d28bb9
-  ECSlidingViewController: 46cb6a6cc72e359a19d2f232728be08685450d90
   TestFlightSDK: f638b08651a37af099e40c47241fc58fd3cb1a66
+  ECSlidingViewController: 46cb6a6cc72e359a19d2f232728be08685450d90
   GCDiscreetNotificationView: 4824641e498556cba2c7a9aadd8101aa77e4d965
   MagicalRecord: daa15d6c83bd7d30e074c8923e53c64248ae6930
+  Dropbox-iOS-SDK: 3e041f67271ba591280b329cc376d8ad1a587c51
 
 DEPENDENCIES: 
 - BRBluetoothManager (= 0.0.1)
@@ -16,6 +14,8 @@ DEPENDENCIES:
 - GCDiscreetNotificationView (= 1.0.0)
 - MagicalRecord (= 2.0.8)
 - TestFlightSDK (= 1.2.3.beta1)
+
+COCOAPODS: 0.16.0
 
 PODS: 
 - BRBluetoothManager (0.0.1)

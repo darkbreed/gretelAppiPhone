@@ -45,6 +45,8 @@
         
         [self.locateMeButton setBackgroundImage:[UIImage imageNamed:@"locationSymbolEnabled.png"] forState:UIControlStateNormal];
     }
+    
+    tripManager = [TripManager sharedManager];
 
 }
 
@@ -53,11 +55,11 @@
     [super viewWillAppear:animated];
         
     //If we are, set up the button accordingly
-    if(self.isRecording){
+    if(tripManager.isRecording){
         [self setViewStateForTripState:kTripStateRecording];
     }
     
-    [self setTitle:self.tripName];
+    [self setTitle:tripManager.currentTrip.tripName];
     
 }
 
@@ -73,17 +75,12 @@
 
 -(void)setUpViewForNewTrip {
     
-    self.currentTrip = nil;
-    self.isRecording = NO;
+    tripManager.currentTrip = nil;
+    tripManager.isRecording = NO;
     recordedPoints = [[NSMutableArray alloc] init];
     
     [self.mapView removeOverlays:self.mapView.overlays];
-    
     [self setViewStateForTripState:kTripStateNew];
-}
-
-- (void)setCurrentTripState:(kTripState)tripState {
-    self.tripState = tripState;
 }
 
 -(void)beginRecording {

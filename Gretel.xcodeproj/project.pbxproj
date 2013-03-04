@@ -35,6 +35,7 @@
 		3A8C9774167B2F3E000E2259 /* ShareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C9773167B2F3D000E2259 /* ShareManager.m */; };
 		3A8C9776167B2F7A000E2259 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A8C9775167B2F7A000E2259 /* MessageUI.framework */; };
 		3AA12B911684551D0003FE03 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA12B901684551D0003FE03 /* GameKit.framework */; };
+		3AE64CA616E4B08000C830AF /* TripManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE64CA516E4B08000C830AF /* TripManager.m */; };
 		A6FBA14610DC4D3C8654D5C3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B116D4037E14E9D9793F966 /* libPods.a */; };
 		B507473916D9029900CEC1DE /* pauseButton.png in Resources */ = {isa = PBXBuildFile; fileRef = B507473716D9029900CEC1DE /* pauseButton.png */; };
 		B507473A16D9029900CEC1DE /* pauseButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B507473816D9029900CEC1DE /* pauseButton@2x.png */; };
@@ -152,6 +153,8 @@
 		3A8C9773167B2F3D000E2259 /* ShareManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareManager.m; sourceTree = "<group>"; };
 		3A8C9775167B2F7A000E2259 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		3AA12B901684551D0003FE03 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		3AE64CA416E4B08000C830AF /* TripManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripManager.h; sourceTree = "<group>"; };
+		3AE64CA516E4B08000C830AF /* TripManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripManager.m; sourceTree = "<group>"; };
 		B507473716D9029900CEC1DE /* pauseButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pauseButton.png; sourceTree = "<group>"; };
 		B507473816D9029900CEC1DE /* pauseButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pauseButton@2x.png"; sourceTree = "<group>"; };
 		B507473B16D9039600CEC1DE /* BaseNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavigationViewController.h; sourceTree = "<group>"; };
@@ -350,6 +353,8 @@
 				3A92499B16A00855000F62AD /* BRMap */,
 				B568976816DDFC2300A07DFC /* SettingsManager.h */,
 				B568976916DDFC2300A07DFC /* SettingsManager.m */,
+				3AE64CA416E4B08000C830AF /* TripManager.h */,
+				3AE64CA516E4B08000C830AF /* TripManager.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -632,6 +637,7 @@
 				B568976A16DDFC2300A07DFC /* SettingsManager.m in Sources */,
 				B5AE901116DF4A0D003A36C6 /* TripHistoryTableViewCell.m in Sources */,
 				B571D29A16E0E92D005F3EFB /* Trip.m in Sources */,
+				3AE64CA616E4B08000C830AF /* TripManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,20 +13,12 @@
 #import "Trip.h"
 #import "BRBaseMapViewController.h"
 #import "SettingsViewController.h"
+#import "TripManager.h"
 
 typedef enum {
     GTAlertViewTagBeginRecordingAlert,
     GTAlertViewTagStopRecordingAlert
 } GTAlertViewType;
-
-/**
- * Defines the states that a trip can exist in to help determine how the view should behave.
- */
-typedef enum {
-    kTripStateNew,
-    kTripStateRecording,
-    kTripStatePaused
-} kTripState;
 
 /**
  * Defines the button states for the main action/options button
@@ -41,6 +33,7 @@ typedef enum {
     NSMutableArray *recordedPoints;
     NSManagedObjectContext *context;
     BOOL resumingTrip;
+    TripManager *tripManager;
 }
 
 /** @section General UI Properties */
