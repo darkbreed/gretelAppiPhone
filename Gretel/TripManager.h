@@ -7,8 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 #import "Trip.h"
 #import "GPSPoint.h"
+#import "GeoManager.h"
 
 /**
  * Defines the states that a trip can exist in to help determine how the view should behave.
@@ -30,6 +32,14 @@ typedef enum {
 
 +(TripManager*)sharedManager;
 
+-(void)beginRecording;
+-(void)resumeRecording;
+-(void)stopRecording;
+-(void)pauseRecording;
 -(void)setCurrentTripState:(kTripState)tripState;
+-(void)saveTrip;
+-(void)createNewTrip;
+-(void)storeLocation;
+-(NSArray *)fectchPointsForDrawing;
 
 @end

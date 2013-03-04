@@ -77,26 +77,10 @@
     
     tripManager.currentTrip = nil;
     tripManager.isRecording = NO;
-    recordedPoints = [[NSMutableArray alloc] init];
+    //recordedPoints = [[NSMutableArray alloc] init];
     
     [self.mapView removeOverlays:self.mapView.overlays];
     [self setViewStateForTripState:kTripStateNew];
-}
-
--(void)beginRecording {
-    
-    if([[GeoManager sharedManager] locationServicesEnabled]){
-        if(!self.currentTrip){
-        
-            UIAlertView *newTripAlertView = [[UIAlertView alloc] initWithTitle:@"Name your trip" message:@"Give your trip a name, this can be changed later" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Start recording", nil];
-            [newTripAlertView setAlertViewStyle:UIAlertViewStylePlainTextInput];
-            [[newTripAlertView textFieldAtIndex:0] setPlaceholder:@"Trip name..."];
-            [newTripAlertView setTag:GTAlertViewTagBeginRecordingAlert];
-            [newTripAlertView show];
-        }
-    }else{
-        [self displayLocationServicesDisabledAlert];
-    }
 }
 
 -(void)displayLocationServicesDisabledAlert {
@@ -104,19 +88,6 @@
     [alertView show];
     
     [self.locateMeButton setBackgroundImage:[UIImage imageNamed:@"locationSymbolDisabled.png"] forState:UIControlStateNormal];
-}
-
--(void)resumeRecording {
-    [self setViewStateForTripState:kTripStateRecording];
-}
-
--(void)stopRecording {
-    [self setIsRecording:NO];
-}
-
--(void)pauseRecording {
-    [self setIsRecording:NO];
-    [self setViewStateForTripState:kTripStatePaused];
 }
 
 -(void)setViewStateForTripState:(kTripState)tripState {
@@ -142,7 +113,7 @@
             [[GeoManager sharedManager] stopTrackingPosition];
             
             //change the recording button to pause
-            [self setCurrentTripState:kTripStatePaused];
+            [tripManager setCurrentTripState:kTripStatePaused];
             
             //Notify the user
             [self.notificationView setTextLabel:@"Recording paused"];
@@ -167,7 +138,7 @@
             [[GeoManager sharedManager] startTrackingPosition];
             
             //change the recording button to pause
-            [self setCurrentTripState:kTripStateRecording];
+            [tripManager setCurrentTripState:kTripStateRecording];
             
             [self.notificationView setTextLabel:@"Recording"];
             [self.notificationView showAndDismissAutomaticallyAnimated];
@@ -189,17 +160,34 @@
 #pragma Button Handlers
 -(IBAction)startTrackingButtonHandler:(id)sender {
     
-    switch (self.tripState) {
+    switch (tripManager.tripState) {
         case kTripStateNew:
-            [self beginRecording];
+            
+            if([[GeoManager sharedManager] locationServicesEnabled]){
+                if(!tripManager.currentTrip){
+                    
+                    UIAlertView *newTripAlertView = [[UIAlertView alloc] initWithTitle:@"Name your trip" message:@"Give your trip a name, this can be changed later" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Start recording", nil];
+                    [newTripAlertView setAlertViewStyle:UIAlertViewStylePlainTextInput];
+                    [[newTripAlertView textFieldAtIndex:0] setPlaceholder:@"Trip name..."];
+                    [newTripAlertView setTag:GTAlertViewTagBeginRecordingAlert];
+                    [newTripAlertView show];
+                }
+            }else{
+                [self displayLocationServicesDisabledAlert];
+            }
+            
+            [tripManager beginRecording];
+            
             break;
         
         case kTripStateRecording:
-            [self pauseRecording];
+            [tripManager pauseRecording];
+            [self setViewStateForTripState:kTripStatePaused];
             break;
             
         case kTripStatePaused:
-            [self resumeRecording];
+            [self setViewStateForTripState:kTripStateRecording];
+            [tripManager resumeRecording];
             break;
             
         default:
@@ -218,19 +206,12 @@
 }
 
 -(IBAction)addButtonHandler:(id)sender {
-    
     [self hideMapViewAndOptions:YES];
-    
-}
-
--(IBAction)saveButtonHandler:(id)sender {
-    
 }
 
 -(IBAction)displayMap:(id)sender {
     [self hideMapViewAndOptions:NO];
 }
-
 
 #pragma mark UIAlertView message
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -247,7 +228,7 @@
             self.tripName = [[alertView textFieldAtIndex:0] text];
             
             [self setViewStateForTripState:kTripStateRecording];
-            [self setIsRecording:YES];
+            [tripManager setIsRecording:YES];
             
             [self createNewTrip];
         }
@@ -259,11 +240,9 @@
     self.currentTrip = trip;
     //Draw the route on the map
     [self drawRoute:[self.currentTrip.points allObjects] onMapView:self.mapView];
-    //resume
     
-    
-    recordedPoints = [[[self.currentTrip points] allObjects] mutableCopy];
-    [self setCurrentTripState:kTripStateRecording];
+    //recordedPoints = [[[self.currentTrip points] allObjects] mutableCopy];
+    [tripManager setCurrentTripState:kTripStateRecording];
     [self setViewStateForTripState:kTripStateRecording];
     
     resumingTrip = YES;
@@ -273,35 +252,32 @@
     [self setTitle:self.tripName];
     
     //Create a new trip object and save it
-    context = [NSManagedObjectContext MR_contextForCurrentThread];
-    self.currentTrip = [Trip MR_createInContext:context];
-    [self.currentTrip setStartDate:[NSDate date]];
-    [self.currentTrip setTripName:self.tripName];
-    [self.currentTrip setRecordingState:[Trip recordingStateStringForRecordingState:TripRecordingStateRecording]];
-        
-    [context MR_save];
+    [tripManager createNewTrip];
+    [tripManager.currentTrip setStartDate:[NSDate date]];
+    [tripManager.currentTrip setTripName:self.tripName];
+    [tripManager.currentTrip setRecordingState:[Trip recordingStateStringForRecordingState:TripRecordingStateRecording]];
+    [tripManager saveTrip];
 }
 
 -(void)saveAndFinishTrip {
     
-    [self.currentTrip setFinishDate:[NSDate date]];
-    [self.currentTrip setRecordingState:[Trip recordingStateStringForRecordingState:TripRecordingStateStopped]];
-    [context MR_save];
+    [tripManager.currentTrip setFinishDate:[NSDate date]];
+    [tripManager.currentTrip setRecordingState:[Trip recordingStateStringForRecordingState:TripRecordingStateStopped]];
+    [tripManager saveTrip];
     
-    self.currentTrip = nil;
-    
-    [self setTripState:kTripStateNew];
+    [tripManager setCurrentTrip:nil];
+    [tripManager setCurrentTripState:kTripStateNew];
     [self setUpViewForNewTrip];
 
 }
 
 -(void)updateLocation {
     
-    if(self.isRecording){
+    if(tripManager.isRecording){
     
         //Store the data point
-        [self storeLocationPoint:[GeoManager sharedManager].currentLocation];
-        [self drawRoute:recordedPoints onMapView:self.mapView];
+        [tripManager storeLocation];
+        [self drawRoute:[tripManager fectchPointsForDrawing] onMapView:self.mapView];
         
     }
     
@@ -319,32 +295,6 @@
     
     self.currentSpeedLabel.text = [NSString stringWithFormat:@"%.2f %@",currentSpeed,[[SettingsManager sharedManager] unitLabel]];
 
-}
-
-
-#pragma CoreData methods
--(void)storeLocationPoint:(CLLocation *)location {
-    
-    if(location.coordinate.latitude != 0.0){
-        //Create the GPS point
-        GPSPoint *point = [GPSPoint MR_createEntity];
-        point.altitude = [NSNumber numberWithDouble:location.altitude];
-        point.lat = [NSNumber numberWithDouble:location.coordinate.latitude];
-        point.lon = [NSNumber numberWithDouble:location.coordinate.longitude];
-        point.timestamp = [NSDate date];
-        point.pointID = [NSNumber numberWithInt:currentPointId++];
-        
-        //Add it to the current trip for storage
-        [self.currentTrip addPointsObject:point];
-        
-        //Add it to the recorded points array to draw the line on the map
-        [recordedPoints addObject:point];
-        
-        //Save
-        [[NSManagedObjectContext MR_defaultContext] MR_saveNestedContextsErrorHandler:^(NSError *error) {
-            NSLog(@"%@",error.description);
-        }];
-    }
 }
 
 -(void)updateCompassWithHeading {
