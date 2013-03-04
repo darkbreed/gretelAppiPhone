@@ -9,7 +9,7 @@
 #import "HistoryViewController.h"
 #import "GeoManager.h"
 #import "Trip.h"
-#import "CompletedTripViewController.h"
+#import "TripDetailViewController.h"
 
 @interface HistoryViewController ()
 
@@ -35,12 +35,14 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    tripTappedInProgress = NO;
 
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     
-    trips = [[Trip MR_findAll] mutableCopy];
+    trips = [[Trip findAllSortedBy:@"startDate" ascending:NO] mutableCopy];
     [self.tableView reloadData];
 
 }
@@ -78,11 +80,11 @@
     [cell.mapView setUserInteractionEnabled:NO];
     [cell.mapView setScrollEnabled:NO];
     
-    if([trip.recording isEqualToNumber:[NSNumber numberWithBool:YES]]){
-        [cell.recordingBanner setHidden:NO];
-    }else{
-        [cell.recordingBanner setHidden:YES];
-        [cell.tripDateLabel setText:[NSString stringWithFormat:@"%@",trip.startDate]];
+    if([trip.recordingState isEqualToString:[Trip recordingStateStringForRecordingState:TripRecordingStateRecording]]){
+        [cell.recordingBannerLabel setText:[NSString stringWithFormat:@"%@",@"In progress"]];
+    }else if([trip.recordingState isEqualToString:[Trip recordingStateStringForRecordingState:TripRecordingStateStopped]]){
+        [cell.recordingBannerImage setImage:[UIImage imageNamed:@"completeLabel.png"]];
+        [cell.recordingBannerLabel setText:[NSString stringWithFormat:@"%@",trip.startDate]];
     }
     
     return cell;
@@ -104,7 +106,7 @@
     
     Trip *trip = [trips objectAtIndex:indexPath.row];
     
-    if([trip.recording isEqualToNumber:[NSNumber numberWithBool:NO]]){
+    if([trip.recordingState isEqualToString:[Trip recordingStateStringForRecordingState:TripRecordingStateStopped]]){
         return YES;
     }else{
         return NO;
@@ -121,7 +123,7 @@
         
         Trip *tripToDelete = [trips objectAtIndex:indexPath.row];
         
-        [tripToDelete MR_deleteInContext:[NSManagedObjectContext MR_defaultContext]];
+        [tripToDelete deleteInContext:[NSManagedObjectContext MR_defaultContext]];
         [trips removeObjectAtIndex:indexPath.row];
         
         // Delete the row from the data source
@@ -148,23 +150,25 @@
 }
 */
 
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+-(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    
+    selectedTrip = [trips objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+    
+    if([selectedTrip.recordingState isEqualToString:[Trip recordingStateStringForRecordingState:TripRecordingStateRecording]]){
+        return NO;
+    }else{
+        return YES;
+    }
     
 }
 
+#pragma mark - Table view delegate
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if([segue.identifier isEqualToString:@"pushCompletedTripScreen"]){
     
-        selectedTrip = [trips objectAtIndex:[self.tableView indexPathForSelectedRow].row];
-        
-        if([selectedTrip.recording isEqualToNumber:[NSNumber numberWithBool:NO]]){
-            CompletedTripViewController *completedTripViewController = segue.destinationViewController;
-            completedTripViewController.trip = selectedTrip;
-        }
+        TripDetailViewController *completedTripViewController = segue.destinationViewController;
+        completedTripViewController.trip = selectedTrip;
         
     }
     

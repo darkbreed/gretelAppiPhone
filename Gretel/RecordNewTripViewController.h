@@ -40,6 +40,7 @@ typedef enum {
     int currentPointId;
     NSMutableArray *recordedPoints;
     NSManagedObjectContext *context;
+    BOOL resumingTrip;
 }
 
 /** @section General UI Properties */
@@ -87,5 +88,7 @@ typedef enum {
 -(IBAction)stopTrackingButtonHandler:(id)sender;
 -(IBAction)addButtonHandler:(id)sender;
 -(void)setCurrentTripState:(kTripState)tripState;
+
+-(void)resumeTripWithTrip:(Trip *)trip;
 
 @end

@@ -17,6 +17,8 @@
     
     ///The selected trip to load the details for.
     Trip *selectedTrip;
+    
+    BOOL tripTappedInProgress;
 
 }
 

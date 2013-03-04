@@ -10,7 +10,7 @@
     </entity>
     <entity name="Trip" representedClassName="Trip" syncable="YES">
         <attribute name="finishDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="recording" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="recordingState" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="tripName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="points" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GPSPoint" inverseName="trip" inverseEntity="GPSPoint" syncable="YES"/>

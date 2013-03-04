@@ -2,7 +2,7 @@
 //  Trip.m
 //  Gretel
 //
-//  Created by Ben Reed on 27/02/2013.
+//  Created by Ben Reed on 01/03/2013.
 //  Copyright (c) 2013 Ben Reed. All rights reserved.
 //
 
@@ -12,10 +12,23 @@
 
 @implementation Trip
 
+@dynamic finishDate;
+@dynamic recordingState;
 @dynamic startDate;
 @dynamic tripName;
-@dynamic recording;
-@dynamic finishDate;
 @dynamic points;
 
++(NSString *)recordingStateStringForRecordingState:(TripRecordingState)recordingState {
+    
+    switch (recordingState) {
+        case TripRecordingStateRecording:
+            return @"recording";
+        case TripRecordingStatePaused:
+            return @"paused";
+        case TripRecordingStateStopped:
+            return @"stopped";
+    }
+}
+
 @end
+

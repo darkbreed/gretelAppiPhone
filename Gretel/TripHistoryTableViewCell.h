@@ -17,6 +17,8 @@
 @property (nonatomic, strong) IBOutlet UILabel *tripNameLabel;
 @property (nonatomic, strong) IBOutlet UILabel *tripDateLabel;
 @property (nonatomic, strong) IBOutlet UIView *recordingBanner;
+@property (nonatomic, strong) IBOutlet UIImageView *recordingBannerImage;
+@property (nonatomic, strong) IBOutlet UILabel *recordingBannerLabel;
 
 - (void)zoomMapViewToFitTrip:(Trip *)trip;
 - (void)drawRoute:(NSArray *)route onMapView:(MKMapView *)mapView;

@@ -16,6 +16,7 @@
 
 @implementation RecordNewTripViewController
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -44,7 +45,7 @@
         
         [self.locateMeButton setBackgroundImage:[UIImage imageNamed:@"locationSymbolEnabled.png"] forState:UIControlStateNormal];
     }
-        
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -94,7 +95,6 @@
             [newTripAlertView setAlertViewStyle:UIAlertViewStylePlainTextInput];
             [[newTripAlertView textFieldAtIndex:0] setPlaceholder:@"Trip name..."];
             [newTripAlertView setTag:GTAlertViewTagBeginRecordingAlert];
-            
             [newTripAlertView show];
         }
     }else{
@@ -257,6 +257,21 @@
     }
 }
 
+-(void)resumeTripWithTrip:(Trip *)trip {
+    //Load the trip
+    self.currentTrip = trip;
+    //Draw the route on the map
+    [self drawRoute:[self.currentTrip.points allObjects] onMapView:self.mapView];
+    //resume
+    
+    
+    recordedPoints = [[[self.currentTrip points] allObjects] mutableCopy];
+    [self setCurrentTripState:kTripStateRecording];
+    [self setViewStateForTripState:kTripStateRecording];
+    
+    resumingTrip = YES;
+}
+
 -(void)createNewTrip {
     [self setTitle:self.tripName];
     
@@ -265,7 +280,7 @@
     self.currentTrip = [Trip MR_createInContext:context];
     [self.currentTrip setStartDate:[NSDate date]];
     [self.currentTrip setTripName:self.tripName];
-    [self.currentTrip setRecording:[NSNumber numberWithBool:YES]];
+    [self.currentTrip setRecordingState:[Trip recordingStateStringForRecordingState:TripRecordingStateRecording]];
         
     [context MR_save];
 }
@@ -273,7 +288,7 @@
 -(void)saveAndFinishTrip {
     
     [self.currentTrip setFinishDate:[NSDate date]];
-    [self.currentTrip setRecording:[NSNumber numberWithBool:NO]];
+    [self.currentTrip setRecordingState:[Trip recordingStateStringForRecordingState:TripRecordingStateStopped]];
     [context MR_save];
     
     self.currentTrip = nil;

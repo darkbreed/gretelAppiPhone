@@ -2,7 +2,7 @@
 //  Trip.h
 //  Gretel
 //
-//  Created by Ben Reed on 27/02/2013.
+//  Created by Ben Reed on 01/03/2013.
 //  Copyright (c) 2013 Ben Reed. All rights reserved.
 //
 
@@ -10,14 +10,20 @@
 #import <CoreData/CoreData.h>
 #import "ExtendedManagedObject.h"
 
+typedef enum {
+    TripRecordingStateRecording,
+    TripRecordingStatePaused,
+    TripRecordingStateStopped
+}TripRecordingState;
+
 @class GPSPoint;
 
 @interface Trip : ExtendedManagedObject
 
+@property (nonatomic, retain) NSDate * finishDate;
+@property (nonatomic, retain) NSString * recordingState;
 @property (nonatomic, retain) NSDate * startDate;
 @property (nonatomic, retain) NSString * tripName;
-@property (nonatomic, retain) NSNumber * recording;
-@property (nonatomic, retain) NSDate * finishDate;
 @property (nonatomic, retain) NSSet *points;
 @end
 
@@ -27,5 +33,6 @@
 - (void)removePointsObject:(GPSPoint *)value;
 - (void)addPoints:(NSSet *)values;
 - (void)removePoints:(NSSet *)values;
++(NSString *)recordingStateStringForRecordingState:(TripRecordingState)recordingState;
 
 @end

@@ -6,15 +6,15 @@
 //  Copyright (c) 2012 Ben Reed. All rights reserved.
 //
 
-#import "CompletedTripViewController.h"
+#import "TripDetailViewController.h"
 #import "GPXFactory.h"
 #import "ShareManager.h"
 
-@interface CompletedTripViewController ()
+@interface TripDetailViewController ()
 
 @end
 
-@implementation CompletedTripViewController
+@implementation TripDetailViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -85,13 +85,35 @@
     [self hideMapViewAndOptions:YES];
 }
 
+-(IBAction)resumeButtonHandler:(id)sender {
+    
+    //Check all routes to see if any are recording
+    NSArray *trips = [Trip findAll];
+        
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Resume trip" message:@"Would you like to resume this trip? If you have trips in progress these will be stopped and saved" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Resume", nil];
+    
+    [alertView show];
+    
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if(buttonIndex == 1){
+        NSLog(@"Cancel");
+        
+        RecordNewTripViewController *recordTripController =[self.navigationController.viewControllers objectAtIndex:0];
+        [recordTripController resumeTripWithTrip:self.trip];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        
+        
+    }
+}
+
 -(IBAction)cancelButtonHandler:(UIButton *)sender {
     [self hideMapViewAndOptions:NO];
 }
 
 -(IBAction)shareByBluetoothButtonHandler:(id)sender {
-    
-    
     
 }
 

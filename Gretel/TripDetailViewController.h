@@ -11,6 +11,7 @@
 #import "BRBaseMapViewController.h"
 #import "Trip.h"
 #import "ShareManager.h"
+#import "RecordNewTripViewController.h"
 
 typedef enum {
     CompletedTripOptionTypeDelete
@@ -26,7 +27,7 @@ typedef enum {
     AnimationDirectionTypeHide
 }AnimationDirectionType;
 
-@interface CompletedTripViewController : BRBaseMapViewController <ShareManagerDelegate> {
+@interface TripDetailViewController : BRBaseMapViewController <ShareManagerDelegate, UIAlertViewDelegate> {
     
     ///The trip points as an array to feed the map view
     NSArray *route;
