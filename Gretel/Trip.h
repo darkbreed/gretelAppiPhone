@@ -10,12 +10,6 @@
 #import <CoreData/CoreData.h>
 #import "ExtendedManagedObject.h"
 
-typedef enum {
-    TripRecordingStateRecording,
-    TripRecordingStatePaused,
-    TripRecordingStateStopped
-}TripRecordingState;
-
 @class GPSPoint;
 
 @interface Trip : ExtendedManagedObject
@@ -33,6 +27,5 @@ typedef enum {
 - (void)removePointsObject:(GPSPoint *)value;
 - (void)addPoints:(NSSet *)values;
 - (void)removePoints:(NSSet *)values;
-+(NSString *)recordingStateStringForRecordingState:(TripRecordingState)recordingState;
 
 @end

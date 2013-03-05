@@ -32,51 +32,87 @@
     
     if(self != nil){
         
-        context = [NSManagedObjectContext MR_contextForCurrentThread];
+        context = [NSManagedObjectContext contextForCurrentThread];
         currentPointId = 0;
+        
+        self.allTrips = [[Trip findAllSortedBy:@"startDate" ascending:NO] mutableCopy];
         
     }
     
     return self;
 }
 
--(void)createNewTrip {
+-(Trip *)tripWithIndex:(int)tripIndex {
     
-    self.currentTrip = [Trip MR_createInContext:context];
+    return [self.allTrips objectAtIndex:tripIndex];
+    
+}
+
+-(void)deleteTripAtIndex:(int)tripIndex {
+    
+    [[self.allTrips objectAtIndex:tripIndex] deleteInContext:[NSManagedObjectContext defaultContext]];
+    [self.allTrips removeObjectAtIndex:tripIndex];
+    //Save
+    [[NSManagedObjectContext defaultContext] saveNestedContextsErrorHandler:^(NSError *error) {
+        NSLog(@"%@",error.description);
+    }];
+    
+}
+
+-(void)createNewTripWithName:(NSString *)name {
+    
+    self.currentTrip = [Trip createInContext:context];
     currentPointId = 0;
-    
-}
-
--(void)setCurrentTripState:(kTripState)tripState {
-    self.tripState = tripState;
-}
-
--(void)resumeRecording {
+        
+    //Create a new trip object and save it
+    [self.currentTrip setStartDate:[NSDate date]];
+    [self.currentTrip setTripName:name];
+    [self saveTrip];
     
 }
 
 -(void)stopRecording {
-    [self setIsRecording:NO];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:nil];
+    [self saveTrip];
 }
 
 -(void)pauseRecording {
-    [self setIsRecording:NO];
-    [self setCurrentTripState:kTripStatePaused];
+    
+    [self.currentTrip setRecordingState:[self recordingStateForState:GTTripStatePaused]];
+    [self saveTrip];
+    
+    [self setTripState:GTTripStatePaused];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:nil];
+    
 }
 
 -(void)beginRecording {
-    [self setIsRecording:YES];
-    [self setCurrentTripState:kTripStateRecording];
+    
+    [self.currentTrip setRecordingState:[self recordingStateForState:GTTripStateRecording]];
+    [self saveTrip];
+    [self setTripState:GTTripStateRecording];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
 }
 
 -(void)saveTrip {
     
     NSError *error;
-    [context save:&error];
     
-    if(error){
-        NSLog(@"Error: %@",error.description);
-    }
+    //Save
+    [[NSManagedObjectContext defaultContext] saveNestedContextsErrorHandler:^(NSError *error) {
+        NSLog(@"%@",error.description);
+    }];
+}
+
+-(void)saveTripAndStop {
+    
+    [self.currentTrip setFinishDate:[NSDate date]];
+    [self saveTrip];
+    
+    [self setCurrentTrip:nil];
+    [self setTripState:GTTripStateNew];
+    
+    [self saveTrip];
     
 }
 
@@ -106,10 +142,23 @@
         [self.currentTrip addPointsObject:point];
         
         //Save
-        [[NSManagedObjectContext MR_defaultContext] MR_saveNestedContextsErrorHandler:^(NSError *error) {
+        [[NSManagedObjectContext defaultContext] saveNestedContextsErrorHandler:^(NSError *error) {
             NSLog(@"%@",error.description);
         }];
     }
+}
+
+-(NSString *)recordingStateForState:(GTTripState)state {
+    
+    switch (state) {
+        case GTTripStatePaused:
+            return @"paused";
+        case GTTripStateRecording:
+            return @"recording";
+        case GTTripStateNew:
+            return @"stopped";
+    }
+    
 }
 
 @end

@@ -11,7 +11,7 @@
 #import "BRBaseMapViewController.h"
 #import "Trip.h"
 #import "ShareManager.h"
-#import "RecordNewTripViewController.h"
+#import "TripManager.h"
 
 typedef enum {
     CompletedTripOptionTypeDelete
@@ -33,6 +33,7 @@ typedef enum {
     NSArray *route;
 
     ShareManager *shareManager;
+    TripManager *tripManager;
     
 }
 

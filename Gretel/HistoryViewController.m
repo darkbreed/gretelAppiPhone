@@ -15,7 +15,9 @@
 
 @end
 
-@implementation HistoryViewController
+@implementation HistoryViewController {
+    TripManager *tripManager;
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -36,13 +38,12 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    tripTappedInProgress = NO;
-
+    tripManager = [TripManager sharedManager];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     
-    trips = [[Trip findAllSortedBy:@"startDate" ascending:NO] mutableCopy];
     [self.tableView reloadData];
 
 }
@@ -63,8 +64,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    
+    NSLog(@"Trips: %@",tripManager.allTrips);
+    
     // Return the number of rows in the section.
-    return [trips count];
+    return [tripManager.allTrips count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -73,19 +77,14 @@
     static NSString *CellIdentifier = @"Cell";
     TripHistoryTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    Trip *trip = [trips objectAtIndex:indexPath.row];
-        
+    Trip *trip = [tripManager tripWithIndex:indexPath.row];
+    
+    NSLog(@"Trip state: %@",trip.recordingState);
+    
     [cell.tripNameLabel setText:[NSString stringWithFormat:@"%@",trip.tripName]];
     [cell zoomMapViewToFitTrip:trip];
     [cell.mapView setUserInteractionEnabled:NO];
     [cell.mapView setScrollEnabled:NO];
-    
-    if([trip.recordingState isEqualToString:[Trip recordingStateStringForRecordingState:TripRecordingStateRecording]]){
-        [cell.recordingBannerLabel setText:[NSString stringWithFormat:@"%@",@"In progress"]];
-    }else if([trip.recordingState isEqualToString:[Trip recordingStateStringForRecordingState:TripRecordingStateStopped]]){
-        [cell.recordingBannerImage setImage:[UIImage imageNamed:@"completeLabel.png"]];
-        [cell.recordingBannerLabel setText:[NSString stringWithFormat:@"%@",trip.startDate]];
-    }
     
     return cell;
 }
@@ -103,17 +102,9 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
-    
-    Trip *trip = [trips objectAtIndex:indexPath.row];
-    
-    if([trip.recordingState isEqualToString:[Trip recordingStateStringForRecordingState:TripRecordingStateStopped]]){
-        return YES;
-    }else{
-        return NO;
-    }
+    return YES;
     
 }
-
 
 
 // Override to support editing the table view.
@@ -121,10 +112,7 @@
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
-        Trip *tripToDelete = [trips objectAtIndex:indexPath.row];
-        
-        [tripToDelete deleteInContext:[NSManagedObjectContext MR_defaultContext]];
-        [trips removeObjectAtIndex:indexPath.row];
+        [tripManager deleteTripAtIndex:indexPath.row];
         
         // Delete the row from the data source
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -152,13 +140,15 @@
 
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
     
-    selectedTrip = [trips objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+//    selectedTrip = [trips objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+//    
+//    if([selectedTrip.recordingState isEqualToString:[Trip recordingStateStringForRecordingState:TripRecordingStateRecording]]){
+//        return NO;
+//    }else{
+//        return YES;
+//    }
     
-    if([selectedTrip.recordingState isEqualToString:[Trip recordingStateStringForRecordingState:TripRecordingStateRecording]]){
-        return NO;
-    }else{
-        return YES;
-    }
+    return YES;
     
 }
 
@@ -167,8 +157,7 @@
     
     if([segue.identifier isEqualToString:@"pushCompletedTripScreen"]){
     
-        TripDetailViewController *completedTripViewController = segue.destinationViewController;
-        completedTripViewController.trip = selectedTrip;
+        [tripManager setCurrentTrip:[[tripManager allTrips] objectAtIndex:[self.tableView indexPathForSelectedRow].row]];
         
     }
     
@@ -177,7 +166,8 @@
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"tripName contains [cd] %@",searchText];
-    trips = [[Trip findAllSortedBy:@"tripName" ascending:NO withPredicate:predicate] mutableCopy];
+    
+    //trips = [[Trip findAllSortedBy:@"tripName" ascending:NO withPredicate:predicate] mutableCopy];
     
     [self.tableView reloadData];
     

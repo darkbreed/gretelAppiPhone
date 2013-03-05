@@ -27,8 +27,6 @@
                                                      inPresentationMode:GCDiscreetNotificationViewPresentationModeTop
                                                                  inView:self.mapView];
     
-    [self setUpViewForNewTrip];
-    
     [self.mapView setUserTrackingMode:MKUserTrackingModeFollow];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLocation) name:GTLocationUpdatedSuccessfully object:nil];
@@ -47,18 +45,15 @@
     }
     
     tripManager = [TripManager sharedManager];
-
+    
+    [self setUpViewForNewTrip];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
    
     [super viewWillAppear:animated];
-        
-    //If we are, set up the button accordingly
-    if(tripManager.isRecording){
-        [self setViewStateForTripState:kTripStateRecording];
-    }
-    
+            
+
     [self setTitle:tripManager.currentTrip.tripName];
     
 }
@@ -76,11 +71,10 @@
 -(void)setUpViewForNewTrip {
     
     tripManager.currentTrip = nil;
-    tripManager.isRecording = NO;
     //recordedPoints = [[NSMutableArray alloc] init];
     
     [self.mapView removeOverlays:self.mapView.overlays];
-    [self setViewStateForTripState:kTripStateNew];
+    [self setViewStateForTripState:GTTripStateNew];
 }
 
 -(void)displayLocationServicesDisabledAlert {
@@ -90,11 +84,11 @@
     [self.locateMeButton setBackgroundImage:[UIImage imageNamed:@"locationSymbolDisabled.png"] forState:UIControlStateNormal];
 }
 
--(void)setViewStateForTripState:(kTripState)tripState {
+-(void)setViewStateForTripState:(GTTripState)tripState {
     
     switch (tripState) {
             
-        case kTripStateNew: {
+        case GTTripStateNew: {
             
             [self.recordingIndicatorContainer setHidden:YES];
             [self.notificationView hide:YES];
@@ -105,50 +99,40 @@
             
         }
             
-        case kTripStatePaused: {
+        case GTTripStatePaused: {
             //we are recording, the user has paused the tracking
-            self.isRecording = NO;
-            
+           
             //Start tracking the users location
             [[GeoManager sharedManager] stopTrackingPosition];
             
             //change the recording button to pause
-            [tripManager setCurrentTripState:kTripStatePaused];
+            [tripManager pauseRecording];
             
             //Notify the user
             [self.notificationView setTextLabel:@"Recording paused"];
             [self.notificationView show:YES];
-            
             [self.recordingIndicatorContainer setHidden:YES];
-            
             [self.startButton setBackgroundImage:[UIImage imageNamed:@"recordButton.png"] forState:UIControlStateNormal];
-            
             [self.stopButton setEnabled:YES];
-            
-            [[UIApplication sharedApplication] setApplicationIconBadgeNumber:nil];
             
             break;
         }
             
-        case kTripStateRecording: {
+        case GTTripStateRecording: {
             //We are paused, the user is resuming tracking
-            self.isRecording = YES;
-            
+        
             //Start tracking the users location
             [[GeoManager sharedManager] startTrackingPosition];
             
             //change the recording button to pause
-            [tripManager setCurrentTripState:kTripStateRecording];
+            [tripManager beginRecording];
             
             [self.notificationView setTextLabel:@"Recording"];
             [self.notificationView showAndDismissAutomaticallyAnimated];
             [self.recordingIndicatorContainer setHidden:NO];
             
             [self.startButton setBackgroundImage:[UIImage imageNamed:@"pauseButton.png"] forState:UIControlStateNormal];
-            
             [self.stopButton setEnabled:YES];
-            
-            [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
             
             break;
         }
@@ -161,7 +145,7 @@
 -(IBAction)startTrackingButtonHandler:(id)sender {
     
     switch (tripManager.tripState) {
-        case kTripStateNew:
+        case GTTripStateNew:
             
             if([[GeoManager sharedManager] locationServicesEnabled]){
                 if(!tripManager.currentTrip){
@@ -176,18 +160,16 @@
                 [self displayLocationServicesDisabledAlert];
             }
             
-            [tripManager beginRecording];
-            
             break;
         
-        case kTripStateRecording:
+        case GTTripStateRecording:
             [tripManager pauseRecording];
-            [self setViewStateForTripState:kTripStatePaused];
+            [self setViewStateForTripState:GTTripStatePaused];
             break;
             
-        case kTripStatePaused:
-            [self setViewStateForTripState:kTripStateRecording];
-            [tripManager resumeRecording];
+        case GTTripStatePaused:
+            [self setViewStateForTripState:GTTripStateRecording];
+            [tripManager beginRecording];
             break;
             
         default:
@@ -219,61 +201,26 @@
     if(alertView.tag == GTAlertViewTagStopRecordingAlert){
        
         if(buttonIndex == 1){
-            [self saveAndFinishTrip];
+            [tripManager saveTripAndStop];
+            [self setUpViewForNewTrip];
         }
         
     }else if(alertView.tag == GTAlertViewTagBeginRecordingAlert){
         
         if(buttonIndex == 1){
             self.tripName = [[alertView textFieldAtIndex:0] text];
+            [self setViewStateForTripState:GTTripStateRecording];
             
-            [self setViewStateForTripState:kTripStateRecording];
-            [tripManager setIsRecording:YES];
-            
-            [self createNewTrip];
+            [tripManager createNewTripWithName:self.tripName];
+            [tripManager beginRecording];
+            [self setTitle:self.tripName];
         }
     }
 }
 
--(void)resumeTripWithTrip:(Trip *)trip {
-    //Load the trip
-    self.currentTrip = trip;
-    //Draw the route on the map
-    [self drawRoute:[self.currentTrip.points allObjects] onMapView:self.mapView];
-    
-    //recordedPoints = [[[self.currentTrip points] allObjects] mutableCopy];
-    [tripManager setCurrentTripState:kTripStateRecording];
-    [self setViewStateForTripState:kTripStateRecording];
-    
-    resumingTrip = YES;
-}
-
--(void)createNewTrip {
-    [self setTitle:self.tripName];
-    
-    //Create a new trip object and save it
-    [tripManager createNewTrip];
-    [tripManager.currentTrip setStartDate:[NSDate date]];
-    [tripManager.currentTrip setTripName:self.tripName];
-    [tripManager.currentTrip setRecordingState:[Trip recordingStateStringForRecordingState:TripRecordingStateRecording]];
-    [tripManager saveTrip];
-}
-
--(void)saveAndFinishTrip {
-    
-    [tripManager.currentTrip setFinishDate:[NSDate date]];
-    [tripManager.currentTrip setRecordingState:[Trip recordingStateStringForRecordingState:TripRecordingStateStopped]];
-    [tripManager saveTrip];
-    
-    [tripManager setCurrentTrip:nil];
-    [tripManager setCurrentTripState:kTripStateNew];
-    [self setUpViewForNewTrip];
-
-}
-
 -(void)updateLocation {
     
-    if(tripManager.isRecording){
+    if(tripManager.tripState == GTTripStateRecording){
     
         //Store the data point
         [tripManager storeLocation];

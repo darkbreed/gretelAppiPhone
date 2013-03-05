@@ -18,17 +18,5 @@
 @dynamic tripName;
 @dynamic points;
 
-+(NSString *)recordingStateStringForRecordingState:(TripRecordingState)recordingState {
-    
-    switch (recordingState) {
-        case TripRecordingStateRecording:
-            return @"recording";
-        case TripRecordingStatePaused:
-            return @"paused";
-        case TripRecordingStateStopped:
-            return @"stopped";
-    }
-}
-
 @end
 

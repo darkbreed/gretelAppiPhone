@@ -16,30 +16,32 @@
  * Defines the states that a trip can exist in to help determine how the view should behave.
  */
 typedef enum {
-    kTripStateNew,
-    kTripStateRecording,
-    kTripStatePaused
-} kTripState;
+    GTTripStateNew,
+    GTTripStateRecording,
+    GTTripStatePaused
+} GTTripState;
 
 @interface TripManager : NSObject
 
-@property (nonatomic, readwrite) BOOL isRecording;
-
 ///Current trip state
-@property (nonatomic, readwrite) kTripState tripState;
+@property (nonatomic, readwrite) GTTripState tripState;
 ///Current trip to record points to
 @property (nonatomic, strong) Trip *currentTrip;
+///All trips
+@property (nonatomic, strong) NSMutableArray *allTrips;
 
 +(TripManager*)sharedManager;
 
 -(void)beginRecording;
--(void)resumeRecording;
 -(void)stopRecording;
 -(void)pauseRecording;
--(void)setCurrentTripState:(kTripState)tripState;
 -(void)saveTrip;
--(void)createNewTrip;
+-(void)saveTripAndStop;
+-(void)createNewTripWithName:(NSString *)name;
 -(void)storeLocation;
 -(NSArray *)fectchPointsForDrawing;
+-(Trip *)tripWithIndex:(int)tripIndex;
+-(void)deleteTripAtIndex:(int)tripIndex;
+-(NSString *)recordingStateForState:(GTTripState)state;
 
 @end

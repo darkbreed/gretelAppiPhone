@@ -69,7 +69,7 @@ typedef enum {
 
 /** @section Non UI Properties */
 ///Current trip state
-@property (nonatomic, readwrite) kTripState tripState;
+@property (nonatomic, readwrite) GTTripState tripState;
 ///Current trip to record points to
 @property (nonatomic, strong) Trip *currentTrip;
 ///The trip name as set in the launch controller UIAlertView
@@ -79,7 +79,6 @@ typedef enum {
 -(IBAction)startTrackingButtonHandler:(id)sender;
 -(IBAction)stopTrackingButtonHandler:(id)sender;
 -(IBAction)addButtonHandler:(id)sender;
--(void)setCurrentTripState:(kTripState)tripState;
 
 -(void)resumeTripWithTrip:(Trip *)trip;
 

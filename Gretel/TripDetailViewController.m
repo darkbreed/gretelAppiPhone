@@ -30,10 +30,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = self.trip.tripName;
+    self.title = [[tripManager currentTrip] tripName];
     
     GPXFactory *factory = [[GPXFactory alloc] init];
     route = [factory createArrayOfPointsFromSet:self.trip.points];
+    
+    tripManager = [TripManager sharedManager];
     
 }
 
@@ -41,8 +43,10 @@
     
     [super viewDidAppear:animated];
     
-    [self drawRoute:route onMapView:self.mapView];
-    [self addAnnotationsToMapView:self.mapView fromArray:route];
+    NSArray *points = [tripManager fectchPointsForDrawing];
+    
+    [self drawRoute:points onMapView:self.mapView];
+    [self addAnnotationsToMapView:self.mapView fromArray:points];
     [self zoomToFitMapView:self.mapView toFitRoute:route animated:NO];
     
 }
@@ -57,7 +61,7 @@
     
     switch (buttonIndex) {
         case CompletedTripOptionTypeDelete:
-            [self.trip deleteInContext:[NSManagedObjectContext defaultContext]];
+            [[tripManager currentTrip] deleteInContext:[NSManagedObjectContext defaultContext]];
             [self.navigationController popViewControllerAnimated:YES];
             break;
         default:
@@ -86,9 +90,6 @@
 }
 
 -(IBAction)resumeButtonHandler:(id)sender {
-    
-    //Check all routes to see if any are recording
-    NSArray *trips = [Trip findAll];
         
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Resume trip" message:@"Would you like to resume this trip? If you have trips in progress these will be stopped and saved" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Resume", nil];
     
@@ -99,13 +100,9 @@
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
     if(buttonIndex == 1){
-        NSLog(@"Cancel");
-        
-        RecordNewTripViewController *recordTripController =[self.navigationController.viewControllers objectAtIndex:0];
-        [recordTripController resumeTripWithTrip:self.trip];
+        [[TripManager sharedManager] saveTripAndStop];
+        [[TripManager sharedManager] setCurrentTrip:self.trip];
         [self.navigationController popToRootViewControllerAnimated:YES];
-        
-        
     }
 }
 
