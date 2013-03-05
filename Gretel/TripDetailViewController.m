@@ -47,7 +47,7 @@
     
     [self drawRoute:points onMapView:self.mapView];
     [self addAnnotationsToMapView:self.mapView fromArray:points];
-    [self zoomToFitMapView:self.mapView toFitRoute:route animated:NO];
+    [self zoomToFitMapView:self.mapView toFitRoute:points animated:NO];
     
 }
 

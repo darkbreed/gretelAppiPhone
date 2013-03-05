@@ -35,27 +35,40 @@
         context = [NSManagedObjectContext contextForCurrentThread];
         currentPointId = 0;
         
-        self.allTrips = [[Trip findAllSortedBy:@"startDate" ascending:NO] mutableCopy];
+        [self fetchAllTrips];
         
     }
     
     return self;
 }
 
--(Trip *)tripWithIndex:(int)tripIndex {
+-(Trip *)tripWithIndexPath:(NSIndexPath *)tripIndexPath {
     
-    return [self.allTrips objectAtIndex:tripIndex];
+    return [self.allTrips objectAtIndexPath:tripIndexPath];
     
 }
 
--(void)deleteTripAtIndex:(int)tripIndex {
+-(void)deleteTripAtIndexPath:(NSIndexPath *)tripIndexPath {
     
-    [[self.allTrips objectAtIndex:tripIndex] deleteInContext:[NSManagedObjectContext defaultContext]];
-    [self.allTrips removeObjectAtIndex:tripIndex];
-    //Save
-    [[NSManagedObjectContext defaultContext] saveNestedContextsErrorHandler:^(NSError *error) {
+    Trip *trip = [self.allTrips objectAtIndexPath:tripIndexPath];
+    [trip deleteInContext:context];
+    
+    [context saveNestedContextsErrorHandler:^(NSError *error) {
         NSLog(@"%@",error.description);
     }];
+    
+}
+
+-(void)searchTripsByKeyword:(NSString *)keyword {
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"tripName contains [cd] %@",keyword];
+    self.allTrips = [Trip fetchAllGroupedBy:@"startDate" withPredicate:predicate sortedBy:@"startDate" ascending:NO];
+}
+
+-(void)fetchAllTrips {
+    
+    //self.allTrips = [[Trip findAllSortedBy:@"startDate" ascending:NO] mutableCopy];
+    self.allTrips = [Trip fetchAllGroupedBy:@"startDate" withPredicate:nil sortedBy:@"startDate" ascending:NO];
     
 }
 
@@ -80,7 +93,6 @@
     
     [self.currentTrip setRecordingState:[self recordingStateForState:GTTripStatePaused]];
     [self saveTrip];
-    
     [self setTripState:GTTripStatePaused];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:nil];
     
@@ -96,8 +108,6 @@
 
 -(void)saveTrip {
     
-    NSError *error;
-    
     //Save
     [[NSManagedObjectContext defaultContext] saveNestedContextsErrorHandler:^(NSError *error) {
         NSLog(@"%@",error.description);
@@ -112,7 +122,7 @@
     [self setCurrentTrip:nil];
     [self setTripState:GTTripStateNew];
     
-    [self saveTrip];
+    [self fetchAllTrips];
     
 }
 
@@ -142,7 +152,7 @@
         [self.currentTrip addPointsObject:point];
         
         //Save
-        [[NSManagedObjectContext defaultContext] saveNestedContextsErrorHandler:^(NSError *error) {
+        [context saveNestedContextsErrorHandler:^(NSError *error) {
             NSLog(@"%@",error.description);
         }];
     }

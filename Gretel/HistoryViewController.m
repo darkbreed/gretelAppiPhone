@@ -39,6 +39,7 @@
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     tripManager = [TripManager sharedManager];
+    tripManager.allTrips.delegate = self;
     
 }
 
@@ -58,17 +59,25 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
-    return 1;
+    int sections = [[tripManager.allTrips sections] count];
+    return sections;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    id<NSFetchedResultsSectionInfo> sectionInfo = [[tripManager.allTrips sections] objectAtIndex:section];
+    
+    return [sectionInfo name];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
-    NSLog(@"Trips: %@",tripManager.allTrips);
+        
+    id<NSFetchedResultsSectionInfo> sectionInfo = [[tripManager.allTrips sections] objectAtIndex:section];
+    int rows = [sectionInfo numberOfObjects];
     
     // Return the number of rows in the section.
-    return [tripManager.allTrips count];
+    return rows;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -77,9 +86,12 @@
     static NSString *CellIdentifier = @"Cell";
     TripHistoryTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    Trip *trip = [tripManager tripWithIndex:indexPath.row];
+    Trip *trip = [tripManager tripWithIndexPath:indexPath];
     
-    NSLog(@"Trip state: %@",trip.recordingState);
+    if([trip.recordingState isEqualToString:[tripManager recordingStateForState:GTTripStatePaused]]){
+        [cell.recordingBannerImage setImage:[UIImage imageNamed:@"completeLabel.png"]];
+        [cell.recordingBannerLabel setText:[NSString stringWithFormat:@"%@",trip.startDate]];
+    }
     
     [cell.tripNameLabel setText:[NSString stringWithFormat:@"%@",trip.tripName]];
     [cell zoomMapViewToFitTrip:trip];
@@ -112,13 +124,22 @@
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
-        [tripManager deleteTripAtIndex:indexPath.row];
-        
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        [tableView reloadData];
+        [tripManager deleteTripAtIndexPath:indexPath];
+       
     }
       
+}
+
+-(void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+
+    if(type == NSFetchedResultsChangeDelete){
+       
+        // Delete the row from the data source
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationFade];
+        
+    }
+    
+    
 }
 
 
@@ -157,20 +178,30 @@
     
     if([segue.identifier isEqualToString:@"pushCompletedTripScreen"]){
     
-        [tripManager setCurrentTrip:[[tripManager allTrips] objectAtIndex:[self.tableView indexPathForSelectedRow].row]];
+        [tripManager setCurrentTrip:[[tripManager allTrips] objectAtIndexPath:[self.tableView indexPathForSelectedRow]]];
         
     }
     
 }
 
+-(void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView beginUpdates];
+}
+
+-(void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView endUpdates];
+}
+
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"tripName contains [cd] %@",searchText];
-    
-    //trips = [[Trip findAllSortedBy:@"tripName" ascending:NO withPredicate:predicate] mutableCopy];
-    
+    [tripManager searchTripsByKeyword:searchText];
     [self.tableView reloadData];
     
+}
+
+-(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+    [tripManager fetchAllTrips];
+    [self.tableView reloadData];
 }
 
 @end
