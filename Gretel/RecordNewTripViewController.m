@@ -52,10 +52,11 @@
 - (void)viewWillAppear:(BOOL)animated {
    
     [super viewWillAppear:animated];
-            
-
-    [self setTitle:tripManager.currentTrip.tripName];
     
+    if(!tripManager.currentTrip){
+        [self setUpViewForNewTrip];
+        [self setViewStateForTripState:GTTripStateNew];
+    }
 }
 
 -(IBAction)locateMeButtonHandler:(id)sender {
@@ -70,11 +71,10 @@
 
 -(void)setUpViewForNewTrip {
     
-    tripManager.currentTrip = nil;
-    //recordedPoints = [[NSMutableArray alloc] init];
-    
     [self.mapView removeOverlays:self.mapView.overlays];
+    [self setTitle:nil];
     [self setViewStateForTripState:GTTripStateNew];
+    
 }
 
 -(void)displayLocationServicesDisabledAlert {
@@ -202,7 +202,8 @@
        
         if(buttonIndex == 1){
             [tripManager saveTripAndStop];
-            [self setUpViewForNewTrip];
+            [[GeoManager sharedManager] stopTrackingPosition];
+            [self performSegueWithIdentifier:@"displayHistoryView" sender:self];
         }
         
     }else if(alertView.tag == GTAlertViewTagBeginRecordingAlert){

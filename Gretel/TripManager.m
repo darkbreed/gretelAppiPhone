@@ -57,13 +57,13 @@
 -(void)searchTripsByKeyword:(NSString *)keyword {
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"tripName contains [cd] %@",keyword];
-    self.allTrips = [Trip fetchAllGroupedBy:@"startDate" withPredicate:predicate sortedBy:@"startDate" ascending:NO];
+    self.allTrips = [Trip fetchAllGroupedBy:@"displayDate" withPredicate:predicate sortedBy:@"startDate" ascending:NO];
 }
 
 -(void)fetchAllTrips {
     
     //self.allTrips = [[Trip findAllSortedBy:@"startDate" ascending:NO] mutableCopy];
-    self.allTrips = [Trip fetchAllGroupedBy:@"startDate" withPredicate:nil sortedBy:@"startDate" ascending:NO];
+    self.allTrips = [Trip fetchAllGroupedBy:@"displayDate" withPredicate:nil sortedBy:@"startDate" ascending:NO];
     
 }
 
@@ -71,9 +71,17 @@
     
     self.currentTrip = [Trip createInContext:context];
     currentPointId = 0;
-        
+    
+    NSDate *now = [NSDate date];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MMMM dd yyyy"];
+    
+    NSString *formattedDateString = [dateFormatter stringFromDate:now];
+    [self.currentTrip setDisplayDate:formattedDateString];
+    
     //Create a new trip object and save it
-    [self.currentTrip setStartDate:[NSDate date]];
+    [self.currentTrip setStartDate:now];
     [self.currentTrip setTripName:name];
     
 }
@@ -110,6 +118,8 @@
     
     [self.currentTrip setFinishDate:[NSDate date]];
     [self.currentTrip setRecordingState:[self recordingStateForState:GTTripStatePaused]];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:nil];
+    
     [self setCurrentTrip:nil];
     [self setTripState:GTTripStateNew];
     

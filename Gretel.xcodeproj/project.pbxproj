@@ -62,7 +62,6 @@
 		B571D29216E09847005F3EFB /* locationSymbolDisabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B571D28E16E09847005F3EFB /* locationSymbolDisabled@2x.png */; };
 		B571D29316E09847005F3EFB /* locationSymbolEnabled.png in Resources */ = {isa = PBXBuildFile; fileRef = B571D28F16E09847005F3EFB /* locationSymbolEnabled.png */; };
 		B571D29416E09847005F3EFB /* locationSymbolEnabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B571D29016E09847005F3EFB /* locationSymbolEnabled@2x.png */; };
-		B571D29A16E0E92D005F3EFB /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = B571D29916E0E92D005F3EFB /* Trip.m */; };
 		B578C0E816DB5356007A36A1 /* compass_needle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B578C0E716DB5356007A36A1 /* compass_needle@2x.png */; };
 		B578C0EB16DB53F6007A36A1 /* compassBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = B578C0E916DB53F6007A36A1 /* compassBackground.png */; };
 		B578C0EC16DB53F6007A36A1 /* compassBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B578C0EA16DB53F6007A36A1 /* compassBackground@2x.png */; };
@@ -86,6 +85,7 @@
 		B599F92016D8FCF4003C0D37 /* recordButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B599F91A16D8FCF4003C0D37 /* recordButton@2x.png */; };
 		B599F92116D8FCF4003C0D37 /* stopButton.png in Resources */ = {isa = PBXBuildFile; fileRef = B599F91B16D8FCF4003C0D37 /* stopButton.png */; };
 		B599F92216D8FCF4003C0D37 /* stopButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B599F91C16D8FCF4003C0D37 /* stopButton@2x.png */; };
+		B59C374416E779BD0090D395 /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = B59C374316E779BD0090D395 /* Trip.m */; };
 		B5AE901116DF4A0D003A36C6 /* TripHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B5AE901016DF4A0D003A36C6 /* TripHistoryTableViewCell.m */; };
 		B5F6165916DD4224005BDB7C /* deleteSymbol.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F6165316DD4224005BDB7C /* deleteSymbol.png */; };
 		B5F6165A16DD4224005BDB7C /* deleteSymbol@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F6165416DD4224005BDB7C /* deleteSymbol@2x.png */; };
@@ -182,8 +182,6 @@
 		B571D28E16E09847005F3EFB /* locationSymbolDisabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "locationSymbolDisabled@2x.png"; sourceTree = "<group>"; };
 		B571D28F16E09847005F3EFB /* locationSymbolEnabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = locationSymbolEnabled.png; sourceTree = "<group>"; };
 		B571D29016E09847005F3EFB /* locationSymbolEnabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "locationSymbolEnabled@2x.png"; sourceTree = "<group>"; };
-		B571D29816E0E92D005F3EFB /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
-		B571D29916E0E92D005F3EFB /* Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trip.m; sourceTree = "<group>"; };
 		B578C0E716DB5356007A36A1 /* compass_needle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compass_needle@2x.png"; sourceTree = "<group>"; };
 		B578C0E916DB53F6007A36A1 /* compassBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compassBackground.png; sourceTree = "<group>"; };
 		B578C0EA16DB53F6007A36A1 /* compassBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compassBackground@2x.png"; sourceTree = "<group>"; };
@@ -207,6 +205,8 @@
 		B599F91A16D8FCF4003C0D37 /* recordButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "recordButton@2x.png"; sourceTree = "<group>"; };
 		B599F91B16D8FCF4003C0D37 /* stopButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stopButton.png; sourceTree = "<group>"; };
 		B599F91C16D8FCF4003C0D37 /* stopButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stopButton@2x.png"; sourceTree = "<group>"; };
+		B59C374216E779BD0090D395 /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
+		B59C374316E779BD0090D395 /* Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trip.m; sourceTree = "<group>"; };
 		B5AE900F16DF4A0D003A36C6 /* TripHistoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripHistoryTableViewCell.h; sourceTree = "<group>"; };
 		B5AE901016DF4A0D003A36C6 /* TripHistoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripHistoryTableViewCell.m; sourceTree = "<group>"; };
 		B5F6165316DD4224005BDB7C /* deleteSymbol.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = deleteSymbol.png; sourceTree = "<group>"; };
@@ -263,9 +263,9 @@
 				3A2059A316945AA700E81FB4 /* ExtendedManagedObject.m */,
 				3A2059A416945AA700E81FB4 /* GPSPoint.h */,
 				3A2059A516945AA700E81FB4 /* GPSPoint.m */,
-				B571D29816E0E92D005F3EFB /* Trip.h */,
-				B571D29916E0E92D005F3EFB /* Trip.m */,
 				3A2059A616945AA700E81FB4 /* Gretel.xcdatamodel */,
+				B59C374216E779BD0090D395 /* Trip.h */,
+				B59C374316E779BD0090D395 /* Trip.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -636,8 +636,8 @@
 				B5F6167816DDF389005BDB7C /* SettingsViewController.m in Sources */,
 				B568976A16DDFC2300A07DFC /* SettingsManager.m in Sources */,
 				B5AE901116DF4A0D003A36C6 /* TripHistoryTableViewCell.m in Sources */,
-				B571D29A16E0E92D005F3EFB /* Trip.m in Sources */,
 				3AE64CA616E4B08000C830AF /* TripManager.m in Sources */,
+				B59C374416E779BD0090D395 /* Trip.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

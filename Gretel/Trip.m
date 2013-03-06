@@ -2,7 +2,7 @@
 //  Trip.m
 //  Gretel
 //
-//  Created by Ben Reed on 01/03/2013.
+//  Created by Ben Reed on 06/03/2013.
 //  Copyright (c) 2013 Ben Reed. All rights reserved.
 //
 
@@ -16,7 +16,7 @@
 @dynamic recordingState;
 @dynamic startDate;
 @dynamic tripName;
+@dynamic displayDate;
 @dynamic points;
 
 @end
-
