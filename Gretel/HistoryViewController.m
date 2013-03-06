@@ -38,15 +38,19 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    tripManager = [TripManager sharedManager];
-    tripManager.allTrips.delegate = self;
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     
-    [self.tableView reloadData];
+    tripManager = [TripManager sharedManager];
+    tripManager.allTrips.delegate = self;
 
+    [self.tableView reloadData];
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    tripManager.allTrips.delegate = nil;
+    tripManager = nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -125,18 +129,39 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
         [tripManager deleteTripAtIndexPath:indexPath];
-       
+        
     }
       
 }
 
 -(void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
 
-    if(type == NSFetchedResultsChangeDelete){
-       
-        // Delete the row from the data source
-        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationFade];
-        
+    switch (type) {
+        case NSFetchedResultsChangeDelete:
+            
+            // Delete the row from the data source
+            if([self.tableView numberOfRowsInSection:[indexPath section]] > 1) {
+                [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                                 withRowAnimation:UITableViewRowAnimationFade];
+            } else {
+                [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:[indexPath section]]
+                         withRowAnimation:UITableViewRowAnimationFade];
+            }
+            
+            break;
+        case NSFetchedResultsChangeInsert:
+            
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            
+            break;
+        default:
+            break;
     }
     
     
@@ -193,15 +218,11 @@
 }
 
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    
     [tripManager searchTripsByKeyword:searchText];
-    [self.tableView reloadData];
-    
 }
 
 -(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
     [tripManager fetchAllTrips];
-    [self.tableView reloadData];
 }
 
 @end

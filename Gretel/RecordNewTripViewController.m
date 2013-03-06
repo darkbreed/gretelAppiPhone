@@ -210,9 +210,7 @@
         if(buttonIndex == 1){
             self.tripName = [[alertView textFieldAtIndex:0] text];
             [self setViewStateForTripState:GTTripStateRecording];
-            
             [tripManager createNewTripWithName:self.tripName];
-            [tripManager beginRecording];
             [self setTitle:self.tripName];
         }
     }
