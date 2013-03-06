@@ -129,10 +129,17 @@
     
 }
 
--(NSArray *)fectchPointsForDrawing {
-    
+-(NSArray *)fectchPointsForDrawing:(BOOL)forDetailView {
+   
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"pointID" ascending:NO];
-    NSArray *sortedPoints = [self.currentTrip.points sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+    
+    NSArray *sortedPoints = nil;
+    
+    if(forDetailView){
+        sortedPoints = [self.tripForDetailView.points sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+    }else{
+        sortedPoints = [self.currentTrip.points sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+    }
     
     return sortedPoints;
     

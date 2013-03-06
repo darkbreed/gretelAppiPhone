@@ -43,11 +43,17 @@
     
     [super viewDidAppear:animated];
     
-    NSArray *points = [tripManager fectchPointsForDrawing];
+    NSArray *points = [tripManager fectchPointsForDrawing:YES];
+    
+    self.title = tripManager.tripForDetailView.tripName;
     
     [self drawRoute:points onMapView:self.mapView];
     [self addAnnotationsToMapView:self.mapView fromArray:points];
     [self zoomToFitMapView:self.mapView toFitRoute:points animated:NO];
+    
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
     
 }
 

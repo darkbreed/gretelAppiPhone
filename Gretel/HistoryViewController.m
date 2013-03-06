@@ -203,7 +203,9 @@
     
     if([segue.identifier isEqualToString:@"pushCompletedTripScreen"]){
     
-        [tripManager setCurrentTrip:[[tripManager allTrips] objectAtIndexPath:[self.tableView indexPathForSelectedRow]]];
+        //[tripManager setCurrentTrip:[[tripManager allTrips] objectAtIndexPath:[self.tableView indexPathForSelectedRow]]];
+        
+        [tripManager setTripForDetailView:[[tripManager allTrips] objectAtIndexPath:[self.tableView indexPathForSelectedRow]]];
         
     }
     

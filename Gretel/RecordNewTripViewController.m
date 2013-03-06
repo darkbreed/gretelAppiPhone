@@ -223,7 +223,7 @@
     
         //Store the data point
         [tripManager storeLocation];
-        [self drawRoute:[tripManager fectchPointsForDrawing] onMapView:self.mapView];
+        [self drawRoute:[tripManager fectchPointsForDrawing:NO] onMapView:self.mapView];
         
     }
     

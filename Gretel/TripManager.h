@@ -27,6 +27,8 @@ typedef enum {
 @property (nonatomic, readwrite) GTTripState tripState;
 ///Current trip to record points to
 @property (nonatomic, strong) Trip *currentTrip;
+///View a trip from the history
+@property (nonatomic, strong) Trip *tripForDetailView;
 ///All trips
 @property (nonatomic, strong) NSFetchedResultsController *allTrips;
 
@@ -40,7 +42,7 @@ typedef enum {
 -(void)saveTripAndStop;
 -(void)createNewTripWithName:(NSString *)name;
 -(void)storeLocation;
--(NSArray *)fectchPointsForDrawing;
+-(NSArray *)fectchPointsForDrawing:(BOOL)forDetailView;
 -(Trip *)tripWithIndexPath:(NSIndexPath *)tripIndexPath;
 -(void)deleteTripAtIndexPath:(NSIndexPath *)tripIndexPath;
 -(NSString *)recordingStateForState:(GTTripState)state;
