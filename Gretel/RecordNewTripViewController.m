@@ -14,12 +14,18 @@
 
 @end
 
-@implementation RecordNewTripViewController
+@implementation RecordNewTripViewController {
+    SettingsManager *settingsManager;
+}
 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    tripManager = [TripManager sharedManager];
+    settingsManager = [SettingsManager sharedManager];
+    
 	// Do any additional setup after loading the view, typically from a nib.
     
     self.notificationView = [[GCDiscreetNotificationView alloc] initWithText:@""
@@ -32,19 +38,18 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLocation) name:GTLocationUpdatedSuccessfully object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCompassWithHeading) name:GTLocationHeadingDidUpdate object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pauseRecording) name:GTLocationDidPauseUpdates object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSettingsChange) name:SMSettingsUpdated object:nil];
     
     [self setInitialLocate:YES];
     
-    [self.currentSpeedLabel setText:[NSString stringWithFormat:@"0.0 %@",[[SettingsManager sharedManager] unitLabel]]];
+    [self.currentSpeedLabel setText:[NSString stringWithFormat:@"0.0 %@",settingsManager.unitLabelSpeed]];
     
     if([[GeoManager sharedManager] locationServicesEnabled]){
-        
-        NSLog(@"Location services enabled: %i",[[GeoManager sharedManager] locationServicesEnabled]);
-        
+    
         [self.locateMeButton setBackgroundImage:[UIImage imageNamed:@"locationSymbolEnabled.png"] forState:UIControlStateNormal];
     }
     
-    tripManager = [TripManager sharedManager];
+   
     
     [self setUpViewForNewTrip];
 }
@@ -204,6 +209,7 @@
             [tripManager saveTripAndStop];
             [[GeoManager sharedManager] stopTrackingPosition];
             [self performSegueWithIdentifier:@"displayHistoryView" sender:self];
+            [self stopTripTimer];
         }
         
     }else if(alertView.tag == GTAlertViewTagBeginRecordingAlert){
@@ -213,8 +219,55 @@
             [self setViewStateForTripState:GTTripStateRecording];
             [tripManager createNewTripWithName:self.tripName];
             [self setTitle:self.tripName];
+            [self startTripTimer];
+            
+            
         }
     }
+}
+
+-(void)pauseTimer {
+    
+    pausedTime = [NSDate dateWithTimeIntervalSinceNow:0];
+    
+}
+
+-(void)stopTripTimer {
+    if(tripTimer){
+        [tripTimer invalidate];
+        tripTimer = nil;
+    }
+}
+
+-(void)startTripTimer {
+    
+    if(!tripTimer){
+        
+        startTime = [NSDate timeIntervalSinceReferenceDate];
+        
+        tripTimer = [NSTimer scheduledTimerWithTimeInterval:1.0/10.0
+                                                     target:self
+                                                   selector:@selector(updateTimer)
+                                                   userInfo:nil
+                                                    repeats:YES];
+    }
+}
+
+-(void)updateTimer {
+    
+    NSTimeInterval currentTime = [NSDate timeIntervalSinceReferenceDate];
+    NSTimeInterval elapsed = currentTime - startTime;
+    
+    int mins = (int)(elapsed/60.0);
+    elapsed -= mins * 60;
+    
+    int secs = elapsed;
+    elapsed -= secs;
+    
+    int millisecs = elapsed * 10.0;
+    
+    [self.tripTimerLabel setText:[NSString stringWithFormat:@"%02i:%02i:%02i",mins, secs, millisecs]];
+    
 }
 
 -(void)updateLocation {
@@ -231,16 +284,15 @@
     self.latLabel.text = [NSString stringWithFormat:@"%.3f",self.mapView.userLocation.coordinate.latitude];
     self.lonLabel.text = [NSString stringWithFormat:@"%.3f",self.mapView.userLocation.coordinate.longitude];
     
-    float currentSpeed = 0.0f;
-    
-    if([[SettingsManager sharedManager] getApplicationUnitType] == GTAppSettingsUnitTypeKPH){
-        currentSpeed = [[GeoManager sharedManager] currentSpeed] * 2.23693629;
-    }else {
-        currentSpeed = [[GeoManager sharedManager] currentSpeed] * 3.6;
-    }
-    
-    self.currentSpeedLabel.text = [NSString stringWithFormat:@"%.2f %@",currentSpeed,[[SettingsManager sharedManager] unitLabel]];
 
+    
+    float currentSpeed = [[GeoManager sharedManager] currentSpeed] * settingsManager.speedMultiplier;
+    
+    if(currentSpeed < 0.0){
+        self.currentSpeedLabel.text = [NSString stringWithFormat:@"0.0 %@",settingsManager.unitLabelSpeed];
+    }else{
+        self.currentSpeedLabel.text = [NSString stringWithFormat:@"%.2f %@",currentSpeed,settingsManager.unitLabelSpeed];
+    }
 }
 
 -(void)updateCompassWithHeading {
@@ -254,6 +306,11 @@
     
     [self.compassNeedle.layer addAnimation:theAnimation forKey:@"animateMyRotation"];
     self.compassNeedle.transform = CGAffineTransformMakeRotation([[GeoManager sharedManager] toHeadingAsRad]);
+    self.compassBackground.transform = CGAffineTransformMakeRotation([[GeoManager sharedManager] toHeadingAsRad]);
+}
+
+-(void)handleSettingsChange {
+    [self updateLocation];
 }
 
 

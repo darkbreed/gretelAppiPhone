@@ -55,16 +55,22 @@ NSString * const ShareManagerGPXExtension = @"gpx";
  
  ***/
 #pragma mark Share By Mail
--(void)shareTripDataByEmail:(Trip *)trip {
-    
-    //Convert the trip into the GPX file format
-    GPXFactory *factory = [[GPXFactory alloc] init];
-    NSString *gpx = [factory createGPXFileFromGPSPoints:trip.points];
-    NSString *fileName = [trip.tripName stringByReplacingOccurrencesOfString:@" " withString:@"-"];
-    
+-(void)shareTripDataByEmail:(NSMutableArray *)trips {
+        
     //Set up the mail composer
     MFMailComposeViewController *composeMailViewController = [[MFMailComposeViewController alloc] init];
-    [composeMailViewController addAttachmentData:[gpx dataUsingEncoding:NSUTF8StringEncoding] mimeType:@"application/xml" fileName:[NSString stringWithFormat:@"%@.%@",fileName, ShareManagerGPXExtension]];
+    
+    GPXFactory *factory = [[GPXFactory alloc] init];
+    
+    for (Trip *trip in trips) {
+        
+        NSString *gpx = [factory createGPXFileFromGPSPoints:trip.points];
+        NSString *fileName = [trip.tripName stringByReplacingOccurrencesOfString:@" " withString:@"-"];
+        
+         [composeMailViewController addAttachmentData:[gpx dataUsingEncoding:NSUTF8StringEncoding] mimeType:@"application/xml" fileName:[NSString stringWithFormat:@"%@.%@",fileName, ShareManagerGPXExtension]];
+        
+    }
+    
     [composeMailViewController setMailComposeDelegate:self];
     
     //Display the composer

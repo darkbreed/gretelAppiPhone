@@ -27,6 +27,11 @@ typedef enum {
     AnimationDirectionTypeHide
 }AnimationDirectionType;
 
+typedef enum {
+    TripDetailAlertViewTypeDelete,
+    
+}TripDetailAlertViewType;
+
 @interface TripDetailViewController : BRBaseMapViewController <ShareManagerDelegate, UIAlertViewDelegate> {
     
     ///The trip points as an array to feed the map view

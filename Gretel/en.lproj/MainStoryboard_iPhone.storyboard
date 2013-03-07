@@ -27,7 +27,7 @@
         <scene sceneID="VR4-OK-72A">
             <objects>
                 <tableViewController id="RN9-EI-9KB" customClass="HistoryViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="150" sectionHeaderHeight="22" sectionFooterHeight="22" id="6u3-RR-BRq">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="149" sectionHeaderHeight="22" sectionFooterHeight="22" id="6u3-RR-BRq">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -41,26 +41,26 @@
                             </connections>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" editingAccessoryType="checkmark" rowHeight="150" id="0ue-zu-gx8" customClass="TripHistoryTableViewCell">
-                                <rect key="frame" x="0.0" y="66" width="320" height="150"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="149" id="0ue-zu-gx8" customClass="TripHistoryTableViewCell">
+                                <rect key="frame" x="0.0" y="66" width="320" height="149"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="149"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="148"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="mkf-7l-R4E">
-                                            <rect key="frame" x="20" y="12" width="280" height="89"/>
+                                            <rect key="frame" x="20" y="12" width="280" height="82"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         </mapView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="TRIP NAME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8Z0-aA-K36">
-                                            <rect key="frame" x="20" y="106" width="280" height="21"/>
+                                            <rect key="frame" x="20" y="102" width="280" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
                                             <color key="textColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="TRIP DATE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="iGr-MW-l5M">
-                                            <rect key="frame" x="20" y="123" width="280" height="21"/>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="1000 POINTS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FTr-fw-JeY">
+                                            <rect key="frame" x="20" y="123" width="162" height="12"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -86,15 +86,23 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="50.0 KM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bHT-MN-bcI">
+                                            <rect key="frame" x="190" y="102" width="110" height="34"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                            <color key="textColor" red="0.7843137255" green="0.76078431369999999" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <connections>
+                                    <outlet property="distanceLabel" destination="bHT-MN-bcI" id="oSD-JH-Fr0"/>
                                     <outlet property="mapView" destination="mkf-7l-R4E" id="bVp-Dk-iqj"/>
+                                    <outlet property="recordedPointsLabel" destination="FTr-fw-JeY" id="hPf-2u-LYu"/>
                                     <outlet property="recordingBanner" destination="a9Y-kw-PAF" id="OaB-hD-6lO"/>
                                     <outlet property="recordingBannerImage" destination="1EG-8p-pt7" id="Y3H-Rj-Ruo"/>
                                     <outlet property="recordingBannerLabel" destination="6ZW-ex-ayo" id="noI-Zn-lM0"/>
-                                    <outlet property="tripDateLabel" destination="iGr-MW-l5M" id="ved-jB-jrW"/>
                                     <outlet property="tripNameLabel" destination="8Z0-aA-K36" id="D6g-Vq-0hd"/>
                                     <segue destination="tdh-9Y-gfp" kind="push" identifier="pushCompletedTripScreen" id="xUY-sS-3NM"/>
                                 </connections>
@@ -581,7 +589,7 @@
                     <navigationItem key="navigationItem" id="Wts-wo-MrN">
                         <barButtonItem key="leftBarButtonItem" systemItem="action" id="9dD-AC-Bz1">
                             <connections>
-                                <segue destination="GGx-Rt-Kl9" kind="modal" modalTransitionStyle="partialCurl" id="GNT-yB-RuL"/>
+                                <segue destination="GGx-Rt-Kl9" kind="modal" modalTransitionStyle="coverVertical" id="GNT-yB-RuL"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="bookmarks" id="poz-4d-JvD">
@@ -592,6 +600,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="compassBackground" destination="snD-oa-LRU" id="qjJ-7G-AJ3"/>
                         <outlet property="compassNeedle" destination="rbi-tO-cQK" id="pto-vE-QnF"/>
                         <outlet property="currentSpeedLabel" destination="UOI-Vm-yt0" id="eTr-bX-eoz"/>
                         <outlet property="hudView" destination="xau-fP-Gmr" id="G5h-YV-a9J"/>
@@ -604,6 +613,7 @@
                         <outlet property="recordingIndicatorContainer" destination="xio-6h-rSR" id="rmX-Ug-riQ"/>
                         <outlet property="startButton" destination="5T6-gm-M2d" id="Hc8-NM-dho"/>
                         <outlet property="stopButton" destination="Ygq-fq-ZTY" id="xJY-kj-6rU"/>
+                        <outlet property="tripTimerLabel" destination="SAZ-wA-xiK" id="zyY-zS-pM3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T2P-XY-D3U" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -692,6 +702,86 @@
         <image name="viewBackgrond.png" width="320" height="568"/>
         <image name="viewBackgrond@2x.png" width="640" height="1135"/>
     </resources>
+    <classes>
+        <class className="BRBaseMapViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BRBaseMapViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="formContainer" candidateClass="UIView"/>
+                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
+                <relationship kind="outlet" name="mapViewWrapper" candidateClass="UIView"/>
+                <relationship kind="outlet" name="optionButtonWrapper" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="HistoryViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/HistoryViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+            </relationships>
+        </class>
+        <class className="RecordNewTripViewController" superclassName="BRBaseMapViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RecordNewTripViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="addButtonHandler:"/>
+                <relationship kind="action" name="displayMap:"/>
+                <relationship kind="action" name="locateMeButtonHandler:"/>
+                <relationship kind="action" name="startTrackingButtonHandler:"/>
+                <relationship kind="action" name="stopTrackingButtonHandler:"/>
+                <relationship kind="outlet" name="compassBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="compassNeedle" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="currentSpeedLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="hudView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="latLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="locateMeButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="lonLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="mapHudContainer" candidateClass="UIView"/>
+                <relationship kind="outlet" name="modeChangeButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="recordingIndicatorContainer" candidateClass="UIView"/>
+                <relationship kind="outlet" name="startButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="stopButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="tripNameField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="tripTimerLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="SettingsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="dismissButtonHandler:"/>
+                <relationship kind="action" name="saveButtonHandler:"/>
+                <relationship kind="action" name="unitsControlDidChange:" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="accuracySettings" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="unitOptions" candidateClass="UISegmentedControl"/>
+            </relationships>
+        </class>
+        <class className="TripDetailViewController" superclassName="BRBaseMapViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TripDetailViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelButtonHandler:" candidateClass="UIButton"/>
+                <relationship kind="action" name="deleteButtonHandler:"/>
+                <relationship kind="action" name="editButtonHandler:"/>
+                <relationship kind="action" name="resumeButtonHandler:"/>
+                <relationship kind="action" name="shareButtonHandler:"/>
+                <relationship kind="action" name="shareByBluetoothButtonHandler:"/>
+                <relationship kind="action" name="shareByEmailButtonHandler:"/>
+                <relationship kind="outlet" name="deleteButton" candidateClass="UIView"/>
+                <relationship kind="outlet" name="editButton" candidateClass="UIView"/>
+                <relationship kind="outlet" name="shareButton" candidateClass="UIView"/>
+                <relationship kind="outlet" name="tripEditForm" candidateClass="UIView"/>
+                <relationship kind="outlet" name="tripShareForm" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="TripHistoryTableViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TripHistoryTableViewCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="distanceLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
+                <relationship kind="outlet" name="recordedPointsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="recordingBanner" candidateClass="UIView"/>
+                <relationship kind="outlet" name="recordingBannerImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="recordingBannerLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="tripNameLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

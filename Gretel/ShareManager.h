@@ -80,7 +80,7 @@ typedef enum {
  * @param Trip - the trip data to share
  * @return void
  */
--(void)shareTripDataByEmail:(Trip *)trip;
+-(void)shareTripDataByEmail:(NSMutableArray *)trips;
 
 /**
  * Triggers the bluetooth sharing methods

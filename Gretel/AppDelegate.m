@@ -33,7 +33,14 @@
     [[UINavigationBar appearance] setTitleTextAttributes:appearance];
     
     [[UINavigationBar appearance] setTintColor:[UIColor lightGrayColor]];
-        
+    
+    NSURL *url = [launchOptions valueForKey:UIApplicationLaunchOptionsURLKey];
+    
+    if(url){
+        NSString *string = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+        NSLog(@"%@",string);
+    }
+    
     
     return YES;
 }

@@ -18,15 +18,15 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        settingsManager = [SettingsManager sharedManager];
+        
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    settingsManager = [SettingsManager sharedManager];
     [self.unitOptions setSelectedSegmentIndex:[settingsManager getApplicationUnitType]];
-
 }
 
 #pragma mark Button Handlers

@@ -17,6 +17,7 @@
 
 @implementation HistoryViewController {
     TripManager *tripManager;
+    ShareManager *shareManager;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -37,6 +38,16 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self.tableView setAllowsMultipleSelectionDuringEditing:YES];
+    
+    self.deleteButton = [[UIBarButtonItem alloc] initWithTitle:@"Delete" style:UIBarButtonItemStyleBordered target:self action:@selector(deleteMultipleTrips)];
+    [self.deleteButton setTintColor:[UIColor redColor]];
+    [self.deleteButton setEnabled:NO];
+    
+    self.shareButton = [[UIBarButtonItem alloc] initWithTitle:@"Share" style:UIBarButtonItemStyleBordered target:self action:@selector(shareMultipleTrips)];
+    [self.shareButton setEnabled:NO];
+    
+    [self setToolbarItems:[NSArray arrayWithObjects:self.shareButton, self.deleteButton, nil]];
     
 }
 
@@ -48,9 +59,27 @@
     [self.tableView reloadData];
 }
 
+-(void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    
+    [super setEditing:editing animated:animated];
+    
+    if(editing){
+        [self.navigationController setToolbarHidden:NO animated:YES];
+    }else{
+        [self.navigationController setToolbarHidden:YES animated:YES];
+    }
+    
+}
+
 -(void)viewDidDisappear:(BOOL)animated {
     tripManager.allTrips.delegate = nil;
     tripManager = nil;
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    if(self.editing){
+        [self setEditing:NO animated:YES];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -97,6 +126,12 @@
         [cell.recordingBannerLabel setText:[NSString stringWithFormat:@"%@",trip.startDate]];
     }
     
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    [cell.distanceLabel setText:[NSString stringWithFormat:@"%.1f %@",[tripManager calculateDistanceForPoints:trip],[[SettingsManager sharedManager] unitLabelDistance]]];
+    [cell.recordedPointsLabel setText:[NSString stringWithFormat:@"%i POINTS",[trip.points count]]];
+    [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
+    
     [cell.tripNameLabel setText:[NSString stringWithFormat:@"%@",trip.tripName]];
     [cell zoomMapViewToFitTrip:trip];
     [cell.mapView setUserInteractionEnabled:NO];
@@ -134,6 +169,21 @@
       
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if(self.tableView.editing){
+        
+        NSArray *selectedRows = [self.tableView indexPathsForSelectedRows];
+        
+        [self.shareButton setTitle:[NSString stringWithFormat:@"Share (%i)",selectedRows.count]];
+        [self.deleteButton setTitle:[NSString stringWithFormat:@"Delete (%i)",selectedRows.count]];
+        
+        [self.shareButton setEnabled:YES];
+        [self.deleteButton setEnabled:YES];
+    }
+}
+
+
 -(void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
 
     switch (type) {
@@ -167,35 +217,13 @@
     
 }
 
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
     
-//    selectedTrip = [trips objectAtIndex:[self.tableView indexPathForSelectedRow].row];
-//    
-//    if([selectedTrip.recordingState isEqualToString:[Trip recordingStateStringForRecordingState:TripRecordingStateRecording]]){
-//        return NO;
-//    }else{
-//        return YES;
-//    }
-    
-    return YES;
-    
+    if(self.tableView.editing){
+        return NO;
+    }else{
+        return YES;
+    }
 }
 
 #pragma mark - Table view delegate
@@ -203,8 +231,6 @@
     
     if([segue.identifier isEqualToString:@"pushCompletedTripScreen"]){
     
-        //[tripManager setCurrentTrip:[[tripManager allTrips] objectAtIndexPath:[self.tableView indexPathForSelectedRow]]];
-        
         [tripManager setTripForDetailView:[[tripManager allTrips] objectAtIndexPath:[self.tableView indexPathForSelectedRow]]];
         
     }
@@ -225,6 +251,32 @@
 
 -(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
     [tripManager fetchAllTrips];
+}
+
+-(void)shareMultipleTrips {
+    
+    NSMutableArray *tripsToShare = [NSMutableArray array];
+        
+    for (NSIndexPath *indexPath in [self.tableView indexPathsForSelectedRows]) {
+        
+        Trip *trip = [tripManager.allTrips objectAtIndexPath:indexPath];
+        [tripsToShare addObject:trip];
+    }
+    
+    shareManager = [[ShareManager alloc] initWithShareType:ShareManagerShareTypeEmail fromViewController:self];
+    [shareManager shareTripDataByEmail:tripsToShare];
+    
+}
+
+-(void)deleteMultipleTrips {
+    
+    for (NSIndexPath *indexPath in [self.tableView indexPathsForSelectedRows]) {
+        [tripManager deleteTripAtIndexPath:indexPath];
+        [self.tableView setEditing:NO animated:YES];
+        [self.deleteButton setTitle:@"Delete"];
+        [self.shareButton setTitle:@"Share"];
+    }
+    
 }
 
 @end

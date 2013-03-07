@@ -67,7 +67,11 @@
     
     switch (buttonIndex) {
         case CompletedTripOptionTypeDelete:
-            [[tripManager currentTrip] deleteInContext:[NSManagedObjectContext defaultContext]];
+            
+            [tripManager.tripForDetailView deleteInContext:[NSManagedObjectContext defaultContext]];
+            [[NSManagedObjectContext defaultContext] saveNestedContexts];
+            [tripManager fetchAllTrips];
+            
             [self.navigationController popViewControllerAnimated:YES];
             break;
         default:
@@ -107,7 +111,8 @@
     
     if(buttonIndex == 1){
         [[TripManager sharedManager] saveTripAndStop];
-        [[TripManager sharedManager] setCurrentTrip:self.trip];
+        [[TripManager sharedManager] setCurrentTrip:tripManager.tripForDetailView];
+        [[TripManager sharedManager] setTripForDetailView:nil];
         [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
@@ -127,7 +132,7 @@
         [shareManager setDelegate:self];
     }
     
-    [shareManager shareTripDataByEmail:self.trip];
+    [shareManager shareTripDataByEmail:tripManager.tripForDetailView];
     
 }
 

@@ -13,12 +13,21 @@ typedef enum {
     GTAppSettingsUnitTypeKPH
 }GTAppSettingsUnitType;
 
+extern NSString *const SMUnitLabelSpeed;
+extern NSString *const SMUnitLabelDistance;
+extern NSString *const SMDistanceMultiplier;
+extern NSString *const SMSpeedMultiplier;
+extern NSString *const SMSettingsUpdated;
+
 extern NSString * const GTAppSettingsCurrentUnitType;
 
 @interface SettingsManager : NSObject
 
 @property (nonatomic, readwrite) GTAppSettingsUnitType unitType;
-@property (nonatomic, strong) NSString *unitLabel;
+@property (nonatomic, readwrite) float distanceMultiplier;
+@property (nonatomic, readwrite) float speedMultiplier;
+@property (nonatomic, strong) NSString *unitLabelSpeed;
+@property (nonatomic, strong) NSString *unitLabelDistance;
 
 +(SettingsManager*)sharedManager;
 -(void)setApplicationUnitType:(GTAppSettingsUnitType)unitType;

@@ -13,6 +13,7 @@
 #import "Trip.h"
 #import "BRBaseMapViewController.h"
 #import "SettingsViewController.h"
+#import "SettingsManager.h"
 #import "TripManager.h"
 
 typedef enum {
@@ -33,6 +34,9 @@ typedef enum {
     NSManagedObjectContext *context;
     BOOL resumingTrip;
     TripManager *tripManager;
+    NSTimer *tripTimer;
+    NSTimeInterval startTime;
+    NSDate *pausedTime;
 }
 
 /** @section General UI Properties */
@@ -53,6 +57,7 @@ typedef enum {
 ///Indicates to the user whether they are recording
 @property (nonatomic, strong) IBOutlet UIView *recordingIndicatorContainer;
 @property (nonatomic, strong) UIImageView *recordingLight;
+@property (nonatomic, strong) IBOutlet UILabel *tripTimerLabel;
 
 /** @section HUD UI Properties */
 ///Used to display the latitude
@@ -62,6 +67,7 @@ typedef enum {
 ///Used to display the curernt speed
 @property (nonatomic, strong) IBOutlet UILabel *currentSpeedLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *compassNeedle;
+@property (nonatomic, strong) IBOutlet UIImageView *compassBackground;
 ///Allows the user to set the trip name.
 @property (nonatomic, strong) IBOutlet UITextField *tripNameField;
 

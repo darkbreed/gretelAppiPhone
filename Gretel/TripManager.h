@@ -11,6 +11,8 @@
 #import "Trip.h"
 #import "GPSPoint.h"
 #import "GeoManager.h"
+#import "SettingsManager.h"
+#import "GPXFactory.h"
 
 /**
  * Defines the states that a trip can exist in to help determine how the view should behave.
@@ -31,6 +33,8 @@ typedef enum {
 @property (nonatomic, strong) Trip *tripForDetailView;
 ///All trips
 @property (nonatomic, strong) NSFetchedResultsController *allTrips;
+///
+@property (nonatomic, strong) NSString *timerValue;
 
 +(TripManager*)sharedManager;
 
@@ -47,5 +51,6 @@ typedef enum {
 -(void)deleteTripAtIndexPath:(NSIndexPath *)tripIndexPath;
 -(NSString *)recordingStateForState:(GTTripState)state;
 -(void)searchTripsByKeyword:(NSString *)keyword;
+-(float)calculateDistanceForPoints:(Trip *)trip;
 
 @end
