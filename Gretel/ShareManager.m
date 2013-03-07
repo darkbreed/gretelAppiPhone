@@ -62,19 +62,25 @@ NSString * const ShareManagerGPXExtension = @"gpx";
     
     GPXFactory *factory = [[GPXFactory alloc] init];
     
-    for (Trip *trip in trips) {
-        
-        NSString *gpx = [factory createGPXFileFromGPSPoints:trip.points];
-        NSString *fileName = [trip.tripName stringByReplacingOccurrencesOfString:@" " withString:@"-"];
-        
-         [composeMailViewController addAttachmentData:[gpx dataUsingEncoding:NSUTF8StringEncoding] mimeType:@"application/xml" fileName:[NSString stringWithFormat:@"%@.%@",fileName, ShareManagerGPXExtension]];
-        
-    }
+//    for (Trip *trip in trips) {
+//        
+//        NSString *gpx = [factory createGPXFileFromGPSPoints:trip.points];
+//        NSString *fileName = [trip.tripName stringByReplacingOccurrencesOfString:@" " withString:@"-"];
+//        
+//        [composeMailViewController addAttachmentData:[gpx dataUsingEncoding:NSUTF8StringEncoding] mimeType:@"application/xml" fileName:[NSString stringWithFormat:@"%@.%@",fileName, ShareManagerGPXExtension]];
+//        
+//    }
     
-    [composeMailViewController setMailComposeDelegate:self];
+    //[composeMailViewController setMailComposeDelegate:self];
     
     //Display the composer
-    [parentViewController presentViewController:composeMailViewController animated:YES completion:nil];
+    //[parentViewController presentViewController:composeMailViewController animated:YES completion:nil];
+    
+    NSString *gpx = [factory createGPXFileFromGPSPoints:[[trips objectAtIndex:0] points]];
+    NSData *data = [gpx dataUsingEncoding:NSUTF8StringEncoding];
+    
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[@"Test", data] applicationActivities:nil];
+    [parentViewController presentViewController:activityViewController animated:YES completion:nil];
     
 }
 

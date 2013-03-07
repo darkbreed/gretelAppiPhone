@@ -129,16 +129,11 @@
     
     if(!shareManager){
         shareManager = [[ShareManager alloc] initWithShareType:ShareManagerShareTypeEmail fromViewController:self];
-        [shareManager setDelegate:self];
     }
     
-    [shareManager shareTripDataByEmail:tripManager.tripForDetailView];
+    [shareManager shareTripDataByEmail:[NSArray arrayWithObject:tripManager.tripForDetailView]];
     
 }
 
-#pragma mark ShareManagerDelegate methods
--(void)shareManagerDidFinishSharingSuccessfully:(ShareManager *)manager {
-    
-}
 
 @end

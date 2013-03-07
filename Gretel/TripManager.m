@@ -62,33 +62,38 @@
     CLLocationDistance totalDistance = 0.0f;
     NSArray *points = [trip.points allObjects];
     
-    GPSPoint *startPoint = [[trip.points allObjects] objectAtIndex:0];
-    GPSPoint *nextPoint = nil;
-    
-    CLLocation *startLocation = [[CLLocation alloc] initWithLatitude:[startPoint.lat floatValue] longitude:[startPoint.lon floatValue]];
-    CLLocation *nextLocation = nil;
-    
-    int count = [points count];
-    
-    for (int i = 0; i < count; i++) {
-        if(i > 0 && i < count){
-            
-            nextPoint = [points objectAtIndex:i];
-            
-            nextLocation = [[CLLocation alloc] initWithLatitude:[nextPoint.lat floatValue] longitude:[nextPoint.lon floatValue]];
-            totalDistance += [startLocation distanceFromLocation:nextLocation];
-
-            startPoint = nextPoint;
-            
+    if([trip.points count] > 0){
+        
+        GPSPoint *startPoint = [[trip.points allObjects] objectAtIndex:0];
+        GPSPoint *nextPoint = nil;
+        
+        CLLocation *startLocation = [[CLLocation alloc] initWithLatitude:[startPoint.lat floatValue] longitude:[startPoint.lon floatValue]];
+        CLLocation *nextLocation = nil;
+        
+        int count = [points count];
+        
+        for (int i = 0; i < count; i++) {
+            if(i > 0 && i < count){
+                
+                nextPoint = [points objectAtIndex:i];
+                
+                nextLocation = [[CLLocation alloc] initWithLatitude:[nextPoint.lat floatValue] longitude:[nextPoint.lon floatValue]];
+                totalDistance += [startLocation distanceFromLocation:nextLocation];
+                
+                startPoint = nextPoint;
+                
+            }
         }
-    }
-    
-    if([[SettingsManager sharedManager] unitType] == GTAppSettingsUnitTypeMPH){
-        return totalDistance * [[SettingsManager sharedManager] distanceMultiplier];
+        
+        if([[SettingsManager sharedManager] unitType] == GTAppSettingsUnitTypeMPH){
+            return totalDistance * [[SettingsManager sharedManager] distanceMultiplier];
+        }else{
+            return totalDistance / [[SettingsManager sharedManager] distanceMultiplier];
+        }
+        
     }else{
-        return totalDistance / [[SettingsManager sharedManager] distanceMultiplier];
+        return 0.0;
     }
-    
 }
 
 -(void)deleteTripAtIndexPath:(NSIndexPath *)tripIndexPath {
@@ -162,33 +167,6 @@
     [self.currentTrip setFinishDate:[NSDate date]];
     [self.currentTrip setRecordingState:[self recordingStateForState:GTTripStatePaused]];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:nil];
-    
-//    //Create and save a GPX file
-//    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-//    NSString *extension = @"gpx";
-//    
-//    NSString *trimPunctuation = [self.currentTrip.tripName stringByTrimmingCharactersInSet:[NSCharacterSet symbolCharacterSet]];
-//    NSString *trimWhiteSpace = [trimPunctuation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-//    NSString *fileURLString = [[documentsDirectory stringByAppendingPathComponent:trimWhiteSpace] stringByAppendingPathExtension:extension];
-//
-//    NSURL *fileURL = [NSURL fileURLWithPath:fileURLString];
-//    
-//    UIDocument *document = [[UIDocument alloc] initWithFileURL:fileURL];
-//    
-//    
-//    //Convert the trip into the GPX file format
-//    GPXFactory *factory = [[GPXFactory alloc] init];
-//    NSString *gpx = [factory createGPXFileFromGPSPoints:self.currentTrip.points];
-//    
-//    NSError *error = nil;
-//    
-//    if(gpx){
-//        [document writeContents:[gpx dataUsingEncoding:NSUTF8StringEncoding] toURL:fileURL forSaveOperation:UIDocumentSaveForCreating originalContentsURL:fileURL error:&error];
-//        
-//        [document saveToURL:fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
-//            NSLog(@"Saved to %@",fileURL);
-//        }];
-//    }
     
     [self setCurrentTrip:nil];
     [self setTripState:GTTripStateNew];
