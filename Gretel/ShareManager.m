@@ -67,7 +67,7 @@ NSString * const ShareManagerGPXExtension = @"gpx";
         [composeMailViewController addAttachmentData:[document.gpxString dataUsingEncoding:NSUTF8StringEncoding] mimeType:@"application/xml" fileName:[NSString stringWithFormat:@"%@.%@",trip.tripName, ShareManagerGPXExtension]];
         
     }
-    
+
     [composeMailViewController setMailComposeDelegate:self];
     
     //Display the composer

@@ -63,7 +63,7 @@
     NSArray *points = [trip.points allObjects];
     
     if([trip.points count] > 0){
-    
+        
         GPSPoint *startPoint = [[trip.points allObjects] objectAtIndex:0];
         GPSPoint *nextPoint = nil;
         
@@ -79,19 +79,20 @@
                 
                 nextLocation = [[CLLocation alloc] initWithLatitude:[nextPoint.lat floatValue] longitude:[nextPoint.lon floatValue]];
                 totalDistance += [startLocation distanceFromLocation:nextLocation];
-
                 startPoint = nextPoint;
                 
             }
         }
-    }
-    
-    if([[SettingsManager sharedManager] unitType] == GTAppSettingsUnitTypeMPH){
-        return totalDistance * [[SettingsManager sharedManager] distanceMultiplier];
+        
+        if([[SettingsManager sharedManager] unitType] == GTAppSettingsUnitTypeMPH){
+            return totalDistance * [[SettingsManager sharedManager] distanceMultiplier];
+        }else{
+            return totalDistance / [[SettingsManager sharedManager] distanceMultiplier];
+        }
+        
     }else{
-        return totalDistance / [[SettingsManager sharedManager] distanceMultiplier];
+        return 0.0;
     }
-    
 }
 
 -(void)deleteTripAtIndexPath:(NSIndexPath *)tripIndexPath {
