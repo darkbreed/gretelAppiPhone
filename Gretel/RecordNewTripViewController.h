@@ -36,7 +36,7 @@ typedef enum {
     TripManager *tripManager;
     NSTimer *tripTimer;
     NSTimeInterval startTime;
-    NSDate *pausedTime;
+    NSTimeInterval pausedTime;
 }
 
 /** @section General UI Properties */

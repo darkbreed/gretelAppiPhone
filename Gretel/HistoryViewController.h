@@ -11,7 +11,6 @@
 #import "TripHistoryTableViewCell.h"
 #import "TripManager.h"
 #import "ShareManager.h"
-#import "GPXFactory.h"
 #import "SettingsManager.h"
 
 @interface HistoryViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, NSFetchedResultsControllerDelegate>

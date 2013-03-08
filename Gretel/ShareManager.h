@@ -11,8 +11,9 @@
 #import <GameKit/GameKit.h>
 #import "Trip.h"
 #import "GPSPoint.h"
-#import "GPXFactory.h"
+#import <GPX/GPX.h>
 #import "BRBluetoothManager.h"
+#import "GPXDocument.h"
 
 @class ShareManager;
 

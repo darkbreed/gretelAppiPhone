@@ -7,7 +7,6 @@
 //
 
 #import "TripDetailViewController.h"
-#import "GPXFactory.h"
 #import "ShareManager.h"
 
 @interface TripDetailViewController ()
@@ -31,9 +30,6 @@
 {
     [super viewDidLoad];
     self.title = [[tripManager currentTrip] tripName];
-    
-    GPXFactory *factory = [[GPXFactory alloc] init];
-    route = [factory createArrayOfPointsFromSet:self.trip.points];
     
     tripManager = [TripManager sharedManager];
     
@@ -132,7 +128,7 @@
         [shareManager setDelegate:self];
     }
     
-    [shareManager shareTripDataByEmail:tripManager.tripForDetailView];
+    [shareManager shareTripDataByEmail:[NSArray arrayWithObject:tripManager.tripForDetailView]];
     
 }
 

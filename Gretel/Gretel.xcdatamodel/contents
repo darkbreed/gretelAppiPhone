@@ -11,13 +11,18 @@
     <entity name="Trip" representedClassName="Trip" syncable="YES">
         <attribute name="displayDate" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="finishDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="gpxFilePath" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="recordingState" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="tripDurationHours" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="tripDurationMilliseconds" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="tripDurationMinutes" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="tripDurationSeconds" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="tripName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="points" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GPSPoint" inverseName="trip" inverseEntity="GPSPoint" syncable="YES"/>
     </entity>
     <elements>
         <element name="GPSPoint" positionX="160" positionY="192" width="128" height="135"/>
-        <element name="Trip" positionX="-180" positionY="171" width="128" height="135"/>
+        <element name="Trip" positionX="-180" positionY="171" width="128" height="210"/>
     </elements>
 </model>

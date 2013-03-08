@@ -170,11 +170,13 @@
         case GTTripStateRecording:
             [tripManager pauseRecording];
             [self setViewStateForTripState:GTTripStatePaused];
+            [self pauseTimer];
             break;
             
         case GTTripStatePaused:
             [self setViewStateForTripState:GTTripStateRecording];
             [tripManager beginRecording];
+            [self resumeTimer];
             break;
             
         default:
@@ -209,7 +211,7 @@
             [tripManager saveTripAndStop];
             [[GeoManager sharedManager] stopTrackingPosition];
             [self performSegueWithIdentifier:@"displayHistoryView" sender:self];
-            [self stopTripTimer];
+            [self pauseTimer];
         }
         
     }else if(alertView.tag == GTAlertViewTagBeginRecordingAlert){
@@ -226,19 +228,6 @@
     }
 }
 
--(void)pauseTimer {
-    
-    pausedTime = [NSDate dateWithTimeIntervalSinceNow:0];
-    
-}
-
--(void)stopTripTimer {
-    if(tripTimer){
-        [tripTimer invalidate];
-        tripTimer = nil;
-    }
-}
-
 -(void)startTripTimer {
     
     if(!tripTimer){
@@ -251,22 +240,50 @@
                                                    userInfo:nil
                                                     repeats:YES];
     }
+    
+    resumingTrip = NO;
 }
+
+
+- (void)resumeTimer {
+    if(tripTimer) {
+        [tripTimer invalidate];
+        tripTimer = nil;
+    }
+    tripTimer = [NSTimer scheduledTimerWithTimeInterval:1.0/10.0 target:self selector:@selector(updateTimer) userInfo:nil repeats:YES];
+    resumingTrip = YES;
+}
+
+- (void)pauseTimer {
+    [tripTimer invalidate];
+    tripTimer = nil;
+    pausedTime = [NSDate timeIntervalSinceReferenceDate];
+}
+
+
 
 -(void)updateTimer {
     
     NSTimeInterval currentTime = [NSDate timeIntervalSinceReferenceDate];
-    NSTimeInterval elapsed = currentTime - startTime;
+    NSTimeInterval elapsed = 0.0;
     
-    int mins = (int)(elapsed/60.0);
-    elapsed -= mins * 60;
+    if(!resumingTrip){
+        elapsed = currentTime - startTime;
+    }else{
+        elapsed = currentTime - pausedTime;
+    }
     
-    int secs = elapsed;
-    elapsed -= secs;
+    long time = elapsed;
+	int seconds = ((time) % 60);
+	int minutes = ((time/60) % 60);
+	int hours = ((time/3600) % 24);
     
-    int millisecs = elapsed * 10.0;
-    
-    [self.tripTimerLabel setText:[NSString stringWithFormat:@"%02i:%02i:%02i",mins, secs, millisecs]];
+    NSString *timeString = [NSString stringWithFormat:@"%02i:%02i:%02i", hours, minutes, seconds];
+        
+    [self.tripTimerLabel setText:timeString];
+    [tripManager.currentTrip setTripDurationMinutes:[NSNumber numberWithInt:minutes]];
+    [tripManager.currentTrip setTripDurationSeconds:[NSNumber numberWithInt:seconds]];
+    [tripManager.currentTrip setTripDurationHours:[NSNumber numberWithInt:hours]];
     
 }
 

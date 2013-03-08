@@ -12,7 +12,8 @@
 #import "GPSPoint.h"
 #import "GeoManager.h"
 #import "SettingsManager.h"
-#import "GPXFactory.h"
+#import <GPX/GPX.h>
+#import "GPXDocument.h"
 
 /**
  * Defines the states that a trip can exist in to help determine how the view should behave.

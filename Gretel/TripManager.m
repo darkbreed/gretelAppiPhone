@@ -62,24 +62,27 @@
     CLLocationDistance totalDistance = 0.0f;
     NSArray *points = [trip.points allObjects];
     
-    GPSPoint *startPoint = [[trip.points allObjects] objectAtIndex:0];
-    GPSPoint *nextPoint = nil;
+    if([trip.points count] > 0){
     
-    CLLocation *startLocation = [[CLLocation alloc] initWithLatitude:[startPoint.lat floatValue] longitude:[startPoint.lon floatValue]];
-    CLLocation *nextLocation = nil;
-    
-    int count = [points count];
-    
-    for (int i = 0; i < count; i++) {
-        if(i > 0 && i < count){
-            
-            nextPoint = [points objectAtIndex:i];
-            
-            nextLocation = [[CLLocation alloc] initWithLatitude:[nextPoint.lat floatValue] longitude:[nextPoint.lon floatValue]];
-            totalDistance += [startLocation distanceFromLocation:nextLocation];
+        GPSPoint *startPoint = [[trip.points allObjects] objectAtIndex:0];
+        GPSPoint *nextPoint = nil;
+        
+        CLLocation *startLocation = [[CLLocation alloc] initWithLatitude:[startPoint.lat floatValue] longitude:[startPoint.lon floatValue]];
+        CLLocation *nextLocation = nil;
+        
+        int count = [points count];
+        
+        for (int i = 0; i < count; i++) {
+            if(i > 0 && i < count){
+                
+                nextPoint = [points objectAtIndex:i];
+                
+                nextLocation = [[CLLocation alloc] initWithLatitude:[nextPoint.lat floatValue] longitude:[nextPoint.lon floatValue]];
+                totalDistance += [startLocation distanceFromLocation:nextLocation];
 
-            startPoint = nextPoint;
-            
+                startPoint = nextPoint;
+                
+            }
         }
     }
     
@@ -163,37 +166,10 @@
     [self.currentTrip setRecordingState:[self recordingStateForState:GTTripStatePaused]];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:nil];
     
-//    //Create and save a GPX file
-//    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-//    NSString *extension = @"gpx";
-//    
-//    NSString *trimPunctuation = [self.currentTrip.tripName stringByTrimmingCharactersInSet:[NSCharacterSet symbolCharacterSet]];
-//    NSString *trimWhiteSpace = [trimPunctuation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-//    NSString *fileURLString = [[documentsDirectory stringByAppendingPathComponent:trimWhiteSpace] stringByAppendingPathExtension:extension];
-//
-//    NSURL *fileURL = [NSURL fileURLWithPath:fileURLString];
-//    
-//    UIDocument *document = [[UIDocument alloc] initWithFileURL:fileURL];
-//    
-//    
-//    //Convert the trip into the GPX file format
-//    GPXFactory *factory = [[GPXFactory alloc] init];
-//    NSString *gpx = [factory createGPXFileFromGPSPoints:self.currentTrip.points];
-//    
-//    NSError *error = nil;
-//    
-//    if(gpx){
-//        [document writeContents:[gpx dataUsingEncoding:NSUTF8StringEncoding] toURL:fileURL forSaveOperation:UIDocumentSaveForCreating originalContentsURL:fileURL error:&error];
-//        
-//        [document saveToURL:fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
-//            NSLog(@"Saved to %@",fileURL);
-//        }];
-//    }
+    [self createGPXFileFromTrip:self.currentTrip];
     
     [self setCurrentTrip:nil];
     [self setTripState:GTTripStateNew];
-    
-    [self saveTrip];
     
     [self fetchAllTrips];
     
@@ -249,6 +225,63 @@
             return @"stopped";
     }
     
+}
+
+-(NSString *)applicationDocumentsDirectory
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+    return basePath;
+}
+
+-(NSString *)applicationTempDirectory
+{
+    return NSTemporaryDirectory();
+}
+
+- (NSString *)gpxFilePathWithName:(NSString *)tripName {
+    
+    //Clean the trip name
+    NSArray *invalidCharacters = [NSArray arrayWithObjects:@"/",@"\\",@"?",@"%",@"*",@"|",@"\"",@"<",@">",@" ",nil];
+    
+    NSString *cleanName = tripName;
+    
+    for (NSString *invalidChar in invalidCharacters) {
+        NSString *tmp = [cleanName stringByReplacingOccurrencesOfString:invalidChar withString:@""];
+        cleanName = tmp;
+    }
+    
+    NSDateFormatter *formatter = [NSDateFormatter new];
+    [formatter setTimeStyle:NSDateFormatterFullStyle];
+    [formatter setDateFormat:@"yyyyMMddHHmmss"];
+    NSString *dateString = [formatter stringFromDate:[NSDate date]];
+    
+    NSString *fileName = [NSString stringWithFormat:@"%@_log_%@.gpx", cleanName, dateString];
+    
+    return [[self applicationDocumentsDirectory] stringByAppendingPathComponent:fileName];
+}
+
+-(void)createGPXFileFromTrip:(Trip *)trip {
+    
+    GPXRoot *root = [GPXRoot rootWithCreator:@"Gretel"];
+    GPXTrack *track = [root newTrack];
+    track.name = trip.tripName;
+    
+    for (GPSPoint *point in trip.points) {
+        GPXTrackPoint *gpxTrackPoint = [track newTrackpointWithLatitude:[point.lat floatValue] longitude:[point.lon floatValue]];
+        gpxTrackPoint.elevation = [point.altitude floatValue];
+        gpxTrackPoint.time = point.timestamp;
+    }
+            
+    NSURL *gpxURL = [NSURL fileURLWithPath:[self gpxFilePathWithName:trip.tripName]];
+    
+    GPXDocument *document = [[GPXDocument alloc] initWithFileURL:gpxURL];
+    document.gpxString = root.gpx;
+    
+    [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
+        trip.gpxFilePath = [gpxURL absoluteString];
+        [self saveTrip];
+    }];
 }
 
 @end

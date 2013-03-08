@@ -60,14 +60,11 @@ NSString * const ShareManagerGPXExtension = @"gpx";
     //Set up the mail composer
     MFMailComposeViewController *composeMailViewController = [[MFMailComposeViewController alloc] init];
     
-    GPXFactory *factory = [[GPXFactory alloc] init];
-    
     for (Trip *trip in trips) {
         
-        NSString *gpx = [factory createGPXFileFromGPSPoints:trip.points];
-        NSString *fileName = [trip.tripName stringByReplacingOccurrencesOfString:@" " withString:@"-"];
+        GPXDocument *document = [[GPXDocument alloc] initWithFileURL:[NSURL fileURLWithPath:trip.gpxFilePath]];
         
-         [composeMailViewController addAttachmentData:[gpx dataUsingEncoding:NSUTF8StringEncoding] mimeType:@"application/xml" fileName:[NSString stringWithFormat:@"%@.%@",fileName, ShareManagerGPXExtension]];
+        [composeMailViewController addAttachmentData:[document.gpxString dataUsingEncoding:NSUTF8StringEncoding] mimeType:@"application/xml" fileName:[NSString stringWithFormat:@"%@.%@",trip.tripName, ShareManagerGPXExtension]];
         
     }
     
