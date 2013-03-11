@@ -60,31 +60,38 @@
 -(float)calculateDistanceForPoints:(Trip *)trip {
     
     CLLocationDistance totalDistance = 0.0f;
+
     NSArray *points = [trip.points allObjects];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"pointID" ascending:YES];
+    NSArray *sortedPoints = [points sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];;
     
-    if([trip.points count] > 0){
+    if([sortedPoints count] > 0){
         
-        GPSPoint *startPoint = [[trip.points allObjects] objectAtIndex:0];
+        GPSPoint *startPoint = [sortedPoints objectAtIndex:0];
         GPSPoint *nextPoint = nil;
         
         CLLocation *startLocation = [[CLLocation alloc] initWithLatitude:[startPoint.lat floatValue] longitude:[startPoint.lon floatValue]];
         CLLocation *nextLocation = nil;
         
-        int count = [points count];
+        int count = [sortedPoints count];
         
         for (int i = 0; i < count; i++) {
             if(i > 0 && i < count){
-                
-                nextPoint = [points objectAtIndex:i];
-                
+            
+             
+                nextPoint = [sortedPoints objectAtIndex:i];
                 nextLocation = [[CLLocation alloc] initWithLatitude:[nextPoint.lat floatValue] longitude:[nextPoint.lon floatValue]];
                 totalDistance += [startLocation distanceFromLocation:nextLocation];
-                startPoint = nextPoint;
-                
+                startLocation = nextLocation;
+               
             }
         }
         
         CLLocationDistance distance = 0.0f;
+        
+        NSLog(@"%i",[[SettingsManager sharedManager] unitType]);
+        NSLog(@"%f",[[SettingsManager sharedManager] distanceMultiplier]);
+        NSLog(@"%f",totalDistance);
         
         if([[SettingsManager sharedManager] unitType] == GTAppSettingsUnitTypeMPH){
             distance = totalDistance * [[SettingsManager sharedManager] distanceMultiplier];

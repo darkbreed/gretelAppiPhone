@@ -63,8 +63,6 @@ NSString * const GTAppSettingsCurrentUnitType = @"currentUnitType";
 
 -(void)setApplicationUnitType:(GTAppSettingsUnitType)unitType {
     
-    self.unitType = unitType;
-    
     if(unitType == GTAppSettingsUnitTypeMPH){
         self.unitLabelSpeed = @"MPH";
         self.unitLabelDistance = @"M";
@@ -77,6 +75,7 @@ NSString * const GTAppSettingsCurrentUnitType = @"currentUnitType";
         self.speedMultiplier = 3.6;
     }
     
+    self.unitType = unitType;
     [appDefaults setInteger:unitType forKey:GTAppSettingsCurrentUnitType];
     [appDefaults setValue:self.unitLabelSpeed forKey:@"unitLabelSpeed"];
     [appDefaults setFloat:self.distanceMultiplier forKey:@"distanceMultiplier"];
@@ -92,6 +91,7 @@ NSString * const GTAppSettingsCurrentUnitType = @"currentUnitType";
     //Configure app for car
     [appDefaults setInteger:usageType forKey:GTApplicationUsageTypeKey];
     [[NSNotificationCenter defaultCenter] postNotificationName:GTApplicationDidUpdateUsageType object:nil];
+    
 }
 
 -(GTAppSettingsUnitType)getApplicationUnitType {
