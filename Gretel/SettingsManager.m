@@ -12,6 +12,9 @@ NSString *const SMDistanceMultiplier = @"distanceMultiplier";
 NSString *const SMSpeedMultiplier = @"speedMultiplier";
 NSString *const SMSettingsUpdated = @"settingsUpdated";
 
+NSString *const GTApplicationUsageTypeKey = @"applicationUsageType";
+NSString *const GTApplicationDidUpdateUsageType = @"didUpdateUsageType";
+
 #import "SettingsManager.h"
 
 NSString * const GTAppSettingsCurrentUnitType = @"currentUnitType";
@@ -42,6 +45,7 @@ NSString * const GTAppSettingsCurrentUnitType = @"currentUnitType";
     if(self){
         
         if([appDefaults integerForKey:GTAppSettingsCurrentUnitType]){
+            self.unitType = [appDefaults integerForKey:GTAppSettingsCurrentUnitType];
             self.unitLabelSpeed = [appDefaults valueForKey:SMUnitLabelSpeed];
             self.unitLabelDistance = [appDefaults valueForKey:SMUnitLabelDistance];
             self.distanceMultiplier = [appDefaults floatForKey:SMDistanceMultiplier];
@@ -58,6 +62,8 @@ NSString * const GTAppSettingsCurrentUnitType = @"currentUnitType";
 }
 
 -(void)setApplicationUnitType:(GTAppSettingsUnitType)unitType {
+    
+    self.unitType = unitType;
     
     if(unitType == GTAppSettingsUnitTypeMPH){
         self.unitLabelSpeed = @"MPH";
@@ -81,10 +87,21 @@ NSString * const GTAppSettingsCurrentUnitType = @"currentUnitType";
     
 }
 
+-(void)setApplicationUsageType:(GTAppSettingsUsageType)usageType {
+
+    //Configure app for car
+    [appDefaults setInteger:usageType forKey:GTApplicationUsageTypeKey];
+    [[NSNotificationCenter defaultCenter] postNotificationName:GTApplicationDidUpdateUsageType object:nil];
+}
+
 -(GTAppSettingsUnitType)getApplicationUnitType {
     
     return [appDefaults integerForKey:GTAppSettingsCurrentUnitType];
     
+}
+
+-(GTAppSettingsUsageType)getApplicationUsageType {
+    return [appDefaults integerForKey:GTApplicationUsageTypeKey];
 }
 
 @end

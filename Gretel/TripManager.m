@@ -84,11 +84,15 @@
             }
         }
         
+        CLLocationDistance distance = 0.0f;
+        
         if([[SettingsManager sharedManager] unitType] == GTAppSettingsUnitTypeMPH){
-            return totalDistance * [[SettingsManager sharedManager] distanceMultiplier];
+            distance = totalDistance * [[SettingsManager sharedManager] distanceMultiplier];
         }else{
-            return totalDistance / [[SettingsManager sharedManager] distanceMultiplier];
+            distance = totalDistance / [[SettingsManager sharedManager] distanceMultiplier];
         }
+        
+        return distance;
         
     }else{
         return 0.0;

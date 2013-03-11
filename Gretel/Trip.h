@@ -25,6 +25,7 @@
 @property (nonatomic, retain) NSNumber * tripDurationSeconds;
 @property (nonatomic, retain) NSNumber * tripDurationMilliseconds;
 @property (nonatomic, retain) NSSet *points;
+@property (nonatomic, retain) NSNumber * receivedFromReomote;
 @end
 
 @interface Trip (CoreDataGeneratedAccessors)

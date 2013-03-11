@@ -13,6 +13,12 @@ typedef enum {
     GTAppSettingsUnitTypeKPH
 }GTAppSettingsUnitType;
 
+typedef enum {
+    GTAppSettingsUsageTypeCar,
+    GTAppSettingsUsageTypeWalk,
+    GTAppSettingsUsageTypeMix
+}GTAppSettingsUsageType;
+
 extern NSString *const SMUnitLabelSpeed;
 extern NSString *const SMUnitLabelDistance;
 extern NSString *const SMDistanceMultiplier;
@@ -20,10 +26,13 @@ extern NSString *const SMSpeedMultiplier;
 extern NSString *const SMSettingsUpdated;
 
 extern NSString * const GTAppSettingsCurrentUnitType;
+extern NSString * const GTApplicationUsageTypeKey;
+extern NSString * const GTApplicationDidUpdateUsageType;
 
 @interface SettingsManager : NSObject
 
 @property (nonatomic, readwrite) GTAppSettingsUnitType unitType;
+@property (nonatomic, readwrite) GTAppSettingsUsageType usageType;
 @property (nonatomic, readwrite) float distanceMultiplier;
 @property (nonatomic, readwrite) float speedMultiplier;
 @property (nonatomic, strong) NSString *unitLabelSpeed;
@@ -31,7 +40,9 @@ extern NSString * const GTAppSettingsCurrentUnitType;
 
 +(SettingsManager*)sharedManager;
 -(void)setApplicationUnitType:(GTAppSettingsUnitType)unitType;
+-(void)setApplicationUsageType:(GTAppSettingsUsageType)usageType;
 -(GTAppSettingsUnitType)getApplicationUnitType;
+-(GTAppSettingsUsageType)getApplicationUsageType;
 
 
 @end

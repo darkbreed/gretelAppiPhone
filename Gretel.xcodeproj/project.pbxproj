@@ -89,6 +89,7 @@
 		B599F92216D8FCF4003C0D37 /* stopButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B599F91C16D8FCF4003C0D37 /* stopButton@2x.png */; };
 		B59C374716E7BBE80090D395 /* pointsSymbol.png in Resources */ = {isa = PBXBuildFile; fileRef = B59C374516E7BBE80090D395 /* pointsSymbol.png */; };
 		B59C374816E7BBE80090D395 /* pointsSymbol@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B59C374616E7BBE80090D395 /* pointsSymbol@2x.png */; };
+		B5A7236816EDD0C9006EC062 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A7236716EDD0C9006EC062 /* AboutViewController.m */; };
 		B5AE901116DF4A0D003A36C6 /* TripHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B5AE901016DF4A0D003A36C6 /* TripHistoryTableViewCell.m */; };
 		B5F6165916DD4224005BDB7C /* deleteSymbol.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F6165316DD4224005BDB7C /* deleteSymbol.png */; };
 		B5F6165A16DD4224005BDB7C /* deleteSymbol@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F6165416DD4224005BDB7C /* deleteSymbol@2x.png */; };
@@ -213,6 +214,8 @@
 		B599F91C16D8FCF4003C0D37 /* stopButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stopButton@2x.png"; sourceTree = "<group>"; };
 		B59C374516E7BBE80090D395 /* pointsSymbol.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pointsSymbol.png; sourceTree = "<group>"; };
 		B59C374616E7BBE80090D395 /* pointsSymbol@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pointsSymbol@2x.png"; sourceTree = "<group>"; };
+		B5A7236616EDD0C9006EC062 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		B5A7236716EDD0C9006EC062 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		B5AE900F16DF4A0D003A36C6 /* TripHistoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripHistoryTableViewCell.h; sourceTree = "<group>"; };
 		B5AE901016DF4A0D003A36C6 /* TripHistoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripHistoryTableViewCell.m; sourceTree = "<group>"; };
 		B5F6165316DD4224005BDB7C /* deleteSymbol.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = deleteSymbol.png; sourceTree = "<group>"; };
@@ -382,6 +385,8 @@
 				B5F6167716DDF389005BDB7C /* SettingsViewController.m */,
 				B5AE900F16DF4A0D003A36C6 /* TripHistoryTableViewCell.h */,
 				B5AE901016DF4A0D003A36C6 /* TripHistoryTableViewCell.m */,
+				B5A7236616EDD0C9006EC062 /* AboutViewController.h */,
+				B5A7236716EDD0C9006EC062 /* AboutViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -650,6 +655,7 @@
 				3AE64CA616E4B08000C830AF /* TripManager.m in Sources */,
 				B54BC33E16E9DC910045659E /* GPXDocument.m in Sources */,
 				B54BC34416EA23830045659E /* Trip.m in Sources */,
+				B5A7236816EDD0C9006EC062 /* AboutViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

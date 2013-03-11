@@ -13,7 +13,11 @@ NSString *const GTLocationLocationUpdatesDidFail = @"locationUpdatesFailed";
 NSString *const GTLocationHeadingDidUpdate = @"headingDidUpdate";
 NSString *const GTLocationDidPauseUpdates = @"updatesPaused";
 
-@implementation GeoManager
+@implementation GeoManager {
+    
+    NSUserDefaults *defaults;
+    
+}
 
 #pragma mark - Singleton methods
 +(GeoManager*)sharedManager {
@@ -39,7 +43,13 @@ NSString *const GTLocationDidPauseUpdates = @"updatesPaused";
         
         //Configure the settings, accuracy etc.
         [self configureLocationManager];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setUsageType) name:GTApplicationDidUpdateUsageType object:nil];
+        
+        defaults = [NSUserDefaults standardUserDefaults];
+        
     }
+    
     
     return self;
 }
@@ -55,11 +65,36 @@ NSString *const GTLocationDidPauseUpdates = @"updatesPaused";
     [locationManager setDelegate:self];
     [locationManager setPausesLocationUpdatesAutomatically:YES];
     [locationManager setHeadingFilter:1];
-    [locationManager setActivityType:CLActivityTypeOtherNavigation];
+    
+    if ([defaults integerForKey:GTApplicationUsageTypeKey]) {
+        [self setUsageType];
+    }else{
+        [locationManager setActivityType:CLActivityTypeFitness];
+    }
     
     //Locate the user
     [locationManager startUpdatingLocation];
     [locationManager startUpdatingHeading];
+    
+}
+
+-(void)setUsageType {
+    
+    int usageType = [defaults integerForKey:GTApplicationUsageTypeKey];
+    
+    switch (usageType) {
+        case GTAppSettingsUsageTypeCar:
+            [locationManager setActivityType:CLActivityTypeAutomotiveNavigation];
+            break;
+            
+        case GTAppSettingsUsageTypeWalk:
+            [locationManager setActivityType:CLActivityTypeFitness];
+            break;
+        
+        case GTAppSettingsUsageTypeMix:
+            [locationManager setActivityType:CLActivityTypeOther];
+            break;
+    }
     
 }
 

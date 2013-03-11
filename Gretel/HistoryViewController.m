@@ -57,6 +57,8 @@
     tripManager.allTrips.delegate = self;
 
     [self.tableView reloadData];
+    
+    [self configureMapViewsForCells];
 }
 
 -(void)setEditing:(BOOL)editing animated:(BOOL)animated {
@@ -113,6 +115,54 @@
     return rows;
 }
 
+-(void)configureMapViewsForCells {
+    
+    self.cachedMapViews = [NSMutableArray array];
+    
+    for (Trip *trip in [[tripManager allTrips] fetchedObjects]) {
+        
+        MKMapView *mapView = [[MKMapView alloc] init];
+        [mapView setUserInteractionEnabled:NO];
+        [mapView setScrollEnabled:NO];
+        [self zoomMapView:mapView forTrip:trip];
+        [self.cachedMapViews addObject:mapView];
+    }
+}
+
+
+-(void)zoomMapView:(MKMapView *)mapView forTrip:(Trip *)trip {
+    if([trip.points count] == 0)
+        return;
+    
+    CLLocationCoordinate2D topLeftCoord;
+    topLeftCoord.latitude = -90;
+    topLeftCoord.longitude = 180;
+    
+    CLLocationCoordinate2D bottomRightCoord;
+    bottomRightCoord.latitude = 90;
+    bottomRightCoord.longitude = -180;
+    
+    for(GPSPoint *point in trip.points)
+    {
+        topLeftCoord.longitude = fmin(topLeftCoord.longitude, [point.lon doubleValue]);
+        topLeftCoord.latitude = fmax(topLeftCoord.latitude, [point.lat doubleValue]);
+        
+        bottomRightCoord.longitude = fmax(bottomRightCoord.longitude, [point.lon doubleValue]);
+        bottomRightCoord.latitude = fmin(bottomRightCoord.latitude, [point.lat doubleValue]);
+    }
+    
+    CLLocationCoordinate2D center = CLLocationCoordinate2DMake(topLeftCoord.latitude - (topLeftCoord.latitude - bottomRightCoord.latitude) * 0.5,
+                                                               topLeftCoord.longitude + (bottomRightCoord.longitude - topLeftCoord.longitude) * 0.5);
+    
+    MKCoordinateSpan span = MKCoordinateSpanMake(fabs(topLeftCoord.latitude - bottomRightCoord.latitude) * 0.5,
+                                                 fabs(bottomRightCoord.longitude - topLeftCoord.longitude) * 0.5	);
+    
+    MKCoordinateRegion region = MKCoordinateRegionMake(center, span);
+    
+    [mapView regionThatFits:region];
+    [mapView setRegion:region animated:NO];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
    
@@ -128,14 +178,15 @@
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
+    cell.mapView = [self.cachedMapViews objectAtIndex:indexPath.row];
+    
     [cell.distanceLabel setText:[NSString stringWithFormat:@"%.1f %@",[tripManager calculateDistanceForPoints:trip],[[SettingsManager sharedManager] unitLabelDistance]]];
     [cell.recordedPointsLabel setText:[NSString stringWithFormat:@"%i POINTS",[trip.points count]]];
     [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
     
     [cell.tripNameLabel setText:[NSString stringWithFormat:@"%@",trip.tripName]];
-    [cell zoomMapViewToFitTrip:trip];
-    [cell.mapView setUserInteractionEnabled:NO];
-    [cell.mapView setScrollEnabled:NO];
+    
+    
     
     return cell;
 }

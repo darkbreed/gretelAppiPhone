@@ -34,7 +34,7 @@
                         <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Trips..." showsCancelButton="YES" id="90w-IU-1BV">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <textInputTraits key="textInputTraits"/>
                             <connections>
                                 <outlet property="delegate" destination="RN9-EI-9KB" id="oPg-pN-INf"/>
@@ -587,9 +587,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="Wts-wo-MrN">
-                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="9dD-AC-Bz1">
+                        <barButtonItem key="leftBarButtonItem" title="Settings" id="9dD-AC-Bz1">
+                            <color key="tintColor" red="0.7843137255" green="0.76078431369999999" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <segue destination="GGx-Rt-Kl9" kind="modal" modalTransitionStyle="coverVertical" id="GNT-yB-RuL"/>
+                                <segue destination="C2O-3Y-M11" kind="modal" modalTransitionStyle="coverVertical" id="o8K-lo-gOh"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="bookmarks" id="poz-4d-JvD">
@@ -620,47 +621,112 @@
             </objects>
             <point key="canvasLocation" x="-492" y="43"/>
         </scene>
-        <!--Settings View Controller-->
+        <!--Navigation Controller-->
+        <scene sceneID="G0j-eE-SwO">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="C2O-3Y-M11" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="JmQ-vJ-lfo">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="GGx-Rt-Kl9" kind="relationship" relationship="rootViewController" id="9f1-ZK-fqh"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Ta-fS-m6N" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="28" y="823"/>
+        </scene>
+        <!--Settings View Controller - Settings-->
         <scene sceneID="kPS-nG-oya">
             <objects>
                 <viewController id="GGx-Rt-Kl9" customClass="SettingsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rhA-Oe-gyj">
-                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="viewBackgrond.png" id="akQ-uf-6Zi">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="lJF-U0-gJa">
-                                <rect key="frame" x="138" y="483" width="45" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="eXM-zm-KJ3">
+                                <rect key="frame" x="52" y="71" width="217" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                                <segments>
+                                    <segment title="Miles"/>
+                                    <segment title="Kilometres"/>
+                                </segments>
+                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="unitsControlDidChange:" destination="GGx-Rt-Kl9" eventType="valueChanged" id="q0y-yB-Gyb"/>
+                                </connections>
+                            </segmentedControl>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="APPLICATION UNITS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kUz-1i-YGf">
+                                <rect key="frame" x="80" y="35" width="161" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
+                                <color key="textColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fms-wF-BOr">
+                                <rect key="frame" x="52" y="349" width="217" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" backgroundImage="acceptSymbol.png">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="FEEDBACK">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="dismissButtonHandler:" destination="GGx-Rt-Kl9" eventType="touchUpInside" id="NLf-lB-xZj"/>
+                                    <action selector="feedbackButtonHandler:" destination="GGx-Rt-Kl9" eventType="touchUpInside" id="g8l-Zw-Qua"/>
                                 </connections>
                             </button>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="eXM-zm-KJ3">
-                                <rect key="frame" x="52" y="241" width="217" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="HAVING ISSUES?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QvE-7j-FWH">
+                                <rect key="frame" x="102" y="320" width="116" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
+                                <color key="textColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="L23-Hz-war">
+                                <rect key="frame" x="22" y="156" width="276" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
                                 <segments>
-                                    <segment title="Miles"/>
-                                    <segment title="Kilometres"/>
+                                    <segment title="Car"/>
+                                    <segment title="Walk"/>
+                                    <segment title="Mix"/>
                                 </segments>
+                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <action selector="unitsControlDidChange:" destination="GGx-Rt-Kl9" eventType="valueChanged" id="q0y-yB-Gyb"/>
+                                    <action selector="usageTypeControlDidChange:" destination="GGx-Rt-Kl9" eventType="valueChanged" id="HYS-nD-dD8"/>
                                 </connections>
                             </segmentedControl>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="APPLICATION UNITS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kUz-1i-YGf">
-                                <rect key="frame" x="80" y="212" width="161" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="USAGE TYPE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="v3R-Bt-lIk">
+                                <rect key="frame" x="80" y="120" width="161" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
+                                <color key="textColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="72x-CU-ywr">
+                                <rect key="frame" x="52" y="269" width="217" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="CREDITS">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="XJd-X2-EeG" kind="push" id="rIQ-kU-KUt"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="ABOUT GRETEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RLs-JL-Dtn">
+                                <rect key="frame" x="102" y="240" width="116" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
                                 <color key="textColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -668,17 +734,108 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Settings" id="prw-mm-uj6">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="Sit-Fc-C0g">
+                            <connections>
+                                <action selector="doneButtonHandler:" destination="GGx-Rt-Kl9" id="G65-tn-ujZ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="applicationUsageSettings" destination="L23-Hz-war" id="DnD-98-bjw"/>
+                        <outlet property="feedbackButton" destination="fms-wF-BOr" id="4ns-YF-fNk"/>
                         <outlet property="unitOptions" destination="eXM-zm-KJ3" id="l7O-7Q-rgl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="woL-yx-Cye" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="77" y="728"/>
+            <point key="canvasLocation" x="525" y="823"/>
+        </scene>
+        <!--About View Controller - About-->
+        <scene sceneID="9Ir-xN-uKi">
+            <objects>
+                <viewController id="XJd-X2-EeG" customClass="AboutViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="i7U-Kz-mZR">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="viewBackgrond@2x.png" id="hox-I9-Bjn">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="GRETEL GEO TAGGER" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yOR-Ra-I5M">
+                                <rect key="frame" x="68" y="20" width="185" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                <color key="textColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="VERSION 0.1.13" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="a14-Js-lAZ">
+                                <rect key="frame" x="107" y="49" width="107" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                <color key="textColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="COPYRIGHT BEN REED 2013" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UvL-nR-RK2">
+                                <rect key="frame" x="64" y="78" width="195" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                <color key="textColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="3RD PARTY CREDITS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Cuz-f5-FPA">
+                                <rect key="frame" x="74" y="110" width="175" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                <color key="textColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" id="v6U-Kp-zPj">
+                                <rect key="frame" x="20" y="142" width="280" height="242"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <string key="text">Gretel makes use of a few 3rd party libraries so thanks goes to Guillaume Campagna GCDiscreetNotificationView, Saul Mora for the Magical Record CoreData framework &amp;TestFlight for their  awesome testing and feedback framework. 
+
+Finally a shout out must go to Friska, this application has been powered by their coffee and breakfasts over the last few months. Follow them on Twitter and if you are in Bristol go and check them out! @friskafood
+</string>
+                                <color key="textColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="13"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="zFq-DJ-yvo">
+                                <rect key="frame" x="20" y="418" width="280" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="RATE GRETEL">
+                                    <color key="titleColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="FEEDBACK IS ALWAYS APPRECIATED" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IiO-cJ-Z2O">
+                                <rect key="frame" x="28" y="392" width="264" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="About" id="qho-6v-ctL"/>
+                    <connections>
+                        <outlet property="versionNumberLabel" destination="a14-Js-lAZ" id="soC-GB-TtV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="euf-mg-Khk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="943" y="823"/>
         </scene>
     </scenes>
     <resources>
-        <image name="acceptSymbol.png" width="45" height="45"/>
         <image name="acceptSymbol@2x.png" width="90" height="90"/>
         <image name="backSymbol@2x.png" width="90" height="90"/>
         <image name="bluetoothSymbol@2x.png" width="90" height="90"/>
@@ -686,7 +843,7 @@
         <image name="compassBackground@2x.png" width="565" height="559"/>
         <image name="compass_needle@2x.png" width="82" height="323"/>
         <image name="deleteSymbol@2x.png" width="90" height="90"/>
-        <image name="infoSymbol@2x.png" width="45" height="45"/>
+        <image name="infoSymbol@2x.png" width="90" height="90"/>
         <image name="latLonSymbol@2x.png" width="41" height="41"/>
         <image name="locationSymbolDisabled@2x.png" width="90" height="90"/>
         <image name="mailSymbol@2x.png" width="90" height="90"/>
@@ -703,6 +860,12 @@
         <image name="viewBackgrond@2x.png" width="640" height="1135"/>
     </resources>
     <classes>
+        <class className="AboutViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AboutViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="versionNumberLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
         <class className="BRBaseMapViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BRBaseMapViewController.h"/>
             <relationships>
@@ -722,8 +885,6 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RecordNewTripViewController.h"/>
             <relationships>
                 <relationship kind="action" name="addButtonHandler:"/>
-                <relationship kind="action" name="displayMap:"/>
-                <relationship kind="action" name="locateMeButtonHandler:"/>
                 <relationship kind="action" name="startTrackingButtonHandler:"/>
                 <relationship kind="action" name="stopTrackingButtonHandler:"/>
                 <relationship kind="outlet" name="compassBackground" candidateClass="UIImageView"/>
@@ -745,10 +906,9 @@
         <class className="SettingsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsViewController.h"/>
             <relationships>
-                <relationship kind="action" name="dismissButtonHandler:"/>
-                <relationship kind="action" name="saveButtonHandler:"/>
-                <relationship kind="action" name="unitsControlDidChange:" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="accuracySettings" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="applicationUsageSettings" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="feedbackButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="unitOptions" candidateClass="UISegmentedControl"/>
             </relationships>
         </class>
@@ -756,12 +916,8 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TripDetailViewController.h"/>
             <relationships>
                 <relationship kind="action" name="cancelButtonHandler:" candidateClass="UIButton"/>
-                <relationship kind="action" name="deleteButtonHandler:"/>
                 <relationship kind="action" name="editButtonHandler:"/>
-                <relationship kind="action" name="resumeButtonHandler:"/>
                 <relationship kind="action" name="shareButtonHandler:"/>
-                <relationship kind="action" name="shareByBluetoothButtonHandler:"/>
-                <relationship kind="action" name="shareByEmailButtonHandler:"/>
                 <relationship kind="outlet" name="deleteButton" candidateClass="UIView"/>
                 <relationship kind="outlet" name="editButton" candidateClass="UIView"/>
                 <relationship kind="outlet" name="shareButton" candidateClass="UIView"/>

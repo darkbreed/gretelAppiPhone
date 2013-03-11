@@ -10,4 +10,6 @@
 
 @interface AboutViewController : UIViewController
 
+@property (nonatomic, strong) IBOutlet UILabel *versionNumberLabel;
+
 @end

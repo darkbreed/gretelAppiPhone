@@ -21,6 +21,7 @@
     
     NSString *uuid = [NSString stringWithFormat:@"%@",[[UIDevice currentDevice] identifierForVendor]];
     [TestFlight setDeviceIdentifier:uuid];
+    [TestFlight takeOff:@"0677e702-7b7f-4508-a59f-9af8109b5718"];
     
 #endif
     
@@ -40,7 +41,6 @@
         NSString *string = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
         NSLog(@"%@",string);
     }
-    
     
     return YES;
 }

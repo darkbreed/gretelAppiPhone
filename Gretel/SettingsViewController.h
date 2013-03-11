@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SettingsManager.h"
+#import "TestFlight.h"
 
 @interface SettingsViewController : UIViewController {
     SettingsManager *settingsManager;
@@ -15,5 +16,7 @@
 
 @property (nonatomic, strong) IBOutlet UISegmentedControl *unitOptions;
 @property (nonatomic, strong) IBOutlet UISegmentedControl *accuracySettings;
+@property (nonatomic, strong) IBOutlet UISegmentedControl *applicationUsageSettings;
+@property (nonatomic, strong) IBOutlet UIButton *feedbackButton;
 
 @end
