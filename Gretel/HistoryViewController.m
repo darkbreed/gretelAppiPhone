@@ -32,10 +32,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
- 
+    
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [self.tableView setAllowsMultipleSelectionDuringEditing:YES];
@@ -55,7 +55,7 @@
     
     tripManager = [TripManager sharedManager];
     tripManager.allTrips.delegate = self;
-
+    
     [self.tableView reloadData];
     
     [self configureMapViewsForCells];
@@ -107,7 +107,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-        
+    
     id<NSFetchedResultsSectionInfo> sectionInfo = [[tripManager.allTrips sections] objectAtIndex:section];
     int rows = [sectionInfo numberOfObjects];
     
@@ -124,8 +124,17 @@
         MKMapView *mapView = [[MKMapView alloc] init];
         [mapView setUserInteractionEnabled:NO];
         [mapView setScrollEnabled:NO];
+        [mapView setFrame:self.view.frame];
         [self zoomMapView:mapView forTrip:trip];
-        [self.cachedMapViews addObject:mapView];
+        //[self.cachedMapViews addObject:mapView];
+        
+        UIGraphicsBeginImageContext(self.view.frame.size);
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        [[mapView layer] renderInContext:context];
+        UIImage *thumbnail_image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        [self.cachedMapViews addObject:thumbnail_image];
     }
 }
 
@@ -165,7 +174,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   
+    
     static NSString *CellIdentifier = @"Cell";
     TripHistoryTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
@@ -177,11 +186,12 @@
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    cell.mapView = [self.cachedMapViews objectAtIndex:indexPath.row];
-    
+    [self zoomMapView:cell.mapView forTrip:trip];
+    [cell.mapView setUserInteractionEnabled:NO];
+    [cell.mapView setScrollEnabled:NO];
+        
     [cell.distanceLabel setText:[NSString stringWithFormat:@"%.1f %@",[tripManager calculateDistanceForPoints:trip],[[SettingsManager sharedManager] unitLabelDistance]]];
-    [cell.recordedPointsLabel setText:[NSString stringWithFormat:@"%i POINTS",[trip.points count]]];
+    [cell.recordedPointsLabel setText:[NSString stringWithFormat:@"%i TRACKPOINTS",[trip.points count]]];
     [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
     
     [cell.tripNameLabel setText:[NSString stringWithFormat:@"%@",trip.tripName]];
@@ -196,10 +206,6 @@
     tableView.rowHeight = 150;
 }
 
--(void)configureTableCellMapForTrip:(Trip *)trip {
-    
-}
-
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -207,7 +213,6 @@
     return YES;
     
 }
-
 
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -217,7 +222,7 @@
         [tripManager deleteTripAtIndexPath:indexPath];
         
     }
-      
+    
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -236,17 +241,17 @@
 
 
 -(void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-
+    
     switch (type) {
         case NSFetchedResultsChangeDelete:
             
             // Delete the row from the data source
             if([self.tableView numberOfRowsInSection:[indexPath section]] > 1) {
                 [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-                                 withRowAnimation:UITableViewRowAnimationFade];
+                                      withRowAnimation:UITableViewRowAnimationFade];
             } else {
                 [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:[indexPath section]]
-                         withRowAnimation:UITableViewRowAnimationFade];
+                              withRowAnimation:UITableViewRowAnimationFade];
             }
             
             break;
@@ -281,7 +286,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if([segue.identifier isEqualToString:@"pushCompletedTripScreen"]){
-    
+        
         [tripManager setTripForDetailView:[[tripManager allTrips] objectAtIndexPath:[self.tableView indexPathForSelectedRow]]];
         
     }
@@ -307,7 +312,7 @@
 -(void)shareMultipleTrips {
     
     NSMutableArray *tripsToShare = [NSMutableArray array];
-        
+    
     for (NSIndexPath *indexPath in [self.tableView indexPathsForSelectedRows]) {
         
         Trip *trip = [tripManager.allTrips objectAtIndexPath:indexPath];

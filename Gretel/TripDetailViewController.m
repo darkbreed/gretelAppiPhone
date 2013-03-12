@@ -109,6 +109,8 @@
         [[TripManager sharedManager] saveTripAndStop];
         [[TripManager sharedManager] setCurrentTrip:tripManager.tripForDetailView];
         [[TripManager sharedManager] setTripForDetailView:nil];
+        [[TripManager sharedManager] setTripState:GTTripStateRecording];
+        [[TripManager sharedManager] setIsResuming:YES];
         [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }

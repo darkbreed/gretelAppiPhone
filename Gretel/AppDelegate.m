@@ -44,6 +44,15 @@
     
     return YES;
 }
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    if (url) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"GretelDidReceiveGPXFile" object:url];
+    }
+    
+    return YES;
+}
 							
 - (void)applicationWillResignActive:(UIApplication *)application
 {

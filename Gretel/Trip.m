@@ -23,5 +23,6 @@
 @dynamic tripDurationSeconds;
 @dynamic tripDurationMilliseconds;
 @dynamic points;
+@dynamic tripDuration;
 
 @end

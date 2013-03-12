@@ -64,6 +64,9 @@ NSString * const ShareManagerGPXExtension = @"gpx";
         
         GPXDocument *document = [[GPXDocument alloc] initWithFileURL:[NSURL fileURLWithPath:trip.gpxFilePath]];
         
+        NSError *error = nil;
+        [document readFromURL:[NSURL URLWithString:trip.gpxFilePath] error:&error];
+        
         [composeMailViewController addAttachmentData:[document.gpxString dataUsingEncoding:NSUTF8StringEncoding] mimeType:@"application/xml" fileName:[NSString stringWithFormat:@"%@.%@",trip.tripName, ShareManagerGPXExtension]];
         
     }

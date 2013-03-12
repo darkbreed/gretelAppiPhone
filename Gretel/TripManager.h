@@ -37,6 +37,8 @@ typedef enum {
 ///
 @property (nonatomic, strong) NSString *timerValue;
 
+@property (nonatomic, readwrite) BOOL isResuming;
+
 +(TripManager*)sharedManager;
 
 -(void)fetchAllTrips;

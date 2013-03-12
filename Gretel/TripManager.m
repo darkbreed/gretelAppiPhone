@@ -37,6 +37,8 @@
         context = [NSManagedObjectContext contextForCurrentThread];
         currentPointId = 0;
         
+        self.isResuming = NO;
+        
         timerFormatter = [[NSDateFormatter alloc] init];
         [timerFormatter setDateFormat:@"HH : mm : ss"];
         
@@ -47,7 +49,18 @@
     return self;
 }
 
--(void)updateTimer {
+-(void)importTripFromGPXNotification:(NSNotification *)notification {
+    
+    NSURL *url = (NSURL *)[notification object];
+    
+    GPXRoot *root = [GPXParser parseGPXAtURL:url];
+    
+
+    
+}
+
+- (void)didReceiveNewURL:(NSNotification *)notification
+{
     
 }
 
@@ -88,11 +101,7 @@
         }
         
         CLLocationDistance distance = 0.0f;
-        
-        NSLog(@"%i",[[SettingsManager sharedManager] unitType]);
-        NSLog(@"%f",[[SettingsManager sharedManager] distanceMultiplier]);
-        NSLog(@"%f",totalDistance);
-        
+            
         if([[SettingsManager sharedManager] unitType] == GTAppSettingsUnitTypeMPH){
             distance = totalDistance * [[SettingsManager sharedManager] distanceMultiplier];
         }else{

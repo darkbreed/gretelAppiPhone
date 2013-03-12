@@ -14,6 +14,7 @@
 @interface TripHistoryTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) IBOutlet MKMapView *mapView;
+@property (nonatomic, strong) IBOutlet UIImageView *mapImageView;
 @property (nonatomic, strong) IBOutlet UILabel *tripNameLabel;
 @property (nonatomic, strong) IBOutlet UIView *recordingBanner;
 @property (nonatomic, strong) IBOutlet UIImageView *recordingBannerImage;

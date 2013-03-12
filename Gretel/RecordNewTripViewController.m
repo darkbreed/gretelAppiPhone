@@ -16,6 +16,7 @@
 
 @implementation RecordNewTripViewController {
     SettingsManager *settingsManager;
+    double tripTimeElapsed;
 }
 
 
@@ -27,11 +28,6 @@
     settingsManager = [SettingsManager sharedManager];
     
 	// Do any additional setup after loading the view, typically from a nib.
-    
-    self.notificationView = [[GCDiscreetNotificationView alloc] initWithText:@""
-                                                           showActivity:NO
-                                                     inPresentationMode:GCDiscreetNotificationViewPresentationModeTop
-                                                                 inView:self.mapView];
     
     [self.mapView setUserTrackingMode:MKUserTrackingModeFollow];
     
@@ -49,7 +45,7 @@
         [self.locateMeButton setBackgroundImage:[UIImage imageNamed:@"locationSymbolEnabled.png"] forState:UIControlStateNormal];
     }
     
-   
+    tripTimeElapsed = 0.0;
     
     [self setUpViewForNewTrip];
 }
@@ -61,6 +57,17 @@
     if(!tripManager.currentTrip){
         [self setUpViewForNewTrip];
         [self setViewStateForTripState:GTTripStateNew];
+    }
+    
+    self.notificationView = [[GCDiscreetNotificationView alloc] initWithText:@""
+                                                                showActivity:NO
+                                                          inPresentationMode:GCDiscreetNotificationViewPresentationModeTop
+                                                                      inView:self.mapView];
+    
+    if(tripManager.isResuming){
+        [self setViewStateForTripState:GTTripStateRecording];
+        [self updateHUDForResumingTrip];
+        tripManager.isResuming = NO;
     }
 }
 
@@ -133,7 +140,7 @@
             [tripManager beginRecording];
             
             [self.notificationView setTextLabel:@"Recording"];
-            [self.notificationView showAndDismissAutomaticallyAnimated];
+            //[self.notificationView showAndDismissAutomaticallyAnimated];
             [self.recordingIndicatorContainer setHidden:NO];
             
             [self.startButton setBackgroundImage:[UIImage imageNamed:@"pauseButton.png"] forState:UIControlStateNormal];
@@ -239,9 +246,9 @@
                                                    selector:@selector(updateTimer)
                                                    userInfo:nil
                                                     repeats:YES];
+        
+        resumingTrip = NO;
     }
-    
-    resumingTrip = NO;
 }
 
 
@@ -265,15 +272,15 @@
 -(void)updateTimer {
     
     NSTimeInterval currentTime = [NSDate timeIntervalSinceReferenceDate];
-    NSTimeInterval elapsed = 0.0;
+    //NSTimeInterval elapsed = 0.0;
     
     if(!resumingTrip){
-        elapsed = currentTime - startTime;
+        tripTimeElapsed = currentTime - startTime;
     }else{
-        elapsed = currentTime - pausedTime;
+        tripTimeElapsed = pausedTime;
     }
     
-    long time = elapsed;
+    long time = tripTimeElapsed;
 	int seconds = ((time) % 60);
 	int minutes = ((time/60) % 60);
 	int hours = ((time/3600) % 24);
@@ -284,6 +291,24 @@
     [tripManager.currentTrip setTripDurationMinutes:[NSNumber numberWithInt:minutes]];
     [tripManager.currentTrip setTripDurationSeconds:[NSNumber numberWithInt:seconds]];
     [tripManager.currentTrip setTripDurationHours:[NSNumber numberWithInt:hours]];
+    
+    [tripManager.currentTrip setTripDuration:[NSNumber numberWithDouble:time]];
+    
+}
+
+-(void)updateHUDForResumingTrip {
+    
+    pausedTime = [tripManager.currentTrip.tripDuration floatValue];    
+    long time = tripTimeElapsed;
+	int seconds = ((time) % 60);
+	int minutes = ((time/60) % 60);
+	int hours = ((time/3600) % 24);
+    
+    NSString *timeString = [NSString stringWithFormat:@"%02i:%02i:%02i", hours, minutes, seconds];
+    
+    [self.tripTimerLabel setText:timeString];
+    
+    [self resumeTimer];
     
 }
 

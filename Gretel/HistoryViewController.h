@@ -12,6 +12,7 @@
 #import "TripManager.h"
 #import "ShareManager.h"
 #import "SettingsManager.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface HistoryViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, NSFetchedResultsControllerDelegate>
 

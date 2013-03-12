@@ -15,6 +15,7 @@
         <attribute name="receivedFromReomote" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="recordingState" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="tripDuration" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="tripDurationHours" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="tripDurationMilliseconds" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="tripDurationMinutes" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -24,6 +25,6 @@
     </entity>
     <elements>
         <element name="GPSPoint" positionX="160" positionY="192" width="128" height="135"/>
-        <element name="Trip" positionX="-180" positionY="171" width="128" height="225"/>
+        <element name="Trip" positionX="-180" positionY="171" width="128" height="240"/>
     </elements>
 </model>
