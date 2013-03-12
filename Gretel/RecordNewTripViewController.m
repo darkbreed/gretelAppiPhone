@@ -66,7 +66,6 @@
     
     if(tripManager.isResuming){
         [self setViewStateForTripState:GTTripStateRecording];
-        [self updateHUDForResumingTrip];
         tripManager.isResuming = NO;
     }
 }
@@ -196,7 +195,6 @@
     
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Stop recording?" message:@"Stopping the recording will end the trip, stop now?" delegate:self cancelButtonTitle:@"Keep recording" otherButtonTitles:@"Stop and save", nil];
     [alertView setTag:GTAlertViewTagStopRecordingAlert];
-    
     [alertView show];
     
 }
@@ -277,7 +275,7 @@
     if(!resumingTrip){
         tripTimeElapsed = currentTime - startTime;
     }else{
-        tripTimeElapsed = pausedTime;
+        tripTimeElapsed = currentTime - pausedTime;
     }
     
     long time = tripTimeElapsed;
@@ -293,22 +291,6 @@
     [tripManager.currentTrip setTripDurationHours:[NSNumber numberWithInt:hours]];
     
     [tripManager.currentTrip setTripDuration:[NSNumber numberWithDouble:time]];
-    
-}
-
--(void)updateHUDForResumingTrip {
-    
-    pausedTime = [tripManager.currentTrip.tripDuration floatValue];    
-    long time = tripTimeElapsed;
-	int seconds = ((time) % 60);
-	int minutes = ((time/60) % 60);
-	int hours = ((time/3600) % 24);
-    
-    NSString *timeString = [NSString stringWithFormat:@"%02i:%02i:%02i", hours, minutes, seconds];
-    
-    [self.tripTimerLabel setText:timeString];
-    
-    [self resumeTimer];
     
 }
 

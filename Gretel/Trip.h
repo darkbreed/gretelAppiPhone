@@ -18,6 +18,7 @@
 @property (nonatomic, retain) NSDate * finishDate;
 @property (nonatomic, retain) NSString * recordingState;
 @property (nonatomic, retain) NSDate * startDate;
+@property (nonatomic, retain) NSDate * pauseDate;
 @property (nonatomic, retain) NSString * tripName;
 @property (nonatomic, retain) NSString * gpxFilePath;
 @property (nonatomic, retain) NSNumber * tripDurationHours;

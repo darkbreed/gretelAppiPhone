@@ -16,6 +16,7 @@
 @dynamic finishDate;
 @dynamic recordingState;
 @dynamic startDate;
+@dynamic pauseDate;
 @dynamic tripName;
 @dynamic gpxFilePath;
 @dynamic tripDurationHours;

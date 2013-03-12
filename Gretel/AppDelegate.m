@@ -25,14 +25,17 @@
     
 #endif
     
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navigationBarBackground.png"] forBarMetrics:UIBarMetricsDefault];
+    UIImage *backgroundInage = [UIImage imageNamed:@"navigationBarBackground.png"];
+    
+    [[UINavigationBar appearance] setBackgroundImage:backgroundInage forBarMetrics:UIBarMetricsDefault];
+    //[[UIToolbar appearance] setTintColor:[UIColor whiteColor]];
+    [[UIToolbar appearance] setTintColor:[UIColor lightGrayColor]];
     
     NSMutableDictionary *appearance = [NSMutableDictionary dictionary];
     [appearance setValue:[UIColor grayColor] forKey:UITextAttributeTextColor];
     [appearance setValue:[UIColor clearColor] forKey:UITextAttributeTextShadowColor];
     
     [[UINavigationBar appearance] setTitleTextAttributes:appearance];
-    
     [[UINavigationBar appearance] setTintColor:[UIColor lightGrayColor]];
     
     NSURL *url = [launchOptions valueForKey:UIApplicationLaunchOptionsURLKey];

@@ -118,6 +118,11 @@
 -(void)deleteTripAtIndexPath:(NSIndexPath *)tripIndexPath {
     
     Trip *trip = [self.allTrips objectAtIndexPath:tripIndexPath];
+    
+    if([trip.recordingState isEqualToString:[self recordingStateForState:GTTripStateRecording]]){
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:nil];
+    }
+    
     [trip deleteInContext:context];
     [context saveNestedContexts];
 }
