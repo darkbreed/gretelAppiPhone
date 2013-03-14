@@ -8,11 +8,17 @@
 
 #import "TripManager.h"
 
+NSString * const GTTripTimerDidUpdate = @"tripTimerDidUpdate";
+
 @implementation TripManager {
     NSManagedObjectContext *context;
     int currentPointId;
-    NSTimer *tripTimer;
-    NSDateFormatter *timerFormatter;
+    
+    //Timer varibles
+    BOOL timerIsRunning;
+    NSTimeInterval secondsElapsedForTrip;
+    NSDate *startDate;
+    NSTimer *stopWatchTimer;
 }
 
 #pragma mark - Singleton methods
@@ -39,9 +45,6 @@
         
         self.isResuming = NO;
         
-        timerFormatter = [[NSDateFormatter alloc] init];
-        [timerFormatter setDateFormat:@"HH : mm : ss"];
-        
         [self fetchAllTrips];
         
     }
@@ -52,11 +55,7 @@
 -(void)importTripFromGPXNotification:(NSNotification *)notification {
     
     NSURL *url = (NSURL *)[notification object];
-    
     GPXRoot *root = [GPXParser parseGPXAtURL:url];
-    
-
-    
 }
 
 - (void)didReceiveNewURL:(NSNotification *)notification
@@ -167,6 +166,7 @@
     
     [self.currentTrip setRecordingState:[self recordingStateForState:GTTripStatePaused]];
     [self setTripState:GTTripStatePaused];
+    [self stopTimer];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:nil];
     [self saveTrip];
 }
@@ -175,6 +175,8 @@
     
     [self.currentTrip setRecordingState:[self recordingStateForState:GTTripStateRecording]];
     [self setTripState:GTTripStateRecording];
+    secondsElapsedForTrip = [[self.currentTrip tripDuration] floatValue];
+    [self startTimer];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
     [self saveTrip];
     
@@ -308,6 +310,53 @@
         trip.gpxFilePath = [gpxURL absoluteString];
         [self saveTrip];
     }];
+}
+
+#pragma mark trip timer methods
+-(void)updateTimer {
+    
+    NSDate *currentDate = [NSDate date];
+    NSTimeInterval timeInterval = [currentDate timeIntervalSinceDate:startDate];
+    
+    // Add the saved interval
+    timeInterval += secondsElapsedForTrip;
+    
+    [self.currentTrip setTripDuration:[NSNumber numberWithFloat:timeInterval]];
+    
+    NSDate *timerDate = [NSDate dateWithTimeIntervalSince1970:timeInterval];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"HH:mm:ss"];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0.0]];
+    
+    NSString *timeString=[dateFormatter stringFromDate:timerDate];
+    self.timerValue = timeString;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:GTTripTimerDidUpdate object:nil];
+    
+}
+
+- (void)startTimer {
+    
+    stopWatchTimer = [NSTimer scheduledTimerWithTimeInterval:1/10
+                                                      target:self
+                                                    selector:@selector(updateTimer)
+                                                    userInfo:nil
+                                                     repeats:YES];
+    // Save the new start date every time
+    startDate = [stopWatchTimer fireDate];
+}
+
+- (void)stopTimer {
+    
+    secondsElapsedForTrip += [[NSDate date] timeIntervalSinceDate:startDate];
+    [stopWatchTimer invalidate];
+    stopWatchTimer = nil;
+    
+}
+
+- (void)resetTimer {
+    secondsElapsedForTrip = 0;
 }
 
 @end

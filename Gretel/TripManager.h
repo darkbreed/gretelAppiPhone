@@ -24,6 +24,8 @@ typedef enum {
     GTTripStatePaused
 } GTTripState;
 
+extern NSString * const GTTripTimerDidUpdate;
+
 @interface TripManager : NSObject
 
 ///Current trip state

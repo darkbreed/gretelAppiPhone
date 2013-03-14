@@ -470,7 +470,7 @@
                                             </button>
                                             <view contentMode="scaleToFill" id="QCK-xm-4eJ">
                                                 <rect key="frame" x="8" y="48" width="303" height="286"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="compassBackground@2x.png" id="snD-oa-LRU">
                                                         <rect key="frame" x="42" y="43" width="218" height="223"/>
