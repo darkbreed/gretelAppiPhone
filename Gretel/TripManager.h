@@ -57,5 +57,6 @@ extern NSString * const GTTripTimerDidUpdate;
 -(NSString *)recordingStateForState:(GTTripState)state;
 -(void)searchTripsByKeyword:(NSString *)keyword;
 -(float)calculateDistanceForPoints:(Trip *)trip;
+-(void)importTripFromGPXFile:(NSURL *)url;
 
 @end

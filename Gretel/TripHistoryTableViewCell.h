@@ -21,6 +21,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *recordingBannerLabel;
 @property (nonatomic, strong) IBOutlet UILabel *distanceLabel;
 @property (nonatomic, strong) IBOutlet UILabel *recordedPointsLabel;
+@property (nonatomic, strong) IBOutlet UILabel *tripDurationLabel;
 
 - (void)zoomMapViewToFitTrip:(Trip *)trip;
 - (void)drawRoute:(NSArray *)route onMapView:(MKMapView *)mapView;

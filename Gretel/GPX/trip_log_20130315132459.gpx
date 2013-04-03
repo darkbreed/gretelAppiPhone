@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" version="1.1" creator="Gretel">
+	<trk>
+		<name>trip</name>
+		<trkseg>
+			<trkpt lat="51.457451" lon="-2.597100">
+				<ele>0.000000</ele>
+				<time>2013-03-15T13:24:55Z</time>
+			</trkpt>
+		</trkseg>
+	</trk>
+</gpx>

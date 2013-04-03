@@ -57,6 +57,19 @@
 		B54BC33B16E9D2710045659E /* GPX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B54BC33A16E9D2710045659E /* GPX.framework */; };
 		B54BC33E16E9DC910045659E /* GPXDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = B54BC33D16E9DC910045659E /* GPXDocument.m */; };
 		B54BC34416EA23830045659E /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = B54BC34316EA23830045659E /* Trip.m */; };
+		B560499B170C86C3003B1383 /* bristol.gpx in Resources */ = {isa = PBXBuildFile; fileRef = B560498E170C86C3003B1383 /* bristol.gpx */; };
+		B560499C170C86C3003B1383 /* CretshangenBeach_log_20130319123428.gpx in Resources */ = {isa = PBXBuildFile; fileRef = B560498F170C86C3003B1383 /* CretshangenBeach_log_20130319123428.gpx */; };
+		B560499D170C86C3003B1383 /* dayafterwedding_log_20130320133532.gpx in Resources */ = {isa = PBXBuildFile; fileRef = B5604990170C86C3003B1383 /* dayafterwedding_log_20130320133532.gpx */; };
+		B560499E170C86C3003B1383 /* fells_loop.gpx in Resources */ = {isa = PBXBuildFile; fileRef = B5604991170C86C3003B1383 /* fells_loop.gpx */; };
+		B560499F170C86C3003B1383 /* inverarytolochgilphead_log_20130318104935.gpx in Resources */ = {isa = PBXBuildFile; fileRef = B5604992170C86C3003B1383 /* inverarytolochgilphead_log_20130318104935.gpx */; };
+		B56049A0170C86C3003B1383 /* IslayFerry_log_20130323151557.gpx in Resources */ = {isa = PBXBuildFile; fileRef = B5604993170C86C3003B1383 /* IslayFerry_log_20130323151557.gpx */; };
+		B56049A1170C86C3003B1383 /* jura_log_20130325171553.gpx in Resources */ = {isa = PBXBuildFile; fileRef = B5604994170C86C3003B1383 /* jura_log_20130325171553.gpx */; };
+		B56049A2170C86C3003B1383 /* lochlomand_log_20130316140611.gpx in Resources */ = {isa = PBXBuildFile; fileRef = B5604995170C86C3003B1383 /* lochlomand_log_20130316140611.gpx */; };
+		B56049A3170C86C3003B1383 /* ObantoGlencoe_log_20130317161026.gpx in Resources */ = {isa = PBXBuildFile; fileRef = B5604996170C86C3003B1383 /* ObantoGlencoe_log_20130317161026.gpx */; };
+		B56049A4170C86C3003B1383 /* officetohome.gpx in Resources */ = {isa = PBXBuildFile; fileRef = B5604997170C86C3003B1383 /* officetohome.gpx */; };
+		B56049A5170C86C3003B1383 /* Tarbert_log_20130321141947.gpx in Resources */ = {isa = PBXBuildFile; fileRef = B5604998170C86C3003B1383 /* Tarbert_log_20130321141947.gpx */; };
+		B56049A6170C86C3003B1383 /* Trip.gpx in Resources */ = {isa = PBXBuildFile; fileRef = B5604999170C86C3003B1383 /* Trip.gpx */; };
+		B56049A7170C86C3003B1383 /* trip_log_20130315132459.gpx in Resources */ = {isa = PBXBuildFile; fileRef = B560499A170C86C3003B1383 /* trip_log_20130315132459.gpx */; };
 		B568976A16DDFC2300A07DFC /* SettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B568976916DDFC2300A07DFC /* SettingsManager.m */; };
 		B568976C16DE0D1B00A07DFC /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B568976B16DE0D1B00A07DFC /* Icon.png */; };
 		B568976E16DE0D2100A07DFC /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B568976D16DE0D2100A07DFC /* Icon@2x.png */; };
@@ -87,6 +100,8 @@
 		B599F92016D8FCF4003C0D37 /* recordButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B599F91A16D8FCF4003C0D37 /* recordButton@2x.png */; };
 		B599F92116D8FCF4003C0D37 /* stopButton.png in Resources */ = {isa = PBXBuildFile; fileRef = B599F91B16D8FCF4003C0D37 /* stopButton.png */; };
 		B599F92216D8FCF4003C0D37 /* stopButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B599F91C16D8FCF4003C0D37 /* stopButton@2x.png */; };
+		B59A763216F3137000982811 /* compassArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = B59A763016F3137000982811 /* compassArrow.png */; };
+		B59A763316F3137000982811 /* compassArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B59A763116F3137000982811 /* compassArrow@2x.png */; };
 		B59C374716E7BBE80090D395 /* pointsSymbol.png in Resources */ = {isa = PBXBuildFile; fileRef = B59C374516E7BBE80090D395 /* pointsSymbol.png */; };
 		B59C374816E7BBE80090D395 /* pointsSymbol@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B59C374616E7BBE80090D395 /* pointsSymbol@2x.png */; };
 		B5A7236816EDD0C9006EC062 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A7236716EDD0C9006EC062 /* AboutViewController.m */; };
@@ -181,6 +196,19 @@
 		B54BC33D16E9DC910045659E /* GPXDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPXDocument.m; sourceTree = "<group>"; };
 		B54BC34216EA23830045659E /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
 		B54BC34316EA23830045659E /* Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trip.m; sourceTree = "<group>"; };
+		B560498E170C86C3003B1383 /* bristol.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bristol.gpx; sourceTree = "<group>"; };
+		B560498F170C86C3003B1383 /* CretshangenBeach_log_20130319123428.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = CretshangenBeach_log_20130319123428.gpx; sourceTree = "<group>"; };
+		B5604990170C86C3003B1383 /* dayafterwedding_log_20130320133532.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = dayafterwedding_log_20130320133532.gpx; sourceTree = "<group>"; };
+		B5604991170C86C3003B1383 /* fells_loop.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = fells_loop.gpx; sourceTree = "<group>"; };
+		B5604992170C86C3003B1383 /* inverarytolochgilphead_log_20130318104935.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = inverarytolochgilphead_log_20130318104935.gpx; sourceTree = "<group>"; };
+		B5604993170C86C3003B1383 /* IslayFerry_log_20130323151557.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = IslayFerry_log_20130323151557.gpx; sourceTree = "<group>"; };
+		B5604994170C86C3003B1383 /* jura_log_20130325171553.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = jura_log_20130325171553.gpx; sourceTree = "<group>"; };
+		B5604995170C86C3003B1383 /* lochlomand_log_20130316140611.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = lochlomand_log_20130316140611.gpx; sourceTree = "<group>"; };
+		B5604996170C86C3003B1383 /* ObantoGlencoe_log_20130317161026.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ObantoGlencoe_log_20130317161026.gpx; sourceTree = "<group>"; };
+		B5604997170C86C3003B1383 /* officetohome.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = officetohome.gpx; sourceTree = "<group>"; };
+		B5604998170C86C3003B1383 /* Tarbert_log_20130321141947.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Tarbert_log_20130321141947.gpx; sourceTree = "<group>"; };
+		B5604999170C86C3003B1383 /* Trip.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Trip.gpx; sourceTree = "<group>"; };
+		B560499A170C86C3003B1383 /* trip_log_20130315132459.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = trip_log_20130315132459.gpx; sourceTree = "<group>"; };
 		B568976816DDFC2300A07DFC /* SettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsManager.h; sourceTree = "<group>"; };
 		B568976916DDFC2300A07DFC /* SettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsManager.m; sourceTree = "<group>"; };
 		B568976B16DE0D1B00A07DFC /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
@@ -212,6 +240,8 @@
 		B599F91A16D8FCF4003C0D37 /* recordButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "recordButton@2x.png"; sourceTree = "<group>"; };
 		B599F91B16D8FCF4003C0D37 /* stopButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stopButton.png; sourceTree = "<group>"; };
 		B599F91C16D8FCF4003C0D37 /* stopButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stopButton@2x.png"; sourceTree = "<group>"; };
+		B59A763016F3137000982811 /* compassArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compassArrow.png; sourceTree = "<group>"; };
+		B59A763116F3137000982811 /* compassArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compassArrow@2x.png"; sourceTree = "<group>"; };
 		B59C374516E7BBE80090D395 /* pointsSymbol.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pointsSymbol.png; sourceTree = "<group>"; };
 		B59C374616E7BBE80090D395 /* pointsSymbol@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pointsSymbol@2x.png"; sourceTree = "<group>"; };
 		B5A7236616EDD0C9006EC062 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
@@ -323,6 +353,7 @@
 		3A43D62F16761D1F007E9A84 /* Gretel */ = {
 			isa = PBXGroup;
 			children = (
+				B560498D170C86C3003B1383 /* GPX */,
 				B50EBE1B16D4BE5C0090433B /* Resources */,
 				3A2059A016945A9C00E81FB4 /* Model */,
 				3A8C9777167B455D000E2259 /* Categories */,
@@ -420,6 +451,8 @@
 		B50EBE1C16D4BE5C0090433B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B59A763016F3137000982811 /* compassArrow.png */,
+				B59A763116F3137000982811 /* compassArrow@2x.png */,
 				B59C374516E7BBE80090D395 /* pointsSymbol.png */,
 				B59C374616E7BBE80090D395 /* pointsSymbol@2x.png */,
 				B5105F6316E48B2200428887 /* resumeSymbol.png */,
@@ -484,6 +517,26 @@
 				B50EBE1D16D4BE5C0090433B /* compass_needle.png */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		B560498D170C86C3003B1383 /* GPX */ = {
+			isa = PBXGroup;
+			children = (
+				B560498E170C86C3003B1383 /* bristol.gpx */,
+				B560498F170C86C3003B1383 /* CretshangenBeach_log_20130319123428.gpx */,
+				B5604990170C86C3003B1383 /* dayafterwedding_log_20130320133532.gpx */,
+				B5604991170C86C3003B1383 /* fells_loop.gpx */,
+				B5604992170C86C3003B1383 /* inverarytolochgilphead_log_20130318104935.gpx */,
+				B5604993170C86C3003B1383 /* IslayFerry_log_20130323151557.gpx */,
+				B5604994170C86C3003B1383 /* jura_log_20130325171553.gpx */,
+				B5604995170C86C3003B1383 /* lochlomand_log_20130316140611.gpx */,
+				B5604996170C86C3003B1383 /* ObantoGlencoe_log_20130317161026.gpx */,
+				B5604997170C86C3003B1383 /* officetohome.gpx */,
+				B5604998170C86C3003B1383 /* Tarbert_log_20130321141947.gpx */,
+				B5604999170C86C3003B1383 /* Trip.gpx */,
+				B560499A170C86C3003B1383 /* trip_log_20130315132459.gpx */,
+			);
+			path = GPX;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -608,6 +661,21 @@
 				B5105F6616E48B2200428887 /* resumeSymbol@2x.png in Resources */,
 				B59C374716E7BBE80090D395 /* pointsSymbol.png in Resources */,
 				B59C374816E7BBE80090D395 /* pointsSymbol@2x.png in Resources */,
+				B59A763216F3137000982811 /* compassArrow.png in Resources */,
+				B59A763316F3137000982811 /* compassArrow@2x.png in Resources */,
+				B560499B170C86C3003B1383 /* bristol.gpx in Resources */,
+				B560499C170C86C3003B1383 /* CretshangenBeach_log_20130319123428.gpx in Resources */,
+				B560499D170C86C3003B1383 /* dayafterwedding_log_20130320133532.gpx in Resources */,
+				B560499E170C86C3003B1383 /* fells_loop.gpx in Resources */,
+				B560499F170C86C3003B1383 /* inverarytolochgilphead_log_20130318104935.gpx in Resources */,
+				B56049A0170C86C3003B1383 /* IslayFerry_log_20130323151557.gpx in Resources */,
+				B56049A1170C86C3003B1383 /* jura_log_20130325171553.gpx in Resources */,
+				B56049A2170C86C3003B1383 /* lochlomand_log_20130316140611.gpx in Resources */,
+				B56049A3170C86C3003B1383 /* ObantoGlencoe_log_20130317161026.gpx in Resources */,
+				B56049A4170C86C3003B1383 /* officetohome.gpx in Resources */,
+				B56049A5170C86C3003B1383 /* Tarbert_log_20130321141947.gpx in Resources */,
+				B56049A6170C86C3003B1383 /* Trip.gpx in Resources */,
+				B56049A7170C86C3003B1383 /* trip_log_20130315132459.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

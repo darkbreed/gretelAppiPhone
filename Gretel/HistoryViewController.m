@@ -49,16 +49,17 @@
     
     [self setToolbarItems:[NSArray arrayWithObjects:self.shareButton, self.deleteButton, nil]];
     
+    self.cachedMapViews = [NSMutableArray array];
+    
+    tripManager = [TripManager sharedManager];
+    tripManager.allTrips.delegate = self;
+    [tripManager fetchAllTrips];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     
-    tripManager = [TripManager sharedManager];
-    tripManager.allTrips.delegate = self;
-    
     [self.tableView reloadData];
-    
-    [self configureMapViewsForCells];
 }
 
 -(void)setEditing:(BOOL)editing animated:(BOOL)animated {
@@ -115,63 +116,6 @@
     return rows;
 }
 
--(void)configureMapViewsForCells {
-    
-    self.cachedMapViews = [NSMutableArray array];
-    
-    for (Trip *trip in [[tripManager allTrips] fetchedObjects]) {
-        
-        MKMapView *mapView = [[MKMapView alloc] init];
-        [mapView setUserInteractionEnabled:NO];
-        [mapView setScrollEnabled:NO];
-        [mapView setFrame:self.view.frame];
-        [self zoomMapView:mapView forTrip:trip];
-        //[self.cachedMapViews addObject:mapView];
-        
-        UIGraphicsBeginImageContext(self.view.frame.size);
-        CGContextRef context = UIGraphicsGetCurrentContext();
-        [[mapView layer] renderInContext:context];
-        UIImage *thumbnail_image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        
-        [self.cachedMapViews addObject:thumbnail_image];
-    }
-}
-
-
--(void)zoomMapView:(MKMapView *)mapView forTrip:(Trip *)trip {
-    if([trip.points count] == 0)
-        return;
-    
-    CLLocationCoordinate2D topLeftCoord;
-    topLeftCoord.latitude = -90;
-    topLeftCoord.longitude = 180;
-    
-    CLLocationCoordinate2D bottomRightCoord;
-    bottomRightCoord.latitude = 90;
-    bottomRightCoord.longitude = -180;
-    
-    for(GPSPoint *point in trip.points)
-    {
-        topLeftCoord.longitude = fmin(topLeftCoord.longitude, [point.lon doubleValue]);
-        topLeftCoord.latitude = fmax(topLeftCoord.latitude, [point.lat doubleValue]);
-        
-        bottomRightCoord.longitude = fmax(bottomRightCoord.longitude, [point.lon doubleValue]);
-        bottomRightCoord.latitude = fmin(bottomRightCoord.latitude, [point.lat doubleValue]);
-    }
-    
-    CLLocationCoordinate2D center = CLLocationCoordinate2DMake(topLeftCoord.latitude - (topLeftCoord.latitude - bottomRightCoord.latitude) * 0.5,
-                                                               topLeftCoord.longitude + (bottomRightCoord.longitude - topLeftCoord.longitude) * 0.5);
-    
-    MKCoordinateSpan span = MKCoordinateSpanMake(fabs(topLeftCoord.latitude - bottomRightCoord.latitude) * 0.5,
-                                                 fabs(bottomRightCoord.longitude - topLeftCoord.longitude) * 0.5	);
-    
-    MKCoordinateRegion region = MKCoordinateRegionMake(center, span);
-    
-    [mapView regionThatFits:region];
-    [mapView setRegion:region animated:NO];
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
@@ -179,25 +123,21 @@
     TripHistoryTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     Trip *trip = [tripManager tripWithIndexPath:indexPath];
+
+    [cell setSelectionStyle:UITableViewCellSelectionStyleGray];        
+    [cell.distanceLabel setText:[NSString stringWithFormat:@"%.1f %@",[trip.totalDistance floatValue],[[SettingsManager sharedManager] unitLabelDistance]]];
     
-    if([trip.recordingState isEqualToString:[tripManager recordingStateForState:GTTripStatePaused]]){
-        [cell.recordingBannerImage setImage:[UIImage imageNamed:@"completeLabel.png"]];
-        [cell.recordingBannerLabel setText:[NSString stringWithFormat:@"%@",trip.startDate]];
-    }
+    NSDate *timerDate = [NSDate dateWithTimeIntervalSince1970:[trip.tripDuration floatValue]];
     
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [self zoomMapView:cell.mapView forTrip:trip];
-    [cell.mapView setUserInteractionEnabled:NO];
-    [cell.mapView setScrollEnabled:NO];
-        
-    [cell.distanceLabel setText:[NSString stringWithFormat:@"%.1f %@",[tripManager calculateDistanceForPoints:trip],[[SettingsManager sharedManager] unitLabelDistance]]];
+    NSDateFormatter *timerDateFormatter = [[NSDateFormatter alloc] init];
+    [timerDateFormatter setDateFormat:@"HH:mm:ss"];
+    [timerDateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0.0]];
+    
     [cell.recordedPointsLabel setText:[NSString stringWithFormat:@"%i TRACKPOINTS",[trip.points count]]];
-    [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
-    
+    [cell.tripDurationLabel setText:[timerDateFormatter stringFromDate:timerDate]];
     [cell.tripNameLabel setText:[NSString stringWithFormat:@"%@",trip.tripName]];
     
-    
-    
+
     return cell;
 }
 
@@ -327,12 +267,74 @@
 -(void)deleteMultipleTrips {
     
     for (NSIndexPath *indexPath in [self.tableView indexPathsForSelectedRows]) {
+        
         [tripManager deleteTripAtIndexPath:indexPath];
         [self.tableView setEditing:NO animated:YES];
         [self.deleteButton setTitle:@"Delete"];
         [self.shareButton setTitle:@"Share"];
+    
+    }
+}
+
+/*
+-(void)configureMapViewsForCells {
+    
+    for (Trip *trip in [[tripManager allTrips] fetchedObjects]) {
+        
+        MKMapView *mapView = [[MKMapView alloc] init];
+        [mapView setUserInteractionEnabled:NO];
+        [mapView setScrollEnabled:NO];
+        [mapView setFrame:CGRectMake(0, 0, 320, 180)];
+        [mapView setMapType:MKMapTypeSatellite];
+        [mapView setDelegate:self];
+        [self zoomMapView:mapView forTrip:trip];
+        
+    }
+}
+
+-(UIImage *)renderImageForMapView:(MKMapView *)mapView {
+    UIGraphicsBeginImageContext(mapView.frame.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [[mapView layer] renderInContext:context];
+    UIImage *thumbnail_image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return thumbnail_image;
+}
+
+-(void)zoomMapView:(MKMapView *)mapView forTrip:(Trip *)trip {
+    if([trip.points count] == 0)
+        return;
+    
+    CLLocationCoordinate2D topLeftCoord;
+    topLeftCoord.latitude = -90;
+    topLeftCoord.longitude = 180;
+    
+    CLLocationCoordinate2D bottomRightCoord;
+    bottomRightCoord.latitude = 90;
+    bottomRightCoord.longitude = -180;
+    
+    for(GPSPoint *point in trip.points)
+    {
+        topLeftCoord.longitude = fmin(topLeftCoord.longitude, [point.lon doubleValue]);
+        topLeftCoord.latitude = fmax(topLeftCoord.latitude, [point.lat doubleValue]);
+        
+        bottomRightCoord.longitude = fmax(bottomRightCoord.longitude, [point.lon doubleValue]);
+        bottomRightCoord.latitude = fmin(bottomRightCoord.latitude, [point.lat doubleValue]);
     }
     
+    CLLocationCoordinate2D center = CLLocationCoordinate2DMake(topLeftCoord.latitude - (topLeftCoord.latitude - bottomRightCoord.latitude) * 0.5,
+                                                               topLeftCoord.longitude + (bottomRightCoord.longitude - topLeftCoord.longitude) * 0.5);
+    
+    MKCoordinateSpan span = MKCoordinateSpanMake(fabs(topLeftCoord.latitude - bottomRightCoord.latitude) * 0.5,
+                                                 fabs(bottomRightCoord.longitude - topLeftCoord.longitude) * 0.5	);
+    
+    MKCoordinateRegion region = MKCoordinateRegionMake(center, span);
+    
+    [mapView regionThatFits:region];
+    [mapView setRegion:region animated:NO];
 }
+
+*/
 
 @end

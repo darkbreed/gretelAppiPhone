@@ -13,13 +13,15 @@
 #import "ShareManager.h"
 #import "SettingsManager.h"
 #import <QuartzCore/QuartzCore.h>
+#import <GCDiscreetNotificationView/GCDiscreetNotificationView.h>
 
-@interface HistoryViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, NSFetchedResultsControllerDelegate>
+@interface HistoryViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, NSFetchedResultsControllerDelegate, MKMapViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UISearchBar *searchBar;
 @property (nonatomic, strong) UIBarButtonItem *deleteButton;
 @property (nonatomic, strong) UIBarButtonItem *shareButton;
 
 @property (nonatomic, strong) NSMutableArray *cachedMapViews;
+@property (nonatomic, strong) GCDiscreetNotificationView *notificationView;
 
 @end

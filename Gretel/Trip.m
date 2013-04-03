@@ -25,5 +25,7 @@
 @dynamic tripDurationMilliseconds;
 @dynamic points;
 @dynamic tripDuration;
+@dynamic totalDistance;
+@dynamic receivedFromReomote;
 
 @end

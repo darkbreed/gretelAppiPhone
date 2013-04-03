@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" version="1.1" creator="Gretel">
+	<trk>
+		<name>Islay Ferry</name>
+		<trkseg>
+			<trkpt lat="55.806507" lon="-5.484252">
+				<ele>5.930481</ele>
+				<time>2013-03-23T14:50:43Z</time>
+			</trkpt>
+			<trkpt lat="55.806519" lon="-5.483962">
+				<ele>-4.051758</ele>
+				<time>2013-03-23T14:47:47Z</time>
+			</trkpt>
+			<trkpt lat="55.796783" lon="-5.511605">
+				<ele>-17.186707</ele>
+				<time>2013-03-23T15:10:04Z</time>
+			</trkpt>
+			<trkpt lat="55.796387" lon="-5.512087">
+				<ele>-36.681946</ele>
+				<time>2013-03-23T15:10:06Z</time>
+			</trkpt>
+			<trkpt lat="55.806831" lon="-5.482495">
+				<ele>16.399902</ele>
+				<time>2013-03-23T14:45:25Z</time>
+			</trkpt>
+			<trkpt lat="55.806530" lon="-5.483109">
+				<ele>14.726929</ele>
+				<time>2013-03-23T14:46:24Z</time>
+			</trkpt>
+			<trkpt lat="55.806633" lon="-5.485881">
+				<ele>22.970764</ele>
+				<time>2013-03-23T15:04:13Z</time>
+			</trkpt>
+			<trkpt lat="55.806564" lon="-5.485048">
+				<ele>22.522583</ele>
+				<time>2013-03-23T15:03:39Z</time>
+			</trkpt>
+			<trkpt lat="55.795921" lon="-5.512608">
+				<ele>-23.056396</ele>
+				<time>2013-03-23T15:10:16Z</time>
+			</trkpt>
+			<trkpt lat="55.781185" lon="-5.537774">
+				<ele>-16.721313</ele>
+				<time>2013-03-23T15:15:36Z</time>
+			</trkpt>
+			<trkpt lat="55.795731" lon="-5.512921">
+				<ele>-19.584839</ele>
+				<time>2013-03-23T15:10:20Z</time>
+			</trkpt>
+			<trkpt lat="55.806553" lon="-5.485462">
+				<ele>22.529724</ele>
+				<time>2013-03-23T15:03:53Z</time>
+			</trkpt>
+			<trkpt lat="55.796791" lon="-5.511659">
+				<ele>10.417749</ele>
+				<time>2013-03-23T15:10:02Z</time>
+			</trkpt>
+			<trkpt lat="55.781147" lon="-5.537331">
+				<ele>-23.499023</ele>
+				<time>2013-03-23T15:15:35Z</time>
+			</trkpt>
+			<trkpt lat="55.806366" lon="-5.483920">
+				<ele>3.478882</ele>
+				<time>2013-03-23T14:50:11Z</time>
+			</trkpt>
+			<trkpt lat="55.806522" lon="-5.483547">
+				<ele>1.296875</ele>
+				<time>2013-03-23T14:47:22Z</time>
+			</trkpt>
+			<trkpt lat="55.796902" lon="-5.511518">
+				<ele>-5.120056</ele>
+				<time>2013-03-23T15:10:03Z</time>
+			</trkpt>
+			<trkpt lat="55.796143" lon="-5.512329">
+				<ele>-30.246521</ele>
+				<time>2013-03-23T15:10:13Z</time>
+			</trkpt>
+			<trkpt lat="55.806545" lon="-5.484649">
+				<ele>17.791687</ele>
+				<time>2013-03-23T15:03:21Z</time>
+			</trkpt>
+			<trkpt lat="55.806301" lon="-5.484179">
+				<ele>2.721802</ele>
+				<time>2013-03-23T14:50:04Z</time>
+			</trkpt>
+			<trkpt lat="55.806660" lon="-5.482764">
+				<ele>10.704834</ele>
+				<time>2013-03-23T14:45:57Z</time>
+			</trkpt>
+			<trkpt lat="55.780914" lon="-5.538450">
+				<ele>-4.429443</ele>
+				<time>2013-03-23T15:15:43Z</time>
+			</trkpt>
+			<trkpt lat="55.780792" lon="-5.538844">
+				<ele>-3.556396</ele>
+				<time>2013-03-23T15:15:47Z</time>
+			</trkpt>
+			<trkpt lat="55.780735" lon="-5.539318">
+				<ele>4.132446</ele>
+				<time>2013-03-23T15:15:51Z</time>
+			</trkpt>
+			<trkpt lat="55.781406" lon="-5.536726">
+				<ele>-20.955568</ele>
+				<time>2013-03-23T15:15:34Z</time>
+			</trkpt>
+			<trkpt lat="55.806911" lon="-5.482105">
+				<ele>19.400391</ele>
+				<time>2013-03-23T14:40:29Z</time>
+			</trkpt>
+			<trkpt lat="55.806293" lon="-5.484147">
+				<ele>2.752869</ele>
+				<time>2013-03-23T14:50:05Z</time>
+			</trkpt>
+			<trkpt lat="55.780609" lon="-5.539754">
+				<ele>2.733459</ele>
+				<time>2013-03-23T15:15:55Z</time>
+			</trkpt>
+			<trkpt lat="55.781071" lon="-5.538157">
+				<ele>-7.497986</ele>
+				<time>2013-03-23T15:15:39Z</time>
+			</trkpt>
+		</trkseg>
+	</trk>
+</gpx>

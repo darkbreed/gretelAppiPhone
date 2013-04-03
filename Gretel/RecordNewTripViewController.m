@@ -16,7 +16,6 @@
 
 @implementation RecordNewTripViewController {
     SettingsManager *settingsManager;
-    double tripTimeElapsed;
 }
 
 
@@ -28,14 +27,12 @@
     settingsManager = [SettingsManager sharedManager];
     
 	// Do any additional setup after loading the view, typically from a nib.
-    
     [self.mapView setUserTrackingMode:MKUserTrackingModeFollow];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLocation) name:GTLocationUpdatedSuccessfully object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCompassWithHeading) name:GTLocationHeadingDidUpdate object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pauseRecording) name:GTLocationDidPauseUpdates object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSettingsChange) name:SMSettingsUpdated object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTripTimerDisplay) name:GTTripTimerDidUpdate object:nil];
     
     [self setInitialLocate:YES];
@@ -46,8 +43,6 @@
     
         [self.locateMeButton setBackgroundImage:[UIImage imageNamed:@"locationSymbolEnabled.png"] forState:UIControlStateNormal];
     }
-    
-    tripTimeElapsed = 0.0;
     
     [self setUpViewForNewTrip];
 }
@@ -133,7 +128,7 @@
             
         case GTTripStateRecording: {
             //We are paused, the user is resuming tracking
-        
+            
             //Start tracking the users location
             [[GeoManager sharedManager] startTrackingPosition];
             
@@ -141,7 +136,7 @@
             [tripManager beginRecording];
             
             [self.notificationView setTextLabel:@"Recording"];
-            //[self.notificationView showAndDismissAutomaticallyAnimated];
+            [self.notificationView showAndDismissAutomaticallyAnimated];
             [self.recordingIndicatorContainer setHidden:NO];
             
             [self.startButton setBackgroundImage:[UIImage imageNamed:@"pauseButton.png"] forState:UIControlStateNormal];
@@ -161,14 +156,20 @@
         case GTTripStateNew:
             
             if([[GeoManager sharedManager] locationServicesEnabled]){
+                
                 if(!tripManager.currentTrip){
                     
-                    UIAlertView *newTripAlertView = [[UIAlertView alloc] initWithTitle:@"Name your trip" message:@"Give your trip a name, this can be changed later" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Start recording", nil];
-                    [newTripAlertView setAlertViewStyle:UIAlertViewStylePlainTextInput];
-                    [[newTripAlertView textFieldAtIndex:0] setPlaceholder:@"Trip name..."];
-                    [newTripAlertView setTag:GTAlertViewTagBeginRecordingAlert];
-                    [newTripAlertView show];
+                    NSDateFormatter *formatter;
+                    formatter = [[NSDateFormatter alloc] init];
+                    [formatter setDateFormat:@"dd-MM-yyyy HH:mm"];
+                    self.tripName = [formatter stringFromDate:[NSDate date]];
+                    
+                    [tripManager createNewTripWithName:self.tripName];
+                    [self setViewStateForTripState:GTTripStateRecording];
+                    [self setTitle:self.tripName];
+                    
                 }
+                
             }else{
                 [self displayLocationServicesDisabledAlert];
             }
@@ -221,16 +222,6 @@
             [[GeoManager sharedManager] stopTrackingPosition];
             [self performSegueWithIdentifier:@"displayHistoryView" sender:self];
         }
-        
-    }else if(alertView.tag == GTAlertViewTagBeginRecordingAlert){
-        
-        if(buttonIndex == 1){
-            self.tripName = [[alertView textFieldAtIndex:0] text];
-            [self setViewStateForTripState:GTTripStateRecording];
-            [tripManager createNewTripWithName:self.tripName];
-            [self setTitle:self.tripName];
-            
-        }
     }
 }
 
@@ -247,9 +238,7 @@
     //Update the views
     self.latLabel.text = [NSString stringWithFormat:@"%.3f",self.mapView.userLocation.coordinate.latitude];
     self.lonLabel.text = [NSString stringWithFormat:@"%.3f",self.mapView.userLocation.coordinate.longitude];
-    
 
-    
     float currentSpeed = [[GeoManager sharedManager] currentSpeed] * settingsManager.speedMultiplier;
     
     if(currentSpeed < 0.0){

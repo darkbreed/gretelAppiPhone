@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="11E53" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12C3012" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="GPSPoint" representedClassName="GPSPoint" syncable="YES">
         <attribute name="altitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="lat" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
@@ -16,16 +16,13 @@
         <attribute name="receivedFromReomote" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="recordingState" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="totalDistance" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="tripDuration" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="tripDurationHours" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="tripDurationMilliseconds" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="tripDurationMinutes" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="tripDurationSeconds" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="tripName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="points" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GPSPoint" inverseName="trip" inverseEntity="GPSPoint" syncable="YES"/>
     </entity>
     <elements>
         <element name="GPSPoint" positionX="160" positionY="192" width="128" height="135"/>
-        <element name="Trip" positionX="-180" positionY="171" width="128" height="255"/>
+        <element name="Trip" positionX="-180" positionY="171" width="128" height="210"/>
     </elements>
 </model>

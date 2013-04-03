@@ -121,8 +121,8 @@
     CLLocationCoordinate2D center = CLLocationCoordinate2DMake(topLeftCoord.latitude - (topLeftCoord.latitude - bottomRightCoord.latitude) * 0.5,
                                                                topLeftCoord.longitude + (bottomRightCoord.longitude - topLeftCoord.longitude) * 0.5);
     
-    MKCoordinateSpan span = MKCoordinateSpanMake(fabs(topLeftCoord.latitude - bottomRightCoord.latitude) * 1.1,
-                                                 fabs(bottomRightCoord.longitude - topLeftCoord.longitude) * 1.1);
+    MKCoordinateSpan span = MKCoordinateSpanMake(fabs(topLeftCoord.latitude - bottomRightCoord.latitude) * 1.5,
+                                                 fabs(bottomRightCoord.longitude - topLeftCoord.longitude) * 1.5);
     
     MKCoordinateRegion region = MKCoordinateRegionMake(center, span);
     

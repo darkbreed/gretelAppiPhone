@@ -52,10 +52,11 @@ NSString * const GTTripTimerDidUpdate = @"tripTimerDidUpdate";
     return self;
 }
 
--(void)importTripFromGPXNotification:(NSNotification *)notification {
+-(void)importTripFromGPXFile:(NSURL *)url {
     
-    NSURL *url = (NSURL *)[notification object];
     GPXRoot *root = [GPXParser parseGPXAtURL:url];
+    NSLog(@"Trip manager RootGPX %@",root);
+    
 }
 
 - (void)didReceiveNewURL:(NSNotification *)notification
@@ -90,7 +91,6 @@ NSString * const GTTripTimerDidUpdate = @"tripTimerDidUpdate";
         for (int i = 0; i < count; i++) {
             if(i > 0 && i < count){
             
-             
                 nextPoint = [sortedPoints objectAtIndex:i];
                 nextLocation = [[CLLocation alloc] initWithLatitude:[nextPoint.lat floatValue] longitude:[nextPoint.lon floatValue]];
                 totalDistance += [startLocation distanceFromLocation:nextLocation];
@@ -123,7 +123,8 @@ NSString * const GTTripTimerDidUpdate = @"tripTimerDidUpdate";
     }
     
     [trip deleteInContext:context];
-    [context saveNestedContexts];
+    
+    [context save];
 }
 
 -(void)searchTripsByKeyword:(NSString *)keyword {
@@ -158,8 +159,8 @@ NSString * const GTTripTimerDidUpdate = @"tripTimerDidUpdate";
 }
 
 -(void)stopRecording {
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:nil];
     [self saveTrip];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:nil];
 }
 
 -(void)pauseRecording {
@@ -167,8 +168,11 @@ NSString * const GTTripTimerDidUpdate = @"tripTimerDidUpdate";
     [self.currentTrip setRecordingState:[self recordingStateForState:GTTripStatePaused]];
     [self setTripState:GTTripStatePaused];
     [self stopTimer];
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:nil];
+    
+    self.currentTrip.totalDistance = [NSNumber numberWithFloat:[self calculateDistanceForPoints:self.currentTrip]];
     [self saveTrip];
+    
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:nil];
 }
 
 -(void)beginRecording {
@@ -177,9 +181,9 @@ NSString * const GTTripTimerDidUpdate = @"tripTimerDidUpdate";
     [self setTripState:GTTripStateRecording];
     secondsElapsedForTrip = [[self.currentTrip tripDuration] floatValue];
     [self startTimer];
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
     [self saveTrip];
     
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
 }
 
 -(void)saveTrip {
@@ -193,12 +197,11 @@ NSString * const GTTripTimerDidUpdate = @"tripTimerDidUpdate";
     [self.currentTrip setFinishDate:[NSDate date]];
     [self.currentTrip setRecordingState:[self recordingStateForState:GTTripStatePaused]];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:nil];
-    
     [self createGPXFileFromTrip:self.currentTrip];
-    
     [self setCurrentTrip:nil];
     [self setTripState:GTTripStateNew];
     
+    //Re-fectch the trips
     [self fetchAllTrips];
     
 }
@@ -219,7 +222,7 @@ NSString * const GTTripTimerDidUpdate = @"tripTimerDidUpdate";
     
 }
 
--(void)storeLocation{
+-(void)storeLocation {
     
     CLLocation *location = [GeoManager sharedManager].currentLocation;
     
