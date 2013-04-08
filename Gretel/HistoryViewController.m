@@ -49,17 +49,16 @@
     
     [self setToolbarItems:[NSArray arrayWithObjects:self.shareButton, self.deleteButton, nil]];
     
-    self.cachedMapViews = [NSMutableArray array];
-    
     tripManager = [TripManager sharedManager];
     tripManager.allTrips.delegate = self;
-    [tripManager fetchAllTrips];
     
+    [tripManager fetchAllTrips];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     
-    [self.tableView reloadData];
+    //[self.tableView reloadData];
+    
 }
 
 -(void)setEditing:(BOOL)editing animated:(BOOL)animated {
@@ -137,13 +136,12 @@
     [cell.tripDurationLabel setText:[timerDateFormatter stringFromDate:timerDate]];
     [cell.tripNameLabel setText:[NSString stringWithFormat:@"%@",trip.tripName]];
     
-
     return cell;
 }
 
 - (void)searchDisplayController:(UISearchDisplayController *)controller didLoadSearchResultsTableView:(UITableView *)tableView
 {
-    tableView.rowHeight = 150;
+    tableView.rowHeight = 64.0f;
 }
 
 // Override to support conditional editing of the table view.

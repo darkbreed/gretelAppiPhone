@@ -18,7 +18,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+    
     }
     return self;
 }
@@ -37,6 +37,9 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    // Custom initialization
+    pointCountForPolyline = 0;
+    pointLimitForPolyline = 10;
 }
 
 - (void)didReceiveMemoryWarning
@@ -47,7 +50,7 @@
 
 - (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay {
     
-    UIColor* transparentBlue = [UIColor colorWithRed: 0 green: 0.54 blue: 0.97 alpha: 0.65];
+    UIColor* transparentBlue = [UIColor colorWithRed: 0 green: 0.54 blue: 0.97 alpha: 1.0];
     
     MKPolylineView *polylineView = [[MKPolylineView alloc] initWithPolyline:overlay];
     polylineView.strokeColor = transparentBlue;
@@ -132,21 +135,46 @@
     
 }
 
-- (void)drawRoute:(NSArray *)route onMapView:(MKMapView *)mapView {
+- (void)drawRoute:(NSArray *)route onMapView:(MKMapView *)mapView willRefreh:(BOOL)willRefresh {
     
-    NSInteger numberOfSteps = route.count;
-    
-    CLLocationCoordinate2D coordinates[numberOfSteps];
-    for (NSInteger index = 0; index < numberOfSteps; index++) {
+    //Remove the previous overlay and add the new one so we don't build up too many    
+    dispatch_async(dispatch_get_main_queue(), ^(void) {
         
-        GPSPoint *point = [route objectAtIndex:index];
-        CLLocationCoordinate2D coord = CLLocationCoordinate2DMake([point.lat doubleValue], [point.lon doubleValue]);
+        NSInteger totalNumberOfPoints = route.count;
         
-        coordinates[index] = coord;
-    }
-    
-    MKPolyline *polyLine = [MKPolyline polylineWithCoordinates:coordinates count:numberOfSteps];
-    [mapView addOverlay:polyLine];
+        CLLocationCoordinate2D coordinates[totalNumberOfPoints];
+        
+        for (NSInteger index = 0; index < totalNumberOfPoints; index++) {
+            
+            GPSPoint *point = [route objectAtIndex:index];
+            CLLocationCoordinate2D coord = CLLocationCoordinate2DMake([point.lat doubleValue], [point.lon doubleValue]);
+            coordinates[index] = coord;
+            
+            pointCountForPolyline++;
+            
+        }
+        
+        if(willRefresh){
+            double delayInSeconds = 1.6;
+            
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                
+                MKPolyline *previousLine = [[mapView overlays] objectAtIndex:0];
+                if(previousLine){
+                    
+                    NSLog(@"Removing %@",[[mapView overlays] objectAtIndex:0]);
+                    [mapView removeOverlay:previousLine];
+                    
+                }
+            });
+            
+        }
+        
+        MKPolyline *polyLine = [MKPolyline polylineWithCoordinates:coordinates count:totalNumberOfPoints];
+        [mapView addOverlay:polyLine];
+        
+    });
     
 }
 

@@ -68,13 +68,6 @@ typedef enum {
  */
 -(id)initWithShareType:(ShareManagerShareType)shareType fromViewController:(UIViewController *)viewController;
 
-/**
- * Creates a singleton instance of the ShareManager.
- * @param UIViewController - the view controller to display the share options dialogue in
- * @param Trip - the trip data to share
- * @return void
- */
--(void)displayShareOptionsInViewController:(UIViewController *)viewController withTripData:(Trip *)data;
 
 /**
  * Shares the trip via email. The trip data is passed into the GPX factory class and converted to GPX XML and attached to an email using the native email client.

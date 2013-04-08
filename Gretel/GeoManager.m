@@ -60,7 +60,7 @@ NSString *const GTLocationDidPauseUpdates = @"updatesPaused";
  */
 -(void)configureLocationManager {
     
-    [locationManager setDistanceFilter:CLLocationDistanceMax];
+    [locationManager setDistanceFilter:10.0];
     [locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
     [locationManager setDelegate:self];
     [locationManager setPausesLocationUpdatesAutomatically:YES];
@@ -73,8 +73,8 @@ NSString *const GTLocationDidPauseUpdates = @"updatesPaused";
     }
     
     //Locate the user
-    [locationManager startUpdatingLocation];
-    [locationManager startUpdatingHeading];
+    //[locationManager startUpdatingLocation];
+    //[locationManager startUpdatingHeading];
     
 }
 
@@ -116,7 +116,7 @@ NSString *const GTLocationDidPauseUpdates = @"updatesPaused";
 	self.fromHeadingAsRad =  -manager.heading.trueHeading * M_PI / 180.0f;
 	self.toHeadingAsRad =  -newHeading.trueHeading * M_PI / 180.0f;
     
-    NSLog(@"%f (%f) => %f (%f)", manager.heading.trueHeading, self.fromHeadingAsRad, newHeading.trueHeading, self.toHeadingAsRad);
+    //NSLog(@"%f (%f) => %f (%f)", manager.heading.trueHeading, self.fromHeadingAsRad, newHeading.trueHeading, self.toHeadingAsRad);
     
     //Post a notfication to update observers that updates have failed
     [[NSNotificationCenter defaultCenter] postNotificationName:GTLocationHeadingDidUpdate object:nil];

@@ -16,6 +16,9 @@
     CGRect mapOffFrame;
     CGRect optionsOnFrame;
     CGRect optionsOffFrame;
+    NSMutableArray *polylines;
+    int pointLimitForPolyline;
+    int pointCountForPolyline;
 }
 
 @property (nonatomic, strong) IBOutlet MKMapView *mapView;
@@ -45,7 +48,7 @@
 
 
 - (void)zoomToFitMapView:(MKMapView*)mapView toFitRoute:(NSArray *)route animated:(BOOL)animated;
-- (void)drawRoute:(NSArray *)route onMapView:(MKMapView *)mapView;
+- (void)drawRoute:(NSArray *)route onMapView:(MKMapView *)mapView willRefreh:(BOOL)willRefresh;
 - (void)addAnnotationsToMapView:(MKMapView *)mapView fromArray:(NSArray *)points;
 
 @end

@@ -31,7 +31,6 @@ typedef enum {
 
 @interface RecordNewTripViewController : BRBaseMapViewController <MKMapViewDelegate, UIAlertViewDelegate> {
     NSMutableArray *recordedPoints;
-    NSManagedObjectContext *context;
     BOOL resumingTrip;
     TripManager *tripManager;
     NSTimer *tripTimer;
@@ -85,7 +84,5 @@ typedef enum {
 -(IBAction)startTrackingButtonHandler:(id)sender;
 -(IBAction)stopTrackingButtonHandler:(id)sender;
 -(IBAction)addButtonHandler:(id)sender;
-
--(void)resumeTripWithTrip:(Trip *)trip;
 
 @end

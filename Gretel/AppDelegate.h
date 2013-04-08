@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <TestFlightSDK/TestFlight.h>
-#import "ECSlidingViewController.h"
 #import "TripManager.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>

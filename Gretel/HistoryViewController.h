@@ -21,7 +21,6 @@
 @property (nonatomic, strong) UIBarButtonItem *deleteButton;
 @property (nonatomic, strong) UIBarButtonItem *shareButton;
 
-@property (nonatomic, strong) NSMutableArray *cachedMapViews;
 @property (nonatomic, strong) GCDiscreetNotificationView *notificationView;
 
 @end

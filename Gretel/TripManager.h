@@ -36,10 +36,13 @@ extern NSString * const GTTripTimerDidUpdate;
 @property (nonatomic, strong) Trip *tripForDetailView;
 ///All trips
 @property (nonatomic, strong) NSFetchedResultsController *allTrips;
-///
 @property (nonatomic, strong) NSString *timerValue;
-
 @property (nonatomic, readwrite) BOOL isResuming;
+
+///Core data stack
+@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
+@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 +(TripManager*)sharedManager;
 
@@ -54,6 +57,7 @@ extern NSString * const GTTripTimerDidUpdate;
 -(NSArray *)fectchPointsForDrawing:(BOOL)forDetailView;
 -(Trip *)tripWithIndexPath:(NSIndexPath *)tripIndexPath;
 -(void)deleteTripAtIndexPath:(NSIndexPath *)tripIndexPath;
+-(void)deleteTrip:(Trip *)trip;
 -(NSString *)recordingStateForState:(GTTripState)state;
 -(void)searchTripsByKeyword:(NSString *)keyword;
 -(float)calculateDistanceForPoints:(Trip *)trip;

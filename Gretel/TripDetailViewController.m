@@ -43,7 +43,7 @@
     
     self.title = tripManager.tripForDetailView.tripName;
     
-    [self drawRoute:points onMapView:self.mapView];
+    [self drawRoute:points onMapView:self.mapView willRefreh:NO];
     [self addAnnotationsToMapView:self.mapView fromArray:points];
     [self zoomToFitMapView:self.mapView toFitRoute:points animated:NO];
     
@@ -63,12 +63,7 @@
     
     switch (buttonIndex) {
         case CompletedTripOptionTypeDelete:
-            
-            [tripManager.tripForDetailView deleteInContext:[NSManagedObjectContext defaultContext]];
-            [[NSManagedObjectContext defaultContext] saveNestedContexts];
-            [tripManager fetchAllTrips];
-            
-            [self.navigationController popViewControllerAnimated:YES];
+            [[TripManager sharedManager] deleteTrip:self.trip];
             break;
         default:
             break;

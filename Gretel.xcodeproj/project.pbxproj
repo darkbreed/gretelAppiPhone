@@ -13,7 +13,6 @@
 		3A072B7B167FC7A900349316 /* BRBaseMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A072B7A167FC7A900349316 /* BRBaseMapViewController.m */; };
 		3A2059A916945AA700E81FB4 /* ExtendedManagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2059A316945AA700E81FB4 /* ExtendedManagedObject.m */; };
 		3A2059AA16945AA700E81FB4 /* GPSPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2059A516945AA700E81FB4 /* GPSPoint.m */; };
-		3A2059AB16945AA700E81FB4 /* Gretel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 3A2059A616945AA700E81FB4 /* Gretel.xcdatamodel */; };
 		3A43D62A16761D1F007E9A84 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A43D62916761D1F007E9A84 /* UIKit.framework */; };
 		3A43D62C16761D1F007E9A84 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A43D62B16761D1F007E9A84 /* Foundation.framework */; };
 		3A43D62E16761D1F007E9A84 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A43D62D16761D1F007E9A84 /* CoreGraphics.framework */; };
@@ -104,8 +103,11 @@
 		B59A763316F3137000982811 /* compassArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B59A763116F3137000982811 /* compassArrow@2x.png */; };
 		B59C374716E7BBE80090D395 /* pointsSymbol.png in Resources */ = {isa = PBXBuildFile; fileRef = B59C374516E7BBE80090D395 /* pointsSymbol.png */; };
 		B59C374816E7BBE80090D395 /* pointsSymbol@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B59C374616E7BBE80090D395 /* pointsSymbol@2x.png */; };
+		B5A3437D170DE71E0099DD7D /* Gretel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B5A3437B170DE71E0099DD7D /* Gretel.xcdatamodeld */; };
 		B5A7236816EDD0C9006EC062 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A7236716EDD0C9006EC062 /* AboutViewController.m */; };
 		B5AE901116DF4A0D003A36C6 /* TripHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B5AE901016DF4A0D003A36C6 /* TripHistoryTableViewCell.m */; };
+		B5E45C23170ECDF500C1B6F6 /* obanglencoe.gpx in Resources */ = {isa = PBXBuildFile; fileRef = B5E45C22170ECDF500C1B6F6 /* obanglencoe.gpx */; };
+		B5E45C25170EE98400C1B6F6 /* 05-04-2013 10:32.gpx in Resources */ = {isa = PBXBuildFile; fileRef = B5E45C24170EE98400C1B6F6 /* 05-04-2013 10:32.gpx */; };
 		B5F6165916DD4224005BDB7C /* deleteSymbol.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F6165316DD4224005BDB7C /* deleteSymbol.png */; };
 		B5F6165A16DD4224005BDB7C /* deleteSymbol@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F6165416DD4224005BDB7C /* deleteSymbol@2x.png */; };
 		B5F6165B16DD4224005BDB7C /* infoSymbol.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F6165516DD4224005BDB7C /* infoSymbol.png */; };
@@ -139,7 +141,6 @@
 		3A2059A316945AA700E81FB4 /* ExtendedManagedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtendedManagedObject.m; sourceTree = "<group>"; };
 		3A2059A416945AA700E81FB4 /* GPSPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPSPoint.h; sourceTree = "<group>"; };
 		3A2059A516945AA700E81FB4 /* GPSPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPSPoint.m; sourceTree = "<group>"; };
-		3A2059A616945AA700E81FB4 /* Gretel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Gretel.xcdatamodel; sourceTree = "<group>"; };
 		3A43D62516761D1F007E9A84 /* Gretel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gretel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A43D62916761D1F007E9A84 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3A43D62B16761D1F007E9A84 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -196,6 +197,7 @@
 		B54BC33D16E9DC910045659E /* GPXDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPXDocument.m; sourceTree = "<group>"; };
 		B54BC34216EA23830045659E /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
 		B54BC34316EA23830045659E /* Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trip.m; sourceTree = "<group>"; };
+		B550DB3D170D5EA900A20093 /* Gretel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Gretel.entitlements; sourceTree = "<group>"; };
 		B560498E170C86C3003B1383 /* bristol.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bristol.gpx; sourceTree = "<group>"; };
 		B560498F170C86C3003B1383 /* CretshangenBeach_log_20130319123428.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = CretshangenBeach_log_20130319123428.gpx; sourceTree = "<group>"; };
 		B5604990170C86C3003B1383 /* dayafterwedding_log_20130320133532.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = dayafterwedding_log_20130320133532.gpx; sourceTree = "<group>"; };
@@ -244,10 +246,13 @@
 		B59A763116F3137000982811 /* compassArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compassArrow@2x.png"; sourceTree = "<group>"; };
 		B59C374516E7BBE80090D395 /* pointsSymbol.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pointsSymbol.png; sourceTree = "<group>"; };
 		B59C374616E7BBE80090D395 /* pointsSymbol@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pointsSymbol@2x.png"; sourceTree = "<group>"; };
+		B5A3437C170DE71E0099DD7D /* Gretel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Gretel.xcdatamodel; sourceTree = "<group>"; };
 		B5A7236616EDD0C9006EC062 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		B5A7236716EDD0C9006EC062 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		B5AE900F16DF4A0D003A36C6 /* TripHistoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripHistoryTableViewCell.h; sourceTree = "<group>"; };
 		B5AE901016DF4A0D003A36C6 /* TripHistoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripHistoryTableViewCell.m; sourceTree = "<group>"; };
+		B5E45C22170ECDF500C1B6F6 /* obanglencoe.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obanglencoe.gpx; sourceTree = "<group>"; };
+		B5E45C24170EE98400C1B6F6 /* 05-04-2013 10:32.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "05-04-2013 10:32.gpx"; sourceTree = "<group>"; };
 		B5F6165316DD4224005BDB7C /* deleteSymbol.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = deleteSymbol.png; sourceTree = "<group>"; };
 		B5F6165416DD4224005BDB7C /* deleteSymbol@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deleteSymbol@2x.png"; sourceTree = "<group>"; };
 		B5F6165516DD4224005BDB7C /* infoSymbol.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = infoSymbol.png; sourceTree = "<group>"; };
@@ -299,11 +304,11 @@
 		3A2059A016945A9C00E81FB4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B5A3437B170DE71E0099DD7D /* Gretel.xcdatamodeld */,
 				3A2059A216945AA700E81FB4 /* ExtendedManagedObject.h */,
 				3A2059A316945AA700E81FB4 /* ExtendedManagedObject.m */,
 				3A2059A416945AA700E81FB4 /* GPSPoint.h */,
 				3A2059A516945AA700E81FB4 /* GPSPoint.m */,
-				3A2059A616945AA700E81FB4 /* Gretel.xcdatamodel */,
 				B54BC34216EA23830045659E /* Trip.h */,
 				B54BC34316EA23830045659E /* Trip.m */,
 				B54BC33C16E9DC910045659E /* GPXDocument.h */,
@@ -353,6 +358,7 @@
 		3A43D62F16761D1F007E9A84 /* Gretel */ = {
 			isa = PBXGroup;
 			children = (
+				B550DB3D170D5EA900A20093 /* Gretel.entitlements */,
 				B560498D170C86C3003B1383 /* GPX */,
 				B50EBE1B16D4BE5C0090433B /* Resources */,
 				3A2059A016945A9C00E81FB4 /* Model */,
@@ -522,6 +528,8 @@
 		B560498D170C86C3003B1383 /* GPX */ = {
 			isa = PBXGroup;
 			children = (
+				B5E45C24170EE98400C1B6F6 /* 05-04-2013 10:32.gpx */,
+				B5E45C22170ECDF500C1B6F6 /* obanglencoe.gpx */,
 				B560498E170C86C3003B1383 /* bristol.gpx */,
 				B560498F170C86C3003B1383 /* CretshangenBeach_log_20130319123428.gpx */,
 				B5604990170C86C3003B1383 /* dayafterwedding_log_20130320133532.gpx */,
@@ -676,6 +684,8 @@
 				B56049A5170C86C3003B1383 /* Tarbert_log_20130321141947.gpx in Resources */,
 				B56049A6170C86C3003B1383 /* Trip.gpx in Resources */,
 				B56049A7170C86C3003B1383 /* trip_log_20130315132459.gpx in Resources */,
+				B5E45C23170ECDF500C1B6F6 /* obanglencoe.gpx in Resources */,
+				B5E45C25170EE98400C1B6F6 /* 05-04-2013 10:32.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -715,7 +725,6 @@
 				3A072B7B167FC7A900349316 /* BRBaseMapViewController.m in Sources */,
 				3A2059A916945AA700E81FB4 /* ExtendedManagedObject.m in Sources */,
 				3A2059AA16945AA700E81FB4 /* GPSPoint.m in Sources */,
-				3A2059AB16945AA700E81FB4 /* Gretel.xcdatamodel in Sources */,
 				B507473D16D9039600CEC1DE /* BaseNavigationViewController.m in Sources */,
 				B5F6167816DDF389005BDB7C /* SettingsViewController.m in Sources */,
 				B568976A16DDFC2300A07DFC /* SettingsManager.m in Sources */,
@@ -724,6 +733,7 @@
 				B54BC33E16E9DC910045659E /* GPXDocument.m in Sources */,
 				B54BC34416EA23830045659E /* Trip.m in Sources */,
 				B5A7236816EDD0C9006EC062 /* AboutViewController.m in Sources */,
+				B5A3437D170DE71E0099DD7D /* Gretel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -810,6 +820,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2DBC77A785094963AD97707F /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Gretel/Gretel.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ben Reed (2Z5J3XQ9P8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ben Reed (2Z5J3XQ9P8)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -819,6 +832,8 @@
 				INFOPLIST_FILE = "Gretel/Gretel-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "67D28525-3BC6-4413-89E6-8FDBD48A8307";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "67D28525-3BC6-4413-89E6-8FDBD48A8307";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -828,6 +843,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2DBC77A785094963AD97707F /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Gretel/Gretel.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ben Reed";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -837,6 +854,7 @@
 				INFOPLIST_FILE = "Gretel/Gretel-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "8BED8130-7526-4A6C-9D54-FFB9BFDFDDEE";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -864,6 +882,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		B5A3437B170DE71E0099DD7D /* Gretel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B5A3437C170DE71E0099DD7D /* Gretel.xcdatamodel */,
+			);
+			currentVersion = B5A3437C170DE71E0099DD7D /* Gretel.xcdatamodel */;
+			path = Gretel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 3A43D61C16761D1F007E9A84 /* Project object */;
 }

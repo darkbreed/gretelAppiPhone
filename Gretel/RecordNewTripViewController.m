@@ -148,7 +148,6 @@
     
 }
 
-
 #pragma Button Handlers
 -(IBAction)startTrackingButtonHandler:(id)sender {
     
@@ -231,7 +230,7 @@
     
         //Store the data point
         [tripManager storeLocation];
-        [self drawRoute:[tripManager fectchPointsForDrawing:NO] onMapView:self.mapView];
+        [self drawRoute:[tripManager fectchPointsForDrawing:NO] onMapView:self.mapView willRefreh:YES];
         
     }
     

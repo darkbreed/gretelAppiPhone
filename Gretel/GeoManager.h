@@ -26,7 +26,6 @@ extern NSNumber *const GTDistanceFilterInMetres;
     
     ///Location manager instance for tracking position, heading etc.
     CLLocationManager *locationManager;
-    
 }
 
 /**
