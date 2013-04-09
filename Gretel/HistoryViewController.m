@@ -33,6 +33,8 @@
 {
     [super viewDidLoad];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripDeleteSuccess:) name:GTTripDeletedSuccess object:nil];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -49,15 +51,23 @@
     
     [self setToolbarItems:[NSArray arrayWithObjects:self.shareButton, self.deleteButton, nil]];
     
-    tripManager = [TripManager sharedManager];
-    tripManager.allTrips.delegate = self;
-    
-    [tripManager fetchAllTrips];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     
-    //[self.tableView reloadData];
+    tripManager = [TripManager sharedManager];
+    tripManager.allTrips.delegate = self;
+    
+    [tripManager fetchAllTrips];
+    
+    if([tripManager.allTrips.fetchedObjects count] == 0){
+        self.noResultsToDisplay = YES;
+    }else{
+        self.noResultsToDisplay = NO;
+    }
+    
+    [self.tableView reloadData];
+    
     
 }
 
@@ -94,49 +104,80 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    int sections = [[tripManager.allTrips sections] count];
-    return sections;
+    
+    if(self.noResultsToDisplay){
+        
+        return 1;
+        
+    }else{
+        int sections = [[tripManager.allTrips sections] count];
+        return sections;
+    }
+    
+    
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    id<NSFetchedResultsSectionInfo> sectionInfo = [[tripManager.allTrips sections] objectAtIndex:section];
     
+    id<NSFetchedResultsSectionInfo> sectionInfo = [[tripManager.allTrips sections] objectAtIndex:section];
     return [sectionInfo name];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    id<NSFetchedResultsSectionInfo> sectionInfo = [[tripManager.allTrips sections] objectAtIndex:section];
-    int rows = [sectionInfo numberOfObjects];
+    if(self.noResultsToDisplay){
+        return 1;
+        
+    }else{
+        
+        id<NSFetchedResultsSectionInfo> sectionInfo = [[tripManager.allTrips sections] objectAtIndex:section];
+        int rows = [sectionInfo numberOfObjects];
+        
+        // Return the number of rows in the section.
+        return rows;
     
-    // Return the number of rows in the section.
-    return rows;
+    }
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     static NSString *CellIdentifier = @"Cell";
-    TripHistoryTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    Trip *trip = [tripManager tripWithIndexPath:indexPath];
-
-    [cell setSelectionStyle:UITableViewCellSelectionStyleGray];        
-    [cell.distanceLabel setText:[NSString stringWithFormat:@"%.1f %@",[trip.totalDistance floatValue],[[SettingsManager sharedManager] unitLabelDistance]]];
+    if(self.noResultsToDisplay){
+        
+        UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+        [cell.textLabel setTextColor:[UIColor lightGrayColor]];
+        [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
+        cell.textLabel.text = @"No results to display";
+        
+        return cell;
+        
+    }else{
+        
+        TripHistoryTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+        
+        Trip *trip = [tripManager tripWithIndexPath:indexPath];
+        
+        [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
+        [cell.distanceLabel setText:[NSString stringWithFormat:@"%.1f %@",[trip.totalDistance floatValue],[[SettingsManager sharedManager] unitLabelDistance]]];
+        
+        NSDate *timerDate = [NSDate dateWithTimeIntervalSince1970:[trip.tripDuration floatValue]];
+        
+        NSDateFormatter *timerDateFormatter = [[NSDateFormatter alloc] init];
+        [timerDateFormatter setDateFormat:@"HH:mm:ss"];
+        [timerDateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0.0]];
+        
+        [cell.recordedPointsLabel setText:[NSString stringWithFormat:@"%i TRACKPOINTS",[trip.points count]]];
+        [cell.tripDurationLabel setText:[timerDateFormatter stringFromDate:timerDate]];
+        [cell.tripNameLabel setText:[NSString stringWithFormat:@"%@",trip.tripName]];
+        
+        return cell;
+    }
     
-    NSDate *timerDate = [NSDate dateWithTimeIntervalSince1970:[trip.tripDuration floatValue]];
     
-    NSDateFormatter *timerDateFormatter = [[NSDateFormatter alloc] init];
-    [timerDateFormatter setDateFormat:@"HH:mm:ss"];
-    [timerDateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0.0]];
-    
-    [cell.recordedPointsLabel setText:[NSString stringWithFormat:@"%i TRACKPOINTS",[trip.points count]]];
-    [cell.tripDurationLabel setText:[timerDateFormatter stringFromDate:timerDate]];
-    [cell.tripNameLabel setText:[NSString stringWithFormat:@"%@",trip.tripName]];
-    
-    return cell;
 }
 
 - (void)searchDisplayController:(UISearchDisplayController *)controller didLoadSearchResultsTableView:(UITableView *)tableView
@@ -157,7 +198,7 @@
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
-        [tripManager deleteTripAtIndexPath:indexPath];
+        [tripManager deleteTrips:[NSArray arrayWithObject:indexPath]];
         
     }
     
@@ -177,28 +218,32 @@
     }
 }
 
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
+           atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+    
+    switch(type) {
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
 
 -(void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
     
     switch (type) {
         case NSFetchedResultsChangeDelete:
-            
-            // Delete the row from the data source
-            if([self.tableView numberOfRowsInSection:[indexPath section]] > 1) {
-                [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-                                      withRowAnimation:UITableViewRowAnimationFade];
-            } else {
-                [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:[indexPath section]]
-                              withRowAnimation:UITableViewRowAnimationFade];
-            }
-            
+            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationBottom];
             break;
         case NSFetchedResultsChangeInsert:
             
             break;
             
         case NSFetchedResultsChangeUpdate:
-            
+            [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
             
         case NSFetchedResultsChangeMove:
@@ -213,7 +258,7 @@
 
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
     
-    if(self.tableView.editing){
+    if(self.tableView.editing || self.noResultsToDisplay){
         return NO;
     }else{
         return YES;
@@ -224,7 +269,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if([segue.identifier isEqualToString:@"pushCompletedTripScreen"]){
-        
+                
         [tripManager setTripForDetailView:[[tripManager allTrips] objectAtIndexPath:[self.tableView indexPathForSelectedRow]]];
         
     }
@@ -262,77 +307,19 @@
     
 }
 
+-(void)tripDeleteSuccess:(NSNotification *)notification {
+    
+    [self.deleteButton setTitle:@"Delete"];
+    [self.shareButton setTitle:@"Share"];
+    [self.tableView setEditing:NO animated:YES];
+    [self setEditing:NO animated:YES];
+    
+}
+
 -(void)deleteMultipleTrips {
     
-    for (NSIndexPath *indexPath in [self.tableView indexPathsForSelectedRows]) {
-        
-        [tripManager deleteTripAtIndexPath:indexPath];
-        [self.tableView setEditing:NO animated:YES];
-        [self.deleteButton setTitle:@"Delete"];
-        [self.shareButton setTitle:@"Share"];
+    [tripManager deleteTrips:[self.tableView indexPathsForSelectedRows]];
     
-    }
 }
-
-/*
--(void)configureMapViewsForCells {
-    
-    for (Trip *trip in [[tripManager allTrips] fetchedObjects]) {
-        
-        MKMapView *mapView = [[MKMapView alloc] init];
-        [mapView setUserInteractionEnabled:NO];
-        [mapView setScrollEnabled:NO];
-        [mapView setFrame:CGRectMake(0, 0, 320, 180)];
-        [mapView setMapType:MKMapTypeSatellite];
-        [mapView setDelegate:self];
-        [self zoomMapView:mapView forTrip:trip];
-        
-    }
-}
-
--(UIImage *)renderImageForMapView:(MKMapView *)mapView {
-    UIGraphicsBeginImageContext(mapView.frame.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    [[mapView layer] renderInContext:context];
-    UIImage *thumbnail_image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return thumbnail_image;
-}
-
--(void)zoomMapView:(MKMapView *)mapView forTrip:(Trip *)trip {
-    if([trip.points count] == 0)
-        return;
-    
-    CLLocationCoordinate2D topLeftCoord;
-    topLeftCoord.latitude = -90;
-    topLeftCoord.longitude = 180;
-    
-    CLLocationCoordinate2D bottomRightCoord;
-    bottomRightCoord.latitude = 90;
-    bottomRightCoord.longitude = -180;
-    
-    for(GPSPoint *point in trip.points)
-    {
-        topLeftCoord.longitude = fmin(topLeftCoord.longitude, [point.lon doubleValue]);
-        topLeftCoord.latitude = fmax(topLeftCoord.latitude, [point.lat doubleValue]);
-        
-        bottomRightCoord.longitude = fmax(bottomRightCoord.longitude, [point.lon doubleValue]);
-        bottomRightCoord.latitude = fmin(bottomRightCoord.latitude, [point.lat doubleValue]);
-    }
-    
-    CLLocationCoordinate2D center = CLLocationCoordinate2DMake(topLeftCoord.latitude - (topLeftCoord.latitude - bottomRightCoord.latitude) * 0.5,
-                                                               topLeftCoord.longitude + (bottomRightCoord.longitude - topLeftCoord.longitude) * 0.5);
-    
-    MKCoordinateSpan span = MKCoordinateSpanMake(fabs(topLeftCoord.latitude - bottomRightCoord.latitude) * 0.5,
-                                                 fabs(bottomRightCoord.longitude - topLeftCoord.longitude) * 0.5	);
-    
-    MKCoordinateRegion region = MKCoordinateRegionMake(center, span);
-    
-    [mapView regionThatFits:region];
-    [mapView setRegion:region animated:NO];
-}
-
-*/
 
 @end

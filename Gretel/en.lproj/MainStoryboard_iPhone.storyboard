@@ -618,7 +618,7 @@ Finally a shout out must go to Friska, this application has been powered by thei
                             <view contentMode="scaleToFill" id="opD-M9-frj">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="TRIP NAME" textAlignment="center" minimumFontSize="17" id="BxJ-7h-aUp">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="TRIP NAME" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" id="BxJ-7h-aUp">
                                         <rect key="frame" x="20" y="126" width="280" height="30"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="textColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -641,6 +641,9 @@ Finally a shout out must go to Friska, this application has been powered by thei
                                         <state key="highlighted">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="saveTripButtonHandler:" destination="Dqr-D4-xjR" eventType="touchUpInside" id="hqe-tb-C5P"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Cxb-j1-P7D">
                                         <rect key="frame" x="178" y="169" width="45" height="45"/>
@@ -809,6 +812,7 @@ Finally a shout out must go to Friska, this application has been powered by thei
                         <outlet property="optionButtonWrapper" destination="acm-5d-PWz" id="CGl-SU-mwm"/>
                         <outlet property="shareButton" destination="FGv-vd-InG" id="Dt3-Uv-KoR"/>
                         <outlet property="tripEditForm" destination="opD-M9-frj" id="tXI-SL-XIh"/>
+                        <outlet property="tripNameField" destination="BxJ-7h-aUp" id="oX0-xM-uhS"/>
                         <outlet property="tripShareForm" destination="Yec-8P-7SG" id="iNw-e6-y5y"/>
                     </connections>
                 </viewController>

@@ -219,6 +219,9 @@
         if(buttonIndex == 1){
             [tripManager saveTripAndStop];
             [[GeoManager sharedManager] stopTrackingPosition];
+            
+            [self setUpViewForNewTrip];
+            
             [self performSegueWithIdentifier:@"displayHistoryView" sender:self];
         }
     }

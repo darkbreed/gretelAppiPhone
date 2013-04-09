@@ -20,6 +20,7 @@
 @property (nonatomic, strong) IBOutlet UISearchBar *searchBar;
 @property (nonatomic, strong) UIBarButtonItem *deleteButton;
 @property (nonatomic, strong) UIBarButtonItem *shareButton;
+@property (nonatomic, readwrite) BOOL noResultsToDisplay;
 
 @property (nonatomic, strong) GCDiscreetNotificationView *notificationView;
 

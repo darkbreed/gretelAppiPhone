@@ -9,6 +9,7 @@
 #import "TripManager.h"
 
 NSString * const GTTripTimerDidUpdate = @"tripTimerDidUpdate";
+NSString * const GTTripDeletedSuccess = @"tripDeletedSucessfully";
 
 @implementation TripManager {
     int currentPointId;
@@ -125,29 +126,63 @@ NSString * const GTTripTimerDidUpdate = @"tripTimerDidUpdate";
     }
 }
 
--(void)deleteTripAtIndexPath:(NSIndexPath *)tripIndexPath {
+-(void)deleteTrips:(NSArray *)trips {
     
-    Trip *trip = [self.allTrips objectAtIndexPath:tripIndexPath];
-    
-    if([trip.recordingState isEqualToString:[self recordingStateForState:GTTripStateRecording]]){
-        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:nil];
+    //Loop over the index paths
+    for(NSIndexPath *indexPath in trips){
+        
+        //Load the trip object
+        Trip *trip = [self.allTrips objectAtIndexPath:indexPath];
+        
+        //Check if any are recording and reset the app badge
+        if([trip.recordingState isEqualToString:[self recordingStateForState:GTTripStateRecording]]){
+            [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+        }
+        
+        //Grab the file URL from the object...
+        NSString *filePath = [trip gpxFilePath];
+        NSError *error = nil;
+        
+        //...and delete it
+        NSURL *url = [NSURL URLWithString:filePath];
+        [[NSFileManager defaultManager] removeItemAtURL:url error:&error];
+        
+        //If the file deleted ok, remove the object from CoreData
+        if(!error){
+            //Delete the trip
+            [self.managedObjectContext deleteObject:trip];
+            
+        }else{
+            NSLog(@"There was an error deleting the file:%@ - %@",filePath,[error localizedDescription]);
+        }
+        
     }
-
-    [self deleteTrip:trip];
-
+    
+    //Notify observers
+    [[NSNotificationCenter defaultCenter] postNotificationName:GTTripDeletedSuccess object:nil];
+    
+    //Commit the changes to core data
+    [self saveTrip];
+   
 }
 
 -(void)deleteTrip:(Trip *)trip {
-    //Delete the trip
+    
+    //Reset the app badge
+    if([trip.recordingState isEqualToString:[self recordingStateForState:GTTripStateRecording]]){
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    }
+    
+    //Commit the change to the context
     [self.managedObjectContext deleteObject:trip];
     
-    //Commit the change
-    [self saveTrip];
+    //Notify observers
+    [[NSNotificationCenter defaultCenter] postNotificationName:GTTripDeletedSuccess object:nil];
 }
 
 -(void)searchTripsByKeyword:(NSString *)keyword {
     
-    [NSFetchedResultsController deleteCacheWithName:nil];term
+    [NSFetchedResultsController deleteCacheWithName:nil];
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"tripName contains [cd] %@",keyword];
     [self.allTrips.fetchRequest setPredicate:predicate];
@@ -307,7 +342,7 @@ NSString * const GTTripTimerDidUpdate = @"tripTimerDidUpdate";
 - (NSString *)gpxFilePathWithName:(NSString *)tripName {
     
     //Clean the trip name
-    NSArray *invalidCharacters = [NSArray arrayWithObjects:@"/",@"\\",@"?",@"%",@"*",@"|",@"\"",@"<",@">",@" ",nil];
+    NSArray *invalidCharacters = [NSArray arrayWithObjects:@"/",@"\\",@"?",@"%",@"*",@"|",@"\"",@"<",@">",@" ",@":",nil];
     
     NSString *cleanName = tripName;
     
@@ -326,13 +361,17 @@ NSString * const GTTripTimerDidUpdate = @"tripTimerDidUpdate";
     return [[self applicationDocumentsDirectoryBasePath] stringByAppendingPathComponent:fileName];
 }
 
+-(void)updateFileWithName:(NSString *)newName forTrip:(Trip *)trip {
+    
+}
+
 -(void)createGPXFileFromTrip:(Trip *)trip {
     
     GPXRoot *root = [GPXRoot rootWithCreator:@"Gretel"];
     GPXTrack *track = [root newTrack];
     track.name = trip.tripName;
     
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"pointID" ascending:YES];
     NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     
     NSArray *points = [trip.points sortedArrayUsingDescriptors:sortDescriptors];
@@ -401,46 +440,36 @@ NSString * const GTTripTimerDidUpdate = @"tripTimerDidUpdate";
     secondsElapsedForTrip = 0;
 }
 
+- (void)saveContext
+{
+    NSError *error = nil;
+    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
+    if (managedObjectContext != nil) {
+        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
+}
+
 #pragma mark - Core Data stack
+
 // Returns the managed object context for the application.
 // If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
-- (NSManagedObjectContext *)managedObjectContext {
-    
+- (NSManagedObjectContext *)managedObjectContext
+{
     if (_managedObjectContext != nil) {
         return _managedObjectContext;
     }
     
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
-    
     if (coordinator != nil) {
-        NSManagedObjectContext* moc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-        
-        [moc performBlockAndWait:^{
-            [moc setPersistentStoreCoordinator: coordinator];
-            [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(mergeChangesFromiCloud:) name:NSPersistentStoreDidImportUbiquitousContentChangesNotification object:coordinator];
-        }];
-        _managedObjectContext = moc;
+        _managedObjectContext = [[NSManagedObjectContext alloc] init];
+        [_managedObjectContext setPersistentStoreCoordinator:coordinator];
     }
-    
     return _managedObjectContext;
-}
-
-- (void)mergeChangesFromiCloud:(NSNotification *)notification {
-    
-	NSLog(@"Merging in changes from iCloud...");
-    
-    NSManagedObjectContext* moc = [self managedObjectContext];
-    
-    [moc performBlock:^{
-        
-        [moc mergeChangesFromContextDidSaveNotification:notification];
-        
-        NSNotification* refreshNotification = [NSNotification notificationWithName:@"SomethingChanged"
-                                                                            object:self
-                                                                          userInfo:[notification userInfo]];
-        
-        [[NSNotificationCenter defaultCenter] postNotification:refreshNotification];
-    }];
 }
 
 // Returns the managed object model for the application.
@@ -459,114 +488,46 @@ NSString * const GTTripTimerDidUpdate = @"tripTimerDidUpdate";
 // If the coordinator doesn't already exist, it is created and the application's store added to it.
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator
 {
-    if((_persistentStoreCoordinator != nil)) {
+    if (_persistentStoreCoordinator != nil) {
         return _persistentStoreCoordinator;
     }
     
-    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: [self managedObjectModel]];
-    NSPersistentStoreCoordinator *psc = _persistentStoreCoordinator;
+    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"TestCoreData.sqlite"];
     
-    // Set up iCloud in another thread:
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        // ** Note: if you adapt this code for your own use, you MUST change this variable:
-        NSString *iCloudEnabledAppID = @"ARU7K8KJKJ.me.benreed.Gretel";
-        
-        // ** Note: if you adapt this code for your own use, you should change this variable:
-        NSString *dataFileName = @"Gretel.sqlite";
-        
-        // ** Note: For basic usage you shouldn't need to change anything else
-        
-        NSString *iCloudDataDirectoryName = @"Data.nosync";
-        NSString *iCloudLogsDirectoryName = @"Logs";
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        NSURL *localStore = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:dataFileName];
-        NSURL *iCloud = [fileManager URLForUbiquityContainerIdentifier:nil];
-        
-        if (iCloud) {
-            
-            NSLog(@"iCloud is working");
-            
-            NSURL *iCloudLogsPath = [NSURL fileURLWithPath:[[iCloud path] stringByAppendingPathComponent:iCloudLogsDirectoryName]];
-            
-            NSLog(@"iCloudEnabledAppID = %@",iCloudEnabledAppID);
-            NSLog(@"dataFileName = %@", dataFileName);
-            NSLog(@"iCloudDataDirectoryName = %@", iCloudDataDirectoryName);
-            NSLog(@"iCloudLogsDirectoryName = %@", iCloudLogsDirectoryName);
-            NSLog(@"iCloud = %@", iCloud);
-            NSLog(@"iCloudLogsPath = %@", iCloudLogsPath);
-            
-            if([fileManager fileExistsAtPath:[[iCloud path] stringByAppendingPathComponent:iCloudDataDirectoryName]] == NO) {
-                NSError *fileSystemError;
-                [fileManager createDirectoryAtPath:[[iCloud path] stringByAppendingPathComponent:iCloudDataDirectoryName]
-                       withIntermediateDirectories:YES
-                                        attributes:nil
-                                             error:&fileSystemError];
-                if(fileSystemError != nil) {
-                    NSLog(@"Error creating database directory %@", fileSystemError);
-                }
-            }
-            
-            NSString *iCloudData = [[[iCloud path]
-                                     stringByAppendingPathComponent:iCloudDataDirectoryName]
-                                    stringByAppendingPathComponent:dataFileName];
-            
-            NSLog(@"iCloudData = %@", iCloudData);
-            
-            NSMutableDictionary *options = [NSMutableDictionary dictionary];
-            [options setObject:[NSNumber numberWithBool:YES] forKey:NSMigratePersistentStoresAutomaticallyOption];
-            [options setObject:[NSNumber numberWithBool:YES] forKey:NSInferMappingModelAutomaticallyOption];
-            [options setObject:iCloudEnabledAppID            forKey:NSPersistentStoreUbiquitousContentNameKey];
-            [options setObject:iCloudLogsPath                forKey:NSPersistentStoreUbiquitousContentURLKey];
-            
-            [psc lock];
-            
-            [psc addPersistentStoreWithType:NSSQLiteStoreType
-                              configuration:nil
-                                        URL:[NSURL fileURLWithPath:iCloudData]
-                                    options:options
-                                      error:nil];
-            
-            [psc unlock];
-        }
-        else {
-            NSLog(@"iCloud is NOT working - using a local store");
-            NSMutableDictionary *options = [NSMutableDictionary dictionary];
-            [options setObject:[NSNumber numberWithBool:YES] forKey:NSMigratePersistentStoresAutomaticallyOption];
-            [options setObject:[NSNumber numberWithBool:YES] forKey:NSInferMappingModelAutomaticallyOption];
-            
-            [psc lock];
-            
-            [psc addPersistentStoreWithType:NSSQLiteStoreType
-                              configuration:nil
-                                        URL:localStore
-                                    options:options
-                                      error:nil];
-            [psc unlock];
-            
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self userInfo:nil];
-        });
-    });
+    NSError *error = nil;
+    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+        /*
+         Replace this implementation with code to handle the error appropriately.
+         
+         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+         
+         Typical reasons for an error here include:
+         * The persistent store is not accessible;
+         * The schema for the persistent store is incompatible with current managed object model.
+         Check the error message to determine what the actual problem was.
+         
+         
+         If the persistent store is not accessible, there is typically something wrong with the file path. Often, a file URL is pointing into the application's resources directory instead of a writeable directory.
+         
+         If you encounter schema incompatibility errors during development, you can reduce their frequency by:
+         * Simply deleting the existing store:
+         [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil]
+         
+         * Performing automatic lightweight migration by passing the following dictionary as the options parameter:
+         @{NSMigratePersistentStoresAutomaticallyOption:@YES, NSInferMappingModelAutomaticallyOption:@YES}
+         
+         Lightweight migration will only work for a limited set of schema changes; consult "Core Data Model Versioning and Data Migration Programming Guide" for details.
+         
+         */
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
     
     return _persistentStoreCoordinator;
 }
 
-- (void)saveContext {
-    NSError *error = nil;
-    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
-    if (managedObjectContext != nil) {
-        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-            // Replace this implementation with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
-    }
-}
+#pragma mark - Application's Documents directory
 
 // Returns the URL to the application's Documents directory.
 - (NSURL *)applicationDocumentsDirectory

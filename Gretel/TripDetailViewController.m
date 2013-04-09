@@ -29,6 +29,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripDeletionHandler:) name:GTTripDeletedSuccess object:nil];
+    
     self.title = [[tripManager currentTrip] tripName];
     
     tripManager = [TripManager sharedManager];
@@ -63,7 +66,7 @@
     
     switch (buttonIndex) {
         case CompletedTripOptionTypeDelete:
-            [[TripManager sharedManager] deleteTrip:self.trip];
+            [[TripManager sharedManager] deleteTrip:tripManager.tripForDetailView];
             break;
         default:
             break;
@@ -72,7 +75,7 @@
 }
 
 -(IBAction)deleteButtonHandler:(id)sender {
-    NSString *message = [NSString stringWithFormat:@"Are you sure you want to delete %@? This cannot be undone.", self.trip.tripName];
+    NSString *message = [NSString stringWithFormat:@"Are you sure you want to delete %@? This cannot be undone.", tripManager.tripForDetailView.tripName];
     
     UIActionSheet *confirmSheet = [[UIActionSheet alloc] initWithTitle:message delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete" otherButtonTitles:@"Cancel",nil];
     [confirmSheet showInView:self.view];
@@ -95,6 +98,16 @@
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Resume trip" message:@"Would you like to resume this trip? If you have trips in progress these will be stopped and saved" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Resume", nil];
     
     [alertView show];
+    
+}
+
+-(IBAction)saveTripButtonHandler:(id)sender {
+    
+    [tripManager.tripForDetailView setTripName:self.tripNameField.text];
+    self.title = self.tripNameField.text;
+    [[TripManager sharedManager] saveTrip];
+    [self.tripNameField resignFirstResponder];
+    [self hideMapViewAndOptions:NO];
     
 }
 
@@ -128,5 +141,9 @@
     
 }
 
+#pragma mark TripDeletion handlers
+-(void)tripDeletionHandler:(NSNotification *)notification {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 @end

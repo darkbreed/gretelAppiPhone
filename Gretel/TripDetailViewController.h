@@ -54,6 +54,8 @@ typedef enum {
 @property (nonatomic, strong) IBOutlet UIView *shareButton;
 ///Edit button
 @property (nonatomic, strong) IBOutlet UIView *editButton;
+///Trip name text field
+@property (nonatomic, strong) IBOutlet UITextField *tripNameField;
 
 /** @section Button Handlers */
 -(IBAction)editButtonHandler:(id)sender;

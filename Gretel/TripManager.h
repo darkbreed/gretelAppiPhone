@@ -25,6 +25,7 @@ typedef enum {
 } GTTripState;
 
 extern NSString * const GTTripTimerDidUpdate;
+extern NSString * const GTTripDeletedSuccess;
 
 @interface TripManager : NSObject
 
@@ -48,7 +49,6 @@ extern NSString * const GTTripTimerDidUpdate;
 
 -(void)fetchAllTrips;
 -(void)beginRecording;
--(void)stopRecording;
 -(void)pauseRecording;
 -(void)saveTrip;
 -(void)saveTripAndStop;
@@ -56,7 +56,7 @@ extern NSString * const GTTripTimerDidUpdate;
 -(void)storeLocation;
 -(NSArray *)fectchPointsForDrawing:(BOOL)forDetailView;
 -(Trip *)tripWithIndexPath:(NSIndexPath *)tripIndexPath;
--(void)deleteTripAtIndexPath:(NSIndexPath *)tripIndexPath;
+-(void)deleteTrips:(NSArray *)tripIndexPaths;
 -(void)deleteTrip:(Trip *)trip;
 -(NSString *)recordingStateForState:(GTTripState)state;
 -(void)searchTripsByKeyword:(NSString *)keyword;

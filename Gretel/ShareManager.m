@@ -60,6 +60,9 @@ NSString * const ShareManagerGPXExtension = @"gpx";
     //Set up the mail composer
     MFMailComposeViewController *composeMailViewController = [[MFMailComposeViewController alloc] init];
     
+    [composeMailViewController setSubject:@"Gretel GPX Files"];
+    [composeMailViewController setMessageBody:@"Files created with Gretel" isHTML:NO];
+    
     for (Trip *trip in trips) {
         
         GPXDocument *document = [[GPXDocument alloc] initWithFileURL:[NSURL fileURLWithPath:trip.gpxFilePath]];
@@ -124,6 +127,7 @@ NSString * const ShareManagerGPXExtension = @"gpx";
 }
 
 -(void)bluetoothManager:(BRBluetoothManager *)manager didSendDataOfLength:(int)length fromTotal:(int)totalLength withRemaining:(int)remaining {
+   
     float fRemaining = remaining;
     float fTotalLength = totalLength;
     
