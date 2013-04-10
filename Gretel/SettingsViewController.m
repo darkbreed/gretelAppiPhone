@@ -7,6 +7,7 @@
 //
 
 #import "SettingsViewController.h"
+#import <Dropbox/Dropbox.h>
 
 @interface SettingsViewController ()
 
@@ -48,6 +49,10 @@
 
 -(IBAction)doneButtonHandler:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(IBAction)dropboxButtonHandler:(id)sender {
+    [[DBAccountManager sharedManager] linkFromController:self];
 }
 
 - (void)didReceiveMemoryWarning

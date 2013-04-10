@@ -91,6 +91,11 @@
 		B578C10016DB9F10007A36A1 /* speedometerSymbol@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B578C0FE16DB9F10007A36A1 /* speedometerSymbol@2x.png */; };
 		B578C10316DCA2E4007A36A1 /* listSymbol.png in Resources */ = {isa = PBXBuildFile; fileRef = B578C10116DCA2E4007A36A1 /* listSymbol.png */; };
 		B578C10416DCA2E4007A36A1 /* listSymbol@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B578C10216DCA2E4007A36A1 /* listSymbol@2x.png */; };
+		B595269B1715494200A6C550 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B59526971715494100A6C550 /* CFNetwork.framework */; };
+		B595269C1715494200A6C550 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B59526981715494100A6C550 /* QuartzCore.framework */; };
+		B595269D1715494200A6C550 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B59526991715494200A6C550 /* Security.framework */; };
+		B595269E1715494200A6C550 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B595269A1715494200A6C550 /* SystemConfiguration.framework */; };
+		B59526A01715499E00A6C550 /* Dropbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B595269F1715499E00A6C550 /* Dropbox.framework */; };
 		B599F91516D8FB1D003C0D37 /* optionsBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = B599F91316D8FB1D003C0D37 /* optionsBackground.png */; };
 		B599F91616D8FB1D003C0D37 /* optionsBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B599F91416D8FB1D003C0D37 /* optionsBackground@2x.png */; };
 		B599F91D16D8FCF4003C0D37 /* compassButton.png in Resources */ = {isa = PBXBuildFile; fileRef = B599F91716D8FCF4003C0D37 /* compassButton.png */; };
@@ -234,6 +239,11 @@
 		B578C0FE16DB9F10007A36A1 /* speedometerSymbol@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "speedometerSymbol@2x.png"; sourceTree = "<group>"; };
 		B578C10116DCA2E4007A36A1 /* listSymbol.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = listSymbol.png; sourceTree = "<group>"; };
 		B578C10216DCA2E4007A36A1 /* listSymbol@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "listSymbol@2x.png"; sourceTree = "<group>"; };
+		B59526971715494100A6C550 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		B59526981715494100A6C550 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		B59526991715494200A6C550 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		B595269A1715494200A6C550 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		B595269F1715499E00A6C550 /* Dropbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Dropbox.framework; sourceTree = "<group>"; };
 		B599F91316D8FB1D003C0D37 /* optionsBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = optionsBackground.png; sourceTree = "<group>"; };
 		B599F91416D8FB1D003C0D37 /* optionsBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "optionsBackground@2x.png"; sourceTree = "<group>"; };
 		B599F91716D8FCF4003C0D37 /* compassButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compassButton.png; sourceTree = "<group>"; };
@@ -278,6 +288,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B595269B1715494200A6C550 /* CFNetwork.framework in Frameworks */,
+				B595269C1715494200A6C550 /* QuartzCore.framework in Frameworks */,
+				B595269D1715494200A6C550 /* Security.framework in Frameworks */,
+				B595269E1715494200A6C550 /* SystemConfiguration.framework in Frameworks */,
 				3AA12B911684551D0003FE03 /* GameKit.framework in Frameworks */,
 				3A8C9776167B2F7A000E2259 /* MessageUI.framework in Frameworks */,
 				3A04326B1678FFBB009485B3 /* CoreData.framework in Frameworks */,
@@ -288,6 +302,7 @@
 				3A43D62E16761D1F007E9A84 /* CoreGraphics.framework in Frameworks */,
 				A6FBA14610DC4D3C8654D5C3 /* libPods.a in Frameworks */,
 				B54BC33B16E9D2710045659E /* GPX.framework in Frameworks */,
+				B59526A01715499E00A6C550 /* Dropbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,6 +335,10 @@
 		3A43D61A16761D1F007E9A84 = {
 			isa = PBXGroup;
 			children = (
+				B59526971715494100A6C550 /* CFNetwork.framework */,
+				B59526981715494100A6C550 /* QuartzCore.framework */,
+				B59526991715494200A6C550 /* Security.framework */,
+				B595269A1715494200A6C550 /* SystemConfiguration.framework */,
 				B568976D16DE0D2100A07DFC /* Icon@2x.png */,
 				B568976B16DE0D1B00A07DFC /* Icon.png */,
 				3A43D62F16761D1F007E9A84 /* Gretel */,
@@ -340,6 +359,7 @@
 		3A43D62816761D1F007E9A84 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B595269F1715499E00A6C550 /* Dropbox.framework */,
 				B54BC33A16E9D2710045659E /* GPX.framework */,
 				3AA12B901684551D0003FE03 /* GameKit.framework */,
 				3A46C56316844B6800C79C29 /* ExternalAccessory.framework */,
@@ -830,6 +850,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Gretel/Gretel-Prefix.pch";
 				INFOPLIST_FILE = "Gretel/Gretel-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "67D28525-3BC6-4413-89E6-8FDBD48A8307";
@@ -852,6 +873,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Gretel/Gretel-Prefix.pch";
 				INFOPLIST_FILE = "Gretel/Gretel-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "8BED8130-7526-4A6C-9D54-FFB9BFDFDDEE";

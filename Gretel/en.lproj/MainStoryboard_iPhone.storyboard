@@ -455,7 +455,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fms-wF-BOr">
-                                <rect key="frame" x="52" y="349" width="217" height="44"/>
+                                <rect key="frame" x="52" y="336" width="217" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="FEEDBACK">
@@ -470,7 +470,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="HAVING ISSUES?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QvE-7j-FWH">
-                                <rect key="frame" x="102" y="320" width="116" height="21"/>
+                                <rect key="frame" x="102" y="307" width="116" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
                                 <color key="textColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -497,7 +497,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="72x-CU-ywr">
-                                <rect key="frame" x="52" y="269" width="217" height="44"/>
+                                <rect key="frame" x="52" y="256" width="217" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="CREDITS">
@@ -512,7 +512,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="ABOUT GRETEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RLs-JL-Dtn">
-                                <rect key="frame" x="102" y="240" width="116" height="21"/>
+                                <rect key="frame" x="102" y="227" width="116" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
                                 <color key="textColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -846,6 +846,90 @@ Finally a shout out must go to Friska, this application has been powered by thei
         <image name="viewBackgrond.png" width="320" height="568"/>
         <image name="viewBackgrond@2x.png" width="640" height="1135"/>
     </resources>
+    <classes>
+        <class className="AboutViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AboutViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="versionNumberLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="BRBaseMapViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BRBaseMapViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="formContainer" candidateClass="UIView"/>
+                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
+                <relationship kind="outlet" name="mapViewWrapper" candidateClass="UIView"/>
+                <relationship kind="outlet" name="optionButtonWrapper" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="HistoryViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/HistoryViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+            </relationships>
+        </class>
+        <class className="RecordNewTripViewController" superclassName="BRBaseMapViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RecordNewTripViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="addButtonHandler:"/>
+                <relationship kind="action" name="displayMap:"/>
+                <relationship kind="action" name="locateMeButtonHandler:"/>
+                <relationship kind="action" name="startTrackingButtonHandler:"/>
+                <relationship kind="action" name="stopTrackingButtonHandler:"/>
+                <relationship kind="outlet" name="compassBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="compassNeedle" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="currentSpeedLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="hudView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="latLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="locateMeButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="lonLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="mapHudContainer" candidateClass="UIView"/>
+                <relationship kind="outlet" name="modeChangeButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="recordingIndicatorContainer" candidateClass="UIView"/>
+                <relationship kind="outlet" name="startButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="stopButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="tripNameField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="tripTimerLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="SettingsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="accuracySettings" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="applicationUsageSettings" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="feedbackButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="unitOptions" candidateClass="UISegmentedControl"/>
+            </relationships>
+        </class>
+        <class className="TripDetailViewController" superclassName="BRBaseMapViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TripDetailViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelButtonHandler:" candidateClass="UIButton"/>
+                <relationship kind="action" name="editButtonHandler:"/>
+                <relationship kind="action" name="shareButtonHandler:"/>
+                <relationship kind="outlet" name="deleteButton" candidateClass="UIView"/>
+                <relationship kind="outlet" name="editButton" candidateClass="UIView"/>
+                <relationship kind="outlet" name="shareButton" candidateClass="UIView"/>
+                <relationship kind="outlet" name="tripEditForm" candidateClass="UIView"/>
+                <relationship kind="outlet" name="tripNameField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="tripShareForm" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="TripHistoryTableViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TripHistoryTableViewCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="distanceLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="mapImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
+                <relationship kind="outlet" name="recordedPointsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="recordingBanner" candidateClass="UIView"/>
+                <relationship kind="outlet" name="recordingBannerImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="recordingBannerLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="tripDurationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="tripNameLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

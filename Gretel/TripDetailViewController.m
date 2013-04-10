@@ -32,9 +32,24 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripDeletionHandler:) name:GTTripDeletedSuccess object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripDeleteSuccess:) name:GTTripDeletedSuccess object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mailSendingSuccessHandler:) name:SMMailSendingSuccess object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mailSendingFailedHandler:) name:SMMailSendingFailed object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mailSendingCancelHandler:) name:SMMailSendingCancelled object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mailSendingSavedHandler:) name:SMMailSaved object:nil];
+    
     self.title = [[tripManager currentTrip] tripName];
     
     tripManager = [TripManager sharedManager];
+    
+    self.notificationView = [[GCDiscreetNotificationView alloc] initWithText:@""
+                                                                showActivity:NO
+                                                          inPresentationMode:GCDiscreetNotificationViewPresentationModeTop
+                                                                      inView:self.view];
     
 }
 
@@ -139,6 +154,26 @@
     
     [shareManager shareTripDataByEmail:[NSArray arrayWithObject:tripManager.tripForDetailView]];
     
+}
+
+-(void)mailSendingSuccessHandler:(NSNotification *)notification {
+    [self.notificationView setTextLabel:@"Mail sent"];
+    [self.notificationView showAndDismissAfter:2.0];
+}
+
+-(void)mailSendingCancelHandler:(NSNotification *)notification {
+    [self.notificationView setTextLabel:@"Mail cancelled"];
+    [self.notificationView showAndDismissAfter:2.0];
+}
+
+-(void)mailSendingFailedHandler:(NSNotification *)notification {
+    [self.notificationView setTextLabel:@"Could not send mail"];
+    [self.notificationView showAndDismissAfter:2.0];
+}
+
+-(void)mailSendingSavedHandler:(NSNotification *)notification {
+    [self.notificationView setTextLabel:@"Mail saved to drafts"];
+    [self.notificationView showAndDismissAfter:2.0];
 }
 
 #pragma mark TripDeletion handlers

@@ -12,6 +12,7 @@
 #import "Trip.h"
 #import "ShareManager.h"
 #import "TripManager.h"
+#import <GCDiscreetNotificationView/GCDiscreetNotificationView.h>
 
 typedef enum {
     CompletedTripOptionTypeDelete
@@ -56,6 +57,8 @@ typedef enum {
 @property (nonatomic, strong) IBOutlet UIView *editButton;
 ///Trip name text field
 @property (nonatomic, strong) IBOutlet UITextField *tripNameField;
+
+@property (nonatomic, strong) IBOutlet GCDiscreetNotificationView *notificationView;
 
 /** @section Button Handlers */
 -(IBAction)editButtonHandler:(id)sender;

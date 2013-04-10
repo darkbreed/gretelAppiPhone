@@ -10,6 +10,10 @@
 #import <MessageUI/MessageUI.h>
 
 NSString * const ShareManagerGPXExtension = @"gpx";
+NSString * const SMMailSendingCancelled = @"mailSendingCancelled";
+NSString * const SMMailSendingFailed = @"mailSendingFailed";
+NSString * const SMMailSendingSuccess = @"mailSendingSuccess";
+NSString * const SMMailSaved = @"mailSaved";
 
 @implementation ShareManager
 
@@ -87,16 +91,27 @@ NSString * const ShareManagerGPXExtension = @"gpx";
     switch (result) {
         case MFMailComposeResultSent:
             
+            [[NSNotificationCenter defaultCenter] postNotificationName:SMMailSendingSuccess object:nil];
+            break;
+            
         case MFMailComposeResultSaved:
             
+            [[NSNotificationCenter defaultCenter] postNotificationName:SMMailSaved object:nil];
+            break;
         case MFMailComposeResultCancelled:
             
-            [parentViewController dismissViewControllerAnimated:YES completion:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:SMMailSendingCancelled object:nil];
             break;
+            
+        case MFMailComposeResultFailed:
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:SMMailSendingFailed object:nil];
             
         default:
             break;
     }
+    
+    [parentViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {

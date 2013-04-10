@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "HistoryViewController.h"
+#import <Dropbox/Dropbox.h>
 
 @implementation AppDelegate
 
@@ -37,14 +38,30 @@
     [[UINavigationBar appearance] setTitleTextAttributes:appearance];
     [[UINavigationBar appearance] setTintColor:[UIColor lightGrayColor]];
     
+    //Set up Dropbox sync
+    DBAccountManager* accountMgr = [[DBAccountManager alloc] initWithAppKey:@"dlzueuupxj4ioes" secret:@"k324ysiikwspcyn"];
+    [DBAccountManager setSharedManager:accountMgr];
+    
     return YES;
 }
 
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
-{
-    [[TripManager sharedManager] importTripFromGPXFile:url];
-    return YES;
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    
+    DBAccount *account = [[DBAccountManager sharedManager] handleOpenURL:url];
+    if (account) {
+        
+        NSLog(@"App linked successfully!");
+        return YES;
+        
+    }else{
+        return NO;
+    }
+    
+    //[[TripManager sharedManager] importTripFromGPXFile:url];
+    //return YES;
+    
 }
+
 							
 - (void)applicationWillResignActive:(UIApplication *)application
 {

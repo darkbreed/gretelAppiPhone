@@ -35,6 +35,14 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripDeleteSuccess:) name:GTTripDeletedSuccess object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mailSendingSuccessHandler:) name:SMMailSendingSuccess object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mailSendingFailedHandler:) name:SMMailSendingFailed object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mailSendingCancelHandler:) name:SMMailSendingCancelled object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mailSendingSavedHandler:) name:SMMailSaved object:nil];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -51,6 +59,31 @@
     
     [self setToolbarItems:[NSArray arrayWithObjects:self.shareButton, self.deleteButton, nil]];
     
+    self.notificationView = [[GCDiscreetNotificationView alloc] initWithText:@""
+                                                                showActivity:NO
+                                                          inPresentationMode:GCDiscreetNotificationViewPresentationModeTop
+                                                                      inView:self.tableView];
+    
+}
+
+-(void)mailSendingSuccessHandler:(NSNotification *)notification {
+    [self.notificationView setTextLabel:@"Mail sent"];
+    [self.notificationView showAndDismissAfter:2.0];
+}
+
+-(void)mailSendingCancelHandler:(NSNotification *)notification {
+    [self.notificationView setTextLabel:@"Mail cancelled"];
+    [self.notificationView showAndDismissAfter:2.0];
+}
+
+-(void)mailSendingFailedHandler:(NSNotification *)notification {
+    [self.notificationView setTextLabel:@"Could not send mail"];
+    [self.notificationView showAndDismissAfter:2.0];
+}
+
+-(void)mailSendingSavedHandler:(NSNotification *)notification {
+    [self.notificationView setTextLabel:@"Mail saved to drafts"];
+    [self.notificationView showAndDismissAfter:2.0];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

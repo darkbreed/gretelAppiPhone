@@ -15,6 +15,11 @@
 #import "BRBluetoothManager.h"
 #import "GPXDocument.h"
 
+extern NSString * const SMMailSendingCancelled;
+extern NSString * const SMMailSendingFailed;
+extern NSString * const SMMailSendingSuccess;
+extern NSString * const SMMailSaved;
+
 @class ShareManager;
 
 extern NSString * const ShareManagerGPXExtension;
