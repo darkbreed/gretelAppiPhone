@@ -217,6 +217,7 @@
     if(alertView.tag == GTAlertViewTagStopRecordingAlert){
        
         if(buttonIndex == 1){
+            
             [tripManager saveTripAndStop];
             [[GeoManager sharedManager] stopTrackingPosition];
             

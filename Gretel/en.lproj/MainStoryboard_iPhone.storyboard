@@ -27,7 +27,7 @@
         <scene sceneID="VR4-OK-72A">
             <objects>
                 <tableViewController id="RN9-EI-9KB" customClass="HistoryViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="64" sectionHeaderHeight="22" sectionFooterHeight="22" id="6u3-RR-BRq">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsSelectionDuringEditing="YES" rowHeight="64" sectionHeaderHeight="22" sectionFooterHeight="22" id="6u3-RR-BRq">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -771,7 +771,7 @@ Finally a shout out must go to Friska, this application has been powered by thei
                                         <rect key="frame" x="48" y="58" width="45" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" backgroundImage="shareIcon@2x.png">
+                                        <state key="normal" backgroundImage="mailSymbol@2x.png">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -779,7 +779,7 @@ Finally a shout out must go to Friska, this application has been powered by thei
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="shareButtonHandler:" destination="Dqr-D4-xjR" eventType="touchUpInside" id="Xqi-mZ-een"/>
+                                            <action selector="shareByEmailButtonHandler:" destination="Dqr-D4-xjR" eventType="touchUpInside" id="f43-um-aep"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Wvv-Rb-TDT">
@@ -840,7 +840,6 @@ Finally a shout out must go to Friska, this application has been powered by thei
         <image name="recordLight@2x.png" width="31" height="31"/>
         <image name="recordLightBackground@2x.png" width="47" height="47"/>
         <image name="resumeSymbol@2x.png" width="90" height="90"/>
-        <image name="shareIcon@2x.png" width="90" height="90"/>
         <image name="speedometerSymbol@2x.png" width="90" height="90"/>
         <image name="stopButton@2x.png" width="90" height="90"/>
         <image name="viewBackgrond.png" width="320" height="568"/>
@@ -861,6 +860,9 @@ Finally a shout out must go to Friska, this application has been powered by thei
                 <relationship kind="outlet" name="mapViewWrapper" candidateClass="UIView"/>
                 <relationship kind="outlet" name="optionButtonWrapper" candidateClass="UIView"/>
             </relationships>
+        </class>
+        <class className="GCDiscreetNotificationView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GCDiscreetNotificationView.h"/>
         </class>
         <class className="HistoryViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/HistoryViewController.h"/>
@@ -909,6 +911,7 @@ Finally a shout out must go to Friska, this application has been powered by thei
                 <relationship kind="action" name="shareButtonHandler:"/>
                 <relationship kind="outlet" name="deleteButton" candidateClass="UIView"/>
                 <relationship kind="outlet" name="editButton" candidateClass="UIView"/>
+                <relationship kind="outlet" name="notificationView" candidateClass="GCDiscreetNotificationView"/>
                 <relationship kind="outlet" name="shareButton" candidateClass="UIView"/>
                 <relationship kind="outlet" name="tripEditForm" candidateClass="UIView"/>
                 <relationship kind="outlet" name="tripNameField" candidateClass="UITextField"/>

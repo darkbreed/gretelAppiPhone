@@ -64,6 +64,8 @@
                                                           inPresentationMode:GCDiscreetNotificationViewPresentationModeTop
                                                                       inView:self.tableView];
     
+    self.tableView.allowsMultipleSelectionDuringEditing = NO;
+    
 }
 
 -(void)mailSendingSuccessHandler:(NSNotification *)notification {
@@ -105,6 +107,8 @@
 }
 
 -(void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    
+    self.tableView.allowsMultipleSelectionDuringEditing = editing;
     
     [super setEditing:editing animated:animated];
     
@@ -224,6 +228,10 @@
     // Return NO if you do not want the specified item to be editable.
     return YES;
     
+}
+
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleDelete;
 }
 
 // Override to support editing the table view.
