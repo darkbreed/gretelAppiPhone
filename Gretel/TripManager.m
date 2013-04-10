@@ -252,6 +252,7 @@ NSString * const GTTripDeletedSuccess = @"tripDeletedSucessfully";
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:nil];
 }
 
+
 -(void)saveTripAndStop {
     
     [self.currentTrip setFinishDate:[NSDate date]];

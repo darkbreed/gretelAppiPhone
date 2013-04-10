@@ -202,7 +202,6 @@
 		B54BC33D16E9DC910045659E /* GPXDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPXDocument.m; sourceTree = "<group>"; };
 		B54BC34216EA23830045659E /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
 		B54BC34316EA23830045659E /* Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trip.m; sourceTree = "<group>"; };
-		B550DB3D170D5EA900A20093 /* Gretel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Gretel.entitlements; sourceTree = "<group>"; };
 		B560498E170C86C3003B1383 /* bristol.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bristol.gpx; sourceTree = "<group>"; };
 		B560498F170C86C3003B1383 /* CretshangenBeach_log_20130319123428.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = CretshangenBeach_log_20130319123428.gpx; sourceTree = "<group>"; };
 		B5604990170C86C3003B1383 /* dayafterwedding_log_20130320133532.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = dayafterwedding_log_20130320133532.gpx; sourceTree = "<group>"; };
@@ -378,7 +377,6 @@
 		3A43D62F16761D1F007E9A84 /* Gretel */ = {
 			isa = PBXGroup;
 			children = (
-				B550DB3D170D5EA900A20093 /* Gretel.entitlements */,
 				B560498D170C86C3003B1383 /* GPX */,
 				B50EBE1B16D4BE5C0090433B /* Resources */,
 				3A2059A016945A9C00E81FB4 /* Model */,
@@ -840,7 +838,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2DBC77A785094963AD97707F /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = Gretel/Gretel.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ben Reed (2Z5J3XQ9P8)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ben Reed (2Z5J3XQ9P8)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -864,7 +861,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2DBC77A785094963AD97707F /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = Gretel/Gretel.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ben Reed";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

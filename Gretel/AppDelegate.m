@@ -47,19 +47,9 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     
-    DBAccount *account = [[DBAccountManager sharedManager] handleOpenURL:url];
-    if (account) {
-        
-        NSLog(@"App linked successfully!");
-        return YES;
-        
-    }else{
-        return NO;
-    }
-    
-    //[[TripManager sharedManager] importTripFromGPXFile:url];
-    //return YES;
-    
+    [[TripManager sharedManager] importTripFromGPXFile:url];
+    return YES;
+
 }
 
 							

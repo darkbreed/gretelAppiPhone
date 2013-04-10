@@ -62,8 +62,8 @@
     self.notificationView = [[GCDiscreetNotificationView alloc] initWithText:@""
                                                                 showActivity:NO
                                                           inPresentationMode:GCDiscreetNotificationViewPresentationModeTop
-                                                                      inView:self.tableView];
-    
+                                                                      inView:self.view];
+        
     self.tableView.allowsMultipleSelectionDuringEditing = NO;
     
 }
