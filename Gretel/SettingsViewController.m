@@ -29,6 +29,8 @@
     settingsManager = [SettingsManager sharedManager];
     [self.unitOptions setSelectedSegmentIndex:[settingsManager getApplicationUnitType]];
     [self.applicationUsageSettings setSelectedSegmentIndex:[settingsManager getApplicationUsageType]];
+    [self.accuracyLabel setText:[NSString stringWithFormat:@"%.0f M",settingsManager.distanceFilter]];
+    [self.accuracySlider setValue:settingsManager.distanceFilter];
 }
 
 #pragma mark Button Handlers
@@ -53,6 +55,13 @@
 
 -(IBAction)dropboxButtonHandler:(id)sender {
     [[DBAccountManager sharedManager] linkFromController:self];
+}
+
+-(IBAction)accuracySliderDidChange:(UISlider *)slider {
+    
+    self.accuracyLabel.text = [NSString stringWithFormat:@"%.0f M",slider.value];
+    [settingsManager setApplicationDistanceFilter:slider.value];
+    
 }
 
 - (void)didReceiveMemoryWarning

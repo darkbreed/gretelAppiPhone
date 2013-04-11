@@ -46,6 +46,8 @@ NSString *const GTLocationDidPauseUpdates = @"updatesPaused";
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setUsageType) name:GTApplicationDidUpdateUsageType object:nil];
         
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setDistanceFilterValue) name:GTApplicationDidUpdateDistanceFilter object:nil];
+        
         defaults = [NSUserDefaults standardUserDefaults];
         
     }
@@ -60,7 +62,7 @@ NSString *const GTLocationDidPauseUpdates = @"updatesPaused";
  */
 -(void)configureLocationManager {
     
-    [locationManager setDistanceFilter:10.0];
+    [locationManager setDistanceFilter:[defaults floatForKey:SMDistanceFilter]];
     [locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
     [locationManager setDelegate:self];
     [locationManager setPausesLocationUpdatesAutomatically:YES];
@@ -73,8 +75,8 @@ NSString *const GTLocationDidPauseUpdates = @"updatesPaused";
     }
     
     //Locate the user
-    //[locationManager startUpdatingLocation];
-    //[locationManager startUpdatingHeading];
+    [locationManager startUpdatingLocation];
+    [locationManager startUpdatingHeading];
     
 }
 
@@ -95,6 +97,14 @@ NSString *const GTLocationDidPauseUpdates = @"updatesPaused";
             [locationManager setActivityType:CLActivityTypeOther];
             break;
     }
+    
+}
+
+-(void)setDistanceFilterValue {
+    
+    NSLog(@"Distance filter updated");
+    float distance = [defaults floatForKey:SMDistanceFilter];
+    [locationManager setDistanceFilter:distance];
     
 }
 

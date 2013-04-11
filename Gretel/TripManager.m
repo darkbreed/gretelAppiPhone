@@ -267,6 +267,8 @@ NSString * const GTTripDeletedSuccess = @"tripDeletedSucessfully";
     [self setCurrentTrip:nil];
     [self setTripState:GTTripStateNew];
     
+    [self stopTimer];
+    
     //Re-fectch the trips
     [self fetchAllTrips];
     

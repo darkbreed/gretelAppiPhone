@@ -43,10 +43,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mailSendingSavedHandler:) name:SMMailSaved object:nil];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [self.tableView setAllowsMultipleSelectionDuringEditing:YES];
     
@@ -63,29 +60,48 @@
                                                                 showActivity:NO
                                                           inPresentationMode:GCDiscreetNotificationViewPresentationModeTop
                                                                       inView:self.view];
-        
+    [self.notificationView setHidden:YES];
+    
     self.tableView.allowsMultipleSelectionDuringEditing = NO;
     
 }
 
+-(void)hideNotificationView {
+    
+    double delayInSeconds = 2.5;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self.notificationView setHidden:YES];
+    });
+}
+
 -(void)mailSendingSuccessHandler:(NSNotification *)notification {
+    [self.notificationView setHidden:NO];
     [self.notificationView setTextLabel:@"Mail sent"];
     [self.notificationView showAndDismissAfter:2.0];
+    [self hideNotificationView];
+    
 }
 
 -(void)mailSendingCancelHandler:(NSNotification *)notification {
+    [self.notificationView setHidden:NO];
     [self.notificationView setTextLabel:@"Mail cancelled"];
     [self.notificationView showAndDismissAfter:2.0];
+    [self hideNotificationView];
 }
 
 -(void)mailSendingFailedHandler:(NSNotification *)notification {
+    [self.notificationView setHidden:NO];
     [self.notificationView setTextLabel:@"Could not send mail"];
     [self.notificationView showAndDismissAfter:2.0];
+    [self hideNotificationView];
 }
 
 -(void)mailSendingSavedHandler:(NSNotification *)notification {
+    [self.notificationView setHidden:NO];
     [self.notificationView setTextLabel:@"Mail saved to drafts"];
     [self.notificationView showAndDismissAfter:2.0];
+    [self hideNotificationView];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

@@ -6,14 +6,22 @@
 //  Copyright (c) 2013 Ben Reed. All rights reserved.
 //
 
+
+float const SMMileMultiplier = 0.000621371192;
+float const SMKmMultiplier = 1000.0;
+float const SMMilesSpeedMultiplier = 2.23693629;
+float const SMKmSpeedMultiplier = 3.6;
+
 NSString *const SMUnitLabelSpeed = @"unitLabelSpeed";
 NSString *const SMUnitLabelDistance = @"unitLabelDistance";
 NSString *const SMDistanceMultiplier = @"distanceMultiplier";
 NSString *const SMSpeedMultiplier = @"speedMultiplier";
 NSString *const SMSettingsUpdated = @"settingsUpdated";
+NSString *const SMDistanceFilter = @"distanceFilter";
 
 NSString *const GTApplicationUsageTypeKey = @"applicationUsageType";
 NSString *const GTApplicationDidUpdateUsageType = @"didUpdateUsageType";
+NSString *const GTApplicationDidUpdateDistanceFilter = @"didUpdateDistanceFilter";
 
 #import "SettingsManager.h"
 
@@ -53,10 +61,12 @@ NSString * const GTAppSettingsCurrentUnitType = @"currentUnitType";
         }else{
             self.unitLabelSpeed = @"MPH";
             self.unitLabelDistance = @"M";
-            self.distanceMultiplier = 0.000621371192;
-            self.speedMultiplier = 2.23693629;
+            self.distanceMultiplier = SMMileMultiplier;
+            self.speedMultiplier = SMMilesSpeedMultiplier;
         }
     }
+    
+    self.distanceFilter = [appDefaults floatForKey:SMDistanceFilter];
     
     return self;
 }
@@ -66,13 +76,13 @@ NSString * const GTAppSettingsCurrentUnitType = @"currentUnitType";
     if(unitType == GTAppSettingsUnitTypeMPH){
         self.unitLabelSpeed = @"MPH";
         self.unitLabelDistance = @"M";
-        self.distanceMultiplier = 0.000621371192;
-        self.speedMultiplier = 2.23693629;
+        self.distanceMultiplier = SMMileMultiplier;
+        self.speedMultiplier = SMMilesSpeedMultiplier;
     }else{
         self.unitLabelSpeed = @"KPH";
         self.unitLabelDistance = @"KM";
-        self.distanceMultiplier = 1000.0;
-        self.speedMultiplier = 3.6;
+        self.distanceMultiplier = SMKmMultiplier;
+        self.speedMultiplier = SMKmSpeedMultiplier;
     }
     
     self.unitType = unitType;
@@ -81,6 +91,7 @@ NSString * const GTAppSettingsCurrentUnitType = @"currentUnitType";
     [appDefaults setFloat:self.distanceMultiplier forKey:@"distanceMultiplier"];
     [appDefaults setFloat:self.speedMultiplier forKey:@"speedMultiplier"];
     [appDefaults setValue:self.unitLabelDistance forKey:@"unitLabelDistance"];
+    [appDefaults setFloat:self.distanceFilter forKey:@"distanceFilter"];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:SMSettingsUpdated object:self];
     
@@ -88,16 +99,19 @@ NSString * const GTAppSettingsCurrentUnitType = @"currentUnitType";
 
 -(void)setApplicationUsageType:(GTAppSettingsUsageType)usageType {
 
-    //Configure app for car
     [appDefaults setInteger:usageType forKey:GTApplicationUsageTypeKey];
     [[NSNotificationCenter defaultCenter] postNotificationName:GTApplicationDidUpdateUsageType object:nil];
     
 }
 
+-(void)setApplicationDistanceFilter:(float)distanceFilter {
+    
+    [appDefaults setFloat:distanceFilter forKey:SMDistanceFilter];
+    [[NSNotificationCenter defaultCenter] postNotificationName:GTApplicationDidUpdateDistanceFilter object:nil];
+}
+
 -(GTAppSettingsUnitType)getApplicationUnitType {
-    
     return [appDefaults integerForKey:GTAppSettingsCurrentUnitType];
-    
 }
 
 -(GTAppSettingsUsageType)getApplicationUsageType {

@@ -33,7 +33,6 @@ typedef enum {
     NSMutableArray *recordedPoints;
     BOOL resumingTrip;
     TripManager *tripManager;
-    NSTimer *tripTimer;
     NSTimeInterval startTime;
     NSTimeInterval pausedTime;
 }

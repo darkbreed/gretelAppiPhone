@@ -102,7 +102,9 @@
             [self.notificationView hide:YES];
             [self.stopButton setEnabled:NO];
             [self.startButton setBackgroundImage:[UIImage imageNamed:@"recordButton.png"] forState:UIControlStateNormal];
-            
+            [self.tripTimerLabel setText:@"00:00:00"];
+            [self.currentSpeedLabel setText:[NSString stringWithFormat:@"0.0 %@",settingsManager.unitLabelSpeed]];
+        
             break;
             
         }

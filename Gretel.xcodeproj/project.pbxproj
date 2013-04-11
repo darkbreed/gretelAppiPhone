@@ -862,6 +862,7 @@
 			baseConfigurationReference = 2DBC77A785094963AD97707F /* Pods.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ben Reed";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ben Reed";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -872,7 +873,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8BED8130-7526-4A6C-9D54-FFB9BFDFDDEE";
+				PROVISIONING_PROFILE = "0F97C3D1-F601-4A8F-AA23-4E688F39A531";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0F97C3D1-F601-4A8F-AA23-4E688F39A531";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

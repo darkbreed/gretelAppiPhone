@@ -19,15 +19,22 @@ typedef enum {
     GTAppSettingsUsageTypeMix
 }GTAppSettingsUsageType;
 
+extern float const SMMileMultiplier;
+extern float const SMKmMultiplier;
+extern float const SMMilesSpeedMultiplier;
+extern float const SMKmSpeedMultiplier;
+
 extern NSString *const SMUnitLabelSpeed;
 extern NSString *const SMUnitLabelDistance;
 extern NSString *const SMDistanceMultiplier;
 extern NSString *const SMSpeedMultiplier;
 extern NSString *const SMSettingsUpdated;
+extern NSString *const SMDistanceFilter;
 
 extern NSString * const GTAppSettingsCurrentUnitType;
 extern NSString * const GTApplicationUsageTypeKey;
 extern NSString * const GTApplicationDidUpdateUsageType;
+extern NSString * const GTApplicationDidUpdateDistanceFilter;
 
 @interface SettingsManager : NSObject
 
@@ -35,6 +42,7 @@ extern NSString * const GTApplicationDidUpdateUsageType;
 @property (nonatomic, readwrite) GTAppSettingsUsageType usageType;
 @property (nonatomic, readwrite) float distanceMultiplier;
 @property (nonatomic, readwrite) float speedMultiplier;
+@property (nonatomic, readwrite) float distanceFilter;
 @property (nonatomic, strong) NSString *unitLabelSpeed;
 @property (nonatomic, strong) NSString *unitLabelDistance;
 
@@ -43,6 +51,7 @@ extern NSString * const GTApplicationDidUpdateUsageType;
 -(void)setApplicationUsageType:(GTAppSettingsUsageType)usageType;
 -(GTAppSettingsUnitType)getApplicationUnitType;
 -(GTAppSettingsUsageType)getApplicationUsageType;
+-(void)setApplicationDistanceFilter:(float)distanceFilter;
 
 
 @end
