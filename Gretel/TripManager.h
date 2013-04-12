@@ -26,6 +26,7 @@ typedef enum {
 
 extern NSString * const GTTripTimerDidUpdate;
 extern NSString * const GTTripDeletedSuccess;
+extern NSString * const GTCurrentTripDeleted;
 
 @interface TripManager : NSObject
 

@@ -54,7 +54,10 @@
     if(!tripManager.currentTrip){
         [self setUpViewForNewTrip];
         [self setViewStateForTripState:GTTripStateNew];
+        [self setTitle:nil];
     }
+    
+    [self setTitle:tripManager.currentTrip.tripName];
     
     if(!self.notificationView){
         self.notificationView = [[GCDiscreetNotificationView alloc] initWithText:@""

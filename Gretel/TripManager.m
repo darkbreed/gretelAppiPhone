@@ -10,6 +10,7 @@
 
 NSString * const GTTripTimerDidUpdate = @"tripTimerDidUpdate";
 NSString * const GTTripDeletedSuccess = @"tripDeletedSucessfully";
+NSString * const GTCurrentTripDeleted = @"deltedCurrentTrip";
 
 @implementation TripManager {
     int currentPointId;
@@ -137,6 +138,8 @@ NSString * const GTTripDeletedSuccess = @"tripDeletedSucessfully";
         //Check if any are recording and reset the app badge
         if([trip.recordingState isEqualToString:[self recordingStateForState:GTTripStateRecording]]){
             [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+            [self pauseRecording];
+            [[NSNotificationCenter defaultCenter] postNotificationName:GTCurrentTripDeleted object:nil];
         }
         
         //Grab the file URL from the object...

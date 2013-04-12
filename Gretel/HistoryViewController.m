@@ -43,6 +43,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mailSendingSavedHandler:) name:SMMailSaved object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deletedCurrentTrip:) name:GTCurrentTripDeleted object:nil];
+    
     
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [self.tableView setAllowsMultipleSelectionDuringEditing:YES];
@@ -343,7 +345,7 @@
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sorry" message:@"You cannot view this trip as it is currently in progress." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alertView show];
         }
-        
+    
         return NO;
     }else{
         return YES;
@@ -409,6 +411,10 @@
     
     [tripManager deleteTrips:[self.tableView indexPathsForSelectedRows]];
     
+}
+
+-(void)deletedCurrentTrip:(NSNotification *)notification {
+    self.navigationController.navigationItem.backBarButtonItem.title = @"Back";
 }
 
 @end
