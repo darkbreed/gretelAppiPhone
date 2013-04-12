@@ -335,7 +335,9 @@
     
     if(self.tableView.editing || self.noResultsToDisplay || tripIsRecording){
         
-        [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+        if(tripIsRecording && !self.tableView.editing){
+            [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+        }
         
         if(tripIsRecording){
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sorry" message:@"You cannot view this trip as it is currently in progress." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];

@@ -58,12 +58,18 @@ NSString * const GTAppSettingsCurrentUnitType = @"currentUnitType";
             self.unitLabelDistance = [appDefaults valueForKey:SMUnitLabelDistance];
             self.distanceMultiplier = [appDefaults floatForKey:SMDistanceMultiplier];
             self.speedMultiplier = [appDefaults floatForKey:SMSpeedMultiplier];
+            
         }else{
             self.unitLabelSpeed = @"MPH";
             self.unitLabelDistance = @"M";
             self.distanceMultiplier = SMMileMultiplier;
             self.speedMultiplier = SMMilesSpeedMultiplier;
+           
         }
+    }
+    
+    if([appDefaults floatForKey:SMDistanceFilter]){
+        [appDefaults setFloat:50.0 forKey:SMDistanceFilter];
     }
     
     self.distanceFilter = [appDefaults floatForKey:SMDistanceFilter];

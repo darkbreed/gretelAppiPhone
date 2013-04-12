@@ -27,7 +27,7 @@
     [Instabug KickOffWithToken:@"584de8774752975b5f94a0a4c1752d49" CaptureSource:InstabugCaptureSourceUIKit FeedbackEvent:InstabugFeedbackEventShake IsTrackingLocation:YES];
     
 #endif
-
+    
     UIImage *backgroundInage = [UIImage imageNamed:@"navigationBarBackground.png"];
     
     [[UINavigationBar appearance] setBackgroundImage:backgroundInage forBarMetrics:UIBarMetricsDefault];
@@ -40,10 +40,6 @@
     
     [[UINavigationBar appearance] setTitleTextAttributes:appearance];
     [[UINavigationBar appearance] setTintColor:[UIColor lightGrayColor]];
-    
-    //Set up Dropbox sync
-    DBAccountManager* accountMgr = [[DBAccountManager alloc] initWithAppKey:@"dlzueuupxj4ioes" secret:@"k324ysiikwspcyn"];
-    [DBAccountManager setSharedManager:accountMgr];
     
     return YES;
 }
