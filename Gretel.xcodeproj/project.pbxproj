@@ -53,6 +53,14 @@
 		B524F61C16DF8E98000DD5C0 /* completeLabel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B524F61816DF8E98000DD5C0 /* completeLabel@2x.png */; };
 		B524F61D16DF8E98000DD5C0 /* recodingLabel.png in Resources */ = {isa = PBXBuildFile; fileRef = B524F61916DF8E98000DD5C0 /* recodingLabel.png */; };
 		B524F61E16DF8E98000DD5C0 /* recodingLabel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B524F61A16DF8E98000DD5C0 /* recodingLabel@2x.png */; };
+		B53905C51717F08800B02190 /* Instabug.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B53905C41717F08800B02190 /* Instabug.framework */; };
+		B53905C71717F09E00B02190 /* Instabug.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B53905C61717F09E00B02190 /* Instabug.bundle */; };
+		B53905C91717F0E200B02190 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B53905C81717F0E200B02190 /* CoreFoundation.framework */; };
+		B53905CB1717F0F100B02190 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B53905CA1717F0F000B02190 /* OpenGLES.framework */; };
+		B53905CD1717F0F800B02190 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B53905CC1717F0F800B02190 /* GLKit.framework */; };
+		B53905CF1717F10B00B02190 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B53905CE1717F10B00B02190 /* AVFoundation.framework */; };
+		B53905D11717F11100B02190 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B53905D01717F11100B02190 /* AudioToolbox.framework */; };
+		B53905D31717F12000B02190 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B53905D21717F12000B02190 /* CoreTelephony.framework */; };
 		B54BC33B16E9D2710045659E /* GPX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B54BC33A16E9D2710045659E /* GPX.framework */; };
 		B54BC33E16E9DC910045659E /* GPXDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = B54BC33D16E9DC910045659E /* GPXDocument.m */; };
 		B54BC34416EA23830045659E /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = B54BC34316EA23830045659E /* Trip.m */; };
@@ -197,6 +205,14 @@
 		B524F61816DF8E98000DD5C0 /* completeLabel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "completeLabel@2x.png"; sourceTree = "<group>"; };
 		B524F61916DF8E98000DD5C0 /* recodingLabel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recodingLabel.png; sourceTree = "<group>"; };
 		B524F61A16DF8E98000DD5C0 /* recodingLabel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "recodingLabel@2x.png"; sourceTree = "<group>"; };
+		B53905C41717F08800B02190 /* Instabug.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Instabug.framework; sourceTree = "<group>"; };
+		B53905C61717F09E00B02190 /* Instabug.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Instabug.bundle; sourceTree = "<group>"; };
+		B53905C81717F0E200B02190 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		B53905CA1717F0F000B02190 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		B53905CC1717F0F800B02190 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		B53905CE1717F10B00B02190 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		B53905D01717F11100B02190 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		B53905D21717F12000B02190 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		B54BC33A16E9D2710045659E /* GPX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GPX.framework; sourceTree = "<group>"; };
 		B54BC33C16E9DC910045659E /* GPXDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPXDocument.h; sourceTree = "<group>"; };
 		B54BC33D16E9DC910045659E /* GPXDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPXDocument.m; sourceTree = "<group>"; };
@@ -287,6 +303,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B53905D31717F12000B02190 /* CoreTelephony.framework in Frameworks */,
+				B53905D11717F11100B02190 /* AudioToolbox.framework in Frameworks */,
+				B53905CF1717F10B00B02190 /* AVFoundation.framework in Frameworks */,
+				B53905CD1717F0F800B02190 /* GLKit.framework in Frameworks */,
+				B53905CB1717F0F100B02190 /* OpenGLES.framework in Frameworks */,
+				B53905C91717F0E200B02190 /* CoreFoundation.framework in Frameworks */,
+				3A43D62E16761D1F007E9A84 /* CoreGraphics.framework in Frameworks */,
 				B595269B1715494200A6C550 /* CFNetwork.framework in Frameworks */,
 				B595269C1715494200A6C550 /* QuartzCore.framework in Frameworks */,
 				B595269D1715494200A6C550 /* Security.framework in Frameworks */,
@@ -298,10 +321,10 @@
 				3A43D65416761D75007E9A84 /* CoreLocation.framework in Frameworks */,
 				3A43D62A16761D1F007E9A84 /* UIKit.framework in Frameworks */,
 				3A43D62C16761D1F007E9A84 /* Foundation.framework in Frameworks */,
-				3A43D62E16761D1F007E9A84 /* CoreGraphics.framework in Frameworks */,
 				A6FBA14610DC4D3C8654D5C3 /* libPods.a in Frameworks */,
 				B54BC33B16E9D2710045659E /* GPX.framework in Frameworks */,
 				B59526A01715499E00A6C550 /* Dropbox.framework in Frameworks */,
+				B53905C51717F08800B02190 /* Instabug.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,10 +357,12 @@
 		3A43D61A16761D1F007E9A84 = {
 			isa = PBXGroup;
 			children = (
-				B59526971715494100A6C550 /* CFNetwork.framework */,
-				B59526981715494100A6C550 /* QuartzCore.framework */,
-				B59526991715494200A6C550 /* Security.framework */,
-				B595269A1715494200A6C550 /* SystemConfiguration.framework */,
+				B53905D21717F12000B02190 /* CoreTelephony.framework */,
+				B53905D01717F11100B02190 /* AudioToolbox.framework */,
+				B53905CE1717F10B00B02190 /* AVFoundation.framework */,
+				B53905CC1717F0F800B02190 /* GLKit.framework */,
+				B53905CA1717F0F000B02190 /* OpenGLES.framework */,
+				B53905C81717F0E200B02190 /* CoreFoundation.framework */,
 				B568976D16DE0D2100A07DFC /* Icon@2x.png */,
 				B568976B16DE0D1B00A07DFC /* Icon.png */,
 				3A43D62F16761D1F007E9A84 /* Gretel */,
@@ -358,6 +383,11 @@
 		3A43D62816761D1F007E9A84 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B53905C41717F08800B02190 /* Instabug.framework */,
+				B59526971715494100A6C550 /* CFNetwork.framework */,
+				B59526981715494100A6C550 /* QuartzCore.framework */,
+				B59526991715494200A6C550 /* Security.framework */,
+				B595269A1715494200A6C550 /* SystemConfiguration.framework */,
 				B595269F1715499E00A6C550 /* Dropbox.framework */,
 				B54BC33A16E9D2710045659E /* GPX.framework */,
 				3AA12B901684551D0003FE03 /* GameKit.framework */,
@@ -394,6 +424,7 @@
 		3A43D63016761D1F007E9A84 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B53905C61717F09E00B02190 /* Instabug.bundle */,
 				3A072B78167FBC1C00349316 /* GPX */,
 				3A43D6771678DEB4007E9A84 /* morrocco.gpx */,
 				3A43D63116761D1F007E9A84 /* Gretel-Info.plist */,
@@ -704,6 +735,7 @@
 				B56049A7170C86C3003B1383 /* trip_log_20130315132459.gpx in Resources */,
 				B5E45C23170ECDF500C1B6F6 /* obanglencoe.gpx in Resources */,
 				B5E45C25170EE98400C1B6F6 /* 05-04-2013 10:32.gpx in Resources */,
+				B53905C71717F09E00B02190 /* Instabug.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

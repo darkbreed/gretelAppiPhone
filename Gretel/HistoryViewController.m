@@ -157,7 +157,6 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    
     if(self.noResultsToDisplay){
         
         return 1;
@@ -172,14 +171,13 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    
     id<NSFetchedResultsSectionInfo> sectionInfo = [[tripManager.allTrips sections] objectAtIndex:section];
     return [sectionInfo name];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
+
     if(self.noResultsToDisplay){
         return 1;
         
@@ -209,9 +207,8 @@
         return cell;
         
     }else{
-        
+       
         TripHistoryTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-        
         Trip *trip = [tripManager tripWithIndexPath:indexPath];
         
         [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
@@ -227,10 +224,23 @@
         [cell.tripDurationLabel setText:[timerDateFormatter stringFromDate:timerDate]];
         [cell.tripNameLabel setText:[NSString stringWithFormat:@"%@",trip.tripName]];
         
+        if([trip.recordingState isEqualToString:[tripManager recordingStateForState:GTTripStateRecording]]){
+            
+            [cell.distanceLabel setFrame:CGRectMake(170, cell.distanceLabel.frame.origin.y, cell.distanceLabel.frame.size.width, cell.distanceLabel.frame.size.height)];
+            [cell.tripDurationLabel setFrame:CGRectMake(155, cell.tripDurationLabel.frame.origin.y, cell.tripDurationLabel.frame.size.width, cell.tripDurationLabel.frame.size.height)];
+            
+            [cell.recordingBanner setHidden:NO];
+
+        }else{
+            
+            [cell.distanceLabel setFrame:CGRectMake(195, cell.distanceLabel.frame.origin.y, cell.distanceLabel.frame.size.width, cell.distanceLabel.frame.size.height)];
+            [cell.tripDurationLabel setFrame:CGRectMake(180, cell.tripDurationLabel.frame.origin.y, cell.tripDurationLabel.frame.size.width, cell.tripDurationLabel.frame.size.height)];
+            [cell.recordingBanner setHidden:YES];
+        }
+        
         return cell;
+        
     }
-    
-    
 }
 
 - (void)searchDisplayController:(UISearchDisplayController *)controller didLoadSearchResultsTableView:(UITableView *)tableView
@@ -280,7 +290,7 @@
     
     switch(type) {
         case NSFetchedResultsChangeInsert:
-            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            //[self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
             break;
             
         case NSFetchedResultsChangeDelete:
@@ -300,7 +310,7 @@
             break;
             
         case NSFetchedResultsChangeUpdate:
-            [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            //[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
             
         case NSFetchedResultsChangeMove:
@@ -315,11 +325,31 @@
 
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
     
-    if(self.tableView.editing || self.noResultsToDisplay){
+    Trip *trip = [tripManager.allTrips objectAtIndexPath:self.tableView.indexPathForSelectedRow];
+    
+    BOOL tripIsRecording = NO;
+    
+    if([trip.recordingState isEqualToString:[tripManager recordingStateForState:GTTripStateRecording]]){
+        tripIsRecording = YES;
+    }
+    
+    if(self.tableView.editing || self.noResultsToDisplay || tripIsRecording){
+        
+        [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+        
+        if(tripIsRecording){
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sorry" message:@"You cannot view this trip as it is currently in progress." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alertView show];
+        }
+        
         return NO;
     }else{
         return YES;
     }
+}
+
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
 }
 
 #pragma mark - Table view delegate

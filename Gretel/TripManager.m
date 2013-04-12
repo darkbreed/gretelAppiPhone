@@ -199,7 +199,20 @@ NSString * const GTTripDeletedSuccess = @"tripDeletedSucessfully";
     [self.allTrips performFetch:&error];
 }
 
+-(void)resetRecordingStateForAllTrips {
+    
+    [self fetchAllTrips];
+    
+    for (Trip *trip in self.allTrips.fetchedObjects) {
+        trip.recordingState = [self recordingStateForState:GTTripStatePaused];
+        [self saveTrip];
+    }
+}
+
 -(void)createNewTripWithName:(NSString *)name {
+    
+    //Check all other trips to see if any are still marked in progress
+    [self resetRecordingStateForAllTrips];
     
     self.currentTrip = [NSEntityDescription insertNewObjectForEntityForName:@"Trip" inManagedObjectContext:self.managedObjectContext];
     currentPointId = 0;

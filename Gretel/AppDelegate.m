@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "HistoryViewController.h"
 #import <Dropbox/Dropbox.h>
+#import <Instabug/Instabug.h>
 
 @implementation AppDelegate
 
@@ -22,6 +23,8 @@
     NSString *uuid = [NSString stringWithFormat:@"%@",[[UIDevice currentDevice] identifierForVendor]];
     [TestFlight setDeviceIdentifier:uuid];
     [TestFlight takeOff:@"0677e702-7b7f-4508-a59f-9af8109b5718"];
+    
+    [Instabug KickOffWithToken:@"584de8774752975b5f94a0a4c1752d49" CaptureSource:InstabugCaptureSourceUIKit FeedbackEvent:InstabugFeedbackEventShake IsTrackingLocation:YES];
     
 #endif
 

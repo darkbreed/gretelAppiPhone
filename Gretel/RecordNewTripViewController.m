@@ -56,10 +56,12 @@
         [self setViewStateForTripState:GTTripStateNew];
     }
     
-    self.notificationView = [[GCDiscreetNotificationView alloc] initWithText:@""
-                                                                showActivity:NO
-                                                          inPresentationMode:GCDiscreetNotificationViewPresentationModeTop
-                                                                      inView:self.mapView];
+    if(!self.notificationView){
+        self.notificationView = [[GCDiscreetNotificationView alloc] initWithText:@""
+                                                                    showActivity:NO
+                                                              inPresentationMode:GCDiscreetNotificationViewPresentationModeTop
+                                                                          inView:self.mapView];
+    }
     
     if(tripManager.isResuming){
         [self setViewStateForTripState:GTTripStateRecording];
@@ -137,8 +139,17 @@
             //change the recording button to pause
             [tripManager beginRecording];
             
-            [self.notificationView setTextLabel:@"Recording"];
-            [self.notificationView showAndDismissAutomaticallyAnimated];
+            if([self.notificationView.textLabel isEqualToString:@"Recording paused"]){
+                [self.notificationView setTextLabel:@"Recording"];
+                [self.notificationView hideAnimatedAfter:1.0];
+                
+            }else{
+                [self.notificationView setTextLabel:@"Recording"];
+                [self.notificationView showAndDismissAutomaticallyAnimated];
+            }
+            
+            [self.notificationView hideAnimatedAfter:1.0];
+            
             [self.recordingIndicatorContainer setHidden:NO];
             
             [self.startButton setBackgroundImage:[UIImage imageNamed:@"pauseButton.png"] forState:UIControlStateNormal];
