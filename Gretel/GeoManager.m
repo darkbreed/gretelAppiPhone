@@ -62,8 +62,7 @@ NSString *const GTLocationDidPauseUpdates = @"updatesPaused";
  */
 -(void)configureLocationManager {
     
-    
-    [locationManager setDistanceFilter:[defaults floatForKey:SMDistanceFilter]];
+    [locationManager setDistanceFilter:50.0];
     [locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
     [locationManager setDelegate:self];
     [locationManager setPausesLocationUpdatesAutomatically:YES];

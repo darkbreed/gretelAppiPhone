@@ -40,6 +40,7 @@ extern NSString * const GTCurrentTripDeleted;
 @property (nonatomic, strong) NSFetchedResultsController *allTrips;
 @property (nonatomic, strong) NSString *timerValue;
 @property (nonatomic, readwrite) BOOL isResuming;
+@property (nonatomic, strong) NSMutableArray *pointsForDrawing;
 
 ///Core data stack
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;

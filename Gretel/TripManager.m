@@ -220,6 +220,8 @@ NSString * const GTCurrentTripDeleted = @"deltedCurrentTrip";
     self.currentTrip = [NSEntityDescription insertNewObjectForEntityForName:@"Trip" inManagedObjectContext:self.managedObjectContext];
     currentPointId = 0;
     
+    self.pointsForDrawing = [NSMutableArray array];
+    
     NSDate *now = [NSDate date];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -283,6 +285,8 @@ NSString * const GTCurrentTripDeleted = @"deltedCurrentTrip";
     [self setCurrentTrip:nil];
     [self setTripState:GTTripStateNew];
     
+    self.pointsForDrawing = nil;
+    
     [self stopTimer];
     
     //Re-fectch the trips
@@ -293,17 +297,12 @@ NSString * const GTCurrentTripDeleted = @"deltedCurrentTrip";
 -(NSArray *)fectchPointsForDrawing:(BOOL)forDetailView {
    
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"pointID" ascending:NO];
-    
-    NSArray *sortedPoints = nil;
-    
+
     if(forDetailView){
-        sortedPoints = [self.tripForDetailView.points sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+        return [self.tripForDetailView.points sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     }else{
-        sortedPoints = [self.currentTrip.points sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+        return [self.pointsForDrawing sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     }
-    
-    return sortedPoints;
-    
 }
 
 -(void)storeLocation {
@@ -322,12 +321,16 @@ NSString * const GTCurrentTripDeleted = @"deltedCurrentTrip";
         
         //Add it to the current trip for storage
         [self.currentTrip addPointsObject:point];
-        
-        //Save
-        
-        [self saveTrip];
+        [self.pointsForDrawing addObject:point];
         
     }
+    
+    double delayInSeconds = 5.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        //Save
+        [self saveTrip];
+    });
 }
 
 
@@ -378,10 +381,6 @@ NSString * const GTCurrentTripDeleted = @"deltedCurrentTrip";
     NSString *fileName = [NSString stringWithFormat:@"%@_log_%@.gpx", cleanName, dateString];
     
     return [[self applicationDocumentsDirectoryBasePath] stringByAppendingPathComponent:fileName];
-}
-
--(void)updateFileWithName:(NSString *)newName forTrip:(Trip *)trip {
-    
 }
 
 -(void)createGPXFileFromTrip:(Trip *)trip {

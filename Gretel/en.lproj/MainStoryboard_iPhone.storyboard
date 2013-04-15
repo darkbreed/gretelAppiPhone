@@ -507,21 +507,6 @@
                                 <color key="textColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="uFT-C5-KhC">
-                                <rect key="frame" x="20" y="446" width="125" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                <state key="normal" title="Testing Feedback">
-                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="feedbackButtonHandler:" destination="GGx-Rt-Kl9" eventType="touchUpInside" id="9n5-E1-Ieh"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -536,7 +521,6 @@
                         <outlet property="accuracyLabel" destination="sM3-hp-nca" id="5A1-ls-FXs"/>
                         <outlet property="accuracySlider" destination="vVH-xD-LhG" id="Jw0-b1-1IM"/>
                         <outlet property="applicationUsageSettings" destination="L23-Hz-war" id="DnD-98-bjw"/>
-                        <outlet property="testflightFeedbackButton" destination="uFT-C5-KhC" id="ZGd-0J-C2q"/>
                         <outlet property="unitOptions" destination="eXM-zm-KJ3" id="l7O-7Q-rgl"/>
                     </connections>
                 </viewController>
