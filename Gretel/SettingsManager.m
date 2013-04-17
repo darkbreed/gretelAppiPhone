@@ -11,6 +11,7 @@ float const SMMileMultiplier = 0.000621371192;
 float const SMKmMultiplier = 1000.0;
 float const SMMilesSpeedMultiplier = 2.23693629;
 float const SMKmSpeedMultiplier = 3.6;
+float const SMDistanceFilterValue = 34.0;
 
 NSString *const SMUnitLabelSpeed = @"unitLabelSpeed";
 NSString *const SMUnitLabelDistance = @"unitLabelDistance";
@@ -58,21 +59,17 @@ NSString * const GTAppSettingsCurrentUnitType = @"currentUnitType";
             self.unitLabelDistance = [appDefaults valueForKey:SMUnitLabelDistance];
             self.distanceMultiplier = [appDefaults floatForKey:SMDistanceMultiplier];
             self.speedMultiplier = [appDefaults floatForKey:SMSpeedMultiplier];
+            self.distanceFilter = [appDefaults floatForKey:SMDistanceFilter];
             
         }else{
             self.unitLabelSpeed = @"MPH";
             self.unitLabelDistance = @"M";
             self.distanceMultiplier = SMMileMultiplier;
             self.speedMultiplier = SMMilesSpeedMultiplier;
+            self.distanceFilter = SMDistanceFilterValue;
            
         }
     }
-    
-    if([appDefaults floatForKey:SMDistanceFilter]){
-        [appDefaults setFloat:50.0 forKey:SMDistanceFilter];
-    }
-    
-    self.distanceFilter = [appDefaults floatForKey:SMDistanceFilter];
     
     return self;
 }

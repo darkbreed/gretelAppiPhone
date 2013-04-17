@@ -62,8 +62,8 @@ NSString *const GTLocationDidPauseUpdates = @"updatesPaused";
  */
 -(void)configureLocationManager {
     
-    [locationManager setDistanceFilter:50.0];
-    [locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
+    [locationManager setDistanceFilter:[defaults floatForKey:SMDistanceFilter]];
+    [locationManager setDesiredAccuracy:kCLLocationAccuracyNearestTenMeters];
     [locationManager setDelegate:self];
     [locationManager setPausesLocationUpdatesAutomatically:YES];
     [locationManager setHeadingFilter:1];
@@ -87,13 +87,16 @@ NSString *const GTLocationDidPauseUpdates = @"updatesPaused";
     switch (usageType) {
         case GTAppSettingsUsageTypeCar:
             [locationManager setActivityType:CLActivityTypeAutomotiveNavigation];
+#warning TODO: Add in extra params for changing accuracy and distance filter
             break;
             
         case GTAppSettingsUsageTypeWalk:
             [locationManager setActivityType:CLActivityTypeFitness];
+#warning TODO: Add in extra params for changing accuracy and distance filter
             break;
         
         case GTAppSettingsUsageTypeMix:
+#warning TODO: Add in extra params for changing accuracy and distance filter
             [locationManager setActivityType:CLActivityTypeOther];
             break;
     }

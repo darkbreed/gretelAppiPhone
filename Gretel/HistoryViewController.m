@@ -45,7 +45,6 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deletedCurrentTrip:) name:GTCurrentTripDeleted object:nil];
     
-    
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [self.tableView setAllowsMultipleSelectionDuringEditing:YES];
     

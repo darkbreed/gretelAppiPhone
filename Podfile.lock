@@ -1,17 +1,20 @@
 
-DEPENDENCIES: 
-- BRBluetoothManager (= 0.0.1)
-- GCDiscreetNotificationView (= 1.0.0)
-- TestFlightSDK (= 1.2.3.beta1)
-
 COCOAPODS: 0.16.2
-
-SPEC CHECKSUMS: 
-  TestFlightSDK: f638b08651a37af099e40c47241fc58fd3cb1a66
-  GCDiscreetNotificationView: 4824641e498556cba2c7a9aadd8101aa77e4d965
-  BRBluetoothManager: 1310aa50564d50a8503803ae1d4cd2ed27d28bb9
 
 PODS: 
 - BRBluetoothManager (0.0.1)
 - GCDiscreetNotificationView (1.0.0)
+- NVSlideMenuController (1.4.3)
 - TestFlightSDK (1.2.3.beta1)
+
+DEPENDENCIES: 
+- BRBluetoothManager (= 0.0.1)
+- GCDiscreetNotificationView (= 1.0.0)
+- NVSlideMenuController (= 1.4.3)
+- TestFlightSDK (= 1.2.3.beta1)
+
+SPEC CHECKSUMS: 
+  TestFlightSDK: f638b08651a37af099e40c47241fc58fd3cb1a66
+  GCDiscreetNotificationView: 4824641e498556cba2c7a9aadd8101aa77e4d965
+  NVSlideMenuController: 79712443b169cc5717b824e64e6c29da862abcbf
+  BRBluetoothManager: 1310aa50564d50a8503803ae1d4cd2ed27d28bb9

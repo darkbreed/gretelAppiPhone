@@ -363,7 +363,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="Wts-wo-MrN">
-                        <barButtonItem key="leftBarButtonItem" title="Settings" id="9dD-AC-Bz1">
+                        <barButtonItem key="leftBarButtonItem" image="settings.png" id="9dD-AC-Bz1">
                             <color key="tintColor" red="0.7843137255" green="0.76078431369999999" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="C2O-3Y-M11" kind="modal" modalTransitionStyle="coverVertical" id="o8K-lo-gOh"/>
@@ -831,6 +831,7 @@ Finally a shout out must go to Friska, this application has been powered by thei
         <image name="recordLight@2x.png" width="31" height="31"/>
         <image name="recordLightBackground@2x.png" width="47" height="47"/>
         <image name="resumeSymbol@2x.png" width="90" height="90"/>
+        <image name="settings.png" width="20" height="20"/>
         <image name="speedometerSymbol@2x.png" width="90" height="90"/>
         <image name="stopButton@2x.png" width="90" height="90"/>
         <image name="viewBackgrond.png" width="320" height="568"/>

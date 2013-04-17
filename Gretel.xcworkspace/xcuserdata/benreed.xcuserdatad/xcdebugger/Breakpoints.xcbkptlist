@@ -7,25 +7,12 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "Gretel/SettingsManager.m"
-         timestampString = "387445761.526683"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "114"
-         endingLineNumber = "114"
-         landmarkName = "-setApplicationDistanceFilter:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "Gretel/GeoManager.m"
-         timestampString = "387478487.096898"
+         timestampString = "387875095.672076"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "105"
-         endingLineNumber = "105"
+         startingLineNumber = "108"
+         endingLineNumber = "108"
          landmarkName = "-setDistanceFilterValue"
          landmarkType = "5">
       </FileBreakpoint>

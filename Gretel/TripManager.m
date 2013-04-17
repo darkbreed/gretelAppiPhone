@@ -299,8 +299,10 @@ NSString * const GTCurrentTripDeleted = @"deltedCurrentTrip";
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"pointID" ascending:NO];
 
     if(forDetailView){
+        //If loading a detail view, load the points in one hit from core data
         return [self.tripForDetailView.points sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     }else{
+        //else get the points from memory when drawing a live map
         return [self.pointsForDrawing sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     }
 }
@@ -325,12 +327,9 @@ NSString * const GTCurrentTripDeleted = @"deltedCurrentTrip";
         
     }
     
-    double delayInSeconds = 5.0;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        //Save
-        [self saveTrip];
-    });
+    //Only commit changes to core data every N seconds in an attempt to preserve battery life.
+    //Save
+    [self saveTrip];
 }
 
 
