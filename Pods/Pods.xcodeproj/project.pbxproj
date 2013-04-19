@@ -10,284 +10,61 @@
 	<string>46</string>
 	<key>objects</key>
 	<dict>
-		<key>006332512FF742EE80240A87</key>
-		<dict>
-			<key>fileRef</key>
-			<string>2FC3BE4B0F8A45D097C6121C</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict/>
-		</dict>
-		<key>0289D3866D044FD999C1A5B2</key>
+		<key>009E83999A214E709ED74708</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
+			<string>sourcecode.c.h</string>
 			<key>name</key>
-			<string>NIKFontAwesomePathFactory.m</string>
+			<string>NIKFontAwesomeIcon.h</string>
 			<key>path</key>
-			<string>FontAwesomeIconFactory/NIKFontAwesomePathFactory.m</string>
+			<string>FontAwesomeIconFactory/NIKFontAwesomeIcon.h</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
-		<key>0307DAA763E14AD68A748201</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>BRBluetoothManager.m</string>
-			<key>path</key>
-			<string>BRBluetoothManager/BRBluetoothManager/BRBluetoothManager.m</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
-		</dict>
-		<key>03DF86D453DA4F52BEAA538A</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>9AEA842B807B43E5940B01B4</string>
-				<string>B7244DE281DA482DAF0CE5A8</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>090821B015DA4076A589E3C1</key>
+		<key>037946C775CD4C3EAF654727</key>
 		<dict>
 			<key>fileRef</key>
-			<string>B4E41CEC0E5D4F99AB62D84B</string>
+			<string>88F5666507D24DD68F5343D5</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
 			<dict/>
 		</dict>
-		<key>15DF32801D374545856A1182</key>
-		<dict>
-			<key>fileRef</key>
-			<string>C7879E273E354C3598E34CAB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict/>
-		</dict>
-		<key>16369182B13F4C2F80240907</key>
-		<dict>
-			<key>fileRef</key>
-			<string>2ED0445899E443CB9E9D1148</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict/>
-		</dict>
-		<key>19CF21B840494C1D8ADB0198</key>
-		<dict>
-			<key>fileRef</key>
-			<string>5CF26AD9D912401B8E1C79E7</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict/>
-		</dict>
-		<key>21F2E4E18F614E97B91109B1</key>
-		<dict>
-			<key>fileRef</key>
-			<string>BAB8ED32773741628D062B74</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict/>
-		</dict>
-		<key>25A4743C645E4B52A2E114C6</key>
+		<key>0421D92F06F84F42A534A58D</key>
 		<dict>
 			<key>children</key>
 			<array>
-				<string>2FC3BE4B0F8A45D097C6121C</string>
+				<string>84E0B34C73E0493BB3511768</string>
+				<string>88D204C85A5D42B5AD46D289</string>
+				<string>3D4AFF8F898F498CBB0F391D</string>
+				<string>11D2342DB5EC49DA9A49EC28</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
 			<key>name</key>
-			<string>Frameworks</string>
+			<string>ECSlidingViewController</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>2950635BCE164F468AA0007F</key>
+		<key>043BA8520CD743BFADF708E6</key>
 		<dict>
 			<key>fileRef</key>
-			<string>2AB8812E49634DC893F3D982</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict/>
-		</dict>
-		<key>29C78D6F6DEC4A299D69761A</key>
-		<dict>
-			<key>fileRef</key>
-			<string>C037C160DBFA4904A652C83E</string>
+			<string>88D204C85A5D42B5AD46D289</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
 			<dict>
-				<key>COMPILER_FLAGS</key>
-				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0</string>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
 			</dict>
 		</dict>
-		<key>29CE372AB5584BD9907DAFF6</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>4C483734653A4277A8F0E912</string>
-				<string>F0311741E6474272BE271BA4</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Targets Support Files</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>2AB8812E49634DC893F3D982</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>NIKFontAwesomeIconFactory+iOS.h</string>
-			<key>path</key>
-			<string>FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.h</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
-		</dict>
-		<key>2ED0445899E443CB9E9D1148</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>NIKFontAwesomeIconFactory.h</string>
-			<key>path</key>
-			<string>FontAwesomeIconFactory/NIKFontAwesomeIconFactory.h</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
-		</dict>
-		<key>2FC0A8559EAB4941BFE6D45D</key>
-		<dict>
-			<key>fileRef</key>
-			<string>AB75D002B57F433EA1CDB7C9</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict/>
-		</dict>
-		<key>2FC3BE4B0F8A45D097C6121C</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>Foundation.framework</string>
-			<key>path</key>
-			<string>Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/Foundation.framework</string>
-			<key>sourceTree</key>
-			<string>DEVELOPER_DIR</string>
-		</dict>
-		<key>33CDF46508854C3D874A741D</key>
-		<dict>
-			<key>fileRef</key>
-			<string>919338D91B5B481E84F316A0</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict/>
-		</dict>
-		<key>3E149C99A2974B38BBC068A0</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>GCDiscreetNotificationView.h</string>
-			<key>path</key>
-			<string>GCDiscreetNotificationView/GCDiscreetNotificationView/GCDiscreetNotificationView.h</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
-		</dict>
-		<key>4C260A4569A44B7090006962</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>BD4E9DAD6F904F369013F48C</string>
-				<string>DD1CB8F2BB144B6DB430ED47</string>
-				<string>4D3B0524E67E4867839304B4</string>
-				<string>B88D2A664BD74A1C8473F488</string>
-				<string>D9D0BBCB036E42A49D2F06AF</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Pods</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>4C483734653A4277A8F0E912</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>FFC7706BDF844D49905EFFE9</string>
-				<string>84C807D962F440F0B5A68DDB</string>
-				<string>C03C0D229A104D1E9D48C919</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Pods</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>4D3B0524E67E4867839304B4</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>A735C5538C394250BE500F1B</string>
-				<string>2AB8812E49634DC893F3D982</string>
-				<string>E7E795C08A164C739457E241</string>
-				<string>2ED0445899E443CB9E9D1148</string>
-				<string>B8D531919507472B9BE55AB2</string>
-				<string>AB75D002B57F433EA1CDB7C9</string>
-				<string>0289D3866D044FD999C1A5B2</string>
-				<string>C7879E273E354C3598E34CAB</string>
-				<string>C66084E7ABEB45439245CC65</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>FontAwesomeIconFactory</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>5CF26AD9D912401B8E1C79E7</key>
+		<key>06D8AD25B07E42238B79CB0A</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -302,146 +79,302 @@
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
-		<key>5F8F359A0277446FB2FA6F6A</key>
+		<key>0823733226944E8EA311260E</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>NIKFontAwesomePathFactory.h</string>
+			<key>path</key>
+			<string>FontAwesomeIconFactory/NIKFontAwesomePathFactory.h</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>0A53D331C5A74901B2FFDEFA</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>FC566D5D5B84428097CE74BC</string>
+				<string>BE6FCB4B5DA54ED2B7532D00</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>11D2342DB5EC49DA9A49EC28</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>UIImage+ImageWithUIView.m</string>
+			<key>path</key>
+			<string>ECSlidingViewController/ECSlidingViewController/Vendor/ECSlidingViewController/UIImage+ImageWithUIView.m</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>11DCC98DD8224237BEF4AB0B</key>
+		<dict>
+			<key>fileRef</key>
+			<string>3D4AFF8F898F498CBB0F391D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc</string>
+			</dict>
+		</dict>
+		<key>12749FD4079E4BDD9E9704AF</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>NIKFontAwesomeIconFactory.m</string>
+			<key>path</key>
+			<string>FontAwesomeIconFactory/NIKFontAwesomeIconFactory.m</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>136C131EABA04998B82DB4B9</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>BRDataPacket.m</string>
+			<key>path</key>
+			<string>BRBluetoothManager/BRBluetoothManager/BRDataPacket.m</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>16E3008266234132B55CB9E7</key>
+		<dict>
+			<key>fileRef</key>
+			<string>11D2342DB5EC49DA9A49EC28</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc</string>
+			</dict>
+		</dict>
+		<key>17C7789A734C463DA3BB5546</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>Pods-prefix.pch</string>
+			<key>path</key>
+			<string>Pods-prefix.pch</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>1A37F7DFC5B04055BB6D02D7</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>Foundation.framework</string>
+			<key>path</key>
+			<string>System/Library/Frameworks/Foundation.framework</string>
+			<key>sourceTree</key>
+			<string>SDKROOT</string>
+		</dict>
+		<key>1D0186B5181A4C52944E3553</key>
+		<dict>
+			<key>fileRef</key>
+			<string>84E0B34C73E0493BB3511768</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>25C4626912374FE9A2BC2030</key>
+		<dict>
+			<key>fileRef</key>
+			<string>A38C0A91262A44CA8EB776F9</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc</string>
+			</dict>
+		</dict>
+		<key>2840AE7ABC7E4EF48967EA46</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>4828D4D23A2A4CB0A87D7311</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>TestFlightSDK</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2AE3C57D2CDF4A3E86852469</key>
+		<dict>
+			<key>fileRef</key>
+			<string>812F794E71A14606832E885B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc</string>
+			</dict>
+		</dict>
+		<key>2B02400937BA4ABE84321E6D</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7E846E9B2A8B435F9357C2AD</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>2CBEAF3B4EF947F1AE863872</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>Pods-resources.sh</string>
+			<key>path</key>
+			<string>Pods-resources.sh</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>33E859C4081345A5B4B25469</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>NIKFontAwesomePathRenderer.m</string>
+			<key>path</key>
+			<string>FontAwesomeIconFactory/NIKFontAwesomePathRenderer.m</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>370DE8A3553D4D05AFDDB95A</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>CA37802832434684BC534914</string>
+			<key>buildPhases</key>
+			<array>
+				<string>576D8F23DF4F42B0B1B06C96</string>
+				<string>9FE92287B9E14BD1836971A7</string>
+				<string>39A8E7A265634008BD096233</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>Pods</string>
+			<key>productName</key>
+			<string>Pods</string>
+			<key>productReference</key>
+			<string>4F021253FE284D4AB2469E1C</string>
+			<key>productType</key>
+			<string>com.apple.product-type.library.static</string>
+		</dict>
+		<key>39A8E7A265634008BD096233</key>
 		<dict>
 			<key>buildActionMask</key>
 			<string>2147483647</string>
 			<key>files</key>
 			<array>
-				<string>006332512FF742EE80240A87</string>
+				<string>41CA12639DCB456BAC83E981</string>
+				<string>E93A5B04060A42B09D30BEF4</string>
+				<string>3EA2925A4B014B0FAF671D59</string>
+				<string>1D0186B5181A4C52944E3553</string>
+				<string>043BA8520CD743BFADF708E6</string>
+				<string>7848E88FEEE246B98DB91680</string>
+				<string>EF6DDC68399C4351BCECECE7</string>
+				<string>93C0A20F69204274B99968B0</string>
+				<string>A9A0D2CE7D35458BB376B671</string>
+				<string>7241938E71484CEDA44C4FB4</string>
+				<string>2B02400937BA4ABE84321E6D</string>
+				<string>B2E011F8BF9A4136988C694E</string>
 			</array>
 			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
+			<string>PBXHeadersBuildPhase</string>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
-		<key>62E943100D5D49E58AE8FC65</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict/>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>63316B2ED36542989BEDA80B</key>
+		<key>39C5DC8B2597467D8FBC4D72</key>
 		<dict>
 			<key>fileRef</key>
-			<string>F1A7B0B3F3794B669E0753B3</string>
+			<string>33E859C4081345A5B4B25469</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
 			<dict>
 				<key>COMPILER_FLAGS</key>
-				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0</string>
+				<string>-fobjc-arc</string>
 			</dict>
 		</dict>
-		<key>643CB468D21B44E394CAC954</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>FF21B1A68853441B9F57128C</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Products</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>6B465B1B8D8C4A6F87C12010</key>
-		<dict>
-			<key>fileRef</key>
-			<string>E7E795C08A164C739457E241</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>COMPILER_FLAGS</key>
-				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0</string>
-			</dict>
-		</dict>
-		<key>8447D807644F486E99F531A8</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>643CB468D21B44E394CAC954</string>
-				<string>25A4743C645E4B52A2E114C6</string>
-				<string>4C260A4569A44B7090006962</string>
-				<string>29CE372AB5584BD9907DAFF6</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>849A795734F040368B19BC7C</key>
-		<dict>
-			<key>attributes</key>
-			<dict>
-				<key>LastUpgradeCheck</key>
-				<string>0450</string>
-			</dict>
-			<key>buildConfigurationList</key>
-			<string>CB728B2994E54A85AFE3E0CD</string>
-			<key>compatibilityVersion</key>
-			<string>Xcode 3.2</string>
-			<key>developmentRegion</key>
-			<string>English</string>
-			<key>hasScannedForEncodings</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXProject</string>
-			<key>knownRegions</key>
-			<array>
-				<string>en</string>
-			</array>
-			<key>mainGroup</key>
-			<string>8447D807644F486E99F531A8</string>
-			<key>productRefGroup</key>
-			<string>643CB468D21B44E394CAC954</string>
-			<key>projectReferences</key>
-			<array/>
-			<key>targets</key>
-			<array>
-				<string>F8687361DD8D4481AB6CF33D</string>
-			</array>
-		</dict>
-		<key>84C807D962F440F0B5A68DDB</key>
+		<key>3D4AFF8F898F498CBB0F391D</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
 			<key>name</key>
-			<string>Pods-prefix.pch</string>
+			<string>ECSlidingViewController.m</string>
 			<key>path</key>
-			<string>Pods-prefix.pch</string>
+			<string>ECSlidingViewController/ECSlidingViewController/Vendor/ECSlidingViewController/ECSlidingViewController.m</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
-		<key>8D930CC03C42430C845FE489</key>
-		<dict>
-			<key>fileRef</key>
-			<string>3E149C99A2974B38BBC068A0</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict/>
-		</dict>
-		<key>8DCCC6048FB641278F27D3FF</key>
-		<dict>
-			<key>fileRef</key>
-			<string>B8D531919507472B9BE55AB2</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>COMPILER_FLAGS</key>
-				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0</string>
-			</dict>
-		</dict>
-		<key>9131021BD1A24348A26704C5</key>
+		<key>3DF93CAA94834AA0A4DB990D</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -450,31 +383,30 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.h</string>
 			<key>name</key>
-			<string>TestFlight.h</string>
+			<string>BRBluetoothManager.h</string>
 			<key>path</key>
-			<string>TestFlightSDK/TestFlight.h</string>
+			<string>BRBluetoothManager/BRBluetoothManager/BRBluetoothManager.h</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
-		<key>919338D91B5B481E84F316A0</key>
+		<key>3EA2925A4B014B0FAF671D59</key>
 		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
+			<key>fileRef</key>
+			<string>7E1FE69CAE394702BAF80193</string>
 			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>UIImage+ImageWithUIView.h</string>
-			<key>path</key>
-			<string>ECSlidingViewController/ECSlidingViewController/Vendor/ECSlidingViewController/UIImage+ImageWithUIView.h</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
 		</dict>
-		<key>9AEA842B807B43E5940B01B4</key>
+		<key>3EE620BB84FC42ACAEE96146</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>C03C0D229A104D1E9D48C919</string>
+			<string>47CDC7E57A924FD388A6E3D7</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>ALWAYS_SEARCH_USER_PATHS</key>
@@ -521,28 +453,36 @@
 			<key>name</key>
 			<string>Release</string>
 		</dict>
-		<key>9EC7BDC80F04449EBFD5EB7A</key>
+		<key>41CA12639DCB456BAC83E981</key>
 		<dict>
 			<key>fileRef</key>
-			<string>0289D3866D044FD999C1A5B2</string>
+			<string>3DF93CAA94834AA0A4DB990D</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
 			<dict>
-				<key>COMPILER_FLAGS</key>
-				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0</string>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
 			</dict>
 		</dict>
-		<key>A0455CB3B3434CD488601433</key>
+		<key>47CDC7E57A924FD388A6E3D7</key>
 		<dict>
-			<key>buildSettings</key>
-			<dict/>
+			<key>includeInIndex</key>
+			<string>1</string>
 			<key>isa</key>
-			<string>XCBuildConfiguration</string>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
 			<key>name</key>
-			<string>Release</string>
+			<string>Pods.xcconfig</string>
+			<key>path</key>
+			<string>Pods.xcconfig</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
 		</dict>
-		<key>A735C5538C394250BE500F1B</key>
+		<key>4828D4D23A2A4CB0A87D7311</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -551,60 +491,124 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.h</string>
 			<key>name</key>
-			<string>NIKFontAwesomeIcon.h</string>
+			<string>TestFlight.h</string>
 			<key>path</key>
-			<string>FontAwesomeIconFactory/NIKFontAwesomeIcon.h</string>
+			<string>TestFlightSDK/TestFlight.h</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
-		<key>AB6598D4F17F493E9CB9774B</key>
+		<key>4B0A485C3FC24A9DA4B0A064</key>
+		<dict>
+			<key>fileRef</key>
+			<string>635A9D66341C4D3AB1CE7E3C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc</string>
+			</dict>
+		</dict>
+		<key>4F021253FE284D4AB2469E1C</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>archive.ar</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>libPods.a</string>
+			<key>path</key>
+			<string>libPods.a</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>576D8F23DF4F42B0B1B06C96</key>
 		<dict>
 			<key>buildActionMask</key>
 			<string>2147483647</string>
 			<key>files</key>
 			<array>
-				<string>C9505B4417F9412F97434145</string>
-				<string>C63A315BFEDD4C58B49AF086</string>
-				<string>CCC3B1578F7E47A9871182DF</string>
-				<string>63316B2ED36542989BEDA80B</string>
-				<string>29C78D6F6DEC4A299D69761A</string>
-				<string>6B465B1B8D8C4A6F87C12010</string>
-				<string>8DCCC6048FB641278F27D3FF</string>
-				<string>9EC7BDC80F04449EBFD5EB7A</string>
-				<string>B8AD5B0E53484A2399789DFF</string>
-				<string>CBB51232B320431D992A1130</string>
-				<string>ACCE1D3F759347A99CBA68CA</string>
+				<string>619F092018654FCEA9D46530</string>
+				<string>DE50CCD4E390418CA6D9EE0A</string>
+				<string>4B0A485C3FC24A9DA4B0A064</string>
+				<string>11DCC98DD8224237BEF4AB0B</string>
+				<string>16E3008266234132B55CB9E7</string>
+				<string>2AE3C57D2CDF4A3E86852469</string>
+				<string>CBD5ADCE179B4BBBBF2464B1</string>
+				<string>25C4626912374FE9A2BC2030</string>
+				<string>39C5DC8B2597467D8FBC4D72</string>
+				<string>C2BB8E9579434C6BBA526660</string>
+				<string>037946C775CD4C3EAF654727</string>
 			</array>
 			<key>isa</key>
 			<string>PBXSourcesBuildPhase</string>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
-		<key>AB75D002B57F433EA1CDB7C9</key>
+		<key>58F521F8652443269EE84250</key>
 		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
+			<key>attributes</key>
+			<dict>
+				<key>LastUpgradeCheck</key>
+				<string>0450</string>
+			</dict>
+			<key>buildConfigurationList</key>
+			<string>0A53D331C5A74901B2FFDEFA</string>
+			<key>compatibilityVersion</key>
+			<string>Xcode 3.2</string>
+			<key>developmentRegion</key>
+			<string>English</string>
+			<key>hasScannedForEncodings</key>
+			<string>0</string>
 			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>NIKFontAwesomePathFactory.h</string>
-			<key>path</key>
-			<string>FontAwesomeIconFactory/NIKFontAwesomePathFactory.h</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
+			<string>PBXProject</string>
+			<key>knownRegions</key>
+			<array>
+				<string>en</string>
+			</array>
+			<key>mainGroup</key>
+			<string>8BADA40A678040A0BF73B759</string>
+			<key>productRefGroup</key>
+			<string>F39DA4AE64A344CAA7D31089</string>
+			<key>projectReferences</key>
+			<array/>
+			<key>targets</key>
+			<array>
+				<string>370DE8A3553D4D05AFDDB95A</string>
+			</array>
 		</dict>
-		<key>ACCE1D3F759347A99CBA68CA</key>
+		<key>604F00AA5EEE4AB7A8EE135B</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>A67B2B1AA8A5428E81FBBFE4</string>
+				<string>0421D92F06F84F42A534A58D</string>
+				<string>DF183949FD6C4535B923FECE</string>
+				<string>B149903E518B4AD083D2326D</string>
+				<string>2840AE7ABC7E4EF48967EA46</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Pods</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>619F092018654FCEA9D46530</key>
 		<dict>
 			<key>fileRef</key>
-			<string>F0311741E6474272BE271BA4</string>
+			<string>B2079F6752914DCB904719E7</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
-			<dict/>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc</string>
+			</dict>
 		</dict>
-		<key>B06F6DF2AEA84932A5BB77A0</key>
+		<key>635A9D66341C4D3AB1CE7E3C</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -613,13 +617,99 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.objc</string>
 			<key>name</key>
-			<string>GCDiscreetNotificationView.m</string>
+			<string>BRDebugUtilities.m</string>
 			<key>path</key>
-			<string>GCDiscreetNotificationView/GCDiscreetNotificationView/GCDiscreetNotificationView.m</string>
+			<string>BRBluetoothManager/BRBluetoothManager/BRDebugUtilities.m</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
-		<key>B4E41CEC0E5D4F99AB62D84B</key>
+		<key>7241938E71484CEDA44C4FB4</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F9528CDA7E13427FBAD73D1E</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>7848E88FEEE246B98DB91680</key>
+		<dict>
+			<key>fileRef</key>
+			<string>009E83999A214E709ED74708</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>7DAF4BC6457D46D3B94A57D5</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>1A37F7DFC5B04055BB6D02D7</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Frameworks</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E1FE69CAE394702BAF80193</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>BRDebugUtilities.h</string>
+			<key>path</key>
+			<string>BRBluetoothManager/BRBluetoothManager/BRDebugUtilities.h</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>7E846E9B2A8B435F9357C2AD</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>GCDiscreetNotificationView.h</string>
+			<key>path</key>
+			<string>GCDiscreetNotificationView/GCDiscreetNotificationView/GCDiscreetNotificationView.h</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>812F794E71A14606832E885B</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>NIKFontAwesomeIconFactory+iOS.m</string>
+			<key>path</key>
+			<string>FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.m</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>84E0B34C73E0493BB3511768</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -634,10 +724,159 @@
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
-		<key>B7244DE281DA482DAF0CE5A8</key>
+		<key>88D204C85A5D42B5AD46D289</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>UIImage+ImageWithUIView.h</string>
+			<key>path</key>
+			<string>ECSlidingViewController/ECSlidingViewController/Vendor/ECSlidingViewController/UIImage+ImageWithUIView.h</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>88F5666507D24DD68F5343D5</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>PodsDummy_Pods.m</string>
+			<key>path</key>
+			<string>PodsDummy_Pods.m</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>8BADA40A678040A0BF73B759</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>F39DA4AE64A344CAA7D31089</string>
+				<string>7DAF4BC6457D46D3B94A57D5</string>
+				<string>604F00AA5EEE4AB7A8EE135B</string>
+				<string>BD5337EA68464A588EF7ED58</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>93C0A20F69204274B99968B0</key>
+		<dict>
+			<key>fileRef</key>
+			<string>A46602959C1F4173B652B1C6</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>9A8ECF247E754D60A0EC5E80</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>NIKFontAwesomeIconFactory+iOS.h</string>
+			<key>path</key>
+			<string>FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.h</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>9FE92287B9E14BD1836971A7</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>CC1B32BBEF834888A9ECB2AB</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>A38C0A91262A44CA8EB776F9</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>NIKFontAwesomePathFactory.m</string>
+			<key>path</key>
+			<string>FontAwesomeIconFactory/NIKFontAwesomePathFactory.m</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>A3E27C94D7D04106B2D25823</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>2CBEAF3B4EF947F1AE863872</string>
+				<string>17C7789A734C463DA3BB5546</string>
+				<string>47CDC7E57A924FD388A6E3D7</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Pods</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A46602959C1F4173B652B1C6</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>NIKFontAwesomeIconFactory.h</string>
+			<key>path</key>
+			<string>FontAwesomeIconFactory/NIKFontAwesomeIconFactory.h</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>A67B2B1AA8A5428E81FBBFE4</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>3DF93CAA94834AA0A4DB990D</string>
+				<string>06D8AD25B07E42238B79CB0A</string>
+				<string>7E1FE69CAE394702BAF80193</string>
+				<string>B2079F6752914DCB904719E7</string>
+				<string>136C131EABA04998B82DB4B9</string>
+				<string>635A9D66341C4D3AB1CE7E3C</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>BRBluetoothManager</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A8690A515EDF4407BC7E9F65</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>C03C0D229A104D1E9D48C919</string>
+			<string>47CDC7E57A924FD388A6E3D7</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>ALWAYS_SEARCH_USER_PATHS</key>
@@ -693,12 +932,26 @@
 			<key>name</key>
 			<string>Debug</string>
 		</dict>
-		<key>B88D2A664BD74A1C8473F488</key>
+		<key>A9A0D2CE7D35458BB376B671</key>
+		<dict>
+			<key>fileRef</key>
+			<string>0823733226944E8EA311260E</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>B149903E518B4AD083D2326D</key>
 		<dict>
 			<key>children</key>
 			<array>
-				<string>3E149C99A2974B38BBC068A0</string>
-				<string>B06F6DF2AEA84932A5BB77A0</string>
+				<string>7E846E9B2A8B435F9357C2AD</string>
+				<string>C91A4516BB2B410CA22AFE48</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
@@ -707,19 +960,7 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>B8AD5B0E53484A2399789DFF</key>
-		<dict>
-			<key>fileRef</key>
-			<string>C66084E7ABEB45439245CC65</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>COMPILER_FLAGS</key>
-				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0</string>
-			</dict>
-		</dict>
-		<key>B8D531919507472B9BE55AB2</key>
+		<key>B2079F6752914DCB904719E7</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -728,112 +969,183 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.objc</string>
 			<key>name</key>
-			<string>NIKFontAwesomeIconFactory.m</string>
+			<string>BRBluetoothManager.m</string>
 			<key>path</key>
-			<string>FontAwesomeIconFactory/NIKFontAwesomeIconFactory.m</string>
+			<string>BRBluetoothManager/BRBluetoothManager/BRBluetoothManager.m</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
-		<key>BAB8ED32773741628D062B74</key>
+		<key>B2E011F8BF9A4136988C694E</key>
 		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
+			<key>fileRef</key>
+			<string>4828D4D23A2A4CB0A87D7311</string>
 			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>BRDebugUtilities.h</string>
-			<key>path</key>
-			<string>BRBluetoothManager/BRBluetoothManager/BRDebugUtilities.h</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
 		</dict>
-		<key>BD4E9DAD6F904F369013F48C</key>
+		<key>BD5337EA68464A588EF7ED58</key>
 		<dict>
 			<key>children</key>
 			<array>
-				<string>D78CC87754564C42A72D5E0C</string>
-				<string>5CF26AD9D912401B8E1C79E7</string>
-				<string>BAB8ED32773741628D062B74</string>
-				<string>0307DAA763E14AD68A748201</string>
-				<string>E987AB3DD2C74F4B9F32522F</string>
-				<string>FEC092F3CD8E4782BDA0BC2E</string>
+				<string>A3E27C94D7D04106B2D25823</string>
+				<string>88F5666507D24DD68F5343D5</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
 			<key>name</key>
-			<string>BRBluetoothManager</string>
+			<string>Targets Support Files</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>C037C160DBFA4904A652C83E</key>
+		<key>BE6FCB4B5DA54ED2B7532D00</key>
 		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
+			<key>buildSettings</key>
+			<dict/>
 			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
+			<string>XCBuildConfiguration</string>
 			<key>name</key>
-			<string>UIImage+ImageWithUIView.m</string>
-			<key>path</key>
-			<string>ECSlidingViewController/ECSlidingViewController/Vendor/ECSlidingViewController/UIImage+ImageWithUIView.m</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
+			<string>Debug</string>
 		</dict>
-		<key>C03C0D229A104D1E9D48C919</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>name</key>
-			<string>Pods.xcconfig</string>
-			<key>path</key>
-			<string>Pods.xcconfig</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
-		</dict>
-		<key>C63A315BFEDD4C58B49AF086</key>
+		<key>C2BB8E9579434C6BBA526660</key>
 		<dict>
 			<key>fileRef</key>
-			<string>E987AB3DD2C74F4B9F32522F</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>COMPILER_FLAGS</key>
-				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0</string>
-			</dict>
-		</dict>
-		<key>C66084E7ABEB45439245CC65</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>NIKFontAwesomePathRenderer.m</string>
-			<key>path</key>
-			<string>FontAwesomeIconFactory/NIKFontAwesomePathRenderer.m</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
-		</dict>
-		<key>C6BBAD51FDDA404EA4D43B3E</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D78CC87754564C42A72D5E0C</string>
+			<string>C91A4516BB2B410CA22AFE48</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
 			<dict/>
 		</dict>
-		<key>C7879E273E354C3598E34CAB</key>
+		<key>C91A4516BB2B410CA22AFE48</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>GCDiscreetNotificationView.m</string>
+			<key>path</key>
+			<string>GCDiscreetNotificationView/GCDiscreetNotificationView/GCDiscreetNotificationView.m</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>CA37802832434684BC534914</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>3EE620BB84FC42ACAEE96146</string>
+				<string>A8690A515EDF4407BC7E9F65</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>CBD5ADCE179B4BBBBF2464B1</key>
+		<dict>
+			<key>fileRef</key>
+			<string>12749FD4079E4BDD9E9704AF</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc</string>
+			</dict>
+		</dict>
+		<key>CC1B32BBEF834888A9ECB2AB</key>
+		<dict>
+			<key>fileRef</key>
+			<string>1A37F7DFC5B04055BB6D02D7</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict/>
+		</dict>
+		<key>DE50CCD4E390418CA6D9EE0A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>136C131EABA04998B82DB4B9</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc</string>
+			</dict>
+		</dict>
+		<key>DF183949FD6C4535B923FECE</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>009E83999A214E709ED74708</string>
+				<string>9A8ECF247E754D60A0EC5E80</string>
+				<string>812F794E71A14606832E885B</string>
+				<string>A46602959C1F4173B652B1C6</string>
+				<string>12749FD4079E4BDD9E9704AF</string>
+				<string>0823733226944E8EA311260E</string>
+				<string>A38C0A91262A44CA8EB776F9</string>
+				<string>F9528CDA7E13427FBAD73D1E</string>
+				<string>33E859C4081345A5B4B25469</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>FontAwesomeIconFactory</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E93A5B04060A42B09D30BEF4</key>
+		<dict>
+			<key>fileRef</key>
+			<string>06D8AD25B07E42238B79CB0A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>EF6DDC68399C4351BCECECE7</key>
+		<dict>
+			<key>fileRef</key>
+			<string>9A8ECF247E754D60A0EC5E80</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>F39DA4AE64A344CAA7D31089</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>4F021253FE284D4AB2469E1C</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Products</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F9528CDA7E13427FBAD73D1E</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -848,269 +1160,17 @@
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
-		<key>C9505B4417F9412F97434145</key>
+		<key>FC566D5D5B84428097CE74BC</key>
 		<dict>
-			<key>fileRef</key>
-			<string>0307DAA763E14AD68A748201</string>
+			<key>buildSettings</key>
+			<dict/>
 			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>COMPILER_FLAGS</key>
-				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0</string>
-			</dict>
-		</dict>
-		<key>CB728B2994E54A85AFE3E0CD</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>A0455CB3B3434CD488601433</string>
-				<string>62E943100D5D49E58AE8FC65</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
 			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>CBB51232B320431D992A1130</key>
-		<dict>
-			<key>fileRef</key>
-			<string>B06F6DF2AEA84932A5BB77A0</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict/>
-		</dict>
-		<key>CCC3B1578F7E47A9871182DF</key>
-		<dict>
-			<key>fileRef</key>
-			<string>FEC092F3CD8E4782BDA0BC2E</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>COMPILER_FLAGS</key>
-				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0</string>
-			</dict>
-		</dict>
-		<key>CFCB7A9D6647446AABE44195</key>
-		<dict>
-			<key>fileRef</key>
-			<string>9131021BD1A24348A26704C5</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict/>
-		</dict>
-		<key>D78CC87754564C42A72D5E0C</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>BRBluetoothManager.h</string>
-			<key>path</key>
-			<string>BRBluetoothManager/BRBluetoothManager/BRBluetoothManager.h</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
-		</dict>
-		<key>D9D0BBCB036E42A49D2F06AF</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>9131021BD1A24348A26704C5</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>TestFlightSDK</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>DD1CB8F2BB144B6DB430ED47</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>B4E41CEC0E5D4F99AB62D84B</string>
-				<string>919338D91B5B481E84F316A0</string>
-				<string>F1A7B0B3F3794B669E0753B3</string>
-				<string>C037C160DBFA4904A652C83E</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>ECSlidingViewController</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>E7E795C08A164C739457E241</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>NIKFontAwesomeIconFactory+iOS.m</string>
-			<key>path</key>
-			<string>FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.m</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
-		</dict>
-		<key>E987AB3DD2C74F4B9F32522F</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>BRDataPacket.m</string>
-			<key>path</key>
-			<string>BRBluetoothManager/BRBluetoothManager/BRDataPacket.m</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
-		</dict>
-		<key>F0311741E6474272BE271BA4</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>PodsDummy_Pods.m</string>
-			<key>path</key>
-			<string>PodsDummy_Pods.m</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
-		</dict>
-		<key>F1A7B0B3F3794B669E0753B3</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>ECSlidingViewController.m</string>
-			<key>path</key>
-			<string>ECSlidingViewController/ECSlidingViewController/Vendor/ECSlidingViewController/ECSlidingViewController.m</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
-		</dict>
-		<key>F5F2766C164343BBBFAEF447</key>
-		<dict>
-			<key>fileRef</key>
-			<string>A735C5538C394250BE500F1B</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict/>
-		</dict>
-		<key>F8687361DD8D4481AB6CF33D</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>03DF86D453DA4F52BEAA538A</string>
-			<key>buildPhases</key>
-			<array>
-				<string>AB6598D4F17F493E9CB9774B</string>
-				<string>5F8F359A0277446FB2FA6F6A</string>
-				<string>FB8D04E6A8D74F83AD4F253D</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>Pods</string>
-			<key>productName</key>
-			<string>Pods</string>
-			<key>productReference</key>
-			<string>FF21B1A68853441B9F57128C</string>
-			<key>productType</key>
-			<string>com.apple.product-type.library.static</string>
-		</dict>
-		<key>FB8D04E6A8D74F83AD4F253D</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>C6BBAD51FDDA404EA4D43B3E</string>
-				<string>19CF21B840494C1D8ADB0198</string>
-				<string>21F2E4E18F614E97B91109B1</string>
-				<string>090821B015DA4076A589E3C1</string>
-				<string>33CDF46508854C3D874A741D</string>
-				<string>F5F2766C164343BBBFAEF447</string>
-				<string>2950635BCE164F468AA0007F</string>
-				<string>16369182B13F4C2F80240907</string>
-				<string>2FC0A8559EAB4941BFE6D45D</string>
-				<string>15DF32801D374545856A1182</string>
-				<string>8D930CC03C42430C845FE489</string>
-				<string>CFCB7A9D6647446AABE44195</string>
-			</array>
-			<key>isa</key>
-			<string>PBXHeadersBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>FEC092F3CD8E4782BDA0BC2E</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>BRDebugUtilities.m</string>
-			<key>path</key>
-			<string>BRBluetoothManager/BRBluetoothManager/BRDebugUtilities.m</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
-		</dict>
-		<key>FF21B1A68853441B9F57128C</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>libPods.a</string>
-			<key>path</key>
-			<string>libPods.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>FFC7706BDF844D49905EFFE9</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>Pods-resources.sh</string>
-			<key>path</key>
-			<string>Pods-resources.sh</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
 		</dict>
 	</dict>
 	<key>rootObject</key>
-	<string>849A795734F040368B19BC7C</string>
+	<string>58F521F8652443269EE84250</string>
 </dict>
 </plist>

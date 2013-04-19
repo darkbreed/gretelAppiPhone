@@ -84,6 +84,7 @@ NSString * const GTTripImportedSuccessfully = @"tripImportedSuccessfully";
     importedTrip = [NSEntityDescription insertNewObjectForEntityForName:@"Trip" inManagedObjectContext:self.managedObjectContext];
     [importedTrip setGpxFilePath:[url absoluteString]];
     [importedTrip setTripName:@"Imported Trip"];
+    [importedTrip setReceivedFromRemote:[NSNumber numberWithBool:YES]];
     
     if([[root tracks] count] > 0){
         
@@ -272,7 +273,7 @@ NSString * const GTTripImportedSuccessfully = @"tripImportedSuccessfully";
 
     [NSFetchedResultsController deleteCacheWithName:nil];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"receivedFromRemote == %@",[NSNumber numberWithBool:NO]];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"receivedFromRemote == 0"];
     [self.allTrips.fetchRequest setPredicate:predicate];
     
     NSError *error = nil;
@@ -283,7 +284,7 @@ NSString * const GTTripImportedSuccessfully = @"tripImportedSuccessfully";
     
     [NSFetchedResultsController deleteCacheWithName:nil];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"receivedFromRemote == %@",[NSNumber numberWithBool:YES]];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"receivedFromRemote == 1"];
     [self.allTrips.fetchRequest setPredicate:predicate];
     
     NSError *error = nil;
@@ -322,6 +323,7 @@ NSString * const GTTripImportedSuccessfully = @"tripImportedSuccessfully";
     //Create a new trip object and save it
     [self.currentTrip setStartDate:now];
     [self.currentTrip setTripName:name];
+    [self.currentTrip setReceivedFromRemote:[NSNumber numberWithBool:NO]];
     
     [self saveTrip];
     
