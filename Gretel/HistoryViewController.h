@@ -12,6 +12,7 @@
 #import "TripManager.h"
 #import "ShareManager.h"
 #import "SettingsManager.h"
+#import "ECSlidingViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import <GCDiscreetNotificationView/GCDiscreetNotificationView.h>
 
@@ -21,6 +22,7 @@
 @property (nonatomic, strong) UIBarButtonItem *deleteButton;
 @property (nonatomic, strong) UIBarButtonItem *shareButton;
 @property (nonatomic, readwrite) BOOL noResultsToDisplay;
+@property (nonatomic, readwrite) BOOL isInInboxMode;
 
 @property (nonatomic, strong) GCDiscreetNotificationView *notificationView;
 

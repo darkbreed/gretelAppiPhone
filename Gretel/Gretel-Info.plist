@@ -6,6 +6,25 @@
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
 	<string>${PRODUCT_NAME}</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array>
+				<string>Icon@2x</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>GPX</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.xml</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIcons</key>
@@ -54,6 +73,30 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.xml</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>GPX File format</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.topgrafix.gpx</string>
+			<key>UTTypeSize320IconFile</key>
+			<string>Icon@2x</string>
+			<key>UTTypeSize64IconFile</key>
+			<string>Icon</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>gpx</string>
+				</array>
+			</dict>
+		</dict>
 	</array>
 	<key>UTImportedTypeDeclarations</key>
 	<array>

@@ -15,6 +15,7 @@
 #import "SettingsViewController.h"
 #import "SettingsManager.h"
 #import "TripManager.h"
+#import "ECSlidingViewController.h"
 
 typedef enum {
     GTAlertViewTagBeginRecordingAlert,

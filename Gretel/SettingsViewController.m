@@ -38,11 +38,12 @@
     [TestFlight openFeedbackView];
 }
 
+-(IBAction)menuButtonHandler:(id)sender {
+    [self.slidingViewController anchorTopViewTo:ECRight];
+}
 
 -(IBAction)unitsControlDidChange:(UISegmentedControl *)control {
-
     [settingsManager setApplicationUnitType:control.selectedSegmentIndex];
-    
 }
 
 -(IBAction)usageTypeControlDidChange:(UISegmentedControl *)control {

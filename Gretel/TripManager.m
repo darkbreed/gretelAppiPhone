@@ -11,6 +11,7 @@
 NSString * const GTTripTimerDidUpdate = @"tripTimerDidUpdate";
 NSString * const GTTripDeletedSuccess = @"tripDeletedSucessfully";
 NSString * const GTCurrentTripDeleted = @"deltedCurrentTrip";
+NSString * const GTTripImportedSuccessfully = @"tripImportedSuccessfully";
 
 @implementation TripManager {
     int currentPointId;
@@ -20,6 +21,8 @@ NSString * const GTCurrentTripDeleted = @"deltedCurrentTrip";
     NSTimeInterval secondsElapsedForTrip;
     NSDate *startDate;
     NSTimer *stopWatchTimer;
+    
+    Trip *importedTrip;
     
 }
 
@@ -61,20 +64,91 @@ NSString * const GTCurrentTripDeleted = @"deltedCurrentTrip";
                                                             managedObjectContext:self.managedObjectContext
                                                               sectionNameKeyPath:nil
                                                                        cacheName:nil];
+        
     }
     
     return self;
 }
 
+-(void)importTripReadError {
+   
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Gretel cannot read this type of file." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    
+    [alert show];
+}
+
 -(void)importTripFromGPXFile:(NSURL *)url {
     
     GPXRoot *root = [GPXParser parseGPXAtURL:url];
-    NSLog(@"Trip manager RootGPX %@",root);
     
+    importedTrip = [NSEntityDescription insertNewObjectForEntityForName:@"Trip" inManagedObjectContext:self.managedObjectContext];
+    [importedTrip setGpxFilePath:[url absoluteString]];
+    [importedTrip setTripName:@"Imported Trip"];
+    
+    if([[root tracks] count] > 0){
+        
+        for (GPXTrack *track in [root tracks]) {
+            
+            [self parseTrackSegements:track];
+            
+        }
+        
+    }else{
+        [self importTripReadError];
+    }
+
 }
 
-- (void)didReceiveNewURL:(NSNotification *)notification {
+-(void)parseTrackSegements:(GPXTrack *)track {
     
+    if([[track tracksegments] count] > 0){
+        for (GPXTrackSegment *segment in [track tracksegments]) {
+            
+            [self parseSegmentTrackPoints:segment];
+            
+        }
+    }else{
+        [self importTripReadError];
+    }
+}
+
+-(void)parseSegmentTrackPoints:(GPXTrackSegment *)segment {
+    
+    int count = 0;
+    
+    if([[segment trackpoints] count] > 0){
+        
+        for(GPXTrackPoint *trackPoint in [segment trackpoints]){
+            
+            GPSPoint *point = [NSEntityDescription insertNewObjectForEntityForName:@"GPSPoint" inManagedObjectContext:self.managedObjectContext];
+            [point setLat:[NSNumber numberWithFloat:[trackPoint latitude]]];
+            [point setLon:[NSNumber numberWithFloat:[trackPoint longitude]]];
+            [point setTimestamp:[trackPoint time]];
+            [point setPointID:[NSNumber numberWithInt:count]];
+            [point setAltitude:[NSNumber numberWithFloat:[trackPoint elevation]]];
+            
+            [importedTrip addPointsObject:point];
+            
+            count++;
+        }
+        
+        //calculate the distance and store it
+        [importedTrip setTotalDistance:[NSNumber numberWithFloat:[self calculateDistanceForPoints:importedTrip]]];
+        [importedTrip setRecordingState:[self recordingStateForState:GTTripStatePaused]];
+        [importedTrip setReceivedFromRemote:[NSNumber numberWithBool:YES]];
+        
+        //Save the trip
+        [self saveTrip];
+        
+        //Perform fetch to update the inbox
+        [self fetchAllTrips];
+        
+        //Let the observers know
+        [[NSNotificationCenter defaultCenter] postNotificationName:GTTripImportedSuccessfully object:nil];
+        
+    }else{
+        [self importTripReadError];
+    }
 }
 
 -(Trip *)tripWithIndexPath:(NSIndexPath *)tripIndexPath {
@@ -198,8 +272,23 @@ NSString * const GTCurrentTripDeleted = @"deltedCurrentTrip";
 
     [NSFetchedResultsController deleteCacheWithName:nil];
     
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"receivedFromRemote == %@",[NSNumber numberWithBool:NO]];
+    [self.allTrips.fetchRequest setPredicate:predicate];
+    
     NSError *error = nil;
     [self.allTrips performFetch:&error];
+}
+
+-(void)fetchInbox {
+    
+    [NSFetchedResultsController deleteCacheWithName:nil];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"receivedFromRemote == %@",[NSNumber numberWithBool:YES]];
+    [self.allTrips.fetchRequest setPredicate:predicate];
+    
+    NSError *error = nil;
+    [self.allTrips performFetch:&error];
+    
 }
 
 -(void)resetRecordingStateForAllTrips {

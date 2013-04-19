@@ -60,6 +60,7 @@ typedef enum {
 
 @property (nonatomic, strong) IBOutlet GCDiscreetNotificationView *notificationView;
 
+
 /** @section Button Handlers */
 -(IBAction)editButtonHandler:(id)sender;
 -(IBAction)shareButtonHandler:(id)sender;

@@ -45,6 +45,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deletedCurrentTrip:) name:GTCurrentTripDeleted object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripImportSuccessHandler:) name:GTTripImportedSuccessfully object:nil];
+    
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [self.tableView setAllowsMultipleSelectionDuringEditing:YES];
     
@@ -65,6 +67,14 @@
     
     self.tableView.allowsMultipleSelectionDuringEditing = NO;
     
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    if(self.isInInboxMode){
+        [tripManager fetchInbox];
+    }else{
+        [tripManager fetchAllTrips];
+    }
 }
 
 -(void)hideNotificationView {
@@ -406,14 +416,26 @@
     
 }
 
+-(void)tripImportSuccessHandler:(NSNotification *)notification {
+    
+    [self.notificationView setHidden:NO];
+    [self.notificationView setTextLabel:@"New trip added to inbox"];
+    [self.notificationView showAndDismissAfter:2.0];
+    [self hideNotificationView];
+    
+}
+
 -(void)deleteMultipleTrips {
-    
     [tripManager deleteTrips:[self.tableView indexPathsForSelectedRows]];
-    
 }
 
 -(void)deletedCurrentTrip:(NSNotification *)notification {
     self.navigationController.navigationItem.backBarButtonItem.title = @"Back";
+}
+
+#pragma mark Button Handlers
+-(IBAction)menuButtonHandler:(id)sender {
+    [self.slidingViewController anchorTopViewTo:ECRight];
 }
 
 @end

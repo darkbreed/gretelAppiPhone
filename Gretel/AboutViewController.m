@@ -38,4 +38,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(IBAction)menuButtonHandler:(id)sender {
+    [self.slidingViewController anchorTopViewTo:ECRight];
+}
+
 @end

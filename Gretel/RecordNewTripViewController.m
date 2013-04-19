@@ -9,6 +9,7 @@
 
 #import "RecordNewTripViewController.h"
 #import "GPSPoint.h"
+#import "SettingsMenuViewController.h"
 
 @interface RecordNewTripViewController ()
 
@@ -34,17 +35,20 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pauseRecording) name:GTLocationDidPauseUpdates object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSettingsChange) name:SMSettingsUpdated object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTripTimerDisplay) name:GTTripTimerDidUpdate object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripImportSuccessHandler:) name:GTTripImportedSuccessfully object:nil];
     
-    [self setInitialLocate:YES];
-    
-    [self.currentSpeedLabel setText:[NSString stringWithFormat:@"0.0 %@",settingsManager.unitLabelSpeed]];
-    
-    if([[GeoManager sharedManager] locationServicesEnabled]){
-    
-        [self.locateMeButton setBackgroundImage:[UIImage imageNamed:@"locationSymbolEnabled.png"] forState:UIControlStateNormal];
+    if(!tripManager.currentTrip){
+        
+        [self.currentSpeedLabel setText:[NSString stringWithFormat:@"0.0 %@",settingsManager.unitLabelSpeed]];
+        
+        if([[GeoManager sharedManager] locationServicesEnabled]){
+            
+            [self.locateMeButton setBackgroundImage:[UIImage imageNamed:@"locationSymbolEnabled.png"] forState:UIControlStateNormal];
+        }
+        
+        [self setInitialLocate:YES];
+        [self setUpViewForNewTrip];
     }
-    
-    [self setUpViewForNewTrip];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -70,6 +74,16 @@
         [self setViewStateForTripState:GTTripStateRecording];
         tripManager.isResuming = NO;
     }
+    
+    //set the menu view controller
+    
+    if (![self.slidingViewController.underLeftViewController isKindOfClass:[SettingsMenuViewController class]]) {
+        self.slidingViewController.underLeftViewController  = [self.storyboard instantiateViewControllerWithIdentifier:@"SettingsMenu"];
+    }
+        
+    [self.view addGestureRecognizer:self.slidingViewController.panGesture];
+    [self.slidingViewController setAnchorRightRevealAmount:280.0f];
+    
 }
 
 -(IBAction)locateMeButtonHandler:(id)sender {
@@ -223,6 +237,10 @@
     [self hideMapViewAndOptions:NO];
 }
 
+-(IBAction)menuButtonHandler:(id)sender {
+    [self.slidingViewController anchorTopViewTo:ECRight];
+}
+
 -(void)updateTripTimerDisplay {
     self.tripTimerLabel.text = tripManager.timerValue;
 }
@@ -239,7 +257,7 @@
             
             [self setUpViewForNewTrip];
             
-            [self performSegueWithIdentifier:@"displayHistoryView" sender:self];
+            //[self performSegueWithIdentifier:@"displayHistoryView" sender:self];
         }
     }
 }
@@ -285,10 +303,22 @@
     [self updateLocation];
 }
 
+-(void)tripImportSuccessHandler:(NSNotification *)notification {
+    
+    [self.notificationView setHidden:NO];
+    [self.notificationView setTextLabel:@"New trip added to inbox"];
+    [self.notificationView showAndDismissAfter:2.0];
+
+}
+
 
 #pragma memory handling
 - (void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
+}
+
+-(void)dealloc {
+    
 }
 
 @end

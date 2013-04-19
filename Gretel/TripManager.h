@@ -27,6 +27,7 @@ typedef enum {
 extern NSString * const GTTripTimerDidUpdate;
 extern NSString * const GTTripDeletedSuccess;
 extern NSString * const GTCurrentTripDeleted;
+extern NSString * const GTTripImportedSuccessfully;
 
 @interface TripManager : NSObject
 
@@ -42,6 +43,8 @@ extern NSString * const GTCurrentTripDeleted;
 @property (nonatomic, readwrite) BOOL isResuming;
 @property (nonatomic, strong) NSMutableArray *pointsForDrawing;
 
+
+
 ///Core data stack
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
@@ -50,6 +53,7 @@ extern NSString * const GTCurrentTripDeleted;
 +(TripManager*)sharedManager;
 
 -(void)fetchAllTrips;
+-(void)fetchInbox;
 -(void)beginRecording;
 -(void)pauseRecording;
 -(void)saveTrip;

@@ -1,20 +1,23 @@
 
-COCOAPODS: 0.16.2
-
 PODS: 
 - BRBluetoothManager (0.0.1)
+- ECSlidingViewController (0.9.0)
+- FontAwesomeIconFactory (1.0.1)
 - GCDiscreetNotificationView (1.0.0)
-- NVSlideMenuController (1.4.3)
 - TestFlightSDK (1.2.3.beta1)
+
+COCOAPODS: 0.16.2
+
+SPEC CHECKSUMS: 
+  ECSlidingViewController: 46cb6a6cc72e359a19d2f232728be08685450d90
+  GCDiscreetNotificationView: 4824641e498556cba2c7a9aadd8101aa77e4d965
+  FontAwesomeIconFactory: c90ca8ad5e73029e990a0d8bb6db1a618196afcf
+  TestFlightSDK: f638b08651a37af099e40c47241fc58fd3cb1a66
+  BRBluetoothManager: 1310aa50564d50a8503803ae1d4cd2ed27d28bb9
 
 DEPENDENCIES: 
 - BRBluetoothManager (= 0.0.1)
+- ECSlidingViewController (= 0.9.0)
+- FontAwesomeIconFactory (= 1.0.1)
 - GCDiscreetNotificationView (= 1.0.0)
-- NVSlideMenuController (= 1.4.3)
 - TestFlightSDK (= 1.2.3.beta1)
-
-SPEC CHECKSUMS: 
-  TestFlightSDK: f638b08651a37af099e40c47241fc58fd3cb1a66
-  GCDiscreetNotificationView: 4824641e498556cba2c7a9aadd8101aa77e4d965
-  NVSlideMenuController: 79712443b169cc5717b824e64e6c29da862abcbf
-  BRBluetoothManager: 1310aa50564d50a8503803ae1d4cd2ed27d28bb9

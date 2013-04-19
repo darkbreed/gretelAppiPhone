@@ -37,7 +37,6 @@
 		A6FBA14610DC4D3C8654D5C3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B116D4037E14E9D9793F966 /* libPods.a */; };
 		B507473916D9029900CEC1DE /* pauseButton.png in Resources */ = {isa = PBXBuildFile; fileRef = B507473716D9029900CEC1DE /* pauseButton.png */; };
 		B507473A16D9029900CEC1DE /* pauseButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B507473816D9029900CEC1DE /* pauseButton@2x.png */; };
-		B507473D16D9039600CEC1DE /* BaseNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B507473C16D9039600CEC1DE /* BaseNavigationViewController.m */; };
 		B507474416D9065B00CEC1DE /* navigationBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = B507474216D9065B00CEC1DE /* navigationBarBackground.png */; };
 		B507474516D9065B00CEC1DE /* navigationBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B507474316D9065B00CEC1DE /* navigationBarBackground@2x.png */; };
 		B507474816D907C200CEC1DE /* viewBackgrond.png in Resources */ = {isa = PBXBuildFile; fileRef = B507474616D907C200CEC1DE /* viewBackgrond.png */; };
@@ -116,11 +115,15 @@
 		B599F92216D8FCF4003C0D37 /* stopButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B599F91C16D8FCF4003C0D37 /* stopButton@2x.png */; };
 		B59A763216F3137000982811 /* compassArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = B59A763016F3137000982811 /* compassArrow.png */; };
 		B59A763316F3137000982811 /* compassArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B59A763116F3137000982811 /* compassArrow@2x.png */; };
+		B59B2EE417201D510060C975 /* BaseNavigationControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B59B2EE317201D510060C975 /* BaseNavigationControllerViewController.m */; };
 		B59C374716E7BBE80090D395 /* pointsSymbol.png in Resources */ = {isa = PBXBuildFile; fileRef = B59C374516E7BBE80090D395 /* pointsSymbol.png */; };
 		B59C374816E7BBE80090D395 /* pointsSymbol@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B59C374616E7BBE80090D395 /* pointsSymbol@2x.png */; };
 		B5A3437D170DE71E0099DD7D /* Gretel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B5A3437B170DE71E0099DD7D /* Gretel.xcdatamodeld */; };
 		B5A7236816EDD0C9006EC062 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A7236716EDD0C9006EC062 /* AboutViewController.m */; };
 		B5AE901116DF4A0D003A36C6 /* TripHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B5AE901016DF4A0D003A36C6 /* TripHistoryTableViewCell.m */; };
+		B5C1572E171F095400F9773B /* RootSlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C1572D171F095400F9773B /* RootSlidingViewController.m */; };
+		B5C15731171F0BE200F9773B /* SettingsMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C15730171F0BE200F9773B /* SettingsMenuViewController.m */; };
+		B5C15734171F49AB00F9773B /* SettingsMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C15733171F49AA00F9773B /* SettingsMenuCell.m */; };
 		B5E45C23170ECDF500C1B6F6 /* obanglencoe.gpx in Resources */ = {isa = PBXBuildFile; fileRef = B5E45C22170ECDF500C1B6F6 /* obanglencoe.gpx */; };
 		B5E45C25170EE98400C1B6F6 /* 05-04-2013 10:32.gpx in Resources */ = {isa = PBXBuildFile; fileRef = B5E45C24170EE98400C1B6F6 /* 05-04-2013 10:32.gpx */; };
 		B5F6165916DD4224005BDB7C /* deleteSymbol.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F6165316DD4224005BDB7C /* deleteSymbol.png */; };
@@ -190,8 +193,6 @@
 		3AE64CA516E4B08000C830AF /* TripManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripManager.m; sourceTree = "<group>"; };
 		B507473716D9029900CEC1DE /* pauseButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pauseButton.png; sourceTree = "<group>"; };
 		B507473816D9029900CEC1DE /* pauseButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pauseButton@2x.png"; sourceTree = "<group>"; };
-		B507473B16D9039600CEC1DE /* BaseNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavigationViewController.h; sourceTree = "<group>"; };
-		B507473C16D9039600CEC1DE /* BaseNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationViewController.m; sourceTree = "<group>"; };
 		B507474216D9065B00CEC1DE /* navigationBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationBarBackground.png; sourceTree = "<group>"; };
 		B507474316D9065B00CEC1DE /* navigationBarBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigationBarBackground@2x.png"; sourceTree = "<group>"; };
 		B507474616D907C200CEC1DE /* viewBackgrond.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = viewBackgrond.png; sourceTree = "<group>"; };
@@ -273,6 +274,8 @@
 		B599F91C16D8FCF4003C0D37 /* stopButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stopButton@2x.png"; sourceTree = "<group>"; };
 		B59A763016F3137000982811 /* compassArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compassArrow.png; sourceTree = "<group>"; };
 		B59A763116F3137000982811 /* compassArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compassArrow@2x.png"; sourceTree = "<group>"; };
+		B59B2EE217201D510060C975 /* BaseNavigationControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavigationControllerViewController.h; sourceTree = "<group>"; };
+		B59B2EE317201D510060C975 /* BaseNavigationControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationControllerViewController.m; sourceTree = "<group>"; };
 		B59C374516E7BBE80090D395 /* pointsSymbol.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pointsSymbol.png; sourceTree = "<group>"; };
 		B59C374616E7BBE80090D395 /* pointsSymbol@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pointsSymbol@2x.png"; sourceTree = "<group>"; };
 		B5A3437C170DE71E0099DD7D /* Gretel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Gretel.xcdatamodel; sourceTree = "<group>"; };
@@ -280,6 +283,12 @@
 		B5A7236716EDD0C9006EC062 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		B5AE900F16DF4A0D003A36C6 /* TripHistoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripHistoryTableViewCell.h; sourceTree = "<group>"; };
 		B5AE901016DF4A0D003A36C6 /* TripHistoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripHistoryTableViewCell.m; sourceTree = "<group>"; };
+		B5C1572C171F095400F9773B /* RootSlidingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootSlidingViewController.h; sourceTree = "<group>"; };
+		B5C1572D171F095400F9773B /* RootSlidingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootSlidingViewController.m; sourceTree = "<group>"; };
+		B5C1572F171F0BE200F9773B /* SettingsMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsMenuViewController.h; sourceTree = "<group>"; };
+		B5C15730171F0BE200F9773B /* SettingsMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsMenuViewController.m; sourceTree = "<group>"; };
+		B5C15732171F49AA00F9773B /* SettingsMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsMenuCell.h; sourceTree = "<group>"; };
+		B5C15733171F49AA00F9773B /* SettingsMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsMenuCell.m; sourceTree = "<group>"; };
 		B5E45C22170ECDF500C1B6F6 /* obanglencoe.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obanglencoe.gpx; sourceTree = "<group>"; };
 		B5E45C24170EE98400C1B6F6 /* 05-04-2013 10:32.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "05-04-2013 10:32.gpx"; sourceTree = "<group>"; };
 		B5F6165316DD4224005BDB7C /* deleteSymbol.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = deleteSymbol.png; sourceTree = "<group>"; };
@@ -469,14 +478,20 @@
 				3A8C975D167A8518000E2259 /* TripDetailViewController.m */,
 				3A43D64716761D1F007E9A84 /* RecordNewTripViewController.h */,
 				3A43D64816761D1F007E9A84 /* RecordNewTripViewController.m */,
-				B507473B16D9039600CEC1DE /* BaseNavigationViewController.h */,
-				B507473C16D9039600CEC1DE /* BaseNavigationViewController.m */,
 				B5F6167616DDF389005BDB7C /* SettingsViewController.h */,
 				B5F6167716DDF389005BDB7C /* SettingsViewController.m */,
 				B5AE900F16DF4A0D003A36C6 /* TripHistoryTableViewCell.h */,
 				B5AE901016DF4A0D003A36C6 /* TripHistoryTableViewCell.m */,
 				B5A7236616EDD0C9006EC062 /* AboutViewController.h */,
 				B5A7236716EDD0C9006EC062 /* AboutViewController.m */,
+				B5C1572C171F095400F9773B /* RootSlidingViewController.h */,
+				B5C1572D171F095400F9773B /* RootSlidingViewController.m */,
+				B5C1572F171F0BE200F9773B /* SettingsMenuViewController.h */,
+				B5C15730171F0BE200F9773B /* SettingsMenuViewController.m */,
+				B5C15732171F49AA00F9773B /* SettingsMenuCell.h */,
+				B5C15733171F49AA00F9773B /* SettingsMenuCell.m */,
+				B59B2EE217201D510060C975 /* BaseNavigationControllerViewController.h */,
+				B59B2EE317201D510060C975 /* BaseNavigationControllerViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -783,7 +798,6 @@
 				3A072B7B167FC7A900349316 /* BRBaseMapViewController.m in Sources */,
 				3A2059A916945AA700E81FB4 /* ExtendedManagedObject.m in Sources */,
 				3A2059AA16945AA700E81FB4 /* GPSPoint.m in Sources */,
-				B507473D16D9039600CEC1DE /* BaseNavigationViewController.m in Sources */,
 				B5F6167816DDF389005BDB7C /* SettingsViewController.m in Sources */,
 				B568976A16DDFC2300A07DFC /* SettingsManager.m in Sources */,
 				B5AE901116DF4A0D003A36C6 /* TripHistoryTableViewCell.m in Sources */,
@@ -792,6 +806,10 @@
 				B54BC34416EA23830045659E /* Trip.m in Sources */,
 				B5A7236816EDD0C9006EC062 /* AboutViewController.m in Sources */,
 				B5A3437D170DE71E0099DD7D /* Gretel.xcdatamodeld in Sources */,
+				B5C1572E171F095400F9773B /* RootSlidingViewController.m in Sources */,
+				B5C15731171F0BE200F9773B /* SettingsMenuViewController.m in Sources */,
+				B5C15734171F49AB00F9773B /* SettingsMenuCell.m in Sources */,
+				B59B2EE417201D510060C975 /* BaseNavigationControllerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

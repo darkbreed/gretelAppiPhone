@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SettingsManager.h"
 #import "TestFlight.h"
+#import "ECSlidingViewController.h"
 
 @interface SettingsViewController : UIViewController {
     SettingsManager *settingsManager;

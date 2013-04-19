@@ -4,16 +4,16 @@
    version = "1.0">
    <FileBreakpoints>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "Gretel/GeoManager.m"
-         timestampString = "387875095.672076"
+         filePath = "Gretel/BRBaseMapViewController.m"
+         timestampString = "388008934.286706"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "108"
-         endingLineNumber = "108"
-         landmarkName = "-setDistanceFilterValue"
+         startingLineNumber = "146"
+         endingLineNumber = "146"
+         landmarkName = "-drawRoute:onMapView:willRefreh:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
