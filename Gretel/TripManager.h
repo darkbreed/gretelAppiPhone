@@ -65,7 +65,7 @@ extern NSString * const GTTripImportedSuccessfully;
 -(void)deleteTrips:(NSArray *)tripIndexPaths;
 -(void)deleteTrip:(Trip *)trip;
 -(NSString *)recordingStateForState:(GTTripState)state;
--(void)searchTripsByKeyword:(NSString *)keyword;
+-(void)searchTripsByKeyword:(NSString *)keyword shouldReturnInboxResults:(BOOL)returnInboxResults;
 -(float)calculateDistanceForPoints:(Trip *)trip;
 -(void)importTripFromGPXFile:(NSURL *)url;
 

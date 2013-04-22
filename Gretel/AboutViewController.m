@@ -30,6 +30,15 @@
     
     NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     [self.versionNumberLabel setText:[NSString stringWithFormat:@"VERSION %@",version]];
+    
+    NIKFontAwesomeIconFactory *iconFactory = [[NIKFontAwesomeIconFactory alloc] init];
+    [iconFactory setSize:18.0];
+    [iconFactory setColors:[NSArray arrayWithObjects:[UIColor whiteColor], nil]];
+    [iconFactory setSquare:YES];
+    [iconFactory setStrokeColor:[UIColor blackColor]];
+    [iconFactory setStrokeWidth:0.2];
+    
+    [self.navigationItem.leftBarButtonItem setImage:[iconFactory createImageForIcon:NIKFontAwesomeIconList]];
 }
 
 - (void)didReceiveMemoryWarning

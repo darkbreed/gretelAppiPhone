@@ -33,7 +33,12 @@ typedef enum {
     
 }TripDetailAlertViewType;
 
-@interface TripDetailViewController : BRBaseMapViewController <ShareManagerDelegate, UIAlertViewDelegate> {
+typedef enum {
+    TripActionSheetTypeDelete,
+    TripActionSheetTypeMapStyle
+}TripActionSheetType;
+
+@interface TripDetailViewController : BRBaseMapViewController <ShareManagerDelegate, UIAlertViewDelegate, UIActionSheetDelegate> {
     
     ///The trip points as an array to feed the map view
     NSArray *route;

@@ -12,12 +12,12 @@
 #import "HistoryViewController.h"
 #import "SettingsViewController.h"
 #import "AboutViewController.h"
-#import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.h>
+#import "BaseNavigationControllerViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface SettingsMenuViewController ()
 
 @property (nonatomic, strong) NSDictionary *viewControllers;
-
 @property (nonatomic, readwrite) BOOL shouldLoadInbox;
 
 @end
@@ -140,7 +140,7 @@
         if(indexPath.row == 0){
             
             [cell.iconView setImage:[iconFactory createImageForIcon:NIKFontAwesomeIconMapMarker]];
-            cell.titleLabel.text = [@"Map screen" uppercaseString];
+            cell.titleLabel.text = [@"Map" uppercaseString];
             
         }
         
@@ -148,14 +148,13 @@
         
         if(indexPath.row == 0){
             
-            [cell.iconView setImage:[iconFactory createImageForIcon:NIKFontAwesomeIconList]];
+            [cell.iconView setImage:[iconFactory createImageForIcon:NIKFontAwesomeIconListAlt]];
             cell.titleLabel.text = [@"Recorded" uppercaseString];
             
         }else if(indexPath.row == 1){
             
             [cell.iconView setImage:[iconFactory createImageForIcon:NIKFontAwesomeIconEnvelope]];
             cell.titleLabel.text = [@"Inbox" uppercaseString];
-        
         }
         
     }else if(indexPath.section == 2){
@@ -195,7 +194,11 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 30;
+    return 30.0f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 40.0f;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -218,6 +221,7 @@
         if(indexPath.row == 0){
             
             identifier = @"tripHistory";
+            self.shouldLoadInbox = NO;
             
         }else if(indexPath.row == 1){
             
@@ -243,16 +247,20 @@
     [self.slidingViewController anchorTopViewOffScreenTo:ECRight animations:nil onComplete:^{
         CGRect frame = self.slidingViewController.topViewController.view.frame;
         
-        if([[self.viewControllers objectForKey:identifier] isKindOfClass:[HistoryViewController class]]){
+        if([[self.viewControllers objectForKey:identifier] isKindOfClass:[BaseNavigationControllerViewController class]]){
+            BaseNavigationControllerViewController *navController = (BaseNavigationControllerViewController *)[self.viewControllers objectForKey:identifier];
             
-            HistoryViewController *historyViewController = (HistoryViewController *)[self.viewControllers objectForKey:identifier];
-            
-            if(self.shouldLoadInbox){
+            if([navController.topViewController isKindOfClass:[HistoryViewController class]]){
                 
-                historyViewController.isInInboxMode = YES;
-            }else{
-                historyViewController.isInInboxMode = NO;
+                HistoryViewController *historyViewController = (HistoryViewController *)navController.topViewController;
+                
+                if(self.shouldLoadInbox){
+                    historyViewController.isInInboxMode = YES;
+                }else{
+                    historyViewController.isInInboxMode = NO;
+                }
             }
+            
         }
         
         self.slidingViewController.topViewController = [self.viewControllers objectForKey:identifier];

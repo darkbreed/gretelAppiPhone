@@ -141,7 +141,7 @@ NSString * const GTTripImportedSuccessfully = @"tripImportedSuccessfully";
         [self saveTrip];
         
         //Perform fetch to update the inbox
-        [self fetchAllTrips];
+        //[self fetchAllTrips];
         
         //Let the observers know
         [[NSNotificationCenter defaultCenter] postNotificationName:GTTripImportedSuccessfully object:nil];
@@ -257,13 +257,20 @@ NSString * const GTTripImportedSuccessfully = @"tripImportedSuccessfully";
     [[NSNotificationCenter defaultCenter] postNotificationName:GTTripDeletedSuccess object:nil];
 }
 
--(void)searchTripsByKeyword:(NSString *)keyword {
+-(void)searchTripsByKeyword:(NSString *)keyword shouldReturnInboxResults:(BOOL)returnInboxResults {
     
     [NSFetchedResultsController deleteCacheWithName:nil];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"tripName contains [cd] %@",keyword];
-    [self.allTrips.fetchRequest setPredicate:predicate];
+    NSPredicate *predicate = nil;
     
+    if (returnInboxResults) {
+        predicate = [NSPredicate predicateWithFormat:@"tripName contains [cd] %@ && receivedFromRemote = %@",keyword,[NSNumber numberWithBool:YES]];
+        [self.allTrips.fetchRequest setPredicate:predicate];
+    }else{
+        predicate = [NSPredicate predicateWithFormat:@"tripName contains [cd] %@ && receivedFromRemote = %@",keyword,[NSNumber numberWithBool:NO]];
+        [self.allTrips.fetchRequest setPredicate:predicate];
+    }
+
     NSError *error = nil;
     [self.allTrips performFetch:&error];
 }
@@ -272,18 +279,19 @@ NSString * const GTTripImportedSuccessfully = @"tripImportedSuccessfully";
 
     [NSFetchedResultsController deleteCacheWithName:nil];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"receivedFromRemote == %@",[NSNumber numberWithBool:NO]];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"receivedFromRemote = %@",[NSNumber numberWithBool:NO]];
     [self.allTrips.fetchRequest setPredicate:predicate];
     
     NSError *error = nil;
     [self.allTrips performFetch:&error];
+    
 }
 
 -(void)fetchInbox {
     
     [NSFetchedResultsController deleteCacheWithName:nil];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"receivedFromRemote == %@",[NSNumber numberWithBool:YES]];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"receivedFromRemote = %@",[NSNumber numberWithBool:YES]];
     [self.allTrips.fetchRequest setPredicate:predicate];
     
     NSError *error = nil;
@@ -322,6 +330,7 @@ NSString * const GTTripImportedSuccessfully = @"tripImportedSuccessfully";
     //Create a new trip object and save it
     [self.currentTrip setStartDate:now];
     [self.currentTrip setTripName:name];
+    [self.currentTrip setReceivedFromRemote:[NSNumber numberWithBool:NO]];
     
     [self saveTrip];
     
@@ -377,9 +386,6 @@ NSString * const GTTripImportedSuccessfully = @"tripImportedSuccessfully";
     self.pointsForDrawing = nil;
     
     [self stopTimer];
-    
-    //Re-fectch the trips
-    [self fetchAllTrips];
     
 }
 

@@ -64,6 +64,16 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
+                                        <view alpha="0.40000000000000013" contentMode="scaleToFill" id="Jl5-vu-YPR">
+                                            <rect key="frame" x="0.0" y="42" width="320" height="1"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <view alpha="0.40000000596046448" contentMode="scaleToFill" id="MRm-8E-eic">
+                                            <rect key="frame" x="0.0" y="41" width="320" height="1"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </view>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
@@ -173,6 +183,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="searchDisplayController" destination="STu-Rk-n6g" id="MDu-qq-8vY"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ub8-Xn-j3q" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <searchDisplayController id="STu-Rk-n6g">
@@ -255,7 +268,7 @@
                                                         <color key="textColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0.0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UOI-Vm-yt0">
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0.0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" id="UOI-Vm-yt0">
                                                         <rect key="frame" x="202" y="5" width="98" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
@@ -337,7 +350,7 @@
                                         </connections>
                                     </mapView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="a5x-bg-iEb">
-                                        <rect key="frame" x="36" y="40" width="33" height="33"/>
+                                        <rect key="frame" x="38.5" y="42.5" width="28" height="28"/>
                                         <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" backgroundImage="locationSymbolDisabled@2x.png">
@@ -430,9 +443,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="Wts-wo-MrN">
                         <barButtonItem key="leftBarButtonItem" title="Menu" id="9dD-AC-Bz1">
-                            <color key="tintColor" red="0.7843137255" green="0.76078431369999999" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="menuButtonHandler:" destination="DsA-4Z-czd" id="wHt-9t-Wix"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="mmn-if-dfv">
+                            <connections>
+                                <action selector="actionButtonHandler:" destination="DsA-4Z-czd" id="7Go-Uj-twk"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -440,6 +457,7 @@
                         <outlet property="compassBackground" destination="snD-oa-LRU" id="qjJ-7G-AJ3"/>
                         <outlet property="compassNeedle" destination="rbi-tO-cQK" id="pto-vE-QnF"/>
                         <outlet property="currentSpeedLabel" destination="UOI-Vm-yt0" id="eTr-bX-eoz"/>
+                        <outlet property="hudButton" destination="WMS-dS-Xb6" id="aef-1z-tXd"/>
                         <outlet property="hudView" destination="xau-fP-Gmr" id="G5h-YV-a9J"/>
                         <outlet property="latLabel" destination="EIJ-3B-zZs" id="oqz-Hx-mFs"/>
                         <outlet property="locateMeButton" destination="a5x-bg-iEb" id="bpU-6C-ytQ"/>
@@ -876,7 +894,13 @@ Finally a shout out must go to Friska, this application has been powered by thei
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="RuK-gA-I91"/>
+                    <navigationItem key="navigationItem" id="RuK-gA-I91">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="srp-06-VY1">
+                            <connections>
+                                <action selector="actionButtonHandler:" destination="Dqr-D4-xjR" id="Ub3-3q-F2H"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="deleteButton" destination="Ozx-Lp-CbW" id="yWV-rr-hgs"/>
                         <outlet property="editButton" destination="Wvv-Rb-TDT" id="ob6-AO-2GK"/>
@@ -921,7 +945,6 @@ Finally a shout out must go to Friska, this application has been powered by thei
         <class className="AboutViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AboutViewController.h"/>
             <relationships>
-                <relationship kind="action" name="menuButtonHandler:"/>
                 <relationship kind="outlet" name="versionNumberLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
@@ -948,20 +971,19 @@ Finally a shout out must go to Friska, this application has been powered by thei
             <relationships>
                 <relationship kind="action" name="menuButtonHandler:"/>
                 <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+                <relationship kind="outlet" name="searchDisplayController" candidateClass="UISearchDisplayController"/>
             </relationships>
         </class>
         <class className="RecordNewTripViewController" superclassName="BRBaseMapViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RecordNewTripViewController.h"/>
             <relationships>
                 <relationship kind="action" name="addButtonHandler:"/>
-                <relationship kind="action" name="displayMap:"/>
-                <relationship kind="action" name="locateMeButtonHandler:"/>
-                <relationship kind="action" name="menuButtonHandler:"/>
                 <relationship kind="action" name="startTrackingButtonHandler:"/>
                 <relationship kind="action" name="stopTrackingButtonHandler:"/>
                 <relationship kind="outlet" name="compassBackground" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="compassNeedle" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="currentSpeedLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="hudButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="hudView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="latLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="locateMeButton" candidateClass="UIButton"/>
@@ -988,9 +1010,6 @@ Finally a shout out must go to Friska, this application has been powered by thei
         </class>
         <class className="SettingsMenuViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsMenuViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="menuButtonHandler:"/>
-            </relationships>
         </class>
         <class className="SettingsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsViewController.h"/>
@@ -1007,13 +1026,8 @@ Finally a shout out must go to Friska, this application has been powered by thei
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TripDetailViewController.h"/>
             <relationships>
                 <relationship kind="action" name="cancelButtonHandler:" candidateClass="UIButton"/>
-                <relationship kind="action" name="deleteButtonHandler:"/>
                 <relationship kind="action" name="editButtonHandler:"/>
-                <relationship kind="action" name="resumeButtonHandler:"/>
-                <relationship kind="action" name="saveTripButtonHandler:"/>
                 <relationship kind="action" name="shareButtonHandler:"/>
-                <relationship kind="action" name="shareByBluetoothButtonHandler:"/>
-                <relationship kind="action" name="shareByEmailButtonHandler:"/>
                 <relationship kind="outlet" name="deleteButton" candidateClass="UIView"/>
                 <relationship kind="outlet" name="editButton" candidateClass="UIView"/>
                 <relationship kind="outlet" name="notificationView" candidateClass="GCDiscreetNotificationView"/>

@@ -49,6 +49,16 @@
         [self setInitialLocate:YES];
         [self setUpViewForNewTrip];
     }
+    
+    NIKFontAwesomeIconFactory *iconFactory = [[NIKFontAwesomeIconFactory alloc] init];
+    [iconFactory setSize:18.0];
+    [iconFactory setColors:[NSArray arrayWithObjects:[UIColor whiteColor], nil]];
+    [iconFactory setSquare:YES];
+    [iconFactory setStrokeColor:[UIColor blackColor]];
+    [iconFactory setStrokeWidth:0.2];
+    
+    [self.navigationItem.leftBarButtonItem setImage:[iconFactory createImageForIcon:NIKFontAwesomeIconList]];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -94,6 +104,33 @@
     }else{
         [self displayLocationServicesDisabledAlert];
     }
+}
+
+-(IBAction)actionButtonHandler:(id)sender {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Set map type" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Standard",@"Satellite",@"Hybrid", nil];
+    [actionSheet showInView:self.view];
+}
+
+#pragma mark UIActionSheetDelegate
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    switch (buttonIndex) {
+        case 0:
+            [self.mapView setMapType:MKMapTypeStandard];
+            break;
+        
+        case 1:
+            [self.mapView setMapType:MKMapTypeSatellite];
+            break;
+            
+        case 2:
+            [self.mapView setMapType:MKMapTypeHybrid];
+            break;
+            
+        default:
+            break;
+    }
+    
 }
 
 -(void)setUpViewForNewTrip {

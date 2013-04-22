@@ -31,9 +31,7 @@
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripDeletionHandler:) name:GTTripDeletedSuccess object:nil];
-    
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripDeleteSuccess:) name:GTTripDeletedSuccess object:nil];
-    
+        
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mailSendingSuccessHandler:) name:SMMailSendingSuccess object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mailSendingFailedHandler:) name:SMMailSendingFailed object:nil];
@@ -51,11 +49,19 @@
                                                           inPresentationMode:GCDiscreetNotificationViewPresentationModeTop
                                                                       inView:self.view];
     
+    NIKFontAwesomeIconFactory *iconFactory = [[NIKFontAwesomeIconFactory alloc] init];
+    [iconFactory setSize:18.0];
+    [iconFactory setColors:[NSArray arrayWithObjects:[UIColor whiteColor], nil]];
+    [iconFactory setSquare:YES];
+    [iconFactory setStrokeColor:[UIColor blackColor]];
+    [iconFactory setStrokeWidth:0.2];
+    
+    [self.navigationItem.leftBarButtonItem setImage:[iconFactory createImageForIcon:NIKFontAwesomeIconList]];
+    
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    
-    [super viewDidAppear:animated];
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
     NSArray *points = [tripManager fectchPointsForDrawing:YES];
     
@@ -64,7 +70,6 @@
     [self drawRoute:points onMapView:self.mapView willRefreh:NO];
     [self addAnnotationsToMapView:self.mapView fromArray:points];
     [self zoomToFitMapView:self.mapView toFitRoute:points animated:NO];
-    
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
@@ -79,12 +84,33 @@
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     
-    switch (buttonIndex) {
-        case CompletedTripOptionTypeDelete:
-            [[TripManager sharedManager] deleteTrip:tripManager.tripForDetailView];
-            break;
-        default:
-            break;
+    if(actionSheet.tag == TripActionSheetTypeDelete){
+        
+        switch (buttonIndex) {
+            case CompletedTripOptionTypeDelete:
+                [[TripManager sharedManager] deleteTrip:tripManager.tripForDetailView];
+                break;
+            default:
+                break;
+        }
+        
+    }else if(actionSheet.tag == TripActionSheetTypeMapStyle){
+        switch (buttonIndex) {
+            case 0:
+                [self.mapView setMapType:MKMapTypeStandard];
+                break;
+                
+            case 1:
+                [self.mapView setMapType:MKMapTypeSatellite];
+                break;
+                
+            case 2:
+                [self.mapView setMapType:MKMapTypeHybrid];
+                break;
+                
+            default:
+                break;
+        }
     }
     
 }
@@ -93,6 +119,7 @@
     NSString *message = [NSString stringWithFormat:@"Are you sure you want to delete %@? This cannot be undone.", tripManager.tripForDetailView.tripName];
     
     UIActionSheet *confirmSheet = [[UIActionSheet alloc] initWithTitle:message delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete" otherButtonTitles:@"Cancel",nil];
+    [confirmSheet setTag:TripActionSheetTypeDelete];
     [confirmSheet showInView:self.view];
 }
 
@@ -154,6 +181,12 @@
     
     [shareManager shareTripDataByEmail:[NSArray arrayWithObject:tripManager.tripForDetailView]];
     
+}
+
+-(IBAction)actionButtonHandler:(id)sender {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Set map type" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Standard",@"Satellite",@"Hybrid", nil];
+    [actionSheet setTag:TripActionSheetTypeMapStyle];
+    [actionSheet showInView:self.view];
 }
 
 -(void)mailSendingSuccessHandler:(NSNotification *)notification {

@@ -67,14 +67,41 @@
     
     self.tableView.allowsMultipleSelectionDuringEditing = NO;
     
+    NIKFontAwesomeIconFactory *iconFactory = [[NIKFontAwesomeIconFactory alloc] init];
+    [iconFactory setSize:18.0];
+    [iconFactory setColors:[NSArray arrayWithObjects:[UIColor whiteColor], nil]];
+    [iconFactory setSquare:YES];
+    [iconFactory setStrokeColor:[UIColor blackColor]];
+    [iconFactory setStrokeWidth:0.2];
+    
+    [self.navigationItem.leftBarButtonItem setImage:[iconFactory createImageForIcon:NIKFontAwesomeIconList]];
+    
+
 }
 
 -(void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+    tripManager = [TripManager sharedManager];
+    tripManager.allTrips.delegate = self;
+    
     if(self.isInInboxMode){
         [tripManager fetchInbox];
     }else{
         [tripManager fetchAllTrips];
     }
+    
+    if([tripManager.allTrips.fetchedObjects count] == 0){
+        self.noResultsToDisplay = YES;
+    }else{
+        self.noResultsToDisplay = NO;
+    }
+    
+    [self.tableView reloadData];
+    
+    self.tableView.contentOffset = CGPointMake(0.0, 44.0);
+    
 }
 
 -(void)hideNotificationView {
@@ -116,21 +143,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    
-    tripManager = [TripManager sharedManager];
-    tripManager.allTrips.delegate = self;
-    
-    [tripManager fetchAllTrips];
-    
-    if([tripManager.allTrips.fetchedObjects count] == 0){
-        self.noResultsToDisplay = YES;
-    }else{
-        self.noResultsToDisplay = NO;
-    }
-    
-    [self.tableView reloadData];
-    
-    
+
 }
 
 -(void)setEditing:(BOOL)editing animated:(BOOL)animated {
@@ -218,8 +231,11 @@
         return cell;
         
     }else{
-       
+
         TripHistoryTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+
+        cell.textLabel.text = nil;
+        
         Trip *trip = [tripManager tripWithIndexPath:indexPath];
         
         [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
@@ -262,8 +278,17 @@
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    
+    if(tableView == self.tableView){
+        if(self.noResultsToDisplay){
+            return NO;
+        }else{
+            // Return NO if you do not want the specified item to be editable.
+            return YES;
+        }
+    }else{
+        return NO;
+    }
     
 }
 
@@ -296,6 +321,7 @@
     }
 }
 
+#pragma mark NSFetchedResultsController
 - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
            atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
     
@@ -330,8 +356,6 @@
         default:
             break;
     }
-    
-    
 }
 
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
@@ -361,17 +385,24 @@
     }
 }
 
--(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-}
-
 #pragma mark - Table view delegate
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if([segue.identifier isEqualToString:@"pushCompletedTripScreen"]){
-                
-        [tripManager setTripForDetailView:[[tripManager allTrips] objectAtIndexPath:[self.tableView indexPathForSelectedRow]]];
         
+        NSIndexPath *indexPath = nil;
+        
+        //Load from normal tableviewcontroller
+        if(self.tableView.indexPathForSelectedRow != nil){
+           
+            indexPath = self.tableView.indexPathForSelectedRow;
+            
+        }else{
+            //load from search table
+            indexPath = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow];
+        }
+        
+        [tripManager setTripForDetailView:[[tripManager allTrips] objectAtIndexPath:indexPath]];
     }
     
 }
@@ -385,7 +416,13 @@
 }
 
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    [tripManager searchTripsByKeyword:searchText];
+    
+    if(self.isInInboxMode){
+        [tripManager searchTripsByKeyword:searchText shouldReturnInboxResults:YES];
+    }else{
+        [tripManager searchTripsByKeyword:searchText shouldReturnInboxResults:NO];
+    }
+    
 }
 
 -(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {

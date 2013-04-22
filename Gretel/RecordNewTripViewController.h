@@ -57,6 +57,7 @@ typedef enum {
 @property (nonatomic, strong) IBOutlet UIView *recordingIndicatorContainer;
 @property (nonatomic, strong) UIImageView *recordingLight;
 @property (nonatomic, strong) IBOutlet UILabel *tripTimerLabel;
+@property (nonatomic, strong) IBOutlet UIButton *hudButton;
 
 /** @section HUD UI Properties */
 ///Used to display the latitude

@@ -31,6 +31,15 @@
     [self.applicationUsageSettings setSelectedSegmentIndex:[settingsManager getApplicationUsageType]];
     [self.accuracyLabel setText:[NSString stringWithFormat:@"%.0f M",settingsManager.distanceFilter]];
     [self.accuracySlider setValue:settingsManager.distanceFilter];
+    
+    NIKFontAwesomeIconFactory *iconFactory = [[NIKFontAwesomeIconFactory alloc] init];
+    [iconFactory setSize:18.0];
+    [iconFactory setColors:[NSArray arrayWithObjects:[UIColor whiteColor], nil]];
+    [iconFactory setSquare:YES];
+    [iconFactory setStrokeColor:[UIColor blackColor]];
+    [iconFactory setStrokeWidth:0.2];
+    
+    [self.navigationItem.leftBarButtonItem setImage:[iconFactory createImageForIcon:NIKFontAwesomeIconList]];
 }
 
 #pragma mark Button Handlers

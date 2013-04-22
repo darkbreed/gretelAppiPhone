@@ -14,4 +14,5 @@
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
     #import "TestFlight.h"
+    #import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.h>
 #endif
