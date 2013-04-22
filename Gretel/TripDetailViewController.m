@@ -40,6 +40,11 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mailSendingSavedHandler:) name:SMMailSaved object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripImportBeganHandler:) name:TRIP_IMPORT_NOTIFICATION object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripImportSuccessHandler:) name:GTTripImportedSuccessfully object:nil];
+    
+    
     self.title = [[tripManager currentTrip] tripName];
     
     tripManager = [TripManager sharedManager];
@@ -63,13 +68,29 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    NSArray *points = [tripManager fectchPointsForDrawing:YES];
+    [self.notificationView setTextLabel:@"Drawing route"];
+    [self.notificationView setShowActivity:YES animated:YES];
+    [self.notificationView show:YES];
     
-    self.title = tripManager.tripForDetailView.tripName;
+}
+
+-(void)viewDidAppear:(BOOL)animated {
     
-    [self drawRoute:points onMapView:self.mapView willRefreh:NO];
-    [self addAnnotationsToMapView:self.mapView fromArray:points];
-    [self zoomToFitMapView:self.mapView toFitRoute:points animated:NO];
+    [super viewDidAppear:animated];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        NSArray *points = [tripManager fectchPointsForDrawing:YES];
+        
+        self.title = tripManager.tripForDetailView.tripName;
+        
+        [self drawRoute:points onMapView:self.mapView willRefreh:NO];
+        [self addAnnotationsToMapView:self.mapView fromArray:points];
+        [self zoomToFitMapView:self.mapView toFitRoute:points animated:NO];
+        
+        [self.notificationView hideAnimated];
+        
+    });
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
@@ -212,6 +233,25 @@
 #pragma mark TripDeletion handlers
 -(void)tripDeletionHandler:(NSNotification *)notification {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark Import handlers
+-(void)tripImportSuccessHandler:(NSNotification *)notification {
+    [self.notificationView setShowActivity:NO animated:NO];
+    [self.notificationView setTextLabel:@"New trip added to inbox"];
+    [self.notificationView hideAnimatedAfter:2.0];
+    
+}
+
+-(void)tripImportBeganHandler:(NSNotification *)notification {
+    [self.notificationView setHidden:NO];
+    [self.notificationView setTextLabel:@"Importing trip to inbox..."];
+    [self.notificationView setShowActivity:YES animated:YES];
+    [self.notificationView show:YES];
+}
+
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

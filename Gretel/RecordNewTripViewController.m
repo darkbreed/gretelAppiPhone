@@ -36,6 +36,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSettingsChange) name:SMSettingsUpdated object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTripTimerDisplay) name:GTTripTimerDidUpdate object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripImportSuccessHandler:) name:GTTripImportedSuccessfully object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripSaveSuccessHandler:) name:GTTripSavedSuccessfully object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripImportBeganHandler:) name:TRIP_IMPORT_NOTIFICATION object:nil];
     
     if(!tripManager.currentTrip){
         
@@ -289,12 +291,16 @@
        
         if(buttonIndex == 1){
             
+            [self.notificationView setHidden:NO];
+            [self.notificationView setTextLabel:@"Saving..."];
+            [self.notificationView showActivity];
+            
             [tripManager saveTripAndStop];
             [[GeoManager sharedManager] stopTrackingPosition];
             
             [self setUpViewForNewTrip];
             
-            //[self performSegueWithIdentifier:@"displayHistoryView" sender:self];
+         
         }
     }
 }
@@ -340,14 +346,27 @@
     [self updateLocation];
 }
 
--(void)tripImportSuccessHandler:(NSNotification *)notification {
-    
-    [self.notificationView setHidden:NO];
-    [self.notificationView setTextLabel:@"New trip added to inbox"];
-    [self.notificationView showAndDismissAfter:2.0];
 
+-(void)tripSaveSuccessHandler:(NSNotification *)notification {
+    [self.notificationView setHidden:NO];
+    [self.notificationView setTextLabel:@"Trip saved successfully"];
+    [self.notificationView showAndDismissAfter:2.0];
 }
 
+#pragma mark Import handlers
+-(void)tripImportSuccessHandler:(NSNotification *)notification {
+    [self.notificationView setShowActivity:NO animated:NO];
+    [self.notificationView setTextLabel:@"New trip added to inbox"];
+    [self.notificationView hideAnimatedAfter:2.0];
+    
+}
+
+-(void)tripImportBeganHandler:(NSNotification *)notification {
+    [self.notificationView setHidden:NO];
+    [self.notificationView setTextLabel:@"Importing trip to inbox..."];
+    [self.notificationView setShowActivity:YES animated:YES];
+    [self.notificationView show:YES];
+}
 
 #pragma memory handling
 - (void)didReceiveMemoryWarning{
@@ -355,7 +374,6 @@
 }
 
 -(void)dealloc {
-    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
 @end
