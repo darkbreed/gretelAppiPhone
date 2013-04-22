@@ -348,6 +348,7 @@
             
         case NSFetchedResultsChangeUpdate:
             //[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView reloadData];
             break;
             
         case NSFetchedResultsChangeMove:
