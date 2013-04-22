@@ -166,7 +166,6 @@
                     MKPolyline *previousLine = [[mapView overlays] objectAtIndex:0];
                     if(previousLine){
                         
-                        NSLog(@"Removing %@",[[mapView overlays] objectAtIndex:0]);
                         [mapView removeOverlay:previousLine];
                         
                     }

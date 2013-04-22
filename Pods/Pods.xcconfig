@@ -1,8 +1,8 @@
-PODS_PUBLIC_HEADERS_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/BRBluetoothManager" "${PODS_ROOT}/Headers/ECSlidingViewController" "${PODS_ROOT}/Headers/FontAwesomeIconFactory" "${PODS_ROOT}/Headers/GCDiscreetNotificationView" "${PODS_ROOT}/Headers/TestFlightSDK"
-PODS_BUILD_HEADERS_SEARCH_PATHS = "${PODS_ROOT}/BuildHeaders" "${PODS_ROOT}/BuildHeaders/BRBluetoothManager" "${PODS_ROOT}/BuildHeaders/ECSlidingViewController" "${PODS_ROOT}/BuildHeaders/FontAwesomeIconFactory" "${PODS_ROOT}/BuildHeaders/GCDiscreetNotificationView" "${PODS_ROOT}/BuildHeaders/TestFlightSDK"
-HEADER_SEARCH_PATHS = ${PODS_HEADERS_SEARCH_PATHS}
 ALWAYS_SEARCH_USER_PATHS = YES
-PODS_ROOT = ${SRCROOT}/Pods
-OTHER_LDFLAGS = -ObjC -lTestFlight -lz -framework CoreText -framework UIKit
+HEADER_SEARCH_PATHS = ${PODS_HEADERS_SEARCH_PATHS}
 LIBRARY_SEARCH_PATHS = "$(PODS_ROOT)/TestFlightSDK"
+OTHER_LDFLAGS = -ObjC -lTestFlight -lz -framework CoreText -framework UIKit
+PODS_BUILD_HEADERS_SEARCH_PATHS = "${PODS_ROOT}/BuildHeaders" "${PODS_ROOT}/BuildHeaders/BRBluetoothManager" "${PODS_ROOT}/BuildHeaders/ECSlidingViewController" "${PODS_ROOT}/BuildHeaders/FontAwesomeIconFactory" "${PODS_ROOT}/BuildHeaders/GCDiscreetNotificationView" "${PODS_ROOT}/BuildHeaders/TestFlightSDK"
 PODS_HEADERS_SEARCH_PATHS = ${PODS_PUBLIC_HEADERS_SEARCH_PATHS}
+PODS_PUBLIC_HEADERS_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/BRBluetoothManager" "${PODS_ROOT}/Headers/ECSlidingViewController" "${PODS_ROOT}/Headers/FontAwesomeIconFactory" "${PODS_ROOT}/Headers/GCDiscreetNotificationView" "${PODS_ROOT}/Headers/TestFlightSDK"
+PODS_ROOT = ${SRCROOT}/Pods

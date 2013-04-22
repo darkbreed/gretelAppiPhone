@@ -52,6 +52,8 @@
 		B524F61C16DF8E98000DD5C0 /* completeLabel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B524F61816DF8E98000DD5C0 /* completeLabel@2x.png */; };
 		B524F61D16DF8E98000DD5C0 /* recodingLabel.png in Resources */ = {isa = PBXBuildFile; fileRef = B524F61916DF8E98000DD5C0 /* recodingLabel.png */; };
 		B524F61E16DF8E98000DD5C0 /* recodingLabel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B524F61A16DF8E98000DD5C0 /* recodingLabel@2x.png */; };
+		B53596841725BE480033FDAD /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B53596831725BE480033FDAD /* HelpViewController.m */; };
+		B53596871725C81A0033FDAD /* HelpView.m in Sources */ = {isa = PBXBuildFile; fileRef = B53596861725C81A0033FDAD /* HelpView.m */; };
 		B53905C51717F08800B02190 /* Instabug.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B53905C41717F08800B02190 /* Instabug.framework */; };
 		B53905C71717F09E00B02190 /* Instabug.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B53905C61717F09E00B02190 /* Instabug.bundle */; };
 		B53905C91717F0E200B02190 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B53905C81717F0E200B02190 /* CoreFoundation.framework */; };
@@ -209,6 +211,10 @@
 		B524F61816DF8E98000DD5C0 /* completeLabel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "completeLabel@2x.png"; sourceTree = "<group>"; };
 		B524F61916DF8E98000DD5C0 /* recodingLabel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recodingLabel.png; sourceTree = "<group>"; };
 		B524F61A16DF8E98000DD5C0 /* recodingLabel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "recodingLabel@2x.png"; sourceTree = "<group>"; };
+		B53596821725BE480033FDAD /* HelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
+		B53596831725BE480033FDAD /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
+		B53596851725C81A0033FDAD /* HelpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpView.h; sourceTree = "<group>"; };
+		B53596861725C81A0033FDAD /* HelpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpView.m; sourceTree = "<group>"; };
 		B53905C41717F08800B02190 /* Instabug.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Instabug.framework; sourceTree = "<group>"; };
 		B53905C61717F09E00B02190 /* Instabug.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Instabug.bundle; sourceTree = "<group>"; };
 		B53905C81717F0E200B02190 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -474,6 +480,7 @@
 		3A8C9771167B1EC8000E2259 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B53596811725B2F40033FDAD /* Table Cells */,
 				3A8C974D167A1A18000E2259 /* HistoryViewController.h */,
 				3A8C974E167A1A18000E2259 /* HistoryViewController.m */,
 				3A8C975C167A8518000E2259 /* TripDetailViewController.h */,
@@ -482,18 +489,18 @@
 				3A43D64816761D1F007E9A84 /* RecordNewTripViewController.m */,
 				B5F6167616DDF389005BDB7C /* SettingsViewController.h */,
 				B5F6167716DDF389005BDB7C /* SettingsViewController.m */,
-				B5AE900F16DF4A0D003A36C6 /* TripHistoryTableViewCell.h */,
-				B5AE901016DF4A0D003A36C6 /* TripHistoryTableViewCell.m */,
 				B5A7236616EDD0C9006EC062 /* AboutViewController.h */,
 				B5A7236716EDD0C9006EC062 /* AboutViewController.m */,
 				B5C1572C171F095400F9773B /* RootSlidingViewController.h */,
 				B5C1572D171F095400F9773B /* RootSlidingViewController.m */,
 				B5C1572F171F0BE200F9773B /* SettingsMenuViewController.h */,
 				B5C15730171F0BE200F9773B /* SettingsMenuViewController.m */,
-				B5C15732171F49AA00F9773B /* SettingsMenuCell.h */,
-				B5C15733171F49AA00F9773B /* SettingsMenuCell.m */,
 				B59B2EE217201D510060C975 /* BaseNavigationControllerViewController.h */,
 				B59B2EE317201D510060C975 /* BaseNavigationControllerViewController.m */,
+				B53596821725BE480033FDAD /* HelpViewController.h */,
+				B53596831725BE480033FDAD /* HelpViewController.m */,
+				B53596851725C81A0033FDAD /* HelpView.h */,
+				B53596861725C81A0033FDAD /* HelpView.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -596,6 +603,17 @@
 				B50EBE1D16D4BE5C0090433B /* compass_needle.png */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		B53596811725B2F40033FDAD /* Table Cells */ = {
+			isa = PBXGroup;
+			children = (
+				B5AE900F16DF4A0D003A36C6 /* TripHistoryTableViewCell.h */,
+				B5AE901016DF4A0D003A36C6 /* TripHistoryTableViewCell.m */,
+				B5C15732171F49AA00F9773B /* SettingsMenuCell.h */,
+				B5C15733171F49AA00F9773B /* SettingsMenuCell.m */,
+			);
+			name = "Table Cells";
 			sourceTree = "<group>";
 		};
 		B560498D170C86C3003B1383 /* GPX */ = {
@@ -822,6 +840,8 @@
 				B5C15731171F0BE200F9773B /* SettingsMenuViewController.m in Sources */,
 				B5C15734171F49AB00F9773B /* SettingsMenuCell.m in Sources */,
 				B59B2EE417201D510060C975 /* BaseNavigationControllerViewController.m in Sources */,
+				B53596841725BE480033FDAD /* HelpViewController.m in Sources */,
+				B53596871725C81A0033FDAD /* HelpView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

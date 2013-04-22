@@ -43,6 +43,8 @@ extern NSNumber *const GTDistanceFilterInMetres;
 
 @property (nonatomic, readwrite) float speed;
 
+@property (nonatomic, readwrite) float elevation;
+
 /**
  * Singleton init method
  */
@@ -69,5 +71,7 @@ extern NSNumber *const GTDistanceFilterInMetres;
  * @return BOOL enabled
  */
 -(BOOL)locationServicesEnabled;
+
+-(float)currentElevation;
 
 @end

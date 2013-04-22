@@ -23,6 +23,8 @@ NSString * const GTTripSavedSuccessfully = @"tripSavedSuccessfully";
     NSDate *startDate;
     NSTimer *stopWatchTimer;
     
+    NSTimer *recordingTimer;
+    
     Trip *importedTrip;
     
 }
@@ -344,22 +346,30 @@ NSString * const GTTripSavedSuccessfully = @"tripSavedSuccessfully";
 
 -(void)beginRecording {
     
+    recordingTimer = [NSTimer scheduledTimerWithTimeInterval:3.0
+                                                      target:self
+                                                    selector:@selector(saveTrip)
+                                                    userInfo:nil
+                                                     repeats:YES];
+    
     [self.currentTrip setRecordingState:[self recordingStateForState:GTTripStateRecording]];
     [self setTripState:GTTripStateRecording];
     secondsElapsedForTrip = [[self.currentTrip tripDuration] floatValue];
+    
     [self startTimer];
-    [self saveTrip];
     
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
 }
 
 -(void)saveTrip {
     
+    NSLog(@"%@",@"Committed to core data");
+    
     NSError *error = nil;
     if (![self.managedObjectContext save:&error]) {
         // Handle the error.
-        NSLog(@"Error saving context");
     }
+    
 }
 
 -(void)pauseRecording {
@@ -371,6 +381,10 @@ NSString * const GTTripSavedSuccessfully = @"tripSavedSuccessfully";
         [self stopTimer];
         
         self.currentTrip.totalDistance = [NSNumber numberWithFloat:[self calculateDistanceForPoints:self.currentTrip]];
+        
+        [recordingTimer invalidate];
+        recordingTimer = nil;
+        
         [self saveTrip];
         
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:nil];
@@ -381,26 +395,28 @@ NSString * const GTTripSavedSuccessfully = @"tripSavedSuccessfully";
 
 
 -(void)saveTripAndStop {
+            
+    [self.currentTrip setFinishDate:[NSDate date]];
+    [self.currentTrip setRecordingState:[self recordingStateForState:GTTripStatePaused]];
+    [self.currentTrip setTotalDistance:[NSNumber numberWithFloat:[self calculateDistanceForPoints:self.currentTrip]]];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.currentTrip setFinishDate:[NSDate date]];
-        [self.currentTrip setRecordingState:[self recordingStateForState:GTTripStatePaused]];
-        [self.currentTrip setTotalDistance:[NSNumber numberWithFloat:[self calculateDistanceForPoints:self.currentTrip]]];
-        
-        [self saveTrip];
-        
-        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:nil];
-        
-        [self createGPXFileFromTrip:self.currentTrip];
-        [self setCurrentTrip:nil];
-        [self setTripState:GTTripStateNew];
-        
-        self.pointsForDrawing = nil;
-        
-        [self stopTimer];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:GTTripSavedSuccessfully object:nil];
-    });
+    [recordingTimer invalidate];
+    recordingTimer = nil;
+    
+    [self saveTrip];
+    
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:nil];
+    
+    [self createGPXFileFromTrip:self.currentTrip];
+    [self setCurrentTrip:nil];
+    [self setTripState:GTTripStateNew];
+    
+    self.pointsForDrawing = nil;
+    
+    [self stopTimer];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:GTTripSavedSuccessfully object:nil];
+    
 }
 
 -(NSArray *)fectchPointsForDrawing:(BOOL)forDetailView {
@@ -418,27 +434,27 @@ NSString * const GTTripSavedSuccessfully = @"tripSavedSuccessfully";
 
 -(void)storeLocation {
     
-    CLLocation *location = [GeoManager sharedManager].currentLocation;
-    
-    if(location.coordinate.latitude != 0.0){
+    dispatch_async(dispatch_get_main_queue(), ^{
         
-        // Create and configure a new instance of the GPS entity.
-        GPSPoint *point = (GPSPoint *)[NSEntityDescription insertNewObjectForEntityForName:@"GPSPoint" inManagedObjectContext:self.managedObjectContext];
-        point.altitude = [NSNumber numberWithDouble:location.altitude];
-        point.lat = [NSNumber numberWithDouble:location.coordinate.latitude];
-        point.lon = [NSNumber numberWithDouble:location.coordinate.longitude];
-        point.timestamp = [NSDate date];
-        point.pointID = [NSNumber numberWithInt:currentPointId++];
+        CLLocation *location = [GeoManager sharedManager].currentLocation;
         
-        //Add it to the current trip for storage
-        [self.currentTrip addPointsObject:point];
-        [self.pointsForDrawing addObject:point];
+        if(location.coordinate.latitude != 0.0){
+            
+            // Create and configure a new instance of the GPS entity.
+            GPSPoint *point = (GPSPoint *)[NSEntityDescription insertNewObjectForEntityForName:@"GPSPoint" inManagedObjectContext:self.managedObjectContext];
+            point.altitude = [NSNumber numberWithDouble:location.altitude];
+            point.lat = [NSNumber numberWithDouble:location.coordinate.latitude];
+            point.lon = [NSNumber numberWithDouble:location.coordinate.longitude];
+            point.timestamp = [NSDate date];
+            point.pointID = [NSNumber numberWithInt:currentPointId++];
+            
+            //Add it to the current trip for storage
+            [self.currentTrip addPointsObject:point];
+            [self.pointsForDrawing addObject:point];
+            
+        }
         
-    }
-    
-    //Only commit changes to core data every N seconds in an attempt to preserve battery life.
-    //Save
-    [self saveTrip];
+    });
 }
 
 

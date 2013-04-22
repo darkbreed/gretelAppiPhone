@@ -28,7 +28,7 @@
     settingsManager = [SettingsManager sharedManager];
     
 	// Do any additional setup after loading the view, typically from a nib.
-    [self.mapView setUserTrackingMode:MKUserTrackingModeFollow];
+    [self.mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLocation) name:GTLocationUpdatedSuccessfully object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCompassWithHeading) name:GTLocationHeadingDidUpdate object:nil];
@@ -101,8 +101,19 @@
 -(IBAction)locateMeButtonHandler:(id)sender {
     
     if([[GeoManager sharedManager] locationServicesEnabled]){
+        
         [[GeoManager sharedManager] startTrackingPosition];
         [self.locateMeButton setBackgroundImage:[UIImage imageNamed:@"locationSymbolEnabled.png"] forState:UIControlStateNormal];
+        
+        if(self.mapView.userTrackingMode == MKUserTrackingModeNone){
+            [self.mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
+        }else if(self.mapView.userTrackingMode == MKUserTrackingModeFollow){
+            [self.mapView setUserTrackingMode:MKUserTrackingModeFollowWithHeading animated:YES];
+        }else if(self.mapView.userTrackingMode == MKUserTrackingModeFollowWithHeading){
+            [self.mapView setUserTrackingMode:MKUserTrackingModeNone animated:YES];
+        }
+        
+        
     }else{
         [self displayLocationServicesDisabledAlert];
     }
@@ -326,6 +337,8 @@
     }else{
         self.currentSpeedLabel.text = [NSString stringWithFormat:@"%.2f %@",currentSpeed,settingsManager.unitLabelSpeed];
     }
+    
+    self.elevationLabel.text = [NSString stringWithFormat:@"%.2f METRES",[[GeoManager sharedManager] currentElevation]];
 }
 
 -(void)updateCompassWithHeading {
@@ -336,6 +349,11 @@
     
     theAnimation.fromValue = [NSNumber numberWithFloat:[[GeoManager sharedManager] fromHeadingAsRad]];
     theAnimation.toValue = [NSNumber numberWithFloat:[[GeoManager sharedManager] toHeadingAsRad]];
+    
+    //If the user has selected the heading then update the button to highlight it.
+    if(self.mapView.userTrackingMode == MKUserTrackingModeFollowWithHeading){
+        //self.locateMeButton.transform = CGAffineTransformMakeRotation([[GeoManager sharedManager] toHeadingAsRad]);
+    }
     
     [self.compassNeedle.layer addAnimation:theAnimation forKey:@"animateMyRotation"];
     self.compassNeedle.transform = CGAffineTransformMakeRotation([[GeoManager sharedManager] toHeadingAsRad]);

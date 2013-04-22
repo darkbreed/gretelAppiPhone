@@ -148,8 +148,6 @@ NSString * const SMMailSaved = @"mailSaved";
     
     float percent = fRemaining/fTotalLength;
     
-    NSLog(@"Sending is %f%% complete",percent);
-    
 }
 
 -(void)bluetoothManager:(BRBluetoothManager *)manager didCompleteTransferOfData:(NSData *)data {

@@ -32,19 +32,13 @@ extern NSString * const GTTripSavedSuccessfully;
 
 @interface TripManager : NSObject
 
-///Current trip state
 @property (nonatomic, readwrite) GTTripState tripState;
-///Current trip to record points to
 @property (nonatomic, strong) Trip *currentTrip;
-///View a trip from the history
 @property (nonatomic, strong) Trip *tripForDetailView;
-///All trips
 @property (nonatomic, strong) NSFetchedResultsController *allTrips;
 @property (nonatomic, strong) NSString *timerValue;
 @property (nonatomic, readwrite) BOOL isResuming;
 @property (nonatomic, strong) NSMutableArray *pointsForDrawing;
-
-
 
 ///Core data stack
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;

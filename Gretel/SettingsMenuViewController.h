@@ -14,6 +14,7 @@ extern NSString * const GTViewControllerRecordTrip;
 extern NSString * const GTViewControllerTripHistory;
 extern NSString * const GTViewControllerSettings;
 extern NSString * const GTViewControllerAbout;
+extern NSString * const GTViewControllerHelp;
 
 typedef enum {
     MenuSectionTypeMap,

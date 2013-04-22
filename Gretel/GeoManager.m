@@ -102,7 +102,6 @@ NSString *const GTLocationDidPauseUpdates = @"updatesPaused";
 
 -(void)setDistanceFilterValue {
     
-    NSLog(@"Distance filter updated");
     float distance = [defaults floatForKey:SMDistanceFilter];
     [locationManager setDistanceFilter:distance];
     
@@ -114,6 +113,7 @@ NSString *const GTLocationDidPauseUpdates = @"updatesPaused";
     //Store the current location in the property for easy access
     self.currentLocation = (CLLocation *)[locations lastObject];
     self.speed = self.currentLocation.speed;
+    self.elevation = self.currentLocation.altitude;
     
     //Update any observers
     [self notifyObserversOfLocationUpdate];
@@ -125,9 +125,7 @@ NSString *const GTLocationDidPauseUpdates = @"updatesPaused";
     //Convert Degree to Radian and move the needle
 	self.fromHeadingAsRad =  -manager.heading.trueHeading * M_PI / 180.0f;
 	self.toHeadingAsRad =  -newHeading.trueHeading * M_PI / 180.0f;
-    
-    //NSLog(@"%f (%f) => %f (%f)", manager.heading.trueHeading, self.fromHeadingAsRad, newHeading.trueHeading, self.toHeadingAsRad);
-    
+
     //Post a notfication to update observers that updates have failed
     [[NSNotificationCenter defaultCenter] postNotificationName:GTLocationHeadingDidUpdate object:nil];
     
@@ -172,6 +170,10 @@ NSString *const GTLocationDidPauseUpdates = @"updatesPaused";
 
 -(float)currentSpeed {
     return self.speed;
+}
+
+-(float)currentElevation {
+    return self.elevation;
 }
 
 -(BOOL)locationServicesEnabled {

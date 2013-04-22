@@ -14,12 +14,14 @@
 #import "AboutViewController.h"
 #import "BaseNavigationControllerViewController.h"
 #import "TripDetailViewController.h"
+#import "HelpViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
 NSString * const GTViewControllerRecordTrip = @"recordTrip";
 NSString * const GTViewControllerTripHistory = @"tripHistory";
 NSString * const GTViewControllerSettings = @"settings";
 NSString * const GTViewControllerAbout = @"about";
+NSString * const GTViewControllerHelp = @"help";
 
 @interface SettingsMenuViewController ()
 
@@ -44,8 +46,9 @@ NSString * const GTViewControllerAbout = @"about";
         HistoryViewController *historyViewController = [self.storyboard instantiateViewControllerWithIdentifier:GTViewControllerTripHistory];
         SettingsViewController *settingsViewController = [self.storyboard instantiateViewControllerWithIdentifier:GTViewControllerSettings];
         AboutViewController *aboutViewController = [self.storyboard instantiateViewControllerWithIdentifier:GTViewControllerAbout];
+        HelpViewController *helpViewController = [self.storyboard instantiateViewControllerWithIdentifier:GTViewControllerHelp];
     
-        self.viewControllers = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:recordNewTripViewController,historyViewController, settingsViewController, aboutViewController, nil] forKeys:[NSArray arrayWithObjects:GTViewControllerRecordTrip,GTViewControllerTripHistory,GTViewControllerSettings,GTViewControllerAbout, nil]];
+        self.viewControllers = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:recordNewTripViewController,historyViewController, settingsViewController,aboutViewController, nil] forKeys:[NSArray arrayWithObjects:GTViewControllerRecordTrip,GTViewControllerTripHistory,GTViewControllerSettings,GTViewControllerAbout, nil]];
         
     }    
 }
@@ -157,6 +160,11 @@ NSString * const GTViewControllerAbout = @"about";
             [cell.iconView setImage:[iconFactory createImageForIcon:NIKFontAwesomeIconInfoSign]];
             cell.titleLabel.text = [@"About" uppercaseString];
         }
+        
+        if(indexPath.row == 2){
+            [cell.iconView setImage:[iconFactory createImageForIcon:NIKFontAwesomeIconQuestionSign]];
+            cell.titleLabel.text = [@"Help" uppercaseString];
+        }
     }
     
     return cell;
@@ -214,6 +222,8 @@ NSString * const GTViewControllerAbout = @"about";
             identifier = GTViewControllerSettings;
         }else if(indexPath.row == 1){
             identifier = GTViewControllerAbout;
+        }else if(indexPath.row == 2){
+            identifier = GTViewControllerHelp;
         }
     }
     
