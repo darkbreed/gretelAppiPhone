@@ -13,17 +13,10 @@
 
 @interface TripHistoryTableViewCell : UITableViewCell
 
-@property (nonatomic, strong) IBOutlet MKMapView *mapView;
-@property (nonatomic, strong) IBOutlet UIImageView *mapImageView;
 @property (nonatomic, strong) IBOutlet UILabel *tripNameLabel;
 @property (nonatomic, strong) IBOutlet UIView *recordingBanner;
-@property (nonatomic, strong) IBOutlet UIImageView *recordingBannerImage;
-@property (nonatomic, strong) IBOutlet UILabel *recordingBannerLabel;
 @property (nonatomic, strong) IBOutlet UILabel *distanceLabel;
 @property (nonatomic, strong) IBOutlet UILabel *recordedPointsLabel;
 @property (nonatomic, strong) IBOutlet UILabel *tripDurationLabel;
-
-- (void)zoomMapViewToFitTrip:(Trip *)trip;
-- (void)drawRoute:(NSArray *)route onMapView:(MKMapView *)mapView;
 
 @end

@@ -34,8 +34,6 @@
     
     [super viewWillAppear:animated];
     
-    NSLog(@"Top VC: %@", self.topViewController);
-    
     self.topViewController.navigationController.view.layer.shadowOpacity = 0.75f;
     self.topViewController.navigationController.view.layer.shadowRadius = 10.0f;
     self.topViewController.navigationController.view.layer.shadowColor = [UIColor blackColor].CGColor;

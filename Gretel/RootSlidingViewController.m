@@ -23,10 +23,7 @@
     
     storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
     
-    self.topViewController = [storyboard instantiateViewControllerWithIdentifier:@"recordTrip"];
-    
-    SettingsMenuViewController *settingsMenu = [[SettingsMenuViewController alloc] init];
-    settingsMenu.recordNewTripViewController = self.topViewController;
+    self.topViewController = [storyboard instantiateViewControllerWithIdentifier:GTViewControllerRecordTrip];
     
 }
 

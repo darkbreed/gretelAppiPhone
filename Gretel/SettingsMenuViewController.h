@@ -10,6 +10,17 @@
 #import "ECSlidingViewController.h"
 #import "RecordNewTripViewController.h"
 
+extern NSString * const GTViewControllerRecordTrip;
+extern NSString * const GTViewControllerTripHistory;
+extern NSString * const GTViewControllerSettings;
+extern NSString * const GTViewControllerAbout;
+
+typedef enum {
+    MenuSectionTypeMap,
+    MenuSectionTypeHistory,
+    MenuSectionTypeOther
+}MenuSectionType;
+
 @interface SettingsMenuViewController : UITableViewController
 
 @property (nonatomic, strong) RecordNewTripViewController *recordNewTripViewController;

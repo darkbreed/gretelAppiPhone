@@ -971,13 +971,16 @@ Finally a shout out must go to Friska, this application has been powered by thei
             <relationships>
                 <relationship kind="action" name="menuButtonHandler:"/>
                 <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
-                <relationship kind="outlet" name="searchDisplayController" candidateClass="UISearchDisplayController"/>
             </relationships>
         </class>
         <class className="RecordNewTripViewController" superclassName="BRBaseMapViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RecordNewTripViewController.h"/>
             <relationships>
+                <relationship kind="action" name="actionButtonHandler:"/>
                 <relationship kind="action" name="addButtonHandler:"/>
+                <relationship kind="action" name="displayMap:"/>
+                <relationship kind="action" name="locateMeButtonHandler:"/>
+                <relationship kind="action" name="menuButtonHandler:"/>
                 <relationship kind="action" name="startTrackingButtonHandler:"/>
                 <relationship kind="action" name="stopTrackingButtonHandler:"/>
                 <relationship kind="outlet" name="compassBackground" candidateClass="UIImageView"/>
@@ -1010,6 +1013,9 @@ Finally a shout out must go to Friska, this application has been powered by thei
         </class>
         <class className="SettingsMenuViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsMenuViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="menuButtonHandler:"/>
+            </relationships>
         </class>
         <class className="SettingsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsViewController.h"/>
@@ -1025,9 +1031,15 @@ Finally a shout out must go to Friska, this application has been powered by thei
         <class className="TripDetailViewController" superclassName="BRBaseMapViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TripDetailViewController.h"/>
             <relationships>
+                <relationship kind="action" name="actionButtonHandler:"/>
                 <relationship kind="action" name="cancelButtonHandler:" candidateClass="UIButton"/>
+                <relationship kind="action" name="deleteButtonHandler:"/>
                 <relationship kind="action" name="editButtonHandler:"/>
+                <relationship kind="action" name="resumeButtonHandler:"/>
+                <relationship kind="action" name="saveTripButtonHandler:"/>
                 <relationship kind="action" name="shareButtonHandler:"/>
+                <relationship kind="action" name="shareByBluetoothButtonHandler:"/>
+                <relationship kind="action" name="shareByEmailButtonHandler:"/>
                 <relationship kind="outlet" name="deleteButton" candidateClass="UIView"/>
                 <relationship kind="outlet" name="editButton" candidateClass="UIView"/>
                 <relationship kind="outlet" name="notificationView" candidateClass="GCDiscreetNotificationView"/>

@@ -13,7 +13,13 @@
 #import "SettingsViewController.h"
 #import "AboutViewController.h"
 #import "BaseNavigationControllerViewController.h"
+#import "TripDetailViewController.h"
 #import <QuartzCore/QuartzCore.h>
+
+NSString * const GTViewControllerRecordTrip = @"recordTrip";
+NSString * const GTViewControllerTripHistory = @"tripHistory";
+NSString * const GTViewControllerSettings = @"settings";
+NSString * const GTViewControllerAbout = @"about";
 
 @interface SettingsMenuViewController ()
 
@@ -24,41 +30,24 @@
 
 @implementation SettingsMenuViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resumeHandler:) name:GTTripIsResuming object:nil];
     
     self.shouldLoadInbox = NO;
     
     if(!self.viewControllers){
         
-        RecordNewTripViewController *recordNewTripViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"recordTrip"];
-        
-        HistoryViewController *historyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"tripHistory"];
-        
-        SettingsViewController *settingsViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"settings"];
-        
-        AboutViewController *aboutViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"about"];
-        
-        self.viewControllers = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:recordNewTripViewController,historyViewController, settingsViewController, aboutViewController, nil] forKeys:[NSArray arrayWithObjects:@"recordTrip",@"tripHistory",@"settings",@"about", nil]];
-        
-    }
+        RecordNewTripViewController *recordNewTripViewController = [self.storyboard instantiateViewControllerWithIdentifier:GTViewControllerRecordTrip];
+        HistoryViewController *historyViewController = [self.storyboard instantiateViewControllerWithIdentifier:GTViewControllerTripHistory];
+        SettingsViewController *settingsViewController = [self.storyboard instantiateViewControllerWithIdentifier:GTViewControllerSettings];
+        AboutViewController *aboutViewController = [self.storyboard instantiateViewControllerWithIdentifier:GTViewControllerAbout];
     
+        self.viewControllers = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:recordNewTripViewController,historyViewController, settingsViewController, aboutViewController, nil] forKeys:[NSArray arrayWithObjects:GTViewControllerRecordTrip,GTViewControllerTripHistory,GTViewControllerSettings,GTViewControllerAbout, nil]];
+        
+    }    
 }
 
 - (void)didReceiveMemoryWarning
@@ -80,15 +69,15 @@
     NSString *sectionTitle = nil;
     
     switch (section) {
-        case 0:
+        case MenuSectionTypeMap:
             sectionTitle = @"Map";
             break;
         
-        case 1:
+        case MenuSectionTypeHistory:
             sectionTitle = @"Trips";
             break;
             
-        case 2:
+        case MenuSectionTypeOther:
             sectionTitle = @"Settings";
             break;
     }
@@ -102,15 +91,15 @@
     int rowsInSection = 0;
     
     switch (section) {
-        case 0:
+        case MenuSectionTypeMap:
             rowsInSection = 1;
             break;
         
-        case 1:
+        case MenuSectionTypeHistory:
             rowsInSection = 2;
             break;
         
-        case 2:
+        case MenuSectionTypeOther:
             rowsInSection = 2;
             break;
     }
@@ -208,40 +197,24 @@
     
     NSString *identifier = nil;
     
-    if(indexPath.section == 0){
-        
+    if(indexPath.section == MenuSectionTypeMap){
         if(indexPath.row == 0){
-            
-            identifier = @"recordTrip";
-            
+            identifier = GTViewControllerRecordTrip;
         }
-        
-    }else if(indexPath.section == 1){
-        
+    }else if(indexPath.section == MenuSectionTypeHistory){
         if(indexPath.row == 0){
-            
-            identifier = @"tripHistory";
+            identifier = GTViewControllerTripHistory;
             self.shouldLoadInbox = NO;
-            
         }else if(indexPath.row == 1){
-            
-            identifier = @"tripHistory";
+            identifier = GTViewControllerTripHistory;
             self.shouldLoadInbox = YES;
-            
         }
-        
-    }else if(indexPath.section == 2){
-        
+    }else if(indexPath.section == MenuSectionTypeOther){
         if(indexPath.row == 0){
-            
-            identifier = @"settings";
-            
+            identifier = GTViewControllerSettings;
         }else if(indexPath.row == 1){
-            
-            identifier = @"about";
-            
+            identifier = GTViewControllerAbout;
         }
-        
     }
     
     [self.slidingViewController anchorTopViewOffScreenTo:ECRight animations:nil onComplete:^{
@@ -273,6 +246,24 @@
 
 -(IBAction)menuButtonHandler:(id)sender {
     [self.slidingViewController anchorTopViewTo:ECRight];
+}
+
+-(void)importHandler:(NSNotificationCenter *)notification {
+    
+}
+
+-(void)resumeHandler:(NSNotification *)notification {
+    
+    [self.slidingViewController anchorTopViewOffScreenTo:ECRight animations:nil onComplete:^{
+        
+        CGRect frame = self.slidingViewController.topViewController.view.frame;
+        
+        self.slidingViewController.topViewController = [self.viewControllers objectForKey:GTViewControllerRecordTrip];
+        self.slidingViewController.topViewController.view.frame = frame;
+        [self.slidingViewController resetTopView];
+        
+    }];
+    
 }
 
 @end

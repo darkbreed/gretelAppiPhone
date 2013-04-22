@@ -9,6 +9,8 @@
 #import "TripDetailViewController.h"
 #import "ShareManager.h"
 
+NSString * const GTTripIsResuming = @"tripIsResuming";
+
 @interface TripDetailViewController ()
 
 @end
@@ -31,17 +33,7 @@
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripDeletionHandler:) name:GTTripDeletedSuccess object:nil];
-        
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mailSendingSuccessHandler:) name:SMMailSendingSuccess object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mailSendingFailedHandler:) name:SMMailSendingFailed object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mailSendingCancelHandler:) name:SMMailSendingCancelled object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mailSendingSavedHandler:) name:SMMailSaved object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripImportBeganHandler:) name:TRIP_IMPORT_NOTIFICATION object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripImportSuccessHandler:) name:GTTripImportedSuccessfully object:nil];
     
     
@@ -65,18 +57,13 @@
     
 }
 
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+-(void)viewDidAppear:(BOOL)animated {
+    
+    [super viewDidAppear:animated];
     
     [self.notificationView setTextLabel:@"Drawing route"];
     [self.notificationView setShowActivity:YES animated:YES];
     [self.notificationView show:YES];
-    
-}
-
--(void)viewDidAppear:(BOOL)animated {
-    
-    [super viewDidAppear:animated];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         
@@ -158,7 +145,7 @@
 
 -(IBAction)resumeButtonHandler:(id)sender {
         
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Resume trip" message:@"Would you like to resume this trip? If you have trips in progress these will be stopped and saved" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Resume", nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Resume trip?" message:@"Would you like to resume this trip? If you have trips in progress these will be stopped and saved. If you are resuming a trip imported from an external source, it will appear in the recordings section from now on." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Resume", nil];
     
     [alertView show];
     
@@ -177,12 +164,15 @@
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
     if(buttonIndex == 1){
+        
+        [tripManager.tripForDetailView setReceivedFromRemote:[NSNumber numberWithBool:NO]];
         [[TripManager sharedManager] saveTripAndStop];
         [[TripManager sharedManager] setCurrentTrip:tripManager.tripForDetailView];
         [[TripManager sharedManager] setTripForDetailView:nil];
         [[TripManager sharedManager] setTripState:GTTripStateRecording];
         [[TripManager sharedManager] setIsResuming:YES];
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:GTTripIsResuming object:nil];
     }
 }
 
@@ -210,25 +200,6 @@
     [actionSheet showInView:self.view];
 }
 
--(void)mailSendingSuccessHandler:(NSNotification *)notification {
-    [self.notificationView setTextLabel:@"Mail sent"];
-    [self.notificationView showAndDismissAfter:2.0];
-}
-
--(void)mailSendingCancelHandler:(NSNotification *)notification {
-    [self.notificationView setTextLabel:@"Mail cancelled"];
-    [self.notificationView showAndDismissAfter:2.0];
-}
-
--(void)mailSendingFailedHandler:(NSNotification *)notification {
-    [self.notificationView setTextLabel:@"Could not send mail"];
-    [self.notificationView showAndDismissAfter:2.0];
-}
-
--(void)mailSendingSavedHandler:(NSNotification *)notification {
-    [self.notificationView setTextLabel:@"Mail saved to drafts"];
-    [self.notificationView showAndDismissAfter:2.0];
-}
 
 #pragma mark TripDeletion handlers
 -(void)tripDeletionHandler:(NSNotification *)notification {

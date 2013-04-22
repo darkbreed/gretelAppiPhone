@@ -38,6 +38,8 @@ typedef enum {
     TripActionSheetTypeMapStyle
 }TripActionSheetType;
 
+extern NSString * const GTTripIsResuming;
+
 @interface TripDetailViewController : BRBaseMapViewController <ShareManagerDelegate, UIAlertViewDelegate, UIActionSheetDelegate> {
     
     ///The trip points as an array to feed the map view
@@ -48,23 +50,17 @@ typedef enum {
     
 }
 
-///The trip to be viewed
-@property (nonatomic, strong) Trip *trip;
-///UIView for edit form
+/** @section UI Properties */
 @property (nonatomic, strong) IBOutlet UIView *tripEditForm;
-///UIView for share form
 @property (nonatomic, strong) IBOutlet UIView *tripShareForm;
-///Delete button
 @property (nonatomic, strong) IBOutlet UIView *deleteButton;
-///Share button
 @property (nonatomic, strong) IBOutlet UIView *shareButton;
-///Edit button
 @property (nonatomic, strong) IBOutlet UIView *editButton;
-///Trip name text field
 @property (nonatomic, strong) IBOutlet UITextField *tripNameField;
-
 @property (nonatomic, strong) IBOutlet GCDiscreetNotificationView *notificationView;
 
+/** @section Non UI Properties */
+@property (nonatomic, strong) Trip *trip;
 
 /** @section Button Handlers */
 -(IBAction)editButtonHandler:(id)sender;

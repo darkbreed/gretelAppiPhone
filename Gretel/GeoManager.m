@@ -87,16 +87,13 @@ NSString *const GTLocationDidPauseUpdates = @"updatesPaused";
     switch (usageType) {
         case GTAppSettingsUsageTypeCar:
             [locationManager setActivityType:CLActivityTypeAutomotiveNavigation];
-#warning TODO: Add in extra params for changing accuracy and distance filter
             break;
             
         case GTAppSettingsUsageTypeWalk:
             [locationManager setActivityType:CLActivityTypeFitness];
-#warning TODO: Add in extra params for changing accuracy and distance filter
             break;
         
         case GTAppSettingsUsageTypeMix:
-#warning TODO: Add in extra params for changing accuracy and distance filter
             [locationManager setActivityType:CLActivityTypeOther];
             break;
     }

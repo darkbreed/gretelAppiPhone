@@ -43,10 +43,6 @@
 }
 
 #pragma mark Button Handlers
--(IBAction)feedbackButtonHandler:(id)sender {
-    [TestFlight openFeedbackView];
-}
-
 -(IBAction)menuButtonHandler:(id)sender {
     [self.slidingViewController anchorTopViewTo:ECRight];
 }
@@ -59,25 +55,14 @@
     [settingsManager setApplicationUsageType:control.selectedSegmentIndex];
 }
 
--(IBAction)doneButtonHandler:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
--(IBAction)dropboxButtonHandler:(id)sender {
-    [[DBAccountManager sharedManager] linkFromController:self];
-}
-
 -(IBAction)accuracySliderDidChange:(UISlider *)slider {
-    
     self.accuracyLabel.text = [NSString stringWithFormat:@"%.0f M",slider.value];
     [settingsManager setApplicationDistanceFilter:slider.value];
-    
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

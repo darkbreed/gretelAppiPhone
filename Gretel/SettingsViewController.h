@@ -15,11 +15,10 @@
     SettingsManager *settingsManager;
 }
 
+/** @section UI Properties */
 @property (nonatomic, strong) IBOutlet UISegmentedControl *unitOptions;
-@property (nonatomic, strong) IBOutlet UISegmentedControl *accuracySettings;
 @property (nonatomic, strong) IBOutlet UISegmentedControl *applicationUsageSettings;
 @property (nonatomic, strong) IBOutlet UISlider *accuracySlider;
 @property (nonatomic, strong) IBOutlet UILabel *accuracyLabel;
-@property (nonatomic, strong) IBOutlet UIButton *testflightFeedbackButton;
 
 @end

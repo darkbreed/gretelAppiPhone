@@ -18,12 +18,14 @@
 
 @interface HistoryViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, NSFetchedResultsControllerDelegate, MKMapViewDelegate>
 
+/** @section UI Properties */
 @property (nonatomic, strong) IBOutlet UISearchBar *searchBar;
 @property (nonatomic, strong) UIBarButtonItem *deleteButton;
 @property (nonatomic, strong) UIBarButtonItem *shareButton;
+@property (nonatomic, strong) GCDiscreetNotificationView *notificationView;
+
+/** @section Non UI Properties */
 @property (nonatomic, readwrite) BOOL noResultsToDisplay;
 @property (nonatomic, readwrite) BOOL isInInboxMode;
-
-@property (nonatomic, strong) GCDiscreetNotificationView *notificationView;
 
 @end

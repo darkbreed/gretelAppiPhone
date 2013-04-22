@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <GCDiscreetNotificationView/GCDiscreetNotificationView.h>
 
 @interface BaseNavigationControllerViewController : UINavigationController
+
+@property (nonatomic,strong) GCDiscreetNotificationView *notificationView;
 
 @end
