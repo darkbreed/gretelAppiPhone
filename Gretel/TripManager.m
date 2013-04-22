@@ -12,6 +12,7 @@ NSString * const GTTripTimerDidUpdate = @"tripTimerDidUpdate";
 NSString * const GTTripDeletedSuccess = @"tripDeletedSucessfully";
 NSString * const GTCurrentTripDeleted = @"deltedCurrentTrip";
 NSString * const GTTripImportedSuccessfully = @"tripImportedSuccessfully";
+NSString * const GTTripSavedSuccessfully = @"tripSavedSuccessfully";
 
 @implementation TripManager {
     int currentPointId;
@@ -79,25 +80,28 @@ NSString * const GTTripImportedSuccessfully = @"tripImportedSuccessfully";
 
 -(void)importTripFromGPXFile:(NSURL *)url {
     
-    GPXRoot *root = [GPXParser parseGPXAtURL:url];
-    
-    importedTrip = [NSEntityDescription insertNewObjectForEntityForName:@"Trip" inManagedObjectContext:self.managedObjectContext];
-    [importedTrip setGpxFilePath:[url absoluteString]];
-    [importedTrip setTripName:@"Imported Trip"];
-    [importedTrip setReceivedFromRemote:[NSNumber numberWithBool:YES]];
-    
-    if([[root tracks] count] > 0){
+    dispatch_async(dispatch_get_main_queue(), ^{
         
-        for (GPXTrack *track in [root tracks]) {
+        GPXRoot *root = [GPXParser parseGPXAtURL:url];
+        
+        importedTrip = [NSEntityDescription insertNewObjectForEntityForName:@"Trip" inManagedObjectContext:self.managedObjectContext];
+        [importedTrip setGpxFilePath:[url absoluteString]];
+        [importedTrip setTripName:@"Imported Trip"];
+        [importedTrip setReceivedFromRemote:[NSNumber numberWithBool:YES]];
+        
+        if([[root tracks] count] > 0){
             
-            [self parseTrackSegements:track];
+            for (GPXTrack *track in [root tracks]) {
+                
+                [self parseTrackSegements:track];
+                
+            }
             
+        }else{
+            [self importTripReadError];
         }
         
-    }else{
-        [self importTripReadError];
-    }
-
+    });
 }
 
 -(void)parseTrackSegements:(GPXTrack *)track {
@@ -360,35 +364,43 @@ NSString * const GTTripImportedSuccessfully = @"tripImportedSuccessfully";
 
 -(void)pauseRecording {
     
-    [self.currentTrip setRecordingState:[self recordingStateForState:GTTripStatePaused]];
-    [self setTripState:GTTripStatePaused];
-    [self stopTimer];
-    
-    self.currentTrip.totalDistance = [NSNumber numberWithFloat:[self calculateDistanceForPoints:self.currentTrip]];
-    [self saveTrip];
-    
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        [self.currentTrip setRecordingState:[self recordingStateForState:GTTripStatePaused]];
+        [self setTripState:GTTripStatePaused];
+        [self stopTimer];
+        
+        self.currentTrip.totalDistance = [NSNumber numberWithFloat:[self calculateDistanceForPoints:self.currentTrip]];
+        [self saveTrip];
+        
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:nil];
+        
+    });
+
 }
 
 
 -(void)saveTripAndStop {
     
-    [self.currentTrip setFinishDate:[NSDate date]];
-    [self.currentTrip setRecordingState:[self recordingStateForState:GTTripStatePaused]];
-    [self.currentTrip setTotalDistance:[NSNumber numberWithFloat:[self calculateDistanceForPoints:self.currentTrip]]];
-    
-    [self saveTrip];
-    
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:nil];
-    
-    [self createGPXFileFromTrip:self.currentTrip];
-    [self setCurrentTrip:nil];
-    [self setTripState:GTTripStateNew];
-    
-    self.pointsForDrawing = nil;
-    
-    [self stopTimer];
-    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.currentTrip setFinishDate:[NSDate date]];
+        [self.currentTrip setRecordingState:[self recordingStateForState:GTTripStatePaused]];
+        [self.currentTrip setTotalDistance:[NSNumber numberWithFloat:[self calculateDistanceForPoints:self.currentTrip]]];
+        
+        [self saveTrip];
+        
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:nil];
+        
+        [self createGPXFileFromTrip:self.currentTrip];
+        [self setCurrentTrip:nil];
+        [self setTripState:GTTripStateNew];
+        
+        self.pointsForDrawing = nil;
+        
+        [self stopTimer];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:GTTripSavedSuccessfully object:nil];
+    });
 }
 
 -(NSArray *)fectchPointsForDrawing:(BOOL)forDetailView {

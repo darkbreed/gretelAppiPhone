@@ -47,6 +47,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripImportSuccessHandler:) name:GTTripImportedSuccessfully object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripImportBeganHandler:) name:TRIP_IMPORT_NOTIFICATION object:nil];
+    
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [self.tableView setAllowsMultipleSelectionDuringEditing:YES];
     
@@ -452,19 +454,38 @@
     [self.tableView setEditing:NO animated:YES];
     [self setEditing:NO animated:YES];
     
+    [self.notificationView hideAnimatedAfter:2.0];
+    
 }
 
+#pragma mark Import handlers
 -(void)tripImportSuccessHandler:(NSNotification *)notification {
-    
-    [self.notificationView setHidden:NO];
+    [self.notificationView setShowActivity:NO animated:NO];
     [self.notificationView setTextLabel:@"New trip added to inbox"];
-    [self.notificationView showAndDismissAfter:2.0];
-    [self hideNotificationView];
+    [self.notificationView hideAnimatedAfter:2.0];
     
+}
+
+-(void)tripImportBeganHandler:(NSNotification *)notification {
+    [self.notificationView setHidden:NO];
+    [self.notificationView setTextLabel:@"Importing trip to inbox..."];
+    [self.notificationView setShowActivity:YES animated:YES];
+    [self.notificationView show:YES];
 }
 
 -(void)deleteMultipleTrips {
-    [tripManager deleteTrips:[self.tableView indexPathsForSelectedRows]];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.notificationView setHidden:NO];
+        [self.notificationView setShowActivity:YES animated:YES];
+        [self.notificationView showAnimated];
+        [self.notificationView setTextLabel:@"Deleting trips..."];
+    });
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [tripManager deleteTrips:[self.tableView indexPathsForSelectedRows]];
+    });
+    
 }
 
 -(void)deletedCurrentTrip:(NSNotification *)notification {
@@ -474,6 +495,10 @@
 #pragma mark Button Handlers
 -(IBAction)menuButtonHandler:(id)sender {
     [self.slidingViewController anchorTopViewTo:ECRight];
+}
+
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

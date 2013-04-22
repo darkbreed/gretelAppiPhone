@@ -10,6 +10,7 @@
 
 #ifdef __OBJC__
     #define TESTING 0
+    #define TRIP_IMPORT_NOTIFICATION @"tripImportStarted"
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>

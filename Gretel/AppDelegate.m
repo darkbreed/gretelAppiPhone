@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "HistoryViewController.h"
+#import "SettingsMenuViewController.h"
 #import <Dropbox/Dropbox.h>
 #import <Instabug/Instabug.h>
 
@@ -46,6 +47,8 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:TRIP_IMPORT_NOTIFICATION object:nil];
+
     [[TripManager sharedManager] importTripFromGPXFile:url];
     return YES;
 
