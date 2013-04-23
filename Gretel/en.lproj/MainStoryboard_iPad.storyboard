@@ -206,7 +206,6 @@
         <!--Record New Trip View Controller-->
         <scene sceneID="UYs-nR-FQE">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="T2P-XY-D3U" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="recordNewTripController" id="DsA-4Z-czd" customClass="RecordNewTripViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yeK-oG-ArS">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
@@ -505,6 +504,7 @@
                         <outlet property="tripTimerLabel" destination="SAZ-wA-xiK" id="zyY-zS-pM3"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="T2P-XY-D3U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1613" y="-857"/>
         </scene>
