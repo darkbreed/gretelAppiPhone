@@ -23,13 +23,17 @@ extern float const SMMileMultiplier;
 extern float const SMKmMultiplier;
 extern float const SMMilesSpeedMultiplier;
 extern float const SMKmSpeedMultiplier;
+extern float const SMFeetToMetersMultiplier;
+extern float const SMMetersToFeetMultiplier;
 
 extern NSString *const SMUnitLabelSpeed;
 extern NSString *const SMUnitLabelDistance;
+extern NSString *const SMUnitLabelHeight;
 extern NSString *const SMDistanceMultiplier;
 extern NSString *const SMSpeedMultiplier;
 extern NSString *const SMSettingsUpdated;
 extern NSString *const SMDistanceFilter;
+extern NSString *const SMHeightMultiplier;
 
 extern NSString * const GTAppSettingsCurrentUnitType;
 extern NSString * const GTApplicationUsageTypeKey;
@@ -43,8 +47,10 @@ extern NSString * const GTApplicationDidUpdateDistanceFilter;
 @property (nonatomic, readwrite) float distanceMultiplier;
 @property (nonatomic, readwrite) float speedMultiplier;
 @property (nonatomic, readwrite) float distanceFilter;
+@property (nonatomic, readwrite) float heightMultiplier;
 @property (nonatomic, strong) NSString *unitLabelSpeed;
 @property (nonatomic, strong) NSString *unitLabelDistance;
+@property (nonatomic, strong) NSString *unitLabelHeight;
 
 +(SettingsManager*)sharedManager;
 -(void)setApplicationUnitType:(GTAppSettingsUnitType)unitType;

@@ -54,6 +54,7 @@ typedef enum {
 @property (nonatomic, strong) IBOutlet UILabel *latLabel;
 @property (nonatomic, strong) IBOutlet UILabel *lonLabel;
 @property (nonatomic, strong) IBOutlet UILabel *elevationLabel;
+@property (nonatomic, strong) IBOutlet UILabel *distanceLabel;
 @property (nonatomic, strong) IBOutlet UILabel *currentSpeedLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *compassNeedle;
 @property (nonatomic, strong) IBOutlet UIImageView *compassBackground;

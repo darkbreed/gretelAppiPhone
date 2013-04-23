@@ -56,6 +56,10 @@
 	<string>0.1.25</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSMainNibFile~ipad</key>
+	<string></string>
+	<key>UIMainStoryboardFile~ipad</key>
+	<string>MainStoryboard_iPad</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Bariol_Regular.otf</string>

@@ -10,15 +10,19 @@
 float const SMMileMultiplier = 0.000621371192;
 float const SMKmMultiplier = 1000.0;
 float const SMMilesSpeedMultiplier = 2.23693629;
+float const SMFeetToMetersMultiplier = 0.3048;
+float const SMMetersToFeetMultiplier = 3.2808399;
 float const SMKmSpeedMultiplier = 3.6;
 float const SMDistanceFilterValue = 34.0;
 
 NSString *const SMUnitLabelSpeed = @"unitLabelSpeed";
 NSString *const SMUnitLabelDistance = @"unitLabelDistance";
+NSString *const SMUnitLabelHeight = @"unitLabelHeight";
 NSString *const SMDistanceMultiplier = @"distanceMultiplier";
 NSString *const SMSpeedMultiplier = @"speedMultiplier";
 NSString *const SMSettingsUpdated = @"settingsUpdated";
 NSString *const SMDistanceFilter = @"distanceFilter";
+NSString *const SMHeightMultiplier = @"heightMultiplier";
 
 NSString *const GTApplicationUsageTypeKey = @"applicationUsageType";
 NSString *const GTApplicationDidUpdateUsageType = @"didUpdateUsageType";
@@ -60,14 +64,17 @@ NSString * const GTAppSettingsCurrentUnitType = @"currentUnitType";
             self.distanceMultiplier = [appDefaults floatForKey:SMDistanceMultiplier];
             self.speedMultiplier = [appDefaults floatForKey:SMSpeedMultiplier];
             self.distanceFilter = [appDefaults floatForKey:SMDistanceFilter];
+            self.unitLabelHeight = [appDefaults valueForKey:SMUnitLabelHeight];
+            self.heightMultiplier = [appDefaults floatForKey:SMHeightMultiplier];
             
         }else{
             self.unitLabelSpeed = @"MPH";
             self.unitLabelDistance = @"M";
+            self.unitLabelHeight = @"FT";
+            self.heightMultiplier = SMFeetToMetersMultiplier;
             self.distanceMultiplier = SMMileMultiplier;
             self.speedMultiplier = SMMilesSpeedMultiplier;
             self.distanceFilter = SMDistanceFilterValue;
-           
         }
     }
     
@@ -79,11 +86,14 @@ NSString * const GTAppSettingsCurrentUnitType = @"currentUnitType";
     if(unitType == GTAppSettingsUnitTypeMPH){
         self.unitLabelSpeed = @"MPH";
         self.unitLabelDistance = @"M";
+        self.unitLabelHeight = @"FT";
         self.distanceMultiplier = SMMileMultiplier;
         self.speedMultiplier = SMMilesSpeedMultiplier;
+        self.heightMultiplier = SMMetersToFeetMultiplier;
     }else{
         self.unitLabelSpeed = @"KPH";
         self.unitLabelDistance = @"KM";
+        self.unitLabelHeight = @"M";
         self.distanceMultiplier = SMKmMultiplier;
         self.speedMultiplier = SMKmSpeedMultiplier;
     }
@@ -95,6 +105,7 @@ NSString * const GTAppSettingsCurrentUnitType = @"currentUnitType";
     [appDefaults setFloat:self.speedMultiplier forKey:@"speedMultiplier"];
     [appDefaults setValue:self.unitLabelDistance forKey:@"unitLabelDistance"];
     [appDefaults setFloat:self.distanceFilter forKey:@"distanceFilter"];
+    [appDefaults setValue:self.unitLabelHeight forKey:@"unitLabelHeight"];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:SMSettingsUpdated object:self];
     

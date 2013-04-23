@@ -27,9 +27,6 @@
     tripManager = [TripManager sharedManager];
     settingsManager = [SettingsManager sharedManager];
     
-	// Do any additional setup after loading the view, typically from a nib.
-    [self.mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLocation) name:GTLocationUpdatedSuccessfully object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCompassWithHeading) name:GTLocationHeadingDidUpdate object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pauseRecording) name:GTLocationDidPauseUpdates object:nil];
@@ -37,6 +34,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTripTimerDisplay) name:GTTripTimerDidUpdate object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripImportSuccessHandler:) name:GTTripImportedSuccessfully object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripSaveSuccessHandler:) name:GTTripSavedSuccessfully object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDistanceHandler:) name:GTTripUpdatedDistance object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripImportBeganHandler:) name:TRIP_IMPORT_NOTIFICATION object:nil];
     
     if(!tripManager.currentTrip){
@@ -60,6 +59,8 @@
     [iconFactory setStrokeWidth:0.2];
     
     [self.navigationItem.leftBarButtonItem setImage:[iconFactory createImageForIcon:NIKFontAwesomeIconList]];
+    
+    [self.mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
 
 }
 
@@ -97,6 +98,7 @@
     [self.slidingViewController setAnchorRightRevealAmount:280.0f];
     
 }
+
 
 -(IBAction)locateMeButtonHandler:(id)sender {
     
@@ -247,6 +249,8 @@
                     [self setViewStateForTripState:GTTripStateRecording];
                     [self setTitle:self.tripName];
                     
+                    [self.mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
+                    
                 }
                 
             }else{
@@ -338,7 +342,13 @@
         self.currentSpeedLabel.text = [NSString stringWithFormat:@"%.2f %@",currentSpeed,settingsManager.unitLabelSpeed];
     }
     
-    self.elevationLabel.text = [NSString stringWithFormat:@"%.2f METRES",[[GeoManager sharedManager] currentElevation]];
+    float elevation = [[GeoManager sharedManager] currentElevation];
+    
+    if(settingsManager.unitType == GTAppSettingsUnitTypeMPH){
+        elevation = [[GeoManager sharedManager] currentElevation] * SMMetersToFeetMultiplier;
+    }
+    
+    self.elevationLabel.text = [NSString stringWithFormat:@"%.2f %@",elevation,settingsManager.unitLabelHeight];
 }
 
 -(void)updateCompassWithHeading {
@@ -360,10 +370,14 @@
     self.compassBackground.transform = CGAffineTransformMakeRotation([[GeoManager sharedManager] toHeadingAsRad]);
 }
 
+-(void)updateDistanceHandler:(NSNotification *)notification {
+    float distance = [tripManager.currentTrip.totalDistance floatValue];
+    [self.distanceLabel setText:[NSString stringWithFormat:@"%.2f %@",distance,settingsManager.unitLabelDistance]];
+}
+
 -(void)handleSettingsChange {
     [self updateLocation];
 }
-
 
 -(void)tripSaveSuccessHandler:(NSNotification *)notification {
     [self.notificationView setHidden:NO];

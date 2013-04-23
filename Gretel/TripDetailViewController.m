@@ -41,6 +41,8 @@ NSString * const GTTripIsResuming = @"tripIsResuming";
     
     tripManager = [TripManager sharedManager];
     
+    self.tripNameField.delegate = self;
+    
     self.notificationView = [[GCDiscreetNotificationView alloc] initWithText:@""
                                                                 showActivity:NO
                                                           inPresentationMode:GCDiscreetNotificationViewPresentationModeTop
@@ -54,6 +56,27 @@ NSString * const GTTripIsResuming = @"tripIsResuming";
     [iconFactory setStrokeWidth:0.2];
     
     [self.navigationItem.leftBarButtonItem setImage:[iconFactory createImageForIcon:NIKFontAwesomeIconList]];
+    
+    NSDate *timerDate = [NSDate dateWithTimeIntervalSince1970:[tripManager.tripForDetailView.tripDuration floatValue]];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"HH:mm:ss"];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0.0]];
+    
+    NSString *timeString=[dateFormatter stringFromDate:timerDate];
+    self.durationLabel.text = timeString;
+    
+    float distance = [tripManager.tripForDetailView.totalDistance floatValue];
+    
+    if([[SettingsManager sharedManager] unitType] == GTAppSettingsUnitTypeMPH){
+        distance = distance * [[SettingsManager sharedManager] distanceMultiplier];
+    }else{
+        distance = distance / [[SettingsManager sharedManager] distanceMultiplier];
+    }
+    
+    //self.durationLabel.text = [NSString stringWithFormat:@"%.2f",[tripManager.tripForDetailView.tripDuration floatValue]];
+    self.distanceLabel.text = [NSString stringWithFormat:@"%.2f %@",distance,[[SettingsManager sharedManager] unitLabelDistance]];
+    self.pointsRecordedLabel.text = [NSString stringWithFormat:@"%i",[tripManager.tripForDetailView.points count]];
     
 }
 
@@ -223,6 +246,14 @@ NSString * const GTTripIsResuming = @"tripIsResuming";
 
 -(void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark UITextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    
+    return YES;
 }
 
 @end

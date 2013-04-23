@@ -203,7 +203,16 @@
         Trip *trip = [tripManager tripWithIndexPath:indexPath];
         
         [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
-        [cell.distanceLabel setText:[NSString stringWithFormat:@"%.1f %@",[trip.totalDistance floatValue],[[SettingsManager sharedManager] unitLabelDistance]]];
+        
+        float distance = [trip.totalDistance floatValue];
+        
+        if([[SettingsManager sharedManager] unitType] == GTAppSettingsUnitTypeMPH){
+            distance = distance * [[SettingsManager sharedManager] distanceMultiplier];
+        }else{
+            distance = distance / [[SettingsManager sharedManager] distanceMultiplier];
+        }
+        
+        [cell.distanceLabel setText:[NSString stringWithFormat:@"%.2f %@",distance,[[SettingsManager sharedManager] unitLabelDistance]]];
         
         NSDate *timerDate = [NSDate dateWithTimeIntervalSince1970:[trip.tripDuration floatValue]];
         

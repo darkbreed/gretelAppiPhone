@@ -29,6 +29,7 @@ extern NSString * const GTTripDeletedSuccess;
 extern NSString * const GTCurrentTripDeleted;
 extern NSString * const GTTripImportedSuccessfully;
 extern NSString * const GTTripSavedSuccessfully;
+extern NSString * const GTTripUpdatedDistance;
 
 @interface TripManager : NSObject
 

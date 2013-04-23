@@ -40,7 +40,7 @@ typedef enum {
 
 extern NSString * const GTTripIsResuming;
 
-@interface TripDetailViewController : BRBaseMapViewController <ShareManagerDelegate, UIAlertViewDelegate, UIActionSheetDelegate> {
+@interface TripDetailViewController : BRBaseMapViewController <ShareManagerDelegate, UIAlertViewDelegate, UIActionSheetDelegate, UITextFieldDelegate> {
     
     ///The trip points as an array to feed the map view
     NSArray *route;
@@ -57,6 +57,9 @@ extern NSString * const GTTripIsResuming;
 @property (nonatomic, strong) IBOutlet UIView *shareButton;
 @property (nonatomic, strong) IBOutlet UIView *editButton;
 @property (nonatomic, strong) IBOutlet UITextField *tripNameField;
+@property (nonatomic, strong) IBOutlet UILabel *distanceLabel;
+@property (nonatomic, strong) IBOutlet UILabel *durationLabel;
+@property (nonatomic, strong) IBOutlet UILabel *pointsRecordedLabel;
 @property (nonatomic, strong) IBOutlet GCDiscreetNotificationView *notificationView;
 
 /** @section Non UI Properties */

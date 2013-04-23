@@ -13,6 +13,7 @@ NSString * const GTTripDeletedSuccess = @"tripDeletedSucessfully";
 NSString * const GTCurrentTripDeleted = @"deltedCurrentTrip";
 NSString * const GTTripImportedSuccessfully = @"tripImportedSuccessfully";
 NSString * const GTTripSavedSuccessfully = @"tripSavedSuccessfully";
+NSString * const GTTripUpdatedDistance = @"updatedDistance";
 
 @implementation TripManager {
     int currentPointId;
@@ -22,8 +23,8 @@ NSString * const GTTripSavedSuccessfully = @"tripSavedSuccessfully";
     NSTimeInterval secondsElapsedForTrip;
     NSDate *startDate;
     NSTimer *stopWatchTimer;
-    
     NSTimer *recordingTimer;
+    NSTimer *distanceTimer;
     
     Trip *importedTrip;
     
@@ -164,6 +165,11 @@ NSString * const GTTripSavedSuccessfully = @"tripSavedSuccessfully";
     
 }
 
+-(void)updateDistance {
+    self.currentTrip.totalDistance = [NSNumber numberWithFloat:[self calculateDistanceForPoints:self.currentTrip]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:GTTripUpdatedDistance object:nil];
+}
+
 -(float)calculateDistanceForPoints:(Trip *)trip {
     
     CLLocationDistance totalDistance = 0.0f;
@@ -195,13 +201,13 @@ NSString * const GTTripSavedSuccessfully = @"tripSavedSuccessfully";
         
         CLLocationDistance distance = 0.0f;
             
-        if([[SettingsManager sharedManager] unitType] == GTAppSettingsUnitTypeMPH){
-            distance = totalDistance * [[SettingsManager sharedManager] distanceMultiplier];
-        }else{
-            distance = totalDistance / [[SettingsManager sharedManager] distanceMultiplier];
-        }
+//        if([[SettingsManager sharedManager] unitType] == GTAppSettingsUnitTypeMPH){
+//            distance = totalDistance * [[SettingsManager sharedManager] distanceMultiplier];
+//        }else{
+//            distance = totalDistance / [[SettingsManager sharedManager] distanceMultiplier];
+//        }
         
-        return distance;
+        return totalDistance; //distance in meters
         
     }else{
         return 0.0;
@@ -351,6 +357,12 @@ NSString * const GTTripSavedSuccessfully = @"tripSavedSuccessfully";
                                                     selector:@selector(saveTrip)
                                                     userInfo:nil
                                                      repeats:YES];
+    
+    distanceTimer = [NSTimer scheduledTimerWithTimeInterval:5.0
+                                                     target:self
+                                                   selector:@selector(updateDistance)
+                                                   userInfo:nil
+                                                    repeats:YES];
     
     [self.currentTrip setRecordingState:[self recordingStateForState:GTTripStateRecording]];
     [self setTripState:GTTripStateRecording];
