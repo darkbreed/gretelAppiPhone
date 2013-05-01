@@ -37,6 +37,8 @@ NSString * const GTViewControllerHelp = @"help";
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resumeHandler:) name:GTTripIsResuming object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(displayInboxHandler:) name:GTTripGotoInbox object:nil];
     
     self.shouldLoadInbox = NO;
     
@@ -258,21 +260,39 @@ NSString * const GTViewControllerHelp = @"help";
     [self.slidingViewController anchorTopViewTo:ECRight];
 }
 
--(void)importHandler:(NSNotificationCenter *)notification {
-    
-}
-
--(void)resumeHandler:(NSNotification *)notification {
+-(void)displayInboxHandler:(NSNotificationCenter *)notification {
     
     [self.slidingViewController anchorTopViewOffScreenTo:ECRight animations:nil onComplete:^{
         
         CGRect frame = self.slidingViewController.topViewController.view.frame;
         
-        self.slidingViewController.topViewController = [self.viewControllers objectForKey:GTViewControllerRecordTrip];
+        BaseNavigationControllerViewController *historyNav = (BaseNavigationControllerViewController *)[self.viewControllers objectForKey:GTViewControllerTripHistory];
+        
+        HistoryViewController *history = (HistoryViewController *)[historyNav topViewController];
+        history.isInInboxMode = YES;
+        
+        self.slidingViewController.topViewController = historyNav;
         self.slidingViewController.topViewController.view.frame = frame;
         [self.slidingViewController resetTopView];
         
     }];
+}
+
+-(void)resumeHandler:(NSNotification *)notification {
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        [self.slidingViewController anchorTopViewOffScreenTo:ECRight animations:nil onComplete:^{
+            
+            CGRect frame = self.slidingViewController.topViewController.view.frame;
+            
+            self.slidingViewController.topViewController = [self.viewControllers objectForKey:GTViewControllerRecordTrip];
+            self.slidingViewController.topViewController.view.frame = frame;
+            [self.slidingViewController resetTopView];
+            
+        }];
+        
+    });
     
 }
 

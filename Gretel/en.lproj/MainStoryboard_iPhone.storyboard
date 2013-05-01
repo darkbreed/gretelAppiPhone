@@ -1172,15 +1172,9 @@ Finally a shout out must go to Friska, this application has been powered by thei
         <class className="TripDetailViewController" superclassName="BRBaseMapViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TripDetailViewController.h"/>
             <relationships>
-                <relationship kind="action" name="actionButtonHandler:"/>
                 <relationship kind="action" name="cancelButtonHandler:" candidateClass="UIButton"/>
-                <relationship kind="action" name="deleteButtonHandler:"/>
                 <relationship kind="action" name="editButtonHandler:"/>
-                <relationship kind="action" name="resumeButtonHandler:"/>
-                <relationship kind="action" name="saveTripButtonHandler:"/>
                 <relationship kind="action" name="shareButtonHandler:"/>
-                <relationship kind="action" name="shareByBluetoothButtonHandler:"/>
-                <relationship kind="action" name="shareByEmailButtonHandler:"/>
                 <relationship kind="outlet" name="deleteButton" candidateClass="UIView"/>
                 <relationship kind="outlet" name="distanceLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="durationLabel" candidateClass="UILabel"/>

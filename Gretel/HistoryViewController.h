@@ -27,5 +27,6 @@
 /** @section Non UI Properties */
 @property (nonatomic, readwrite) BOOL noResultsToDisplay;
 @property (nonatomic, readwrite) BOOL isInInboxMode;
+@property (nonatomic, readwrite) BOOL isImportingTrip;
 
 @end

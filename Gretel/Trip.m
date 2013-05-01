@@ -27,5 +27,7 @@
 @dynamic tripDuration;
 @dynamic totalDistance;
 @dynamic receivedFromRemote;
+@dynamic importedPoints;
+@dynamic read;
 
 @end

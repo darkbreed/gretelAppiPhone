@@ -14,6 +14,7 @@ NSString * const GTCurrentTripDeleted = @"deltedCurrentTrip";
 NSString * const GTTripImportedSuccessfully = @"tripImportedSuccessfully";
 NSString * const GTTripSavedSuccessfully = @"tripSavedSuccessfully";
 NSString * const GTTripUpdatedDistance = @"updatedDistance";
+NSString * const GTTripGotoInbox = @"gotoInbox";
 
 @implementation TripManager {
     int currentPointId;
@@ -25,6 +26,7 @@ NSString * const GTTripUpdatedDistance = @"updatedDistance";
     NSTimer *stopWatchTimer;
     NSTimer *recordingTimer;
     NSTimer *distanceTimer;
+    dispatch_queue_t importQueue;
     
     Trip *importedTrip;
     
@@ -53,6 +55,8 @@ NSString * const GTTripUpdatedDistance = @"updatedDistance";
     
     if(self != nil){
         
+        importQueue = dispatch_queue_create("me.benreed.import", 0);
+        
         currentPointId = 0;
         self.isResuming = NO;
         
@@ -69,6 +73,10 @@ NSString * const GTTripUpdatedDistance = @"updatedDistance";
                                                               sectionNameKeyPath:nil
                                                                        cacheName:nil];
         
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(importTripHandler:) name:TRIP_IMPORT_NOTIFICATION object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addPointsToImportedTrip:) name:GTTripImportedSuccessfully object:nil];
+        
     }
     
     return self;
@@ -76,21 +84,48 @@ NSString * const GTTripUpdatedDistance = @"updatedDistance";
 
 -(void)importTripReadError {
    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Gretel cannot read this type of file." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [self showErrorOverlay];
+
+}
+
+-(void)importTripHandler:(NSNotification *)notification {
+  
+    [self showImportStatusOverlay];
     
-    [alert show];
+    dispatch_async(importQueue, ^{
+        NSURL *fileUrl = [[notification userInfo] valueForKey:@"fileToImport"];
+        [self importTripFromGPXFile:fileUrl];
+    });
+    
 }
 
 -(void)importTripFromGPXFile:(NSURL *)url {
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        GPXRoot *root = [GPXParser parseGPXAtURL:url];
+
+    dispatch_async(importQueue, ^{
         
         importedTrip = [NSEntityDescription insertNewObjectForEntityForName:@"Trip" inManagedObjectContext:self.managedObjectContext];
         [importedTrip setGpxFilePath:[url absoluteString]];
         [importedTrip setTripName:@"Imported Trip"];
         [importedTrip setReceivedFromRemote:[NSNumber numberWithBool:YES]];
+        [importedTrip setImportedPoints:[NSNumber numberWithBool:NO]];
+        [importedTrip setRead:[NSNumber numberWithBool:NO]];
+        [importedTrip setIsImporting:[NSNumber numberWithBool:YES]];
+        
+        [self saveTrip];
+        
+        //Let the observers know
+        [[NSNotificationCenter defaultCenter] postNotificationName:GTTripImportedSuccessfully object:nil userInfo:[NSDictionary dictionaryWithObject:importedTrip forKey:@"importedTrip"]];
+    });
+}
+
+-(void)addPointsToImportedTrip:(NSNotification *)notification {
+    
+    dispatch_async(importQueue, ^{
+        Trip *trip = [[notification userInfo] objectForKey:@"importedTrip"];
+        
+        NSURL *url = [NSURL URLWithString:trip.gpxFilePath];
+        
+        GPXRoot *root = [GPXParser parseGPXAtURL:url];
         
         if([[root tracks] count] > 0){
             
@@ -103,7 +138,6 @@ NSString * const GTTripUpdatedDistance = @"updatedDistance";
         }else{
             [self importTripReadError];
         }
-        
     });
 }
 
@@ -111,13 +145,27 @@ NSString * const GTTripUpdatedDistance = @"updatedDistance";
     
     if([[track tracksegments] count] > 0){
         for (GPXTrackSegment *segment in [track tracksegments]) {
-            
             [self parseSegmentTrackPoints:segment];
-            
         }
+        
+        [self performSelectorOnMainThread:@selector(dismissStatusOverlay) withObject:nil waitUntilDone:YES];
+    
     }else{
+        
         [self importTripReadError];
     }
+}
+
+-(void)dismissStatusOverlay {
+    [BWStatusBarOverlay dismissAnimated:YES];
+}
+
+-(void)showImportStatusOverlay {
+    [BWStatusBarOverlay showLoadingWithMessage:@"Importing Data" animated:NO];
+}
+
+-(void)showErrorOverlay {
+    [BWStatusBarOverlay setMessage:@"Error reading file" animated:YES];
 }
 
 -(void)parseSegmentTrackPoints:(GPXTrackSegment *)segment {
@@ -144,15 +192,12 @@ NSString * const GTTripUpdatedDistance = @"updatedDistance";
         [importedTrip setTotalDistance:[NSNumber numberWithFloat:[self calculateDistanceForPoints:importedTrip]]];
         [importedTrip setRecordingState:[self recordingStateForState:GTTripStatePaused]];
         [importedTrip setReceivedFromRemote:[NSNumber numberWithBool:YES]];
+        [importedTrip setIsImporting:[NSNumber numberWithBool:NO]];
         
         //Save the trip
         [self saveTrip];
         
-        //Perform fetch to update the inbox
-        //[self fetchAllTrips];
-        
-        //Let the observers know
-        [[NSNotificationCenter defaultCenter] postNotificationName:GTTripImportedSuccessfully object:nil];
+        [self fetchInbox];
         
     }else{
         [self importTripReadError];
@@ -199,8 +244,8 @@ NSString * const GTTripUpdatedDistance = @"updatedDistance";
             }
         }
         
-        CLLocationDistance distance = 0.0f;
-            
+//        CLLocationDistance distance = 0.0f;
+//
 //        if([[SettingsManager sharedManager] unitType] == GTAppSettingsUnitTypeMPH){
 //            distance = totalDistance * [[SettingsManager sharedManager] distanceMultiplier];
 //        }else{
@@ -249,7 +294,7 @@ NSString * const GTTripUpdatedDistance = @"updatedDistance";
     }
     
     //Notify observers
-    [[NSNotificationCenter defaultCenter] postNotificationName:GTTripDeletedSuccess object:nil];
+    //[[NSNotificationCenter defaultCenter] postNotificationName:GTTripDeletedSuccess object:nil];
     
     //Commit the changes to core data
     [self saveTrip];
@@ -682,7 +727,6 @@ NSString * const GTTripUpdatedDistance = @"updatedDistance";
 }
 
 #pragma mark - Application's Documents directory
-
 // Returns the URL to the application's Documents directory.
 - (NSURL *)applicationDocumentsDirectory
 {

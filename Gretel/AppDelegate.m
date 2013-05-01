@@ -9,23 +9,19 @@
 #import "AppDelegate.h"
 #import "HistoryViewController.h"
 #import "SettingsMenuViewController.h"
+#import "BWStatusBarOverlay.h"
 #import <Dropbox/Dropbox.h>
 #import <Instabug/Instabug.h>
 
-@implementation AppDelegate
+@implementation AppDelegate {
+    dispatch_queue_t overlayQueue;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
     // Override point for customization after application launch.
-    
 #ifdef TESTING
-    
-    NSString *uuid = [NSString stringWithFormat:@"%@",[[UIDevice currentDevice] identifierForVendor]];
-    [TestFlight setDeviceIdentifier:uuid];
-    [TestFlight takeOff:@"0677e702-7b7f-4508-a59f-9af8109b5718"];
-    
-    [Instabug KickOffWithToken:@"584de8774752975b5f94a0a4c1752d49" CaptureSource:InstabugCaptureSourceUIKit FeedbackEvent:InstabugFeedbackEventShake IsTrackingLocation:YES];
     
 #endif
     
@@ -42,14 +38,15 @@
     [[UINavigationBar appearance] setTitleTextAttributes:appearance];
     [[UINavigationBar appearance] setTintColor:[UIColor lightGrayColor]];
     
+    self.statusBarOverlay = [BWStatusBarOverlay shared];
+    
     return YES;
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:TRIP_IMPORT_NOTIFICATION object:nil];
-
-    [[TripManager sharedManager] importTripFromGPXFile:url];
+    [[NSNotificationCenter defaultCenter] postNotificationName:TRIP_IMPORT_NOTIFICATION object:nil userInfo:[NSDictionary dictionaryWithObject:url forKey:@"fileToImport"]];
+    
     return YES;
 
 }
@@ -84,6 +81,5 @@
     [[TripManager sharedManager] saveTripAndStop];
     
 }
-
 
 @end

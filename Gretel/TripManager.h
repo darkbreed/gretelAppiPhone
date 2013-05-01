@@ -14,6 +14,7 @@
 #import "SettingsManager.h"
 #import <GPX/GPX.h>
 #import "GPXDocument.h"
+#import "BWStatusBarOverlay.h"
 
 /**
  * Defines the states that a trip can exist in to help determine how the view should behave.
@@ -24,14 +25,20 @@ typedef enum {
     GTTripStatePaused
 } GTTripState;
 
+typedef enum {
+    TripManagerAlertViewButtonTypeDismiss,
+    TripManagerAlertViewButtonTypeGotoInbox
+}TripManagerAlertViewButtonType;
+
 extern NSString * const GTTripTimerDidUpdate;
 extern NSString * const GTTripDeletedSuccess;
 extern NSString * const GTCurrentTripDeleted;
 extern NSString * const GTTripImportedSuccessfully;
 extern NSString * const GTTripSavedSuccessfully;
 extern NSString * const GTTripUpdatedDistance;
+extern NSString * const GTTripGotoInbox;
 
-@interface TripManager : NSObject
+@interface TripManager : NSObject <UIAlertViewDelegate>
 
 @property (nonatomic, readwrite) GTTripState tripState;
 @property (nonatomic, strong) Trip *currentTrip;

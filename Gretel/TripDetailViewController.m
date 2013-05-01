@@ -32,17 +32,12 @@ NSString * const GTTripIsResuming = @"tripIsResuming";
 {
     [super viewDidLoad];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripDeletionHandler:) name:GTTripDeletedSuccess object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripImportBeganHandler:) name:TRIP_IMPORT_NOTIFICATION object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripImportSuccessHandler:) name:GTTripImportedSuccessfully object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripDeletionHandler:) name:GTTripDeletedSuccess object:nil];    
     
     self.title = [[tripManager currentTrip] tripName];
-    
     tripManager = [TripManager sharedManager];
     
     self.tripNameField.delegate = self;
-    
     self.notificationView = [[GCDiscreetNotificationView alloc] initWithText:@""
                                                                 showActivity:NO
                                                           inPresentationMode:GCDiscreetNotificationViewPresentationModeTop
@@ -87,6 +82,7 @@ NSString * const GTTripIsResuming = @"tripIsResuming";
     [self.notificationView setTextLabel:@"Drawing route"];
     [self.notificationView setShowActivity:YES animated:YES];
     [self.notificationView show:YES];
+    [self.trip setRead:[NSNumber numberWithBool:YES]];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         

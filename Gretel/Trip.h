@@ -29,6 +29,9 @@
 @property (nonatomic, retain) NSNumber * receivedFromRemote;
 @property (nonatomic, retain) NSNumber * tripDuration;
 @property (nonatomic, retain) NSNumber * totalDistance;
+@property (nonatomic, retain) NSNumber * importedPoints;
+@property (nonatomic, retain) NSNumber * read;
+@property (nonatomic, retain) NSNumber * isImporting;
 @end
 
 @interface Trip (CoreDataGeneratedAccessors)

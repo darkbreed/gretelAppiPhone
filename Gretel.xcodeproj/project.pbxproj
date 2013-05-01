@@ -52,6 +52,17 @@
 		B524F61C16DF8E98000DD5C0 /* completeLabel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B524F61816DF8E98000DD5C0 /* completeLabel@2x.png */; };
 		B524F61D16DF8E98000DD5C0 /* recodingLabel.png in Resources */ = {isa = PBXBuildFile; fileRef = B524F61916DF8E98000DD5C0 /* recodingLabel.png */; };
 		B524F61E16DF8E98000DD5C0 /* recodingLabel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B524F61A16DF8E98000DD5C0 /* recodingLabel@2x.png */; };
+		B5291260172A611F00806B90 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = B5291256172A611F00806B90 /* .gitignore */; };
+		B5291261172A611F00806B90 /* BWStatusBarOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = B5291259172A611F00806B90 /* BWStatusBarOverlay.m */; };
+		B5291262172A611F00806B90 /* status-bar-pattern-black.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B529125A172A611F00806B90 /* status-bar-pattern-black.jpg */; };
+		B5291263172A611F00806B90 /* status-bar-pattern-black@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B529125B172A611F00806B90 /* status-bar-pattern-black@2x.jpg */; };
+		B5291264172A611F00806B90 /* status-bar-pattern-default.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B529125C172A611F00806B90 /* status-bar-pattern-default.jpg */; };
+		B5291265172A611F00806B90 /* status-bar-pattern-default@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B529125D172A611F00806B90 /* status-bar-pattern-default@2x.jpg */; };
+		B5291266172A611F00806B90 /* status-bar-progress.png in Resources */ = {isa = PBXBuildFile; fileRef = B529125E172A611F00806B90 /* status-bar-progress.png */; };
+		B5291267172A611F00806B90 /* status-bar-progress@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B529125F172A611F00806B90 /* status-bar-progress@2x.png */; };
+		B529126F172A666100806B90 /* WTStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = B529126A172A666100806B90 /* WTStatusBar.m */; };
+		B5291270172A666100806B90 /* WTStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = B529126C172A666100806B90 /* WTStatusView.m */; };
+		B5291271172A666100806B90 /* WTStatusWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = B529126E172A666100806B90 /* WTStatusWindow.m */; };
 		B53596841725BE480033FDAD /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B53596831725BE480033FDAD /* HelpViewController.m */; };
 		B53596871725C81A0033FDAD /* HelpView.m in Sources */ = {isa = PBXBuildFile; fileRef = B53596861725C81A0033FDAD /* HelpView.m */; };
 		B53905C51717F08800B02190 /* Instabug.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B53905C41717F08800B02190 /* Instabug.framework */; };
@@ -212,6 +223,21 @@
 		B524F61816DF8E98000DD5C0 /* completeLabel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "completeLabel@2x.png"; sourceTree = "<group>"; };
 		B524F61916DF8E98000DD5C0 /* recodingLabel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recodingLabel.png; sourceTree = "<group>"; };
 		B524F61A16DF8E98000DD5C0 /* recodingLabel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "recodingLabel@2x.png"; sourceTree = "<group>"; };
+		B5291256172A611F00806B90 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		B5291258172A611F00806B90 /* BWStatusBarOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWStatusBarOverlay.h; sourceTree = "<group>"; };
+		B5291259172A611F00806B90 /* BWStatusBarOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWStatusBarOverlay.m; sourceTree = "<group>"; };
+		B529125A172A611F00806B90 /* status-bar-pattern-black.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "status-bar-pattern-black.jpg"; sourceTree = "<group>"; };
+		B529125B172A611F00806B90 /* status-bar-pattern-black@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "status-bar-pattern-black@2x.jpg"; sourceTree = "<group>"; };
+		B529125C172A611F00806B90 /* status-bar-pattern-default.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "status-bar-pattern-default.jpg"; sourceTree = "<group>"; };
+		B529125D172A611F00806B90 /* status-bar-pattern-default@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "status-bar-pattern-default@2x.jpg"; sourceTree = "<group>"; };
+		B529125E172A611F00806B90 /* status-bar-progress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status-bar-progress.png"; sourceTree = "<group>"; };
+		B529125F172A611F00806B90 /* status-bar-progress@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status-bar-progress@2x.png"; sourceTree = "<group>"; };
+		B5291269172A666100806B90 /* WTStatusBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTStatusBar.h; sourceTree = "<group>"; };
+		B529126A172A666100806B90 /* WTStatusBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTStatusBar.m; sourceTree = "<group>"; };
+		B529126B172A666100806B90 /* WTStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTStatusView.h; sourceTree = "<group>"; };
+		B529126C172A666100806B90 /* WTStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTStatusView.m; sourceTree = "<group>"; };
+		B529126D172A666100806B90 /* WTStatusWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTStatusWindow.h; sourceTree = "<group>"; };
+		B529126E172A666100806B90 /* WTStatusWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTStatusWindow.m; sourceTree = "<group>"; };
 		B53596821725BE480033FDAD /* HelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
 		B53596831725BE480033FDAD /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
 		B53596851725C81A0033FDAD /* HelpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpView.h; sourceTree = "<group>"; };
@@ -380,12 +406,7 @@
 		3A43D61A16761D1F007E9A84 = {
 			isa = PBXGroup;
 			children = (
-				B53905D21717F12000B02190 /* CoreTelephony.framework */,
-				B53905D01717F11100B02190 /* AudioToolbox.framework */,
-				B53905CE1717F10B00B02190 /* AVFoundation.framework */,
-				B53905CC1717F0F800B02190 /* GLKit.framework */,
-				B53905CA1717F0F000B02190 /* OpenGLES.framework */,
-				B53905C81717F0E200B02190 /* CoreFoundation.framework */,
+				B5291254172A611F00806B90 /* Lib */,
 				B568976D16DE0D2100A07DFC /* Icon@2x.png */,
 				B568976B16DE0D1B00A07DFC /* Icon.png */,
 				3A43D62F16761D1F007E9A84 /* Gretel */,
@@ -406,6 +427,12 @@
 		3A43D62816761D1F007E9A84 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B53905D21717F12000B02190 /* CoreTelephony.framework */,
+				B53905D01717F11100B02190 /* AudioToolbox.framework */,
+				B53905CE1717F10B00B02190 /* AVFoundation.framework */,
+				B53905CC1717F0F800B02190 /* GLKit.framework */,
+				B53905CA1717F0F000B02190 /* OpenGLES.framework */,
+				B53905C81717F0E200B02190 /* CoreFoundation.framework */,
 				B53905C41717F08800B02190 /* Instabug.framework */,
 				B59526971715494100A6C550 /* CFNetwork.framework */,
 				B59526981715494100A6C550 /* QuartzCore.framework */,
@@ -609,6 +636,52 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
+		B5291254172A611F00806B90 /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				B5291268172A666100806B90 /* WTStatusBar */,
+				B5291255172A611F00806B90 /* BWStatusBarOverlay-master */,
+			);
+			path = Lib;
+			sourceTree = "<group>";
+		};
+		B5291255172A611F00806B90 /* BWStatusBarOverlay-master */ = {
+			isa = PBXGroup;
+			children = (
+				B5291256172A611F00806B90 /* .gitignore */,
+				B5291257172A611F00806B90 /* BWStatusBarOverlay */,
+			);
+			path = "BWStatusBarOverlay-master";
+			sourceTree = "<group>";
+		};
+		B5291257172A611F00806B90 /* BWStatusBarOverlay */ = {
+			isa = PBXGroup;
+			children = (
+				B5291258172A611F00806B90 /* BWStatusBarOverlay.h */,
+				B5291259172A611F00806B90 /* BWStatusBarOverlay.m */,
+				B529125A172A611F00806B90 /* status-bar-pattern-black.jpg */,
+				B529125B172A611F00806B90 /* status-bar-pattern-black@2x.jpg */,
+				B529125C172A611F00806B90 /* status-bar-pattern-default.jpg */,
+				B529125D172A611F00806B90 /* status-bar-pattern-default@2x.jpg */,
+				B529125E172A611F00806B90 /* status-bar-progress.png */,
+				B529125F172A611F00806B90 /* status-bar-progress@2x.png */,
+			);
+			path = BWStatusBarOverlay;
+			sourceTree = "<group>";
+		};
+		B5291268172A666100806B90 /* WTStatusBar */ = {
+			isa = PBXGroup;
+			children = (
+				B5291269172A666100806B90 /* WTStatusBar.h */,
+				B529126A172A666100806B90 /* WTStatusBar.m */,
+				B529126B172A666100806B90 /* WTStatusView.h */,
+				B529126C172A666100806B90 /* WTStatusView.m */,
+				B529126D172A666100806B90 /* WTStatusWindow.h */,
+				B529126E172A666100806B90 /* WTStatusWindow.m */,
+			);
+			path = WTStatusBar;
+			sourceTree = "<group>";
+		};
 		B53596811725B2F40033FDAD /* Table Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -801,6 +874,13 @@
 				B580CC93171BE32200D5ADB9 /* settings.png in Resources */,
 				B580CC95171BE3CF00D5ADB9 /* settings@2x.png in Resources */,
 				B5F095C31723DC9C00BC88D6 /* Bariol_Regular.otf in Resources */,
+				B5291260172A611F00806B90 /* .gitignore in Resources */,
+				B5291262172A611F00806B90 /* status-bar-pattern-black.jpg in Resources */,
+				B5291263172A611F00806B90 /* status-bar-pattern-black@2x.jpg in Resources */,
+				B5291264172A611F00806B90 /* status-bar-pattern-default.jpg in Resources */,
+				B5291265172A611F00806B90 /* status-bar-pattern-default@2x.jpg in Resources */,
+				B5291266172A611F00806B90 /* status-bar-progress.png in Resources */,
+				B5291267172A611F00806B90 /* status-bar-progress@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -854,6 +934,10 @@
 				B59B2EE417201D510060C975 /* BaseNavigationControllerViewController.m in Sources */,
 				B53596841725BE480033FDAD /* HelpViewController.m in Sources */,
 				B53596871725C81A0033FDAD /* HelpView.m in Sources */,
+				B5291261172A611F00806B90 /* BWStatusBarOverlay.m in Sources */,
+				B529126F172A666100806B90 /* WTStatusBar.m in Sources */,
+				B5291270172A666100806B90 /* WTStatusView.m in Sources */,
+				B5291271172A666100806B90 /* WTStatusWindow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

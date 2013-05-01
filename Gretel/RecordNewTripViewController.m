@@ -32,11 +32,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pauseRecording) name:GTLocationDidPauseUpdates object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSettingsChange) name:SMSettingsUpdated object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTripTimerDisplay) name:GTTripTimerDidUpdate object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripImportSuccessHandler:) name:GTTripImportedSuccessfully object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripSaveSuccessHandler:) name:GTTripSavedSuccessfully object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDistanceHandler:) name:GTTripUpdatedDistance object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripImportBeganHandler:) name:TRIP_IMPORT_NOTIFICATION object:nil];
     
     if(!tripManager.currentTrip){
         
@@ -394,10 +391,12 @@
 }
 
 -(void)tripImportBeganHandler:(NSNotification *)notification {
+    
     [self.notificationView setHidden:NO];
     [self.notificationView setTextLabel:@"Importing trip to inbox..."];
     [self.notificationView setShowActivity:YES animated:YES];
     [self.notificationView show:YES];
+    
 }
 
 #pragma memory handling

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import <QuartzCore/QuartzCore.h>
 #import "Trip.h"
 #import "GPSPoint.h"
 

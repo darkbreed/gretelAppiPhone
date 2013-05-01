@@ -35,8 +35,6 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripDeleteSuccess:) name:GTTripDeletedSuccess object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deletedCurrentTrip:) name:GTCurrentTripDeleted object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripImportSuccessHandler:) name:GTTripImportedSuccessfully object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripImportBeganHandler:) name:TRIP_IMPORT_NOTIFICATION object:nil];
     
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [self.tableView setAllowsMultipleSelectionDuringEditing:YES];
@@ -53,7 +51,7 @@
     self.notificationView = [[GCDiscreetNotificationView alloc] initWithText:@""
                                                                 showActivity:NO
                                                           inPresentationMode:GCDiscreetNotificationViewPresentationModeTop
-                                                                      inView:self.view];
+                                                                      inView:self.navigationController.navigationBar];
     [self.notificationView setHidden:YES];
     
     self.tableView.allowsMultipleSelectionDuringEditing = NO;
@@ -90,7 +88,7 @@
     }
     
     [self.tableView reloadData];
-    
+
     self.tableView.contentOffset = CGPointMake(0.0, 44.0);
     
 }
@@ -102,12 +100,6 @@
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [self.notificationView setHidden:YES];
     });
-}
-
-
-
-- (void)viewDidAppear:(BOOL)animated {
-
 }
 
 -(void)setEditing:(BOOL)editing animated:(BOOL)animated {
@@ -199,7 +191,7 @@
         TripHistoryTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
 
         cell.textLabel.text = nil;
-        
+
         Trip *trip = [tripManager tripWithIndexPath:indexPath];
         
         [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
@@ -228,14 +220,12 @@
             
             [cell.distanceLabel setFrame:CGRectMake(170, cell.distanceLabel.frame.origin.y, cell.distanceLabel.frame.size.width, cell.distanceLabel.frame.size.height)];
             [cell.tripDurationLabel setFrame:CGRectMake(155, cell.tripDurationLabel.frame.origin.y, cell.tripDurationLabel.frame.size.width, cell.tripDurationLabel.frame.size.height)];
-            
-            [cell.recordingBanner setHidden:NO];
-
+        
         }else{
             
             [cell.distanceLabel setFrame:CGRectMake(195, cell.distanceLabel.frame.origin.y, cell.distanceLabel.frame.size.width, cell.distanceLabel.frame.size.height)];
             [cell.tripDurationLabel setFrame:CGRectMake(180, cell.tripDurationLabel.frame.origin.y, cell.tripDurationLabel.frame.size.width, cell.tripDurationLabel.frame.size.height)];
-            [cell.recordingBanner setHidden:YES];
+            
         }
         
         return cell;
@@ -316,6 +306,7 @@
             [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationBottom];
             break;
         case NSFetchedResultsChangeInsert:
+           [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             
             break;
             
@@ -337,19 +328,20 @@
     Trip *trip = [tripManager.allTrips objectAtIndexPath:self.tableView.indexPathForSelectedRow];
     
     BOOL tripIsRecording = NO;
+   
     
     if([trip.recordingState isEqualToString:[tripManager recordingStateForState:GTTripStateRecording]]){
         tripIsRecording = YES;
     }
-    
+        
     if(self.tableView.editing || self.noResultsToDisplay || tripIsRecording){
         
         if(tripIsRecording && !self.tableView.editing){
             [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
         }
         
-        if(tripIsRecording){
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sorry" message:@"You cannot view this trip as it is currently in progress." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        if(tripIsRecording || [trip.isImporting boolValue]){
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sorry" message:@"You cannot view this trip as it is currently in use." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alertView show];
         }
     
@@ -426,22 +418,8 @@
     [self setEditing:NO animated:YES];
     
     [self.notificationView hideAnimatedAfter:2.0];
+    [self hideNotificationView];
     
-}
-
-#pragma mark Import handlers
--(void)tripImportSuccessHandler:(NSNotification *)notification {
-    [self.notificationView setShowActivity:NO animated:NO];
-    [self.notificationView setTextLabel:@"New trip added to inbox"];
-    [self.notificationView hideAnimatedAfter:2.0];
-    
-}
-
--(void)tripImportBeganHandler:(NSNotification *)notification {
-    [self.notificationView setHidden:NO];
-    [self.notificationView setTextLabel:@"Importing trip to inbox..."];
-    [self.notificationView setShowActivity:YES animated:YES];
-    [self.notificationView show:YES];
 }
 
 -(void)deleteMultipleTrips {

@@ -12,7 +12,10 @@
         <attribute name="displayDate" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="finishDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="gpxFilePath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="importedPoints" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isImporting" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="pauseDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="read" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="receivedFromRemote" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="recordingState" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
@@ -23,6 +26,6 @@
     </entity>
     <elements>
         <element name="GPSPoint" positionX="160" positionY="192" width="128" height="135"/>
-        <element name="Trip" positionX="-180" positionY="171" width="128" height="210"/>
+        <element name="Trip" positionX="-180" positionY="171" width="128" height="255"/>
     </elements>
 </model>
