@@ -26,6 +26,12 @@
 -(void)viewDidAppear:(BOOL)animated {
     
     [super viewDidAppear:animated];
+    
+    self.mapView.delegate = self;
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    self.mapView.delegate = nil;
 }
 
 - (void)viewDidLayoutSubviews {
@@ -241,7 +247,9 @@
                                                   animations:^{
                                                       [self.mapViewWrapper setFrame:mapOffFrame];
                                                   }
-                                                  completion:nil];
+                                                  completion:^(BOOL finished) {
+                                                      
+                                                  }];
                              }
                          }];
         

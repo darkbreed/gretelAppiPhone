@@ -29,5 +29,6 @@
 @dynamic receivedFromRemote;
 @dynamic importedPoints;
 @dynamic read;
+@dynamic isImporting;
 
 @end

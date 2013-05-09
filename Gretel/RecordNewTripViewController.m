@@ -282,10 +282,14 @@
 
 -(IBAction)addButtonHandler:(id)sender {
     [self hideMapViewAndOptions:YES];
+    self.navigationItem.rightBarButtonItem = nil;
 }
 
 -(IBAction)displayMap:(id)sender {
     [self hideMapViewAndOptions:NO];
+    if(!self.navigationItem.rightBarButtonItem){
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actionButtonHandler:)];
+    }
 }
 
 -(IBAction)menuButtonHandler:(id)sender {
@@ -368,8 +372,17 @@
 }
 
 -(void)updateDistanceHandler:(NSNotification *)notification {
+    
     float distance = [tripManager.currentTrip.totalDistance floatValue];
-    [self.distanceLabel setText:[NSString stringWithFormat:@"%.2f %@",distance,settingsManager.unitLabelDistance]];
+   
+    if([[SettingsManager sharedManager] unitType] == GTAppSettingsUnitTypeMPH){
+        distance = distance * [[SettingsManager sharedManager] distanceMultiplier];
+    }else{
+        distance = distance / [[SettingsManager sharedManager] distanceMultiplier];
+    }
+    
+     [self.distanceLabel setText:[NSString stringWithFormat:@"%.2f %@",distance,settingsManager.unitLabelDistance]];
+    
 }
 
 -(void)handleSettingsChange {

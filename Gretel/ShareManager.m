@@ -143,10 +143,10 @@ NSString * const SMMailSaved = @"mailSaved";
 
 -(void)bluetoothManager:(BRBluetoothManager *)manager didSendDataOfLength:(int)length fromTotal:(int)totalLength withRemaining:(int)remaining {
    
-    float fRemaining = remaining;
-    float fTotalLength = totalLength;
-    
-    float percent = fRemaining/fTotalLength;
+//    float fRemaining = remaining;
+//    float fTotalLength = totalLength;
+//    
+//    float percent = fRemaining/fTotalLength;
     
 }
 

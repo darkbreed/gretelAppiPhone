@@ -424,17 +424,21 @@
 
 -(void)deleteMultipleTrips {
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.notificationView setHidden:NO];
-        [self.notificationView setShowActivity:YES animated:YES];
-        [self.notificationView showAnimated];
-        [self.notificationView setTextLabel:@"Deleting trips..."];
-    });
+
+    [self.notificationView setHidden:NO];
+    [self.notificationView setShowActivity:YES animated:YES];
+    [self.notificationView showAnimated];
+    [self.notificationView setTextLabel:@"Deleting trips..."];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
+    double delayInSeconds = 0.5;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [tripManager deleteTrips:[self.tableView indexPathsForSelectedRows]];
+        [self.notificationView hideAnimated];
+        [self hideNotificationView];
+        [self setEditing:NO animated:YES];
     });
-    
+   
 }
 
 -(void)deletedCurrentTrip:(NSNotification *)notification {

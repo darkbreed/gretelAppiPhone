@@ -73,6 +73,8 @@
 		B53905CF1717F10B00B02190 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B53905CE1717F10B00B02190 /* AVFoundation.framework */; };
 		B53905D11717F11100B02190 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B53905D01717F11100B02190 /* AudioToolbox.framework */; };
 		B53905D31717F12000B02190 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B53905D21717F12000B02190 /* CoreTelephony.framework */; };
+		B53B2A21173B7D0300111790 /* TripIO.m in Sources */ = {isa = PBXBuildFile; fileRef = B53B2A20173B7D0300111790 /* TripIO.m */; };
+		B53B2A27173B80EC00111790 /* TripUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B53B2A26173B80EC00111790 /* TripUtilities.m */; };
 		B54BC33B16E9D2710045659E /* GPX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B54BC33A16E9D2710045659E /* GPX.framework */; };
 		B54BC33E16E9DC910045659E /* GPXDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = B54BC33D16E9DC910045659E /* GPXDocument.m */; };
 		B54BC34416EA23830045659E /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = B54BC34316EA23830045659E /* Trip.m */; };
@@ -250,6 +252,10 @@
 		B53905CE1717F10B00B02190 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		B53905D01717F11100B02190 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		B53905D21717F12000B02190 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		B53B2A1F173B7D0300111790 /* TripIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripIO.h; sourceTree = "<group>"; };
+		B53B2A20173B7D0300111790 /* TripIO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripIO.m; sourceTree = "<group>"; };
+		B53B2A25173B80EC00111790 /* TripUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripUtilities.h; sourceTree = "<group>"; };
+		B53B2A26173B80EC00111790 /* TripUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripUtilities.m; sourceTree = "<group>"; };
 		B54BC33A16E9D2710045659E /* GPX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GPX.framework; sourceTree = "<group>"; };
 		B54BC33C16E9DC910045659E /* GPXDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPXDocument.h; sourceTree = "<group>"; };
 		B54BC33D16E9DC910045659E /* GPXDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPXDocument.m; sourceTree = "<group>"; };
@@ -504,6 +510,10 @@
 				B568976916DDFC2300A07DFC /* SettingsManager.m */,
 				3AE64CA416E4B08000C830AF /* TripManager.h */,
 				3AE64CA516E4B08000C830AF /* TripManager.m */,
+				B53B2A1F173B7D0300111790 /* TripIO.h */,
+				B53B2A20173B7D0300111790 /* TripIO.m */,
+				B53B2A25173B80EC00111790 /* TripUtilities.h */,
+				B53B2A26173B80EC00111790 /* TripUtilities.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -938,6 +948,8 @@
 				B529126F172A666100806B90 /* WTStatusBar.m in Sources */,
 				B5291270172A666100806B90 /* WTStatusView.m in Sources */,
 				B5291271172A666100806B90 /* WTStatusWindow.m in Sources */,
+				B53B2A21173B7D0300111790 /* TripIO.m in Sources */,
+				B53B2A27173B80EC00111790 /* TripUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1047,7 +1059,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "67D28525-3BC6-4413-89E6-8FDBD48A8307";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "67D28525-3BC6-4413-89E6-8FDBD48A8307";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1068,9 +1080,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0AA8B14A-72DB-4912-B4B6-054946B8B86B";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0AA8B14A-72DB-4912-B4B6-054946B8B86B";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				PROVISIONING_PROFILE = "E2662933-0ABC-4423-9CD3-8A41754C30E8";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E2662933-0ABC-4423-9CD3-8A41754C30E8";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

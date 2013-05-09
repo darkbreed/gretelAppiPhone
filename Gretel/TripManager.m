@@ -7,6 +7,8 @@
 //
 
 #import "TripManager.h"
+#import "TripUtilities.h"
+#import "TripIO.h"
 
 NSString * const GTTripTimerDidUpdate = @"tripTimerDidUpdate";
 NSString * const GTTripDeletedSuccess = @"tripDeletedSucessfully";
@@ -17,6 +19,7 @@ NSString * const GTTripUpdatedDistance = @"updatedDistance";
 NSString * const GTTripGotoInbox = @"gotoInbox";
 
 @implementation TripManager {
+    
     int currentPointId;
     
     //Trip Timer varibles
@@ -26,7 +29,6 @@ NSString * const GTTripGotoInbox = @"gotoInbox";
     NSTimer *stopWatchTimer;
     NSTimer *recordingTimer;
     NSTimer *distanceTimer;
-    dispatch_queue_t importQueue;
     
     Trip *importedTrip;
     
@@ -55,8 +57,6 @@ NSString * const GTTripGotoInbox = @"gotoInbox";
     
     if(self != nil){
         
-        importQueue = dispatch_queue_create("me.benreed.import", 0);
-        
         currentPointId = 0;
         self.isResuming = NO;
         
@@ -72,136 +72,9 @@ NSString * const GTTripGotoInbox = @"gotoInbox";
                                                             managedObjectContext:self.managedObjectContext
                                                               sectionNameKeyPath:nil
                                                                        cacheName:nil];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(importTripHandler:) name:TRIP_IMPORT_NOTIFICATION object:nil];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addPointsToImportedTrip:) name:GTTripImportedSuccessfully object:nil];
-        
     }
     
     return self;
-}
-
--(void)importTripReadError {
-   
-    [self showErrorOverlay];
-
-}
-
--(void)importTripHandler:(NSNotification *)notification {
-  
-    [self showImportStatusOverlay];
-    
-    dispatch_async(importQueue, ^{
-        NSURL *fileUrl = [[notification userInfo] valueForKey:@"fileToImport"];
-        [self importTripFromGPXFile:fileUrl];
-    });
-    
-}
-
--(void)importTripFromGPXFile:(NSURL *)url {
-
-    dispatch_async(importQueue, ^{
-        
-        importedTrip = [NSEntityDescription insertNewObjectForEntityForName:@"Trip" inManagedObjectContext:self.managedObjectContext];
-        [importedTrip setGpxFilePath:[url absoluteString]];
-        [importedTrip setTripName:@"Imported Trip"];
-        [importedTrip setReceivedFromRemote:[NSNumber numberWithBool:YES]];
-        [importedTrip setImportedPoints:[NSNumber numberWithBool:NO]];
-        [importedTrip setRead:[NSNumber numberWithBool:NO]];
-        [importedTrip setIsImporting:[NSNumber numberWithBool:YES]];
-        
-        [self saveTrip];
-        
-        //Let the observers know
-        [[NSNotificationCenter defaultCenter] postNotificationName:GTTripImportedSuccessfully object:nil userInfo:[NSDictionary dictionaryWithObject:importedTrip forKey:@"importedTrip"]];
-    });
-}
-
--(void)addPointsToImportedTrip:(NSNotification *)notification {
-    
-    dispatch_async(importQueue, ^{
-        Trip *trip = [[notification userInfo] objectForKey:@"importedTrip"];
-        
-        NSURL *url = [NSURL URLWithString:trip.gpxFilePath];
-        
-        GPXRoot *root = [GPXParser parseGPXAtURL:url];
-        
-        if([[root tracks] count] > 0){
-            
-            for (GPXTrack *track in [root tracks]) {
-                
-                [self parseTrackSegements:track];
-                
-            }
-            
-        }else{
-            [self importTripReadError];
-        }
-    });
-}
-
--(void)parseTrackSegements:(GPXTrack *)track {
-    
-    if([[track tracksegments] count] > 0){
-        for (GPXTrackSegment *segment in [track tracksegments]) {
-            [self parseSegmentTrackPoints:segment];
-        }
-        
-        [self performSelectorOnMainThread:@selector(dismissStatusOverlay) withObject:nil waitUntilDone:YES];
-    
-    }else{
-        
-        [self importTripReadError];
-    }
-}
-
--(void)dismissStatusOverlay {
-    [BWStatusBarOverlay dismissAnimated:YES];
-}
-
--(void)showImportStatusOverlay {
-    [BWStatusBarOverlay showLoadingWithMessage:@"Importing Data" animated:NO];
-}
-
--(void)showErrorOverlay {
-    [BWStatusBarOverlay setMessage:@"Error reading file" animated:YES];
-}
-
--(void)parseSegmentTrackPoints:(GPXTrackSegment *)segment {
-    
-    int count = 0;
-    
-    if([[segment trackpoints] count] > 0){
-        
-        for(GPXTrackPoint *trackPoint in [segment trackpoints]){
-            
-            GPSPoint *point = [NSEntityDescription insertNewObjectForEntityForName:@"GPSPoint" inManagedObjectContext:self.managedObjectContext];
-            [point setLat:[NSNumber numberWithFloat:[trackPoint latitude]]];
-            [point setLon:[NSNumber numberWithFloat:[trackPoint longitude]]];
-            [point setTimestamp:[trackPoint time]];
-            [point setPointID:[NSNumber numberWithInt:count]];
-            [point setAltitude:[NSNumber numberWithFloat:[trackPoint elevation]]];
-            
-            [importedTrip addPointsObject:point];
-            
-            count++;
-        }
-        
-        //calculate the distance and store it
-        [importedTrip setTotalDistance:[NSNumber numberWithFloat:[self calculateDistanceForPoints:importedTrip]]];
-        [importedTrip setRecordingState:[self recordingStateForState:GTTripStatePaused]];
-        [importedTrip setReceivedFromRemote:[NSNumber numberWithBool:YES]];
-        [importedTrip setIsImporting:[NSNumber numberWithBool:NO]];
-        
-        //Save the trip
-        [self saveTrip];
-        
-        [self fetchInbox];
-        
-    }else{
-        [self importTripReadError];
-    }
 }
 
 -(Trip *)tripWithIndexPath:(NSIndexPath *)tripIndexPath {
@@ -211,52 +84,8 @@ NSString * const GTTripGotoInbox = @"gotoInbox";
 }
 
 -(void)updateDistance {
-    self.currentTrip.totalDistance = [NSNumber numberWithFloat:[self calculateDistanceForPoints:self.currentTrip]];
+    self.currentTrip.totalDistance = [NSNumber numberWithFloat:[TripUtilities calculateDistanceForPointsInMetres:self.currentTrip]];
     [[NSNotificationCenter defaultCenter] postNotificationName:GTTripUpdatedDistance object:nil];
-}
-
--(float)calculateDistanceForPoints:(Trip *)trip {
-    
-    CLLocationDistance totalDistance = 0.0f;
-
-    NSArray *points = [trip.points allObjects];
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"pointID" ascending:YES];
-    NSArray *sortedPoints = [points sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];;
-    
-    if([sortedPoints count] > 0){
-        
-        GPSPoint *startPoint = [sortedPoints objectAtIndex:0];
-        GPSPoint *nextPoint = nil;
-        
-        CLLocation *startLocation = [[CLLocation alloc] initWithLatitude:[startPoint.lat floatValue] longitude:[startPoint.lon floatValue]];
-        CLLocation *nextLocation = nil;
-        
-        int count = [sortedPoints count];
-        
-        for (int i = 0; i < count; i++) {
-            if(i > 0 && i < count){
-            
-                nextPoint = [sortedPoints objectAtIndex:i];
-                nextLocation = [[CLLocation alloc] initWithLatitude:[nextPoint.lat floatValue] longitude:[nextPoint.lon floatValue]];
-                totalDistance += [startLocation distanceFromLocation:nextLocation];
-                startLocation = nextLocation;
-               
-            }
-        }
-        
-//        CLLocationDistance distance = 0.0f;
-//
-//        if([[SettingsManager sharedManager] unitType] == GTAppSettingsUnitTypeMPH){
-//            distance = totalDistance * [[SettingsManager sharedManager] distanceMultiplier];
-//        }else{
-//            distance = totalDistance / [[SettingsManager sharedManager] distanceMultiplier];
-//        }
-        
-        return totalDistance; //distance in meters
-        
-    }else{
-        return 0.0;
-    }
 }
 
 -(void)deleteTrips:(NSArray *)trips {
@@ -267,9 +96,8 @@ NSString * const GTTripGotoInbox = @"gotoInbox";
         //Load the trip object
         Trip *trip = [self.allTrips objectAtIndexPath:indexPath];
         
-        //Check if any are recording and reset the app badge
+        //Check if any are recording
         if([trip.recordingState isEqualToString:[self recordingStateForState:GTTripStateRecording]]){
-            [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
             [self pauseRecording];
             [[NSNotificationCenter defaultCenter] postNotificationName:GTCurrentTripDeleted object:nil];
         }
@@ -282,23 +110,15 @@ NSString * const GTTripGotoInbox = @"gotoInbox";
         NSURL *url = [NSURL URLWithString:filePath];
         [[NSFileManager defaultManager] removeItemAtURL:url error:&error];
         
-        //If the file deleted ok, remove the object from CoreData
-        if(!error){
-            //Delete the trip
-            [self.managedObjectContext deleteObject:trip];
-            
-        }else{
-            NSLog(@"There was an error deleting the file:%@ - %@",filePath,[error localizedDescription]);
-        }
-        
+        //Delete the trip
+        [self.managedObjectContext deleteObject:trip];
+
     }
     
-    //Notify observers
-    //[[NSNotificationCenter defaultCenter] postNotificationName:GTTripDeletedSuccess object:nil];
-    
-    //Commit the changes to core data
-    [self saveTrip];
-   
+    NSError *error = nil;
+    if (![self.managedObjectContext save:&error]) {
+        // Handle the error.
+    }
 }
 
 -(void)deleteTrip:(Trip *)trip {
@@ -397,13 +217,15 @@ NSString * const GTTripGotoInbox = @"gotoInbox";
 
 -(void)beginRecording {
     
-    recordingTimer = [NSTimer scheduledTimerWithTimeInterval:3.0
+    const float interval = 10.0;
+    
+    recordingTimer = [NSTimer scheduledTimerWithTimeInterval:interval
                                                       target:self
                                                     selector:@selector(saveTrip)
                                                     userInfo:nil
                                                      repeats:YES];
     
-    distanceTimer = [NSTimer scheduledTimerWithTimeInterval:5.0
+    distanceTimer = [NSTimer scheduledTimerWithTimeInterval:interval
                                                      target:self
                                                    selector:@selector(updateDistance)
                                                    userInfo:nil
@@ -415,12 +237,9 @@ NSString * const GTTripGotoInbox = @"gotoInbox";
     
     [self startTimer];
     
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
 }
 
 -(void)saveTrip {
-    
-    NSLog(@"%@",@"Committed to core data");
     
     NSError *error = nil;
     if (![self.managedObjectContext save:&error]) {
@@ -437,14 +256,12 @@ NSString * const GTTripGotoInbox = @"gotoInbox";
         [self setTripState:GTTripStatePaused];
         [self stopTimer];
         
-        self.currentTrip.totalDistance = [NSNumber numberWithFloat:[self calculateDistanceForPoints:self.currentTrip]];
+        self.currentTrip.totalDistance = [NSNumber numberWithFloat:[TripUtilities calculateDistanceForPointsInMetres:self.currentTrip]];
         
         [recordingTimer invalidate];
         recordingTimer = nil;
         
         [self saveTrip];
-        
-        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:nil];
         
     });
 
@@ -452,19 +269,29 @@ NSString * const GTTripGotoInbox = @"gotoInbox";
 
 
 -(void)saveTripAndStop {
-            
+    
+   
     [self.currentTrip setFinishDate:[NSDate date]];
     [self.currentTrip setRecordingState:[self recordingStateForState:GTTripStatePaused]];
-    [self.currentTrip setTotalDistance:[NSNumber numberWithFloat:[self calculateDistanceForPoints:self.currentTrip]]];
+    [self.currentTrip setTotalDistance:[NSNumber numberWithFloat:[TripUtilities calculateDistanceForPointsInMetres:self.currentTrip]]];
     
     [recordingTimer invalidate];
     recordingTimer = nil;
     
-    [self saveTrip];
+    [self saveTrip];    
+    TripIO *tripIO = [TripIO new];
     
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:nil];
+    [tripIO createGPXFileFromTrip:self.currentTrip withSuccessBlock:^(NSString *gpxFilePath) {
+        
+        self.currentTrip.gpxFilePath = gpxFilePath;
+        [self saveTrip];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:GTTripSavedSuccessfully object:nil];
     
-    [self createGPXFileFromTrip:self.currentTrip];
+    } andFailureBlock:^(NSError *error) {
+#warning TODO: Handle error
+    }];
+    
     [self setCurrentTrip:nil];
     [self setTripState:GTTripStateNew];
     
@@ -472,7 +299,6 @@ NSString * const GTTripGotoInbox = @"gotoInbox";
     
     [self stopTimer];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:GTTripSavedSuccessfully object:nil];
     
 }
 
@@ -491,27 +317,24 @@ NSString * const GTTripGotoInbox = @"gotoInbox";
 
 -(void)storeLocation {
     
-    dispatch_async(dispatch_get_main_queue(), ^{
+    CLLocation *location = [GeoManager sharedManager].currentLocation;
+    
+    if(location.coordinate.latitude != 0.0){
         
-        CLLocation *location = [GeoManager sharedManager].currentLocation;
+        // Create and configure a new instance of the GPS entity.
+        GPSPoint *point = (GPSPoint *)[NSEntityDescription insertNewObjectForEntityForName:@"GPSPoint" inManagedObjectContext:self.managedObjectContext];
+        point.altitude = [NSNumber numberWithDouble:location.altitude];
+        point.lat = [NSNumber numberWithDouble:location.coordinate.latitude];
+        point.lon = [NSNumber numberWithDouble:location.coordinate.longitude];
+        point.timestamp = [NSDate date];
+        point.pointID = [NSNumber numberWithInt:currentPointId++];
         
-        if(location.coordinate.latitude != 0.0){
-            
-            // Create and configure a new instance of the GPS entity.
-            GPSPoint *point = (GPSPoint *)[NSEntityDescription insertNewObjectForEntityForName:@"GPSPoint" inManagedObjectContext:self.managedObjectContext];
-            point.altitude = [NSNumber numberWithDouble:location.altitude];
-            point.lat = [NSNumber numberWithDouble:location.coordinate.latitude];
-            point.lon = [NSNumber numberWithDouble:location.coordinate.longitude];
-            point.timestamp = [NSDate date];
-            point.pointID = [NSNumber numberWithInt:currentPointId++];
-            
-            //Add it to the current trip for storage
-            [self.currentTrip addPointsObject:point];
-            [self.pointsForDrawing addObject:point];
-            
-        }
+        //Add it to the current trip for storage
+        [self.currentTrip addPointsObject:point];
+        [self.pointsForDrawing addObject:point];
         
-    });
+    }
+
 }
 
 
@@ -526,70 +349,6 @@ NSString * const GTTripGotoInbox = @"gotoInbox";
             return @"stopped";
     }
     
-}
-
-
-#pragma mark GPX File Creation Methods
--(NSString *)applicationDocumentsDirectoryBasePath
-{
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
-    return basePath;
-}
-
--(NSString *)applicationTempDirectory
-{
-    return NSTemporaryDirectory();
-}
-
-- (NSString *)gpxFilePathWithName:(NSString *)tripName {
-    
-    //Clean the trip name
-    NSArray *invalidCharacters = [NSArray arrayWithObjects:@"/",@"\\",@"?",@"%",@"*",@"|",@"\"",@"<",@">",@" ",@":",nil];
-    
-    NSString *cleanName = tripName;
-    
-    for (NSString *invalidChar in invalidCharacters) {
-        NSString *tmp = [cleanName stringByReplacingOccurrencesOfString:invalidChar withString:@""];
-        cleanName = tmp;
-    }
-    
-    NSDateFormatter *formatter = [NSDateFormatter new];
-    [formatter setTimeStyle:NSDateFormatterFullStyle];
-    [formatter setDateFormat:@"yyyyMMddHHmmss"];
-    NSString *dateString = [formatter stringFromDate:[NSDate date]];
-    
-    NSString *fileName = [NSString stringWithFormat:@"%@_log_%@.gpx", cleanName, dateString];
-    
-    return [[self applicationDocumentsDirectoryBasePath] stringByAppendingPathComponent:fileName];
-}
-
--(void)createGPXFileFromTrip:(Trip *)trip {
-    
-    GPXRoot *root = [GPXRoot rootWithCreator:@"Gretel"];
-    GPXTrack *track = [root newTrack];
-    track.name = trip.tripName;
-    
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"pointID" ascending:YES];
-    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-    
-    NSArray *points = [trip.points sortedArrayUsingDescriptors:sortDescriptors];
-    
-    for (GPSPoint *point in points) {
-        GPXTrackPoint *gpxTrackPoint = [track newTrackpointWithLatitude:[point.lat floatValue] longitude:[point.lon floatValue]];
-        gpxTrackPoint.elevation = [point.altitude floatValue];
-        gpxTrackPoint.time = point.timestamp;
-    }
-            
-    NSURL *gpxURL = [NSURL fileURLWithPath:[self gpxFilePathWithName:trip.tripName]];
-    
-    GPXDocument *document = [[GPXDocument alloc] initWithFileURL:gpxURL];
-    document.gpxString = root.gpx;
-    
-    [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
-        trip.gpxFilePath = [gpxURL absoluteString];
-        [self saveTrip];
-    }];
 }
 
 #pragma mark Timer Methods

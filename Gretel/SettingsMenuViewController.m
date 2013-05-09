@@ -48,8 +48,7 @@ NSString * const GTViewControllerHelp = @"help";
         HistoryViewController *historyViewController = [self.storyboard instantiateViewControllerWithIdentifier:GTViewControllerTripHistory];
         SettingsViewController *settingsViewController = [self.storyboard instantiateViewControllerWithIdentifier:GTViewControllerSettings];
         AboutViewController *aboutViewController = [self.storyboard instantiateViewControllerWithIdentifier:GTViewControllerAbout];
-        HelpViewController *helpViewController = [self.storyboard instantiateViewControllerWithIdentifier:GTViewControllerHelp];
-    
+        
         self.viewControllers = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:recordNewTripViewController,historyViewController, settingsViewController,aboutViewController, nil] forKeys:[NSArray arrayWithObjects:GTViewControllerRecordTrip,GTViewControllerTripHistory,GTViewControllerSettings,GTViewControllerAbout, nil]];
         
     }    
@@ -233,6 +232,7 @@ NSString * const GTViewControllerHelp = @"help";
         CGRect frame = self.slidingViewController.topViewController.view.frame;
         
         if([[self.viewControllers objectForKey:identifier] isKindOfClass:[BaseNavigationControllerViewController class]]){
+            
             BaseNavigationControllerViewController *navController = (BaseNavigationControllerViewController *)[self.viewControllers objectForKey:identifier];
             
             if([navController.topViewController isKindOfClass:[HistoryViewController class]]){
