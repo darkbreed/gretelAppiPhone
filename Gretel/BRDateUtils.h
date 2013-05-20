@@ -14,7 +14,15 @@ typedef enum {
     kTimeInHours
 } kTimeDenomination;
     
-
 @interface BRDateUtils : NSObject
+
+/**
+ * Returns the time in a given denomintation as an int.
+ * @param kTimeDenomination
+ * @param NSDate startTime
+ * @param NSDate endTime
+ * @return int time
+ */
++(int)getTimeInDenomination:(kTimeDenomination)timeDenomination BetweenStartTime:(NSDate *)startTime andFinishTime:(NSDate *)finishTime;
 
 @end

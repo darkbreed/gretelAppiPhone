@@ -37,20 +37,12 @@ NSString * const GTTripIsResuming = @"tripIsResuming";
     self.title = [[tripManager currentTrip] tripName];
     tripManager = [TripManager sharedManager];
     
-    self.tripNameField.delegate = self;
     self.notificationView = [[GCDiscreetNotificationView alloc] initWithText:@""
                                                                 showActivity:NO
                                                           inPresentationMode:GCDiscreetNotificationViewPresentationModeTop
                                                                       inView:self.view];
     
-    NIKFontAwesomeIconFactory *iconFactory = [[NIKFontAwesomeIconFactory alloc] init];
-    [iconFactory setSize:18.0];
-    [iconFactory setColors:[NSArray arrayWithObjects:[UIColor whiteColor], nil]];
-    [iconFactory setSquare:YES];
-    [iconFactory setStrokeColor:[UIColor blackColor]];
-    [iconFactory setStrokeWidth:0.2];
-    
-    [self.navigationItem.leftBarButtonItem setImage:[iconFactory createImageForIcon:NIKFontAwesomeIconList]];
+    [self.navigationItem.leftBarButtonItem setImage:[GTThemeManager listIcon]];
     
     NSDate *timerDate = [NSDate dateWithTimeIntervalSince1970:[tripManager.tripForDetailView.tripDuration floatValue]];
     
@@ -69,10 +61,81 @@ NSString * const GTTripIsResuming = @"tripIsResuming";
         distance = distance / [[SettingsManager sharedManager] distanceMultiplier];
     }
     
-    //self.durationLabel.text = [NSString stringWithFormat:@"%.2f",[tripManager.tripForDetailView.tripDuration floatValue]];
     self.distanceLabel.text = [NSString stringWithFormat:@"%.2f %@",distance,[[SettingsManager sharedManager] unitLabelDistance]];
     self.pointsRecordedLabel.text = [NSString stringWithFormat:@"%i",[tripManager.tripForDetailView.points count]];
     
+    NSMutableArray *scrollViewContentViews = [[NSMutableArray alloc] init];
+    
+    [scrollViewContentViews addObject:[self createHUDView]];
+    //[scrollViewContentViews addObject:[self createGraphView]];
+    [scrollViewContentViews addObject:[self createEditView]];
+    
+    for (UIView *view  in scrollViewContentViews) {
+        [self.horizontalScrollView addSubview:view];
+    }
+    
+    self.horizontalScrollView.contentSize = CGSizeMake(self.horizontalScrollView.frame.size.width * scrollViewContentViews.count + 1, self.horizontalScrollView.frame.size.height);
+    
+    self.pageControl.numberOfPages = scrollViewContentViews.count;
+    
+}
+
+-(UIView *)createEditView {
+    
+    UIView *editView = [[UIView alloc] initWithFrame:CGRectMake(self.horizontalScrollView.frame.size.width, 0.0, self.horizontalScrollView.frame.size.width, 200.0)];
+    
+    UILabel *titleLabel = [UILabel new];
+    [titleLabel setFrame:CGRectMake(0,0,180.0, 25.0)];
+    [titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [titleLabel setText:[@"Trip Name" uppercaseString]];
+    [titleLabel setFont:[UIFont boldSystemFontOfSize:10.0]];
+    [titleLabel setTextColor:[UIColor blackColor]];
+    [titleLabel setCenter:CGPointMake(editView.frame.size.width/2, 30.0)];
+    [titleLabel setBackgroundColor:[UIColor clearColor]];
+    
+    UITextField *tripNameField = [UITextField new];
+    [tripNameField setFrame:CGRectMake(0,0,180.0, 25.0)];
+    [tripNameField setCenter:CGPointMake(editView.frame.size.width/2, 60.0)];
+    [tripNameField setDelegate:self];
+    [tripNameField setReturnKeyType:UIReturnKeyDone];
+    [tripNameField setText:tripManager.tripForDetailView.tripName];
+    [tripNameField setClearButtonMode:UITextFieldViewModeWhileEditing];
+    [tripNameField setBorderStyle:UITextBorderStyleLine];
+    [tripNameField setTextAlignment:NSTextAlignmentCenter];
+    [tripNameField setBackgroundColor:[UIColor whiteColor]];
+    
+    [editView addSubview:titleLabel];
+    [editView addSubview:tripNameField];
+    
+    return editView;
+}
+
+
+-(UIView *)createGraphView {
+    UIView *graphView = [[UIView alloc] initWithFrame:CGRectMake(self.horizontalScrollView.frame.size.width, 0.0, self.horizontalScrollView.frame.size.width, 200.0)];
+    [graphView setBackgroundColor:[UIColor lightGrayColor]];
+    
+    return graphView;
+}
+
+-(UIView *)createHUDView {
+    
+    UIView *hudView = [UIView new];
+    [hudView addSubview:self.distanceLabel];
+    [hudView addSubview:self.durationLabel];
+    [hudView addSubview:self.pointsRecordedLabel];
+    [hudView addSubview:self.distanceTitle];
+    [hudView addSubview:self.durationTitle];
+    [hudView addSubview:self.pointsRecordedTitle];
+    
+    return hudView;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)sender {
+    // Update the page when more than 50% of the previous/next page is visible
+    CGFloat pageWidth = self.horizontalScrollView.frame.size.width;
+    int page = floor((self.horizontalScrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    self.pageControl.currentPage = page;
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -99,70 +162,69 @@ NSString * const GTTripIsResuming = @"tripIsResuming";
     });
 }
 
--(void)viewDidDisappear:(BOOL)animated {
-    
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
+#pragma mark UIActionSheet delegate methods
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     
-    if(actionSheet.tag == TripActionSheetTypeDelete){
+    if (actionSheet.tag == TripDetailActionSheetTypeDelete) {
         
-        switch (buttonIndex) {
-            case CompletedTripOptionTypeDelete:
-                [[TripManager sharedManager] deleteTrip:tripManager.tripForDetailView];
-                break;
-            default:
-                break;
-        }
-        
-    }else if(actionSheet.tag == TripActionSheetTypeMapStyle){
         switch (buttonIndex) {
             case 0:
-                [self.mapView setMapType:MKMapTypeStandard];
-                break;
-                
-            case 1:
-                [self.mapView setMapType:MKMapTypeSatellite];
-                break;
-                
-            case 2:
-                [self.mapView setMapType:MKMapTypeHybrid];
+                [[TripManager sharedManager] deleteTrip:tripManager.tripForDetailView];
                 break;
                 
             default:
                 break;
         }
+        
+    }else if(actionSheet.tag == TripDetailActionSheetTypeMain){
+        
+        switch (buttonIndex) {
+            case TripDetailActionSheetOptionDelete:
+                [self confirmDeleteTrip];
+                break;
+                
+            case TripDetailActionSheetOptionResume:
+                [self confirmResume];
+                break;
+                
+            case TripDetailActionSheetOptionShare:
+                [self displayShareOptions];
+                break;
+            default:
+                break;
+        }
+    
+    }else if(actionSheet.tag == TripDetailActionSheetTypeShare){
+        
+        switch (buttonIndex) {
+            case 0:
+                [self shareByEmail];
+                break;
+                
+            default:
+                break;
+        }
+        
     }
+}
+
+-(void)displayShareOptions {
+    
+    UIActionSheet *shareSheet = [[UIActionSheet alloc] initWithTitle:@"Share via:" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Email", nil];
+    [shareSheet setTag:TripDetailActionSheetOptionShare];
+    [shareSheet showInView:self.view];
     
 }
 
--(IBAction)deleteButtonHandler:(id)sender {
+-(void)confirmDeleteTrip {
     NSString *message = [NSString stringWithFormat:@"Are you sure you want to delete %@? This cannot be undone.", tripManager.tripForDetailView.tripName];
     
     UIActionSheet *confirmSheet = [[UIActionSheet alloc] initWithTitle:message delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete" otherButtonTitles:@"Cancel",nil];
-    [confirmSheet setTag:TripActionSheetTypeDelete];
+    [confirmSheet setTag:TripDetailActionSheetTypeDelete];
     [confirmSheet showInView:self.view];
 }
 
--(IBAction)shareButtonHandler:(UIButton *)sender {
-    [self.tripEditForm setHidden:YES];
-    [self.tripShareForm setHidden:NO];
-    [self hideMapViewAndOptions:YES];
-}
-
--(IBAction)editButtonHandler:(UIButton *)sender {
-    [self.tripShareForm setHidden:YES];
-    [self.tripEditForm setHidden:NO];
-    [self hideMapViewAndOptions:YES];
-}
-
--(IBAction)resumeButtonHandler:(id)sender {
+-(void)confirmResume {
         
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Resume trip?" message:@"Would you like to resume this trip? If you have trips in progress these will be stopped and saved. If you are resuming a trip imported from an external source, it will appear in the recordings section from now on." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Resume", nil];
     
@@ -170,16 +232,7 @@ NSString * const GTTripIsResuming = @"tripIsResuming";
     
 }
 
--(IBAction)saveTripButtonHandler:(id)sender {
-    
-    [tripManager.tripForDetailView setTripName:self.tripNameField.text];
-    self.title = self.tripNameField.text;
-    [[TripManager sharedManager] saveTrip];
-    [self.tripNameField resignFirstResponder];
-    [self hideMapViewAndOptions:NO];
-    
-}
-
+#pragma mark UIAlertViewDelegate methods
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
     if(buttonIndex == 1){
@@ -195,15 +248,7 @@ NSString * const GTTripIsResuming = @"tripIsResuming";
     }
 }
 
--(IBAction)cancelButtonHandler:(UIButton *)sender {
-    [self hideMapViewAndOptions:NO];
-}
-
--(IBAction)shareByBluetoothButtonHandler:(id)sender {
-    
-}
-
--(IBAction)shareByEmailButtonHandler:(id)sender {
+-(void)shareByEmail {
     
     if(!shareManager){
         shareManager = [[ShareManager alloc] initWithShareType:ShareManagerShareTypeEmail fromViewController:self];
@@ -214,8 +259,8 @@ NSString * const GTTripIsResuming = @"tripIsResuming";
 }
 
 -(IBAction)actionButtonHandler:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Set map type" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Standard",@"Satellite",@"Hybrid", nil];
-    [actionSheet setTag:TripActionSheetTypeMapStyle];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"What do you want to do?" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete" otherButtonTitles:@"Resume",@"Share", nil];
+    [actionSheet setTag:TripDetailActionSheetTypeMain];
     [actionSheet showInView:self.view];
 }
 
@@ -225,31 +270,38 @@ NSString * const GTTripIsResuming = @"tripIsResuming";
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-#pragma mark Import handlers
--(void)tripImportSuccessHandler:(NSNotification *)notification {
-    [self.notificationView setShowActivity:NO animated:NO];
-    [self.notificationView setTextLabel:@"New trip added to inbox"];
-    [self.notificationView hideAnimatedAfter:2.0];
+#pragma mark UITextfieldDelegate methods
+-(void)textFieldDidBeginEditing:(UITextField *)textField {
+    
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationCurveEaseOut animations:^{
+        
+        [self.view setCenter:CGPointMake(self.view.frame.size.width/2,(self.view.frame.size.height/2 -100.0))];
+        
+    } completion:nil];
     
 }
 
--(void)tripImportBeganHandler:(NSNotification *)notification {
-    [self.notificationView setHidden:NO];
-    [self.notificationView setTextLabel:@"Importing trip to inbox..."];
-    [self.notificationView setShowActivity:YES animated:YES];
-    [self.notificationView show:YES];
+-(void)textFieldDidEndEditing:(UITextField *)textField {
+    [[tripManager tripForDetailView] setTripName:textField.text];
+    [tripManager saveTrip];
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    [textField resignFirstResponder];
+    self.title = textField.text;
+    
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationCurveEaseOut animations:^{
+        
+        [self.view setCenter:CGPointMake(self.view.frame.size.width/2,(self.view.frame.size.height/2))];
+        
+    } completion:nil];
+    
+    return YES;
 }
 
 -(void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-#pragma mark UITextFieldDelegate
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [textField resignFirstResponder];
-    
-    return YES;
 }
 
 @end

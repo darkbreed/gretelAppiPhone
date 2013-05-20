@@ -25,21 +25,15 @@
 }
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     settingsManager = [SettingsManager sharedManager];
     [self.unitOptions setSelectedSegmentIndex:[settingsManager getApplicationUnitType]];
     [self.applicationUsageSettings setSelectedSegmentIndex:[settingsManager getApplicationUsageType]];
-    [self.accuracyLabel setText:[NSString stringWithFormat:@"%.0f M",settingsManager.distanceFilter]];
-    [self.accuracySlider setValue:settingsManager.distanceFilter];
+    [self.accuracyLabel setText:[NSString stringWithFormat:@"%.0f seconds",settingsManager.locationCheckInterval]];
+    [self.locationCheckInterval setValue:settingsManager.locationCheckInterval];
     
-    NIKFontAwesomeIconFactory *iconFactory = [[NIKFontAwesomeIconFactory alloc] init];
-    [iconFactory setSize:18.0];
-    [iconFactory setColors:[NSArray arrayWithObjects:[UIColor whiteColor], nil]];
-    [iconFactory setSquare:YES];
-    [iconFactory setStrokeColor:[UIColor blackColor]];
-    [iconFactory setStrokeWidth:0.2];
-    
-    [self.navigationItem.leftBarButtonItem setImage:[iconFactory createImageForIcon:NIKFontAwesomeIconList]];
+    [self.navigationItem.leftBarButtonItem setImage:[GTThemeManager listIcon]];
 }
 
 #pragma mark Button Handlers
@@ -55,9 +49,29 @@
     [settingsManager setApplicationUsageType:control.selectedSegmentIndex];
 }
 
--(IBAction)accuracySliderDidChange:(UISlider *)slider {
-    self.accuracyLabel.text = [NSString stringWithFormat:@"%.0f M",slider.value];
-    [settingsManager setApplicationDistanceFilter:slider.value];
+-(IBAction)intervalSliderDidChange:(UISlider *)slider {
+    self.accuracyLabel.text = [NSString stringWithFormat:@"%.0f seconds",slider.value];
+    [settingsManager setApplicationLocationCheckInterval:slider.value];
+}
+
+-(IBAction)accuracySettingsDidChange:(UISegmentedControl *)control {
+    
+    switch (control.selectedSegmentIndex) {
+        case 0:
+            [settingsManager setApplicationAccuracy:kCLLocationAccuracyNearestTenMeters];
+            break;
+        case 1:
+            [settingsManager setApplicationAccuracy:kCLLocationAccuracyHundredMeters];
+            break;
+        case 2:
+            [settingsManager setApplicationAccuracy:kCLLocationAccuracyKilometer];
+            break;
+        case 3:
+            [settingsManager setApplicationAccuracy:kCLLocationAccuracyThreeKilometers];
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)didReceiveMemoryWarning

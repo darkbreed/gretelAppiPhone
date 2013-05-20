@@ -617,8 +617,8 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="accuracyLabel" destination="sM3-hp-nca" id="5A1-ls-FXs"/>
-                        <outlet property="accuracySlider" destination="vVH-xD-LhG" id="Jw0-b1-1IM"/>
                         <outlet property="applicationUsageSettings" destination="L23-Hz-war" id="DnD-98-bjw"/>
+                        <outlet property="locationCheckInterval" destination="vVH-xD-LhG" id="xQh-up-xDR"/>
                         <outlet property="unitOptions" destination="eXM-zm-KJ3" id="l7O-7Q-rgl"/>
                     </connections>
                 </viewController>
@@ -1181,9 +1181,15 @@ Finally a shout out must go to Friska, this application has been powered by thei
         <class className="TripDetailViewController" superclassName="BRBaseMapViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TripDetailViewController.h"/>
             <relationships>
+                <relationship kind="action" name="actionButtonHandler:"/>
                 <relationship kind="action" name="cancelButtonHandler:" candidateClass="UIButton"/>
+                <relationship kind="action" name="deleteButtonHandler:"/>
                 <relationship kind="action" name="editButtonHandler:"/>
+                <relationship kind="action" name="resumeButtonHandler:"/>
+                <relationship kind="action" name="saveTripButtonHandler:"/>
                 <relationship kind="action" name="shareButtonHandler:"/>
+                <relationship kind="action" name="shareByBluetoothButtonHandler:"/>
+                <relationship kind="action" name="shareByEmailButtonHandler:"/>
                 <relationship kind="outlet" name="deleteButton" candidateClass="UIView"/>
                 <relationship kind="outlet" name="distanceLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="durationLabel" candidateClass="UILabel"/>

@@ -10,6 +10,7 @@
 #import "SettingsManager.h"
 #import "TestFlight.h"
 #import "ECSlidingViewController.h"
+#import "GTThemeManager.h"
 
 @interface SettingsViewController : UIViewController {
     SettingsManager *settingsManager;
@@ -18,7 +19,8 @@
 /** @section UI Properties */
 @property (nonatomic, strong) IBOutlet UISegmentedControl *unitOptions;
 @property (nonatomic, strong) IBOutlet UISegmentedControl *applicationUsageSettings;
-@property (nonatomic, strong) IBOutlet UISlider *accuracySlider;
-@property (nonatomic, strong) IBOutlet UILabel *accuracyLabel;
+@property (nonatomic, strong) IBOutlet UISlider *locationCheckInterval;
+@property (nonatomic, weak) IBOutlet UISegmentedControl *accuracySettings;
+@property (nonatomic, weak) IBOutlet UILabel *accuracyLabel;
 
 @end

@@ -27,38 +27,25 @@
     tripManager = [TripManager sharedManager];
     settingsManager = [SettingsManager sharedManager];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLocation) name:GTLocationUpdatedSuccessfully object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCompassWithHeading) name:GTLocationHeadingDidUpdate object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pauseRecording) name:GTLocationDidPauseUpdates object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSettingsChange) name:SMSettingsUpdated object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTripTimerDisplay) name:GTTripTimerDidUpdate object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripSaveSuccessHandler:) name:GTTripSavedSuccessfully object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDistanceHandler:) name:GTTripUpdatedDistance object:nil];
+    self.mapView.showsUserLocation = NO;
+    
+    [self addAllObservers];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleEnteringBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleReturnToForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
     
     if(!tripManager.currentTrip){
         
         [self.currentSpeedLabel setText:[NSString stringWithFormat:@"0.0 %@",settingsManager.unitLabelSpeed]];
-        
-        if([[GeoManager sharedManager] locationServicesEnabled]){
-            
-            [self.locateMeButton setBackgroundImage:[UIImage imageNamed:@"locationSymbolEnabled.png"] forState:UIControlStateNormal];
-        }
-        
         [self setInitialLocate:YES];
         [self setUpViewForNewTrip];
     }
     
-    NIKFontAwesomeIconFactory *iconFactory = [[NIKFontAwesomeIconFactory alloc] init];
-    [iconFactory setSize:18.0];
-    [iconFactory setColors:[NSArray arrayWithObjects:[UIColor whiteColor], nil]];
-    [iconFactory setSquare:YES];
-    [iconFactory setStrokeColor:[UIColor blackColor]];
-    [iconFactory setStrokeWidth:0.2];
-    
-    [self.navigationItem.leftBarButtonItem setImage:[iconFactory createImageForIcon:NIKFontAwesomeIconList]];
-    
+    [self.navigationItem.leftBarButtonItem setImage:[GTThemeManager listIcon]];
     [self.mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
-
+    
+    if(self.isResuming){
+        [self setViewStateForTripState:GTTripStateRecording];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -96,13 +83,49 @@
     
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [self checkForLocationServices];
+}
+
+-(void)handleEnteringBackground {
+    
+    [self.mapView setUserTrackingMode:MKUserTrackingModeNone];
+    [self.mapView setShowsUserLocation:NO];
+    [self removeAllObsververs];
+    self.mapView.delegate = nil;
+
+}
+
+-(void)handleReturnToForeground {
+    
+    [self addAllObservers];
+    self.mapView.delegate = self;
+    [self.mapView setUserTrackingMode:MKUserTrackingModeFollow];
+    [self.mapView setShowsUserLocation:YES];
+    [self checkForLocationServices];
+    
+}
+
+-(void)checkForLocationServices {
+    
+    //Set up the view for no servicces
+    if([[GeoManager sharedManager] locationServicesEnabled] == NO){
+        [self.notificationView setTextLabel:@"Location services disabled"];
+        [self.notificationView showAnimated];
+        [self.locateMeButton setBackgroundImage:[UIImage imageNamed:@"locationSymbolDisabled.png"] forState:UIControlStateNormal];
+    }else{
+        [self.notificationView hideAnimatedAfter:0.5];
+        [self.locateMeButton setBackgroundImage:[UIImage imageNamed:@"locationSymbolEnabled.png"] forState:UIControlStateNormal];
+    }
+}
 
 -(IBAction)locateMeButtonHandler:(id)sender {
+    
+    [self checkForLocationServices];
     
     if([[GeoManager sharedManager] locationServicesEnabled]){
         
         [[GeoManager sharedManager] startTrackingPosition];
-        [self.locateMeButton setBackgroundImage:[UIImage imageNamed:@"locationSymbolEnabled.png"] forState:UIControlStateNormal];
         
         if(self.mapView.userTrackingMode == MKUserTrackingModeNone){
             [self.mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
@@ -111,7 +134,6 @@
         }else if(self.mapView.userTrackingMode == MKUserTrackingModeFollowWithHeading){
             [self.mapView setUserTrackingMode:MKUserTrackingModeNone animated:YES];
         }
-        
         
     }else{
         [self displayLocationServicesDisabledAlert];
@@ -156,8 +178,6 @@
 -(void)displayLocationServicesDisabledAlert {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Location services disabled" message:@"Gretel cannot track your location as your location services have been disabled. Please enable them in the Settings, then return to the app." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [alertView show];
-    
-    [self.locateMeButton setBackgroundImage:[UIImage imageNamed:@"locationSymbolDisabled.png"] forState:UIControlStateNormal];
 }
 
 -(void)setViewStateForTripState:(GTTripState)tripState {
@@ -170,18 +190,13 @@
             [self.notificationView hide:YES];
             [self.stopButton setEnabled:NO];
             [self.startButton setBackgroundImage:[UIImage imageNamed:@"recordButton.png"] forState:UIControlStateNormal];
-            [self.tripTimerLabel setText:@"00:00:00"];
+            [self.tripTimerLabel setText:@"--:--:--"];
             [self.currentSpeedLabel setText:[NSString stringWithFormat:@"0.0 %@",settingsManager.unitLabelSpeed]];
-        
             break;
             
         }
             
         case GTTripStatePaused: {
-            //we are recording, the user has paused the tracking
-           
-            //Start tracking the users location
-            [[GeoManager sharedManager] stopTrackingPosition];
             
             //change the recording button to pause
             [tripManager pauseRecording];
@@ -198,10 +213,7 @@
             
         case GTTripStateRecording: {
             //We are paused, the user is resuming tracking
-            
-            //Start tracking the users location
-            [[GeoManager sharedManager] startTrackingPosition];
-            
+    
             //change the recording button to pause
             [tripManager beginRecording];
             
@@ -225,6 +237,14 @@
         }
     }
     
+}
+
+-(void)pauseRecording {
+    [self setViewStateForTripState:GTTripStatePaused];
+}
+
+-(void)resumeRecording {
+    [self setViewStateForTripState:GTTripStateRecording];
 }
 
 #pragma Button Handlers
@@ -257,13 +277,11 @@
             break;
         
         case GTTripStateRecording:
-            [tripManager pauseRecording];
             [self setViewStateForTripState:GTTripStatePaused];
             break;
             
         case GTTripStatePaused:
             [self setViewStateForTripState:GTTripStateRecording];
-            [tripManager beginRecording];
             break;
             
         default:
@@ -297,6 +315,7 @@
 }
 
 -(void)updateTripTimerDisplay {
+    //NSLog(@"Updating");
     self.tripTimerLabel.text = tripManager.timerValue;
 }
 
@@ -322,19 +341,12 @@
 }
 
 -(void)updateLocation {
-    
-    if(tripManager.tripState == GTTripStateRecording){
-    
-        //Store the data point
-        [tripManager storeLocation];
-        [self drawRoute:[tripManager fectchPointsForDrawing:NO] onMapView:self.mapView willRefreh:YES];
-        
-    }
-    
+
     //Update the views
     self.latLabel.text = [NSString stringWithFormat:@"%.3f",self.mapView.userLocation.coordinate.latitude];
     self.lonLabel.text = [NSString stringWithFormat:@"%.3f",self.mapView.userLocation.coordinate.longitude];
-
+    self.accuracyLabel.text = [NSString stringWithFormat:@"%.2f M",[[[GeoManager sharedManager] currentLocation] horizontalAccuracy]];
+    
     float currentSpeed = [[GeoManager sharedManager] currentSpeed] * settingsManager.speedMultiplier;
     
     if(currentSpeed < 0.0){
@@ -350,6 +362,11 @@
     }
     
     self.elevationLabel.text = [NSString stringWithFormat:@"%.2f %@",elevation,settingsManager.unitLabelHeight];
+    
+    NSArray *points = [tripManager fectchPointsForDrawing:YES];
+    
+    [self drawRoute:points onMapView:self.mapView willRefreh:YES];
+    
 }
 
 -(void)updateCompassWithHeading {
@@ -400,21 +417,42 @@
     [self.notificationView setShowActivity:NO animated:NO];
     [self.notificationView setTextLabel:@"New trip added to inbox"];
     [self.notificationView hideAnimatedAfter:2.0];
-    
 }
 
 -(void)tripImportBeganHandler:(NSNotification *)notification {
-    
     [self.notificationView setHidden:NO];
     [self.notificationView setTextLabel:@"Importing trip to inbox..."];
     [self.notificationView setShowActivity:YES animated:YES];
     [self.notificationView show:YES];
-    
 }
 
 #pragma memory handling
 - (void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
+}
+
+-(void)addAllObservers {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLocation) name:GTLocationUpdatedSuccessfully object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCompassWithHeading) name:GTLocationHeadingDidUpdate object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pauseRecording) name:GTLocationDidPauseUpdates object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resumeRecording) name:GTLocationDidResumeUpdates object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSettingsChange) name:SMSettingsUpdated object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTripTimerDisplay) name:GTTripTimerDidUpdate object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tripSaveSuccessHandler:) name:GTTripSavedSuccessfully object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDistanceHandler:) name:GTTripUpdatedDistance object:nil];
+}
+
+-(void)removeAllObsververs {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:GTLocationUpdatedSuccessfully object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:GTLocationHeadingDidUpdate object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:GTLocationDidPauseUpdates object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:GTLocationDidResumeUpdates object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:SMSettingsUpdated object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:GTTripTimerDidUpdate object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:GTTripSavedSuccessfully object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:GTTripUpdatedDistance object:nil];
+    
 }
 
 -(void)dealloc {

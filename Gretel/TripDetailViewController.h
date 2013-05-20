@@ -13,34 +13,23 @@
 #import "ShareManager.h"
 #import "TripManager.h"
 #import <GCDiscreetNotificationView/GCDiscreetNotificationView.h>
+#import "GTThemeManager.h"
 
 typedef enum {
-    CompletedTripOptionTypeDelete
-}CompletedTripOptionType;
+    TripDetailActionSheetOptionDelete,
+    TripDetailActionSheetOptionResume,
+    TripDetailActionSheetOptionShare
+}TripDetailActionSheetOption;
 
 typedef enum {
-    CancelButtonTypeEdit,
-    CancelButtonTypeShare
-}CancelButtonType;
-
-typedef enum {
-    AnimationDirectionTypeShow,
-    AnimationDirectionTypeHide
-}AnimationDirectionType;
-
-typedef enum {
-    TripDetailAlertViewTypeDelete,
-    
-}TripDetailAlertViewType;
-
-typedef enum {
-    TripActionSheetTypeDelete,
-    TripActionSheetTypeMapStyle
-}TripActionSheetType;
+    TripDetailActionSheetTypeDelete,
+    TripDetailActionSheetTypeMain,
+    TripDetailActionSheetTypeShare
+}TripDetailActionSheetType;
 
 extern NSString * const GTTripIsResuming;
 
-@interface TripDetailViewController : BRBaseMapViewController <ShareManagerDelegate, UIAlertViewDelegate, UIActionSheetDelegate, UITextFieldDelegate> {
+@interface TripDetailViewController : BRBaseMapViewController <ShareManagerDelegate, UIAlertViewDelegate, UIActionSheetDelegate, UIScrollViewDelegate, UITextFieldDelegate> {
     
     ///The trip points as an array to feed the map view
     NSArray *route;
@@ -51,23 +40,21 @@ extern NSString * const GTTripIsResuming;
 }
 
 /** @section UI Properties */
-@property (nonatomic, strong) IBOutlet UIView *tripEditForm;
-@property (nonatomic, strong) IBOutlet UIView *tripShareForm;
-@property (nonatomic, strong) IBOutlet UIView *deleteButton;
-@property (nonatomic, strong) IBOutlet UIView *shareButton;
-@property (nonatomic, strong) IBOutlet UIView *editButton;
-@property (nonatomic, strong) IBOutlet UITextField *tripNameField;
-@property (nonatomic, strong) IBOutlet UILabel *distanceLabel;
-@property (nonatomic, strong) IBOutlet UILabel *durationLabel;
-@property (nonatomic, strong) IBOutlet UILabel *pointsRecordedLabel;
-@property (nonatomic, strong) IBOutlet GCDiscreetNotificationView *notificationView;
+@property (nonatomic, weak) IBOutlet UITextField *tripNameField;
+@property (nonatomic, weak) IBOutlet UILabel *distanceLabel;
+@property (nonatomic, weak) IBOutlet UILabel *durationLabel;
+@property (nonatomic, weak) IBOutlet UILabel *pointsRecordedLabel;
+@property (nonatomic, weak) UILabel *distanceTitle;
+@property (nonatomic, weak) UILabel *durationTitle;
+@property (nonatomic, weak) UILabel *pointsRecordedTitle;
+@property (nonatomic, weak) IBOutlet UIScrollView *horizontalScrollView;
+@property (nonatomic, weak) IBOutlet UIPageControl *pageControl;
+@property (nonatomic, strong) GCDiscreetNotificationView *notificationView;
 
 /** @section Non UI Properties */
 @property (nonatomic, strong) Trip *trip;
 
 /** @section Button Handlers */
--(IBAction)editButtonHandler:(id)sender;
--(IBAction)shareButtonHandler:(id)sender;
--(IBAction)cancelButtonHandler:(UIButton *)sender;
+-(IBAction)actionButtonHandler:(id)sender;
 
 @end

@@ -124,15 +124,11 @@ NSString * const GTViewControllerHelp = @"help";
     cell.titleLabel.shadowColor = [UIColor blackColor];
     cell.titleLabel.shadowOffset = CGSizeMake(0.0, -1.0);
     
-    NIKFontAwesomeIconFactory *iconFactory = [[NIKFontAwesomeIconFactory alloc] init];
-    [iconFactory setColors:[NSArray arrayWithObjects:[UIColor grayColor],[UIColor grayColor], nil]];
-    [iconFactory setSquare:YES];
-    
     if(indexPath.section == 0){
         
         if(indexPath.row == 0){
             
-            [cell.iconView setImage:[iconFactory createImageForIcon:NIKFontAwesomeIconMapMarker]];
+            [cell.iconView setImage:[GTThemeManager mapMarkerIcon]];
             cell.titleLabel.text = [@"Map" uppercaseString];
             
         }
@@ -141,29 +137,29 @@ NSString * const GTViewControllerHelp = @"help";
         
         if(indexPath.row == 0){
             
-            [cell.iconView setImage:[iconFactory createImageForIcon:NIKFontAwesomeIconListAlt]];
+            [cell.iconView setImage:[GTThemeManager altListIcon]];
             cell.titleLabel.text = [@"Recorded" uppercaseString];
             
         }else if(indexPath.row == 1){
             
-            [cell.iconView setImage:[iconFactory createImageForIcon:NIKFontAwesomeIconEnvelope]];
+            [cell.iconView setImage:[GTThemeManager envelopeIcon]];
             cell.titleLabel.text = [@"Inbox" uppercaseString];
         }
         
     }else if(indexPath.section == 2){
         
         if(indexPath.row == 0){
-            [cell.iconView setImage:[iconFactory createImageForIcon:NIKFontAwesomeIconCogs]];
+            [cell.iconView setImage:[GTThemeManager cogsIcon]];
             cell.titleLabel.text = [@"Settings" uppercaseString];
         }
         
         if(indexPath.row == 1){
-            [cell.iconView setImage:[iconFactory createImageForIcon:NIKFontAwesomeIconInfoSign]];
+            [cell.iconView setImage:[GTThemeManager infoIcon]];
             cell.titleLabel.text = [@"About" uppercaseString];
         }
         
         if(indexPath.row == 2){
-            [cell.iconView setImage:[iconFactory createImageForIcon:NIKFontAwesomeIconQuestionSign]];
+            [cell.iconView setImage:[GTThemeManager questionMarkIcon]];
             cell.titleLabel.text = [@"Help" uppercaseString];
         }
     }

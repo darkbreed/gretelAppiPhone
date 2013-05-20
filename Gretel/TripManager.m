@@ -18,12 +18,13 @@ NSString * const GTTripSavedSuccessfully = @"tripSavedSuccessfully";
 NSString * const GTTripUpdatedDistance = @"updatedDistance";
 NSString * const GTTripGotoInbox = @"gotoInbox";
 
+const float interval = 30.0;
+
 @implementation TripManager {
     
     int currentPointId;
     
     //Trip Timer varibles
-    //BOOL tripTimerIsRunning;
     NSTimeInterval secondsElapsedForTrip;
     NSDate *startDate;
     NSTimer *stopWatchTimer;
@@ -72,6 +73,8 @@ NSString * const GTTripGotoInbox = @"gotoInbox";
                                                             managedObjectContext:self.managedObjectContext
                                                               sectionNameKeyPath:nil
                                                                        cacheName:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLocation) name:GTLocationUpdatedSuccessfully object:nil];
     }
     
     return self;
@@ -184,8 +187,9 @@ NSString * const GTTripGotoInbox = @"gotoInbox";
     
     for (Trip *trip in self.allTrips.fetchedObjects) {
         trip.recordingState = [self recordingStateForState:GTTripStatePaused];
-        [self saveTrip];
     }
+    
+    [self saveTrip];
 }
 
 -(void)createNewTripWithName:(NSString *)name {
@@ -211,25 +215,9 @@ NSString * const GTTripGotoInbox = @"gotoInbox";
     [self.currentTrip setTripName:name];
     [self.currentTrip setReceivedFromRemote:[NSNumber numberWithBool:NO]];
     
-    [self saveTrip];
-    
 }
 
 -(void)beginRecording {
-    
-    const float interval = 10.0;
-    
-    recordingTimer = [NSTimer scheduledTimerWithTimeInterval:interval
-                                                      target:self
-                                                    selector:@selector(saveTrip)
-                                                    userInfo:nil
-                                                     repeats:YES];
-    
-    distanceTimer = [NSTimer scheduledTimerWithTimeInterval:interval
-                                                     target:self
-                                                   selector:@selector(updateDistance)
-                                                   userInfo:nil
-                                                    repeats:YES];
     
     [self.currentTrip setRecordingState:[self recordingStateForState:GTTripStateRecording]];
     [self setTripState:GTTripStateRecording];
@@ -237,46 +225,56 @@ NSString * const GTTripGotoInbox = @"gotoInbox";
     
     [self startTimer];
     
+    [[GeoManager sharedManager] startLocationManagerTimer];
+    
+}
+
+-(void)updateLocation {
+    
+    if(self.tripState == GTTripStateRecording){
+        //Store the data point
+        [self storeLocation];
+    }
 }
 
 -(void)saveTrip {
+    
+    DLog(@"Committing to core data store");
     
     NSError *error = nil;
     if (![self.managedObjectContext save:&error]) {
         // Handle the error.
     }
-    
 }
 
 -(void)pauseRecording {
+            
+    [self.currentTrip setRecordingState:[self recordingStateForState:GTTripStatePaused]];
+    [self setTripState:GTTripStatePaused];
+    [self stopTimer];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        [self.currentTrip setRecordingState:[self recordingStateForState:GTTripStatePaused]];
-        [self setTripState:GTTripStatePaused];
-        [self stopTimer];
-        
-        self.currentTrip.totalDistance = [NSNumber numberWithFloat:[TripUtilities calculateDistanceForPointsInMetres:self.currentTrip]];
-        
-        [recordingTimer invalidate];
-        recordingTimer = nil;
-        
-        [self saveTrip];
-        
-    });
-
+    self.currentTrip.totalDistance = [NSNumber numberWithFloat:[TripUtilities calculateDistanceForPointsInMetres:self.currentTrip]];
+    
+    [recordingTimer invalidate];
+    recordingTimer = nil;
+    
+    [self saveTrip];
+    
+    [[GeoManager sharedManager] stopLocationManagerTimer];
+    
 }
 
 
 -(void)saveTripAndStop {
-    
-   
+
     [self.currentTrip setFinishDate:[NSDate date]];
     [self.currentTrip setRecordingState:[self recordingStateForState:GTTripStatePaused]];
     [self.currentTrip setTotalDistance:[NSNumber numberWithFloat:[TripUtilities calculateDistanceForPointsInMetres:self.currentTrip]]];
     
     [recordingTimer invalidate];
     recordingTimer = nil;
+    
+    [self stopTimer];
     
     [self saveTrip];    
     TripIO *tripIO = [TripIO new];
@@ -289,7 +287,7 @@ NSString * const GTTripGotoInbox = @"gotoInbox";
         [[NSNotificationCenter defaultCenter] postNotificationName:GTTripSavedSuccessfully object:nil];
     
     } andFailureBlock:^(NSError *error) {
-#warning TODO: Handle error
+
     }];
     
     [self setCurrentTrip:nil];
@@ -297,9 +295,8 @@ NSString * const GTTripGotoInbox = @"gotoInbox";
     
     self.pointsForDrawing = nil;
     
-    [self stopTimer];
-    
-    
+    [[GeoManager sharedManager] stopLocationManagerTimer];
+
 }
 
 -(NSArray *)fectchPointsForDrawing:(BOOL)forDetailView {
@@ -318,25 +315,32 @@ NSString * const GTTripGotoInbox = @"gotoInbox";
 -(void)storeLocation {
     
     CLLocation *location = [GeoManager sharedManager].currentLocation;
-    
-    if(location.coordinate.latitude != 0.0){
+    CLLocation *previousLocation = [GeoManager sharedManager].previousLocation;
         
-        // Create and configure a new instance of the GPS entity.
-        GPSPoint *point = (GPSPoint *)[NSEntityDescription insertNewObjectForEntityForName:@"GPSPoint" inManagedObjectContext:self.managedObjectContext];
-        point.altitude = [NSNumber numberWithDouble:location.altitude];
-        point.lat = [NSNumber numberWithDouble:location.coordinate.latitude];
-        point.lon = [NSNumber numberWithDouble:location.coordinate.longitude];
-        point.timestamp = [NSDate date];
-        point.pointID = [NSNumber numberWithInt:currentPointId++];
-        
-        //Add it to the current trip for storage
-        [self.currentTrip addPointsObject:point];
-        [self.pointsForDrawing addObject:point];
+    if(self.currentTrip.points.count > 0){
+
+        //Only store the location if it far enough away from the old one
+        if([location distanceFromLocation:previousLocation] > 20.0){
+            
+            DLog(@"Distance high enough to add new point");
+            
+            // Create and configure a new instance of the GPS entity.
+            GPSPoint *point = (GPSPoint *)[NSEntityDescription insertNewObjectForEntityForName:@"GPSPoint" inManagedObjectContext:self.managedObjectContext];
+            point.altitude = [NSNumber numberWithDouble:location.altitude];
+            point.lat = [NSNumber numberWithDouble:location.coordinate.latitude];
+            point.lon = [NSNumber numberWithDouble:location.coordinate.longitude];
+            point.timestamp = [NSDate date];
+            point.pointID = [NSNumber numberWithInt:currentPointId++];
+            
+            //Add it to the current trip for storage
+            [self.currentTrip addPointsObject:point];
+            [self.pointsForDrawing addObject:point];
+            
+            [self saveTrip];
+        }
         
     }
-
 }
-
 
 -(NSString *)recordingStateForState:(GTTripState)state {
     
@@ -348,7 +352,6 @@ NSString * const GTTripGotoInbox = @"gotoInbox";
         case GTTripStateNew:
             return @"stopped";
     }
-    
 }
 
 #pragma mark Timer Methods
@@ -406,7 +409,7 @@ NSString * const GTTripGotoInbox = @"gotoInbox";
         if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
             // Replace this implementation with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }
     }
@@ -455,31 +458,11 @@ NSString * const GTTripGotoInbox = @"gotoInbox";
     NSError *error = nil;
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
-        /*
-         Replace this implementation with code to handle the error appropriately.
-         
-         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-         
-         Typical reasons for an error here include:
-         * The persistent store is not accessible;
-         * The schema for the persistent store is incompatible with current managed object model.
-         Check the error message to determine what the actual problem was.
-         
-         
-         If the persistent store is not accessible, there is typically something wrong with the file path. Often, a file URL is pointing into the application's resources directory instead of a writeable directory.
-         
-         If you encounter schema incompatibility errors during development, you can reduce their frequency by:
-         * Simply deleting the existing store:
-         [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil]
-         
-         * Performing automatic lightweight migration by passing the following dictionary as the options parameter:
-         @{NSMigratePersistentStoresAutomaticallyOption:@YES, NSInferMappingModelAutomaticallyOption:@YES}
-         
-         Lightweight migration will only work for a limited set of schema changes; consult "Core Data Model Versioning and Data Migration Programming Guide" for details.
-         
-         */
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
+        
+         //Lightweight migration will only work for a limited set of schema changes; consult "Core Data Model Versioning and Data Migration Programming Guide" for details.
+         //Performing automatic lightweight migration by passing the following dictionary as the options parameter:
+        //@{NSMigratePersistentStoresAutomaticallyOption:@YES, NSInferMappingModelAutomaticallyOption:@YES};
+        
     }
     
     return _persistentStoreCoordinator;

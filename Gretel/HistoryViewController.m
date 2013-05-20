@@ -55,17 +55,9 @@
     [self.notificationView setHidden:YES];
     
     self.tableView.allowsMultipleSelectionDuringEditing = NO;
+   
+    [self.navigationItem.leftBarButtonItem setImage:[GTThemeManager listIcon]];
     
-    NIKFontAwesomeIconFactory *iconFactory = [[NIKFontAwesomeIconFactory alloc] init];
-    [iconFactory setSize:18.0];
-    [iconFactory setColors:[NSArray arrayWithObjects:[UIColor whiteColor], nil]];
-    [iconFactory setSquare:YES];
-    [iconFactory setStrokeColor:[UIColor blackColor]];
-    [iconFactory setStrokeWidth:0.2];
-    
-    [self.navigationItem.leftBarButtonItem setImage:[iconFactory createImageForIcon:NIKFontAwesomeIconList]];
-    
-
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -112,6 +104,7 @@
         [self.navigationController setToolbarHidden:NO animated:YES];
     }else{
         [self.navigationController setToolbarHidden:YES animated:YES];
+        self.tableView.contentOffset = CGPointMake(0.0, 44.0);
     }
     
 }
@@ -138,15 +131,11 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if(self.noResultsToDisplay){
-        
         return 1;
-        
     }else{
         int sections = [[tripManager.allTrips sections] count];
         return sections;
     }
-    
-    
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -160,7 +149,6 @@
 
     if(self.noResultsToDisplay){
         return 1;
-        
     }else{
         
         id<NSFetchedResultsSectionInfo> sectionInfo = [[tripManager.allTrips sections] objectAtIndex:section];
@@ -290,7 +278,7 @@
     
     switch(type) {
         case NSFetchedResultsChangeInsert:
-            //[self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
             break;
             
         case NSFetchedResultsChangeDelete:
@@ -311,8 +299,8 @@
             break;
             
         case NSFetchedResultsChangeUpdate:
-            //[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [self.tableView reloadData];
+            [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            //[self.tableView reloadData];
             break;
             
         case NSFetchedResultsChangeMove:
@@ -423,7 +411,6 @@
 }
 
 -(void)deleteMultipleTrips {
-    
 
     [self.notificationView setHidden:NO];
     [self.notificationView setShowActivity:YES animated:YES];

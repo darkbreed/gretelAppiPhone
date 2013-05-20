@@ -16,6 +16,7 @@
 #import "SettingsManager.h"
 #import "TripManager.h"
 #import "ECSlidingViewController.h"
+#import "GTThemeManager.h"
 
 typedef enum {
     GTAlertViewTagBeginRecordingAlert,
@@ -39,27 +40,27 @@ typedef enum {
 }
 
 /** @section General UI Properties */
-@property (nonatomic, strong) IBOutlet UIButton *startButton;
-@property (nonatomic, strong) IBOutlet UIButton *stopButton;
-@property (nonatomic, strong) IBOutlet UIBarButtonItem *modeChangeButton;
-@property (nonatomic, strong) IBOutlet UIView *hudView;
-@property (nonatomic, strong) IBOutlet UIView *mapHudContainer;
-@property (nonatomic, strong) IBOutlet UIView *recordingIndicatorContainer;
-@property (nonatomic, strong) IBOutlet UILabel *tripTimerLabel;
-@property (nonatomic, strong) IBOutlet UIButton *hudButton;
+@property (nonatomic, weak) IBOutlet UIButton *startButton;
+@property (nonatomic, weak) IBOutlet UIButton *stopButton;
+@property (nonatomic, weak) IBOutlet UIBarButtonItem *modeChangeButton;
+@property (nonatomic, weak) IBOutlet UIView *hudView;
+@property (nonatomic, weak) IBOutlet UIView *mapHudContainer;
+@property (nonatomic, weak) IBOutlet UIView *recordingIndicatorContainer;
+@property (nonatomic, weak) IBOutlet UILabel *tripTimerLabel;
+@property (nonatomic, weak) IBOutlet UIButton *hudButton;
 @property (nonatomic, strong) GCDiscreetNotificationView *notificationView;
-@property (nonatomic, strong) UIImageView *recordingLight;
+@property (nonatomic, weak) UIImageView *recordingLight;
 
 /** @section HUD UI Properties */
-@property (nonatomic, strong) IBOutlet UILabel *latLabel;
-@property (nonatomic, strong) IBOutlet UILabel *lonLabel;
-@property (nonatomic, strong) IBOutlet UILabel *elevationLabel;
-@property (nonatomic, strong) IBOutlet UILabel *distanceLabel;
-@property (nonatomic, strong) IBOutlet UILabel *currentSpeedLabel;
-@property (nonatomic, strong) IBOutlet UIImageView *compassNeedle;
-@property (nonatomic, strong) IBOutlet UIImageView *compassBackground;
-@property (nonatomic, strong) IBOutlet UITextField *tripNameField;
-@property (nonatomic, strong) IBOutlet UIButton *locateMeButton;
+@property (nonatomic, weak) IBOutlet UILabel *latLabel;
+@property (nonatomic, weak) IBOutlet UILabel *lonLabel;
+@property (nonatomic, weak) IBOutlet UILabel *accuracyLabel;
+@property (nonatomic, weak) IBOutlet UILabel *elevationLabel;
+@property (nonatomic, weak) IBOutlet UILabel *distanceLabel;
+@property (nonatomic, weak) IBOutlet UILabel *currentSpeedLabel;
+@property (nonatomic, weak) IBOutlet UIImageView *compassNeedle;
+@property (nonatomic, weak) IBOutlet UIImageView *compassBackground;
+@property (nonatomic, weak) IBOutlet UIButton *locateMeButton;
 
 /** @section Non UI Properties */
 ///Current trip state
@@ -67,9 +68,11 @@ typedef enum {
 ///Current trip to record points to
 @property (nonatomic, strong) Trip *currentTrip;
 ///The trip name as set in the launch controller UIAlertView
-@property (nonatomic, strong) NSString *tripName;
+@property (nonatomic, weak) NSString *tripName;
 ///handles recording states
 @property (nonatomic, readwrite) BOOL isRecording;
+///
+@property (nonatomic, readwrite) BOOL isResuming;
 
 /** @section Button handlers */
 -(IBAction)startTrackingButtonHandler:(id)sender;

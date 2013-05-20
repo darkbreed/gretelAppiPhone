@@ -115,6 +115,7 @@
 		B578C10416DCA2E4007A36A1 /* listSymbol@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B578C10216DCA2E4007A36A1 /* listSymbol@2x.png */; };
 		B580CC93171BE32200D5ADB9 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = B580CC92171BE32200D5ADB9 /* settings.png */; };
 		B580CC95171BE3CF00D5ADB9 /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B580CC94171BE3CF00D5ADB9 /* settings@2x.png */; };
+		B58AAACF17460BFA00FEE8A8 /* GTThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B58AAACE17460BFA00FEE8A8 /* GTThemeManager.m */; };
 		B595269B1715494200A6C550 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B59526971715494100A6C550 /* CFNetwork.framework */; };
 		B595269C1715494200A6C550 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B59526981715494100A6C550 /* QuartzCore.framework */; };
 		B595269D1715494200A6C550 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B59526991715494200A6C550 /* Security.framework */; };
@@ -140,6 +141,8 @@
 		B5C1572E171F095400F9773B /* RootSlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C1572D171F095400F9773B /* RootSlidingViewController.m */; };
 		B5C15731171F0BE200F9773B /* SettingsMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C15730171F0BE200F9773B /* SettingsMenuViewController.m */; };
 		B5C15734171F49AB00F9773B /* SettingsMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C15733171F49AA00F9773B /* SettingsMenuCell.m */; };
+		B5D1AF19173C0F3C00D57963 /* ostrich-black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B5D1AF17173C0F3C00D57963 /* ostrich-black.ttf */; };
+		B5D1AF1A173C0F3C00D57963 /* ostrich-regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B5D1AF18173C0F3C00D57963 /* ostrich-regular.ttf */; };
 		B5E45C23170ECDF500C1B6F6 /* obanglencoe.gpx in Resources */ = {isa = PBXBuildFile; fileRef = B5E45C22170ECDF500C1B6F6 /* obanglencoe.gpx */; };
 		B5E45C25170EE98400C1B6F6 /* 05-04-2013 10:32.gpx in Resources */ = {isa = PBXBuildFile; fileRef = B5E45C24170EE98400C1B6F6 /* 05-04-2013 10:32.gpx */; };
 		B5F095C31723DC9C00BC88D6 /* Bariol_Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = B5F095C21723DC9C00BC88D6 /* Bariol_Regular.otf */; };
@@ -299,6 +302,8 @@
 		B578C10216DCA2E4007A36A1 /* listSymbol@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "listSymbol@2x.png"; sourceTree = "<group>"; };
 		B580CC92171BE32200D5ADB9 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		B580CC94171BE3CF00D5ADB9 /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
+		B58AAACD17460BFA00FEE8A8 /* GTThemeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTThemeManager.h; sourceTree = "<group>"; };
+		B58AAACE17460BFA00FEE8A8 /* GTThemeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTThemeManager.m; sourceTree = "<group>"; };
 		B59526971715494100A6C550 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		B59526981715494100A6C550 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B59526991715494200A6C550 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -330,6 +335,8 @@
 		B5C15730171F0BE200F9773B /* SettingsMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsMenuViewController.m; sourceTree = "<group>"; };
 		B5C15732171F49AA00F9773B /* SettingsMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsMenuCell.h; sourceTree = "<group>"; };
 		B5C15733171F49AA00F9773B /* SettingsMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsMenuCell.m; sourceTree = "<group>"; };
+		B5D1AF17173C0F3C00D57963 /* ostrich-black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ostrich-black.ttf"; sourceTree = "<group>"; };
+		B5D1AF18173C0F3C00D57963 /* ostrich-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ostrich-regular.ttf"; sourceTree = "<group>"; };
 		B5E45C22170ECDF500C1B6F6 /* obanglencoe.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obanglencoe.gpx; sourceTree = "<group>"; };
 		B5E45C24170EE98400C1B6F6 /* 05-04-2013 10:32.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "05-04-2013 10:32.gpx"; sourceTree = "<group>"; };
 		B5F095C21723DC9C00BC88D6 /* Bariol_Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Bariol_Regular.otf; sourceTree = "<group>"; };
@@ -514,6 +521,8 @@
 				B53B2A20173B7D0300111790 /* TripIO.m */,
 				B53B2A25173B80EC00111790 /* TripUtilities.h */,
 				B53B2A26173B80EC00111790 /* TripUtilities.m */,
+				B58AAACD17460BFA00FEE8A8 /* GTThemeManager.h */,
+				B58AAACE17460BFA00FEE8A8 /* GTThemeManager.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -735,6 +744,8 @@
 		B5F095C11723DC9000BC88D6 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				B5D1AF17173C0F3C00D57963 /* ostrich-black.ttf */,
+				B5D1AF18173C0F3C00D57963 /* ostrich-regular.ttf */,
 				B5F095C21723DC9C00BC88D6 /* Bariol_Regular.otf */,
 			);
 			name = Fonts;
@@ -891,6 +902,8 @@
 				B5291265172A611F00806B90 /* status-bar-pattern-default@2x.jpg in Resources */,
 				B5291266172A611F00806B90 /* status-bar-progress.png in Resources */,
 				B5291267172A611F00806B90 /* status-bar-progress@2x.png in Resources */,
+				B5D1AF19173C0F3C00D57963 /* ostrich-black.ttf in Resources */,
+				B5D1AF1A173C0F3C00D57963 /* ostrich-regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -950,6 +963,7 @@
 				B5291271172A666100806B90 /* WTStatusWindow.m in Sources */,
 				B53B2A21173B7D0300111790 /* TripIO.m in Sources */,
 				B53B2A27173B80EC00111790 /* TripUtilities.m in Sources */,
+				B58AAACF17460BFA00FEE8A8 /* GTThemeManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ECSlidingViewController.h"
+#import "GTThemeManager.h"
 
 @interface AboutViewController : UIViewController
 

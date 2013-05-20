@@ -16,7 +16,6 @@
 typedef void(^FileCreationSuccessBlock)(NSString *gpxFilePath);
 typedef void(^FileCreationFailureBlock)(NSError *error);
 
-
 @interface TripIO : NSObject
 ///Core data stack
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;

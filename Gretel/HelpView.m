@@ -21,9 +21,7 @@
         [titleLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:titleLabel];
         
-        NIKFontAwesomeIconFactory *iconFactory = [[NIKFontAwesomeIconFactory alloc] init];
-        
-        UIImageView *screenShotImageView = [[UIImageView alloc] initWithImage:[iconFactory createImageForIcon:NIKFontAwesomeIconQuestionSign]];
+        UIImageView *screenShotImageView = [[UIImageView alloc] initWithImage:[GTThemeManager questionMarkIcon]];
         [screenShotImageView setFrame:CGRectMake(0, 25, self.frame.size.width, 300)];
     
         [self addSubview:screenShotImageView];

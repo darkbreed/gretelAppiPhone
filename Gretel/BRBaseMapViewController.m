@@ -24,9 +24,7 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated {
-    
     [super viewDidAppear:animated];
-    
     self.mapView.delegate = self;
 }
 

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ECSlidingViewController.h"
 #import "RecordNewTripViewController.h"
+#import "GTThemeManager.h"
 
 extern NSString * const GTViewControllerRecordTrip;
 extern NSString * const GTViewControllerTripHistory;

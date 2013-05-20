@@ -125,7 +125,7 @@
         
         _statusLabel = [[UILabel alloc] initWithFrame:self.activityView.frame];
         self.statusLabel.backgroundColor = [UIColor clearColor];
-        self.statusLabel.textAlignment = UITextAlignmentCenter;
+        self.statusLabel.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:self.statusLabel];
         
         _textLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -135,7 +135,7 @@
                                           statusBarHeight);
         self.textLabel.backgroundColor = [UIColor clearColor];
         self.textLabel.font = TEXT_LABEL_FONT;
-        self.textLabel.textAlignment = UITextAlignmentCenter;
+        self.textLabel.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:self.textLabel];
         
         UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressOnView:)];
