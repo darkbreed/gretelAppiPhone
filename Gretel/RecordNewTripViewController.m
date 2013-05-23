@@ -212,6 +212,10 @@
             //change the recording button to pause
             [tripManager beginRecording];
             
+            NSArray *points = [tripManager fectchPointsForDrawing:NO];
+            
+            [self drawRoute:points onMapView:self.mapView willRefreh:YES];
+            
             if([self.notificationView.textLabel isEqualToString:@"Recording paused"]){
                 [self.notificationView setTextLabel:@"Recording"];
                 [self.notificationView hideAnimatedAfter:1.0];

@@ -243,6 +243,7 @@ NSString * const GTTripIsResuming = @"tripIsResuming";
         [[TripManager sharedManager] setTripForDetailView:nil];
         [[TripManager sharedManager] setTripState:GTTripStateRecording];
         [[TripManager sharedManager] setIsResuming:YES];
+        [[TripManager sharedManager] setPointsForDrawing:[[tripManager.currentTrip.points allObjects] mutableCopy]];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:GTTripIsResuming object:nil];
     }
