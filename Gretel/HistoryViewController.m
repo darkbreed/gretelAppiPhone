@@ -208,11 +208,13 @@
             
             [cell.distanceLabel setFrame:CGRectMake(170, cell.distanceLabel.frame.origin.y, cell.distanceLabel.frame.size.width, cell.distanceLabel.frame.size.height)];
             [cell.tripDurationLabel setFrame:CGRectMake(155, cell.tripDurationLabel.frame.origin.y, cell.tripDurationLabel.frame.size.width, cell.tripDurationLabel.frame.size.height)];
+            [cell.recordingBanner setHidden:NO];
         
         }else{
             
             [cell.distanceLabel setFrame:CGRectMake(195, cell.distanceLabel.frame.origin.y, cell.distanceLabel.frame.size.width, cell.distanceLabel.frame.size.height)];
             [cell.tripDurationLabel setFrame:CGRectMake(180, cell.tripDurationLabel.frame.origin.y, cell.tripDurationLabel.frame.size.width, cell.tripDurationLabel.frame.size.height)];
+            [cell.recordingBanner setHidden:YES];
             
         }
         
@@ -299,7 +301,7 @@
             break;
             
         case NSFetchedResultsChangeUpdate:
-            [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
             //[self.tableView reloadData];
             break;
             
@@ -329,8 +331,10 @@
         }
         
         if(tripIsRecording || [trip.isImporting boolValue]){
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sorry" message:@"You cannot view this trip as it is currently in use." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Currently Recording" message:@"You cannot view this trip as it is currently in use. Head back to the map screen to see your progress." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alertView show];
+            
         }
     
         return NO;

@@ -934,6 +934,136 @@ Finally a shout out must go to Friska, this application has been powered by thei
         <image name="viewBackgrond.png" width="320" height="568"/>
         <image name="viewBackgrond@2x.png" width="640" height="1135"/>
     </resources>
+    <classes>
+        <class className="AboutViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AboutViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="menuButtonHandler:"/>
+                <relationship kind="outlet" name="versionNumberLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="BRBaseMapViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BRBaseMapViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="formContainer" candidateClass="UIView"/>
+                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
+                <relationship kind="outlet" name="mapViewWrapper" candidateClass="UIView"/>
+                <relationship kind="outlet" name="optionButtonWrapper" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="BaseNavigationControllerViewController" superclassName="UINavigationController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseNavigationControllerViewController.h"/>
+        </class>
+        <class className="ECSlidingViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ECSlidingViewController.h"/>
+        </class>
+        <class className="HelpView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/HelpView.h"/>
+            <relationships>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="HelpViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/HelpViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="menuButtonHandler:"/>
+                <relationship kind="outlet" name="pageControl" candidateClass="UIPageControl"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+            </relationships>
+        </class>
+        <class className="HistoryViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/HistoryViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="menuButtonHandler:"/>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+            </relationships>
+        </class>
+        <class className="RecordNewTripViewController" superclassName="BRBaseMapViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RecordNewTripViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="actionButtonHandler:"/>
+                <relationship kind="action" name="addButtonHandler:"/>
+                <relationship kind="action" name="displayMap:"/>
+                <relationship kind="action" name="locateMeButtonHandler:"/>
+                <relationship kind="action" name="menuButtonHandler:"/>
+                <relationship kind="action" name="startTrackingButtonHandler:"/>
+                <relationship kind="action" name="stopTrackingButtonHandler:"/>
+                <relationship kind="outlet" name="accuracyLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="compassBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="compassNeedle" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="currentSpeedLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="distanceLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="elevationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="hudButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="hudView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="latLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="locateMeButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="lonLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="mapHudContainer" candidateClass="UIView"/>
+                <relationship kind="outlet" name="modeChangeButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="recordingIndicatorContainer" candidateClass="UIView"/>
+                <relationship kind="outlet" name="startButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="stopButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="tripTimerLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="RootSlidingViewController" superclassName="ECSlidingViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RootSlidingViewController.h"/>
+        </class>
+        <class className="SettingsMenuCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsMenuCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="countLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="iconView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="SettingsMenuViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsMenuViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="menuButtonHandler:"/>
+            </relationships>
+        </class>
+        <class className="SettingsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="accuracySettingsDidChange:" candidateClass="UISegmentedControl"/>
+                <relationship kind="action" name="intervalSettingsDidChange:" candidateClass="UISegmentedControl"/>
+                <relationship kind="action" name="menuButtonHandler:"/>
+                <relationship kind="action" name="unitsControlDidChange:" candidateClass="UISegmentedControl"/>
+                <relationship kind="action" name="usageTypeControlDidChange:" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="accuracyLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="accuracySettings" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="applicationUsageSettings" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="locationCheckInterval" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="unitOptions" candidateClass="UISegmentedControl"/>
+            </relationships>
+        </class>
+        <class className="TripDetailViewController" superclassName="BRBaseMapViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TripDetailViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="actionButtonHandler:"/>
+                <relationship kind="outlet" name="distanceLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="durationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="horizontalScrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="pageControl" candidateClass="UIPageControl"/>
+                <relationship kind="outlet" name="pointsRecordedLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="tripNameField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="TripHistoryTableViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TripHistoryTableViewCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="distanceLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="recordedPointsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="recordingBanner" candidateClass="UIView"/>
+                <relationship kind="outlet" name="tripDurationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="tripNameLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

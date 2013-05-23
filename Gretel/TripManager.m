@@ -216,6 +216,8 @@ const float desiredDistanceBetweenPoints = 5.0;
     [self.currentTrip setTripName:name];
     [self.currentTrip setReceivedFromRemote:[NSNumber numberWithBool:NO]];
     
+    [self saveTrip];
+    
 }
 
 -(void)beginRecording {
