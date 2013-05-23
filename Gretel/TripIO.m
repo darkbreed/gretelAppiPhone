@@ -96,9 +96,7 @@
     document.gpxString = root.gpx;
     
     [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
-        
         successBlock([gpxURL absoluteString]);
-        
     }];
 }
 

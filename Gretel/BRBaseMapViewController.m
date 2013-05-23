@@ -169,9 +169,7 @@
                 if(count > 1){
                     MKPolyline *previousLine = [[mapView overlays] objectAtIndex:0];
                     if(previousLine){
-                        
                         [mapView removeOverlay:previousLine];
-                        
                     }
                 }
             });

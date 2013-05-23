@@ -42,6 +42,7 @@ extern NSString * const GTApplicationUsageTypeKey;
 extern NSString * const GTApplicationDidUpdateUsageType;
 extern NSString * const GTApplicationDidUpdateDistanceFilter;
 extern NSString * const GTApplicationDidUpdateAccuracy;
+extern NSString * const GTApplicationDidUpdateInterval;
 
 @interface SettingsManager : NSObject
 

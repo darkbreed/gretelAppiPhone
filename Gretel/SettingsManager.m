@@ -29,6 +29,7 @@ NSString *const GTApplicationUsageTypeKey = @"applicationUsageType";
 NSString *const GTApplicationDidUpdateUsageType = @"didUpdateUsageType";
 NSString *const GTApplicationDidUpdateDistanceFilter = @"didUpdateDistanceFilter";
 NSString *const GTApplicationDidUpdateAccuracy = @"didUpdateAccuracy";
+NSString *const GTApplicationDidUpdateInterval = @"didUpdateInterval";
 
 #import "SettingsManager.h"
 
@@ -127,7 +128,7 @@ NSString * const GTAppSettingsCurrentUnitType = @"currentUnitType";
 -(void)setApplicationLocationCheckInterval:(float)distanceFilter {
     
     [appDefaults setFloat:distanceFilter forKey:SMLocationCheckInterval];
-    [[NSNotificationCenter defaultCenter] postNotificationName:GTApplicationDidUpdateDistanceFilter object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:GTApplicationDidUpdateInterval object:nil];
 }
 
 -(void)setApplicationAccuracy:(CLLocationAccuracy)accuracyType {

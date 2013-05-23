@@ -16,14 +16,13 @@ NSString *const GTLocationDidResumeUpdates = @"updatesResumed";
 NSString *const GTAppDidEnterForeground = @"didEnterForeground";
 NSString *const GTAppDidEnterBackground = @"didEnterBackground";
 
-float const accuracyLimit = 100.0; // Horizontal Accuracy limit before sending the location update and shutting down the location manager
-
 @implementation GeoManager {
     
     NSUserDefaults *defaults;
     NSTimer *locationManagerTimer;
     float locationManagerTick;
-    
+    int desiredAccuracy;
+    CLLocation *previousLocation;
     __block UIBackgroundTaskIdentifier background_task; //Create a task object
     
 }
@@ -48,11 +47,16 @@ float const accuracyLimit = 100.0; // Horizontal Accuracy limit before sending t
     if(self){
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setUsageType) name:GTApplicationDidUpdateUsageType object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setDistanceFilterValue) name:GTApplicationDidUpdateDistanceFilter object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setAccuracyType) name:GTApplicationDidUpdateAccuracy object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setIntervalValue) name:GTApplicationDidUpdateInterval object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setDesiredAccuracyValue) name:GTApplicationDidUpdateAccuracy object:nil];
         
         defaults = [NSUserDefaults standardUserDefaults];
         locationManagerTick = [defaults floatForKey:SMLocationCheckInterval];
+        desiredAccuracy = [defaults integerForKey:SMDesiredAccuracy];
+        
+        initialLocate = YES;
+        
+        [self startLocationManagerTimer];
     
     }
 
@@ -79,14 +83,13 @@ float const accuracyLimit = 100.0; // Horizontal Accuracy limit before sending t
     
 }
 
--(void)setAccuracyType {
-    [locationManager setDesiredAccuracy:[defaults integerForKey:SMDesiredAccuracy]];
+-(void)setIntervalValue {
+    locationManagerTick = [defaults floatForKey:SMLocationCheckInterval];
 }
 
--(void)setDistanceFilterValue {
-    locationManagerTick = [defaults floatForKey:SMLocationCheckInterval];
-    
-    DLog(@"Checking location every %f seconds",locationManagerTick);
+-(void)setDesiredAccuracyValue {
+    desiredAccuracy = [defaults floatForKey:SMDesiredAccuracy];
+    [locationManager setDesiredAccuracy:[defaults integerForKey:SMDesiredAccuracy]];
 }
 
 #pragma mark CLLocationManagerDelegate methods
@@ -96,9 +99,9 @@ float const accuracyLimit = 100.0; // Horizontal Accuracy limit before sending t
     
     CLLocation *location = (CLLocation *)[locations lastObject];
     
-    if(location.horizontalAccuracy < 100.0){
-        
-        CLLocation *previousLocation = (CLLocation *)[locations objectAtIndex:locations.count-1];
+    DLog(@"Updating location");
+    
+    if(location.horizontalAccuracy < desiredAccuracy){
         
         self.currentLocation = (CLLocation *)[locations lastObject];
         self.previousLocation = previousLocation ? previousLocation : nil;
@@ -109,6 +112,12 @@ float const accuracyLimit = 100.0; // Horizontal Accuracy limit before sending t
         [[NSNotificationCenter defaultCenter] postNotificationName:GTLocationUpdatedSuccessfully object:nil];
         [self stopTrackingPosition];
         
+        DLog(@"Killing location manager");
+
+        previousLocation = location;
+        
+        initialLocate = NO;
+
     }
 }
 
@@ -146,12 +155,13 @@ float const accuracyLimit = 100.0; // Horizontal Accuracy limit before sending t
 -(void)startLocationManagerTimer {
     
     //Configure the settings, accuracy etc.
-    locationManagerTimer = [NSTimer scheduledTimerWithTimeInterval:20.0
+    locationManagerTimer = [NSTimer scheduledTimerWithTimeInterval:locationManagerTick
                                                             target:self
                                                           selector:@selector(startTrackingPosition)
                                                           userInfo:nil
                                                            repeats:YES];
     [locationManagerTimer fire];
+
 }
 
 -(void)stopLocationManagerTimer {
@@ -166,8 +176,6 @@ float const accuracyLimit = 100.0; // Horizontal Accuracy limit before sending t
     
     //Begin tracking the users location and sending notifications on change
     if(!locationManager){
-        
-        DLog(@"Starting Location manager");
         
         //Create an instance of CLLocation manager for the manager to use
         locationManager = [CLLocationManager new];
@@ -193,11 +201,10 @@ float const accuracyLimit = 100.0; // Horizontal Accuracy limit before sending t
 -(void)stopTrackingPosition {
     [locationManager stopUpdatingLocation];
     locationManager = nil;
-    DLog(@"Killing Location manager");
 }
 
 -(void)beginHeadingUpdates {
-    
+    [locationManager startUpdatingHeading];
 }
 
 -(float)currentSpeed {
@@ -228,11 +235,11 @@ float const accuracyLimit = 100.0; // Horizontal Accuracy limit before sending t
 }
 
 -(void)setBackgroundMode:(BOOL)backgroundMode {
-    
 
     if(backgroundMode){
         
         [self stopLocationManagerTimer];
+        [locationManager stopUpdatingHeading];
         
         if ([[UIDevice currentDevice] respondsToSelector:@selector(isMultitaskingSupported)]) { //Check if our iOS version supports multitasking I.E iOS 4
             if ([[UIDevice currentDevice] isMultitaskingSupported]) { //Check if device supports mulitasking
@@ -256,6 +263,7 @@ float const accuracyLimit = 100.0; // Horizontal Accuracy limit before sending t
         
         if([tripManager.currentTrip.recordingState isEqualToString:[[TripManager sharedManager] recordingStateForState:GTTripStateRecording]]){
             [self startLocationManagerTimer];
+            [locationManager startUpdatingHeading];
         }
     }
 }

@@ -19,7 +19,7 @@
 /** @section UI Properties */
 @property (nonatomic, strong) IBOutlet UISegmentedControl *unitOptions;
 @property (nonatomic, strong) IBOutlet UISegmentedControl *applicationUsageSettings;
-@property (nonatomic, strong) IBOutlet UISlider *locationCheckInterval;
+@property (nonatomic, strong) IBOutlet UISegmentedControl *locationCheckInterval;
 @property (nonatomic, weak) IBOutlet UISegmentedControl *accuracySettings;
 @property (nonatomic, weak) IBOutlet UILabel *accuracyLabel;
 

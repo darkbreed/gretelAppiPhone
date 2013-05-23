@@ -27,14 +27,11 @@
     tripManager = [TripManager sharedManager];
     settingsManager = [SettingsManager sharedManager];
     
-    self.mapView.showsUserLocation = NO;
-    
     [self addAllObservers];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleEnteringBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleReturnToForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
     
     if(!tripManager.currentTrip){
-        
         [self.currentSpeedLabel setText:[NSString stringWithFormat:@"0.0 %@",settingsManager.unitLabelSpeed]];
         [self setInitialLocate:YES];
         [self setUpViewForNewTrip];
@@ -92,14 +89,12 @@
     [self.mapView setUserTrackingMode:MKUserTrackingModeNone];
     [self.mapView setShowsUserLocation:NO];
     [self removeAllObsververs];
-    self.mapView.delegate = nil;
 
 }
 
 -(void)handleReturnToForeground {
     
     [self addAllObservers];
-    self.mapView.delegate = self;
     [self.mapView setUserTrackingMode:MKUserTrackingModeFollow];
     [self.mapView setShowsUserLocation:YES];
     [self checkForLocationServices];
@@ -363,9 +358,10 @@
     
     self.elevationLabel.text = [NSString stringWithFormat:@"%.2f %@",elevation,settingsManager.unitLabelHeight];
     
-    NSArray *points = [tripManager fectchPointsForDrawing:YES];
-    
+    NSArray *points = [tripManager fectchPointsForDrawing:NO];
     [self drawRoute:points onMapView:self.mapView willRefreh:YES];
+    
+    DLog(@"Drawing on map");
     
 }
 
@@ -443,7 +439,6 @@
 }
 
 -(void)removeAllObsververs {
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:GTLocationUpdatedSuccessfully object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:GTLocationHeadingDidUpdate object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:GTLocationDidPauseUpdates object:nil];
@@ -452,7 +447,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:GTTripTimerDidUpdate object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:GTTripSavedSuccessfully object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:GTTripUpdatedDistance object:nil];
-    
 }
 
 -(void)dealloc {

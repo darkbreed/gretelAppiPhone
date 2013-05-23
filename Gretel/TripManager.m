@@ -19,6 +19,7 @@ NSString * const GTTripUpdatedDistance = @"updatedDistance";
 NSString * const GTTripGotoInbox = @"gotoInbox";
 
 const float interval = 30.0;
+const float desiredDistanceBetweenPoints = 5.0;
 
 @implementation TripManager {
     
@@ -239,8 +240,6 @@ const float interval = 30.0;
 
 -(void)saveTrip {
     
-    DLog(@"Committing to core data store");
-    
     NSError *error = nil;
     if (![self.managedObjectContext save:&error]) {
         // Handle the error.
@@ -275,27 +274,29 @@ const float interval = 30.0;
     recordingTimer = nil;
     
     [self stopTimer];
+    [self saveTrip];
     
-    [self saveTrip];    
+    __weak TripManager *weakSelf = self;
+    
     TripIO *tripIO = [TripIO new];
-    
     [tripIO createGPXFileFromTrip:self.currentTrip withSuccessBlock:^(NSString *gpxFilePath) {
         
-        self.currentTrip.gpxFilePath = gpxFilePath;
-        [self saveTrip];
+        weakSelf.currentTrip.gpxFilePath = gpxFilePath;
         
+        [weakSelf setCurrentTrip:nil];
+        [weakSelf setTripState:GTTripStateNew];
+        
+        weakSelf.pointsForDrawing = nil;
+        
+        [[GeoManager sharedManager] stopLocationManagerTimer];
+    
         [[NSNotificationCenter defaultCenter] postNotificationName:GTTripSavedSuccessfully object:nil];
     
     } andFailureBlock:^(NSError *error) {
+        
+        [[GeoManager sharedManager] stopLocationManagerTimer];
 
     }];
-    
-    [self setCurrentTrip:nil];
-    [self setTripState:GTTripStateNew];
-    
-    self.pointsForDrawing = nil;
-    
-    [[GeoManager sharedManager] stopLocationManagerTimer];
 
 }
 
@@ -316,30 +317,46 @@ const float interval = 30.0;
     
     CLLocation *location = [GeoManager sharedManager].currentLocation;
     CLLocation *previousLocation = [GeoManager sharedManager].previousLocation;
-        
-    if(self.currentTrip.points.count > 0){
 
+    if(!previousLocation){
+        
+        // Create and configure a new instance of the GPS entity.
+        GPSPoint *point = (GPSPoint *)[NSEntityDescription insertNewObjectForEntityForName:@"GPSPoint" inManagedObjectContext:self.managedObjectContext];
+        point.altitude = [NSNumber numberWithDouble:location.altitude];
+        point.lat = [NSNumber numberWithDouble:location.coordinate.latitude];
+        point.lon = [NSNumber numberWithDouble:location.coordinate.longitude];
+        point.timestamp = [NSDate date];
+        point.pointID = [NSNumber numberWithInt:currentPointId++];
+        
+        //Add it to the current trip for storage
+        [self.currentTrip addPointsObject:point];
+        [self.pointsForDrawing addObject:point];
+        
+        [self saveTrip];
+        
         //Only store the location if it far enough away from the old one
-        if([location distanceFromLocation:previousLocation] > 20.0){
-            
-            DLog(@"Distance high enough to add new point");
-            
-            // Create and configure a new instance of the GPS entity.
-            GPSPoint *point = (GPSPoint *)[NSEntityDescription insertNewObjectForEntityForName:@"GPSPoint" inManagedObjectContext:self.managedObjectContext];
-            point.altitude = [NSNumber numberWithDouble:location.altitude];
-            point.lat = [NSNumber numberWithDouble:location.coordinate.latitude];
-            point.lon = [NSNumber numberWithDouble:location.coordinate.longitude];
-            point.timestamp = [NSDate date];
-            point.pointID = [NSNumber numberWithInt:currentPointId++];
-            
-            //Add it to the current trip for storage
-            [self.currentTrip addPointsObject:point];
-            [self.pointsForDrawing addObject:point];
-            
-            [self saveTrip];
-        }
+    }else if([location distanceFromLocation:previousLocation] > desiredDistanceBetweenPoints){
+        
+        // Create and configure a new instance of the GPS entity.
+        GPSPoint *point = (GPSPoint *)[NSEntityDescription insertNewObjectForEntityForName:@"GPSPoint" inManagedObjectContext:self.managedObjectContext];
+        point.altitude = [NSNumber numberWithDouble:location.altitude];
+        point.lat = [NSNumber numberWithDouble:location.coordinate.latitude];
+        point.lon = [NSNumber numberWithDouble:location.coordinate.longitude];
+        point.timestamp = [NSDate date];
+        point.pointID = [NSNumber numberWithInt:currentPointId++];
+        
+        //Add it to the current trip for storage
+        [self.currentTrip addPointsObject:point];
+        [self.pointsForDrawing addObject:point];
+        
+        [self saveTrip];
+        
+    }else{
+        
+        DLog(@"Not a large enough distance between here and the previous location. Skipping.");
         
     }
+    
 }
 
 -(NSString *)recordingStateForState:(GTTripState)state {
@@ -453,15 +470,23 @@ const float interval = 30.0;
         return _persistentStoreCoordinator;
     }
     
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"TestCoreData.sqlite"];
+    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Gretel.sqlite"];
     
     NSError *error = nil;
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
         
-         //Lightweight migration will only work for a limited set of schema changes; consult "Core Data Model Versioning and Data Migration Programming Guide" for details.
-         //Performing automatic lightweight migration by passing the following dictionary as the options parameter:
-        //@{NSMigratePersistentStoresAutomaticallyOption:@YES, NSInferMappingModelAutomaticallyOption:@YES};
+        NSError *error = nil;
+        NSPersistentStoreCoordinator *psc = _persistentStoreCoordinator;
+        NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption:@YES, NSInferMappingModelAutomaticallyOption:@YES};
+        
+        BOOL success = [psc addPersistentStoreWithType:NSSQLiteStoreType
+                                         configuration:nil URL:storeURL
+                                               options:options error:&error];
+        if (!success) {
+            DLog(@"Could not migrate store");
+        }
+        
         
     }
     

@@ -31,7 +31,6 @@
     [self.unitOptions setSelectedSegmentIndex:[settingsManager getApplicationUnitType]];
     [self.applicationUsageSettings setSelectedSegmentIndex:[settingsManager getApplicationUsageType]];
     [self.accuracyLabel setText:[NSString stringWithFormat:@"%.0f seconds",settingsManager.locationCheckInterval]];
-    [self.locationCheckInterval setValue:settingsManager.locationCheckInterval];
     
     [self.navigationItem.leftBarButtonItem setImage:[GTThemeManager listIcon]];
 }
@@ -49,9 +48,26 @@
     [settingsManager setApplicationUsageType:control.selectedSegmentIndex];
 }
 
--(IBAction)intervalSliderDidChange:(UISlider *)slider {
-    self.accuracyLabel.text = [NSString stringWithFormat:@"%.0f seconds",slider.value];
-    [settingsManager setApplicationLocationCheckInterval:slider.value];
+-(IBAction)intervalSettingsDidChange:(UISegmentedControl *)control {
+    
+    [settingsManager setApplicationLocationCheckInterval:control.selectedSegmentIndex];
+    
+    switch (control.selectedSegmentIndex) {
+        case 0:
+            [settingsManager setApplicationLocationCheckInterval:1.0];
+            break;
+        case 1:
+            [settingsManager setApplicationLocationCheckInterval:10.0];
+            break;
+        case 2:
+            [settingsManager setApplicationLocationCheckInterval:30.0];
+            break;
+        case 3:
+            [settingsManager setApplicationLocationCheckInterval:60.0];
+            break;
+        default:
+            break;
+    }
 }
 
 -(IBAction)accuracySettingsDidChange:(UISegmentedControl *)control {
