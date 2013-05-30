@@ -128,6 +128,7 @@ NSString * const GTAppSettingsCurrentUnitType = @"currentUnitType";
     [appDefaults setInteger:self.locationCheckInterval forKey:SMLocationCheckInterval];
     [appDefaults setValue:self.unitLabelHeight forKey:SMUnitLabelHeight];
     [appDefaults setFloat:self.distanceFilter forKey:SMDistanceFilter];
+    [appDefaults setInteger:self.desiredAccuracy forKey:SMDesiredAccuracy];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:SMSettingsUpdated object:self];
     

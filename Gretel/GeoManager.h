@@ -117,4 +117,11 @@ extern NSNumber *const GTDistanceFilterInMetres;
  */
 -(void)killAllLocationServices;
 
+/**
+ * Get distance filter
+ *
+ * @return void
+ */
+-(float)getDistanceFilter;
+
 @end

@@ -55,9 +55,6 @@ NSString *const GTAppDidEnterBackground = @"didEnterBackground";
         locationManagerTick = [defaults integerForKey:SMLocationCheckInterval];
         desiredAccuracy = [defaults integerForKey:SMDesiredAccuracy];
         
-        [locationManager setDistanceFilter:[defaults floatForKey:SMDistanceFilter]];
-        [locationManager setHeadingFilter:5.0];
-        
         self.isRecording = NO;
         
         [self startTrackingPosition];
@@ -198,12 +195,7 @@ NSString *const GTAppDidEnterBackground = @"didEnterBackground";
     //Begin tracking the users location and sending notifications on change
     if(!locationManager){
         
-        //Create an instance of CLLocation manager for the manager to use
-        locationManager = [CLLocationManager new];
-        
-        [locationManager setDesiredAccuracy:[defaults integerForKey:SMDesiredAccuracy]];
-        [locationManager setDelegate:self];
-        [locationManager setPausesLocationUpdatesAutomatically:YES];
+        [self createNewLocationManager];
         
         if ([defaults integerForKey:GTApplicationUsageTypeKey]) {
             [self setUsageType];
@@ -216,6 +208,17 @@ NSString *const GTAppDidEnterBackground = @"didEnterBackground";
     
     [self beginHeadingUpdates];
     
+}
+
+-(void)createNewLocationManager {
+    //Create an instance of CLLocation manager for the manager to use
+    locationManager = [CLLocationManager new];
+    
+    [locationManager setDesiredAccuracy:[defaults integerForKey:SMDesiredAccuracy]];
+    [locationManager setDelegate:self];
+    [locationManager setPausesLocationUpdatesAutomatically:YES];
+    [locationManager setDistanceFilter:[defaults floatForKey:SMDistanceFilter]];
+    [locationManager setHeadingFilter:5.0];
 }
 
 -(void)stopTrackingPosition {
@@ -236,6 +239,10 @@ NSString *const GTAppDidEnterBackground = @"didEnterBackground";
 
 -(float)currentElevation {
     return self.elevation;
+}
+
+-(float)getDistanceFilter {
+    return locationManager.distanceFilter;
 }
 
 -(BOOL)locationServicesEnabled {

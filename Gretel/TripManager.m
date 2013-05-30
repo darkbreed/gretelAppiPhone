@@ -333,7 +333,7 @@ const float desiredDistanceBetweenPoints = 5.0;
         
         
     //Only store the location if it far enough away from the old one
-    }else if([location distanceFromLocation:previousLocation] > desiredDistanceBetweenPoints){
+    }else if([location distanceFromLocation:previousLocation] > [[GeoManager sharedManager] getDistanceFilter]){
         
         NSLog(@"Storing new location");
         [self createNewGPSPointFromLocation:location];
