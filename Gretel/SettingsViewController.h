@@ -21,6 +21,7 @@
 @property (nonatomic, strong) IBOutlet UISegmentedControl *applicationUsageSettings;
 @property (nonatomic, strong) IBOutlet UISegmentedControl *locationCheckInterval;
 @property (nonatomic, weak) IBOutlet UISegmentedControl *accuracySettings;
+@property (nonatomic, weak) IBOutlet UISegmentedControl *distanceFilterSettings;
 @property (nonatomic, weak) IBOutlet UILabel *accuracyLabel;
 
 @end

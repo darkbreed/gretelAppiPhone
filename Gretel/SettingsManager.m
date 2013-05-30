@@ -13,7 +13,8 @@ float const SMMilesSpeedMultiplier = 2.23693629;
 float const SMFeetToMetersMultiplier = 0.3048;
 float const SMMetersToFeetMultiplier = 3.2808399;
 float const SMKmSpeedMultiplier = 3.6;
-float const SMDistanceFilterValue = 10.0;
+int const SMLocationCheckIntervalValue = 10;
+float const SMDistanceFilterValue = 5.0;
 
 NSString *const SMUnitLabelSpeed = @"unitLabelSpeed";
 NSString *const SMUnitLabelDistance = @"unitLabelDistance";
@@ -21,9 +22,10 @@ NSString *const SMUnitLabelHeight = @"unitLabelHeight";
 NSString *const SMDistanceMultiplier = @"distanceMultiplier";
 NSString *const SMSpeedMultiplier = @"speedMultiplier";
 NSString *const SMSettingsUpdated = @"settingsUpdated";
-NSString *const SMLocationCheckInterval = @"distanceFilter";
+NSString *const SMLocationCheckInterval = @"locationCheckInterval";
 NSString *const SMHeightMultiplier = @"heightMultiplier";
 NSString *const SMDesiredAccuracy = @"desiredAccuracy";
+NSString *const SMDistanceFilter = @"distanceFilter";
 
 NSString *const GTApplicationUsageTypeKey = @"applicationUsageType";
 NSString *const GTApplicationDidUpdateUsageType = @"didUpdateUsageType";
@@ -56,6 +58,15 @@ NSString * const GTAppSettingsCurrentUnitType = @"currentUnitType";
     
     self = [super init];
     
+    if(self){
+        
+    }
+    
+    return self;
+}
+
+-(void)configureDefaults {
+    
     appDefaults = [NSUserDefaults standardUserDefaults];
     
     if(self){
@@ -67,25 +78,28 @@ NSString * const GTAppSettingsCurrentUnitType = @"currentUnitType";
             self.unitLabelDistance = [appDefaults valueForKey:SMUnitLabelDistance];
             self.distanceMultiplier = [appDefaults floatForKey:SMDistanceMultiplier];
             self.speedMultiplier = [appDefaults floatForKey:SMSpeedMultiplier];
-            self.locationCheckInterval = [appDefaults floatForKey:SMLocationCheckInterval];
+            self.locationCheckInterval = [appDefaults integerForKey:SMLocationCheckInterval];
             self.unitLabelHeight = [appDefaults valueForKey:SMUnitLabelHeight];
             self.heightMultiplier = [appDefaults floatForKey:SMHeightMultiplier];
             self.desiredAccuracy = [appDefaults integerForKey:SMDesiredAccuracy];
-            
+            self.distanceFilter = [appDefaults floatForKey:SMDistanceFilter];
             
         }else{
+            
             self.unitLabelSpeed = @"MPH";
             self.unitLabelDistance = @"M";
             self.unitLabelHeight = @"FT";
             self.heightMultiplier = SMFeetToMetersMultiplier;
             self.distanceMultiplier = SMMileMultiplier;
             self.speedMultiplier = SMMilesSpeedMultiplier;
-            self.locationCheckInterval = SMDistanceFilterValue;
-            self.desiredAccuracy = kCLLocationAccuracyKilometer;
+            self.locationCheckInterval = SMLocationCheckIntervalValue;
+            self.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+            self.distanceFilter = SMDistanceFilterValue;
+            
+            [self setApplicationUnitType:GTAppSettingsUnitTypeMPH];
+            
         }
     }
-    
-    return self;
 }
 
 -(void)setApplicationUnitType:(GTAppSettingsUnitType)unitType {
@@ -111,8 +125,9 @@ NSString * const GTAppSettingsCurrentUnitType = @"currentUnitType";
     [appDefaults setFloat:self.distanceMultiplier forKey:SMDistanceMultiplier];
     [appDefaults setFloat:self.speedMultiplier forKey:SMSpeedMultiplier];
     [appDefaults setValue:self.unitLabelDistance forKey:SMUnitLabelDistance];
-    [appDefaults setFloat:self.locationCheckInterval forKey:SMLocationCheckInterval];
+    [appDefaults setInteger:self.locationCheckInterval forKey:SMLocationCheckInterval];
     [appDefaults setValue:self.unitLabelHeight forKey:SMUnitLabelHeight];
+    [appDefaults setFloat:self.distanceFilter forKey:SMDistanceFilter];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:SMSettingsUpdated object:self];
     
@@ -125,9 +140,9 @@ NSString * const GTAppSettingsCurrentUnitType = @"currentUnitType";
     
 }
 
--(void)setApplicationLocationCheckInterval:(float)distanceFilter {
+-(void)setApplicationLocationCheckInterval:(int)locationCheckInterval {
     
-    [appDefaults setFloat:distanceFilter forKey:SMLocationCheckInterval];
+    [appDefaults setInteger:locationCheckInterval forKey:SMLocationCheckInterval];
     [[NSNotificationCenter defaultCenter] postNotificationName:GTApplicationDidUpdateInterval object:nil];
 }
 
@@ -136,6 +151,11 @@ NSString * const GTAppSettingsCurrentUnitType = @"currentUnitType";
     [appDefaults setInteger:accuracyType forKey:SMDesiredAccuracy];
     [[NSNotificationCenter defaultCenter] postNotificationName:GTApplicationDidUpdateAccuracy object:nil];
     
+}
+
+-(void)setApplicationDistanceFilter:(float)distanceFilter {
+    [appDefaults setFloat:distanceFilter forKey:SMDistanceFilter];
+    [[NSNotificationCenter defaultCenter] postNotificationName:GTApplicationDidUpdateDistanceFilter object:nil];
 }
 
 -(GTAppSettingsUnitType)getApplicationUnitType {

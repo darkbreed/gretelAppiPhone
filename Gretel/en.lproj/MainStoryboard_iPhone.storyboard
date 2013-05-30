@@ -360,7 +360,7 @@
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="DISTANCE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Heu-jt-mRS">
                                                 <rect key="frame" x="20" y="20" width="280" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="11"/>
                                                 <color key="textColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -556,7 +556,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cBM-cd-B1Q">
-                                        <rect key="frame" x="70" y="218" width="276" height="42"/>
+                                        <rect key="frame" x="70" y="288" width="276" height="42"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
                                         <string key="text">HOW OFTEN SHOULD GRETEL CHECK 
 FOR YOUR LOCATION?</string>
@@ -625,7 +625,7 @@ FOR YOUR LOCATION?</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Nuz-Tg-Ynj">
-                                        <rect key="frame" x="70" y="268" width="276" height="30"/>
+                                        <rect key="frame" x="70" y="338" width="276" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
                                         <segments>
                                             <segment title="1 sec"/>
@@ -638,6 +638,27 @@ FOR YOUR LOCATION?</string>
                                             <action selector="intervalSettingsDidChange:" destination="GGx-Rt-Kl9" eventType="valueChanged" id="ve1-M7-1NB"/>
                                         </connections>
                                     </segmentedControl>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="e57-sf-Qcq">
+                                        <rect key="frame" x="70" y="252" width="276" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                                        <segments>
+                                            <segment title="1M"/>
+                                            <segment title="5M"/>
+                                            <segment title="10M"/>
+                                            <segment title="50M"/>
+                                        </segments>
+                                        <color key="tintColor" red="0.7843137255" green="0.76078431369999999" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="distanceFilterSettingsDidChange:" destination="GGx-Rt-Kl9" eventType="valueChanged" id="cpd-7f-j94"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="IGNORE UPDATES WITHIN:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BmP-xq-8OC">
+                                        <rect key="frame" x="126" y="223" width="165" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
+                                        <color key="textColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
@@ -654,6 +675,7 @@ FOR YOUR LOCATION?</string>
                     <connections>
                         <outlet property="accuracySettings" destination="Jiy-eA-pSO" id="x8w-Lx-8x9"/>
                         <outlet property="applicationUsageSettings" destination="L23-Hz-war" id="DnD-98-bjw"/>
+                        <outlet property="distanceFilterSettings" destination="e57-sf-Qcq" id="Z5E-4X-iYZ"/>
                         <outlet property="locationCheckInterval" destination="Nuz-Tg-Ynj" id="cLI-IB-suw"/>
                         <outlet property="unitOptions" destination="eXM-zm-KJ3" id="l7O-7Q-rgl"/>
                     </connections>
@@ -938,7 +960,6 @@ Finally a shout out must go to Friska, this application has been powered by thei
         <class className="AboutViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AboutViewController.h"/>
             <relationships>
-                <relationship kind="action" name="menuButtonHandler:"/>
                 <relationship kind="outlet" name="versionNumberLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
@@ -968,7 +989,6 @@ Finally a shout out must go to Friska, this application has been powered by thei
         <class className="HelpViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/HelpViewController.h"/>
             <relationships>
-                <relationship kind="action" name="menuButtonHandler:"/>
                 <relationship kind="outlet" name="pageControl" candidateClass="UIPageControl"/>
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
             </relationships>
@@ -976,18 +996,13 @@ Finally a shout out must go to Friska, this application has been powered by thei
         <class className="HistoryViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/HistoryViewController.h"/>
             <relationships>
-                <relationship kind="action" name="menuButtonHandler:"/>
                 <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
             </relationships>
         </class>
         <class className="RecordNewTripViewController" superclassName="BRBaseMapViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RecordNewTripViewController.h"/>
             <relationships>
-                <relationship kind="action" name="actionButtonHandler:"/>
                 <relationship kind="action" name="addButtonHandler:"/>
-                <relationship kind="action" name="displayMap:"/>
-                <relationship kind="action" name="locateMeButtonHandler:"/>
-                <relationship kind="action" name="menuButtonHandler:"/>
                 <relationship kind="action" name="startTrackingButtonHandler:"/>
                 <relationship kind="action" name="stopTrackingButtonHandler:"/>
                 <relationship kind="outlet" name="accuracyLabel" candidateClass="UILabel"/>
@@ -1022,14 +1037,12 @@ Finally a shout out must go to Friska, this application has been powered by thei
         </class>
         <class className="SettingsMenuViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsMenuViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="menuButtonHandler:"/>
-            </relationships>
         </class>
         <class className="SettingsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsViewController.h"/>
             <relationships>
                 <relationship kind="action" name="accuracySettingsDidChange:" candidateClass="UISegmentedControl"/>
+                <relationship kind="action" name="distanceFilterSettingsDidChange:" candidateClass="UISegmentedControl"/>
                 <relationship kind="action" name="intervalSettingsDidChange:" candidateClass="UISegmentedControl"/>
                 <relationship kind="action" name="menuButtonHandler:"/>
                 <relationship kind="action" name="unitsControlDidChange:" candidateClass="UISegmentedControl"/>
@@ -1037,6 +1050,7 @@ Finally a shout out must go to Friska, this application has been powered by thei
                 <relationship kind="outlet" name="accuracyLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="accuracySettings" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="applicationUsageSettings" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="distanceFilterSettings" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="locationCheckInterval" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="unitOptions" candidateClass="UISegmentedControl"/>
             </relationships>

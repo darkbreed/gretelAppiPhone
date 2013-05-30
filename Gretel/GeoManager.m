@@ -20,7 +20,7 @@ NSString *const GTAppDidEnterBackground = @"didEnterBackground";
     
     NSUserDefaults *defaults;
     NSTimer *locationManagerTimer;
-    float locationManagerTick;
+    int locationManagerTick;
     int desiredAccuracy;
     CLLocation *previousLocation;
     __block UIBackgroundTaskIdentifier background_task; //Create a task object
@@ -49,14 +49,18 @@ NSString *const GTAppDidEnterBackground = @"didEnterBackground";
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setUsageType) name:GTApplicationDidUpdateUsageType object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setIntervalValue) name:GTApplicationDidUpdateInterval object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setDesiredAccuracyValue) name:GTApplicationDidUpdateAccuracy object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setDesiredDistanceFilterValue) name:GTApplicationDidUpdateDistanceFilter object:nil];
         
         defaults = [NSUserDefaults standardUserDefaults];
-        locationManagerTick = [defaults floatForKey:SMLocationCheckInterval];
+        locationManagerTick = [defaults integerForKey:SMLocationCheckInterval];
         desiredAccuracy = [defaults integerForKey:SMDesiredAccuracy];
         
-        initialLocate = YES;
+        [locationManager setDistanceFilter:[defaults floatForKey:SMDistanceFilter]];
+        [locationManager setHeadingFilter:5.0];
         
-        [self startLocationManagerTimer];
+        self.isRecording = NO;
+        
+        [self startTrackingPosition];
     
     }
 
@@ -84,12 +88,20 @@ NSString *const GTAppDidEnterBackground = @"didEnterBackground";
 }
 
 -(void)setIntervalValue {
-    locationManagerTick = [defaults floatForKey:SMLocationCheckInterval];
+    locationManagerTick = [defaults integerForKey:SMLocationCheckInterval];
+    [self stopLocationManagerTimer];
+    [self startLocationManagerTimer];
 }
 
 -(void)setDesiredAccuracyValue {
     desiredAccuracy = [defaults floatForKey:SMDesiredAccuracy];
     [locationManager setDesiredAccuracy:[defaults integerForKey:SMDesiredAccuracy]];
+}
+
+-(void)setDesiredDistanceFilterValue {
+    
+    [locationManager setDistanceFilter:[defaults floatForKey:SMDistanceFilter]];
+    
 }
 
 #pragma mark CLLocationManagerDelegate methods
@@ -98,25 +110,24 @@ NSString *const GTAppDidEnterBackground = @"didEnterBackground";
     //Store the current location in the property for easy access
     
     CLLocation *location = (CLLocation *)[locations lastObject];
-    
-    DLog(@"Updating location");
-    
+        
     if(location.horizontalAccuracy < desiredAccuracy){
         
+        NSLog(@"New location found");
+        
         self.currentLocation = (CLLocation *)[locations lastObject];
-        self.previousLocation = previousLocation ? previousLocation : nil;
         self.speed = self.currentLocation.speed;
         self.elevation = self.currentLocation.altitude;
         
         //Update any observers
         [[NSNotificationCenter defaultCenter] postNotificationName:GTLocationUpdatedSuccessfully object:nil];
         [self stopTrackingPosition];
-        
-        DLog(@"Killing location manager");
-
-        previousLocation = location;
-        
-        initialLocate = NO;
+    
+        if(self.isRecording){
+            previousLocation = location;
+            self.previousLocation = previousLocation ? previousLocation : nil;
+        }
+            
 
     }
 }
@@ -155,24 +166,34 @@ NSString *const GTAppDidEnterBackground = @"didEnterBackground";
 -(void)startLocationManagerTimer {
     
     //Configure the settings, accuracy etc.
-    locationManagerTimer = [NSTimer scheduledTimerWithTimeInterval:locationManagerTick
-                                                            target:self
-                                                          selector:@selector(startTrackingPosition)
-                                                          userInfo:nil
-                                                           repeats:YES];
-    [locationManagerTimer fire];
-
+    
+    self.isRecording = YES;
+    
+    if(locationManagerTick != 0){
+        
+        locationManagerTimer = [NSTimer scheduledTimerWithTimeInterval:locationManagerTick
+                                                                target:self
+                                                              selector:@selector(startTrackingPosition)
+                                                              userInfo:nil
+                                                               repeats:YES];
+        [locationManagerTimer fire];
+        
+    }
 }
 
 -(void)stopLocationManagerTimer {
     
     [locationManagerTimer invalidate];
     locationManagerTimer = nil;
+    
+    self.isRecording = NO;
 }
 
 
 #pragma LocationManager methods
 -(void)startTrackingPosition {
+    
+    NSLog(@"Checked for new location");
     
     //Begin tracking the users location and sending notifications on change
     if(!locationManager){
@@ -180,7 +201,6 @@ NSString *const GTAppDidEnterBackground = @"didEnterBackground";
         //Create an instance of CLLocation manager for the manager to use
         locationManager = [CLLocationManager new];
         
-        [locationManager setDistanceFilter:[defaults floatForKey:SMLocationCheckInterval]];
         [locationManager setDesiredAccuracy:[defaults integerForKey:SMDesiredAccuracy]];
         [locationManager setDelegate:self];
         [locationManager setPausesLocationUpdatesAutomatically:YES];
@@ -199,6 +219,9 @@ NSString *const GTAppDidEnterBackground = @"didEnterBackground";
 }
 
 -(void)stopTrackingPosition {
+    
+    NSLog(@"Killing location manager");
+    
     [locationManager stopUpdatingLocation];
     locationManager = nil;
 }
@@ -238,28 +261,33 @@ NSString *const GTAppDidEnterBackground = @"didEnterBackground";
 
     if(backgroundMode){
         
-        [self stopLocationManagerTimer];
-        [locationManager stopUpdatingHeading];
-        
-        if ([[UIDevice currentDevice] respondsToSelector:@selector(isMultitaskingSupported)]) { //Check if our iOS version supports multitasking I.E iOS 4
-            if ([[UIDevice currentDevice] isMultitaskingSupported]) { //Check if device supports mulitasking
-                
-                UIApplication *application = [UIApplication sharedApplication]; //Get the shared application instance
-               
-                background_task = [application beginBackgroundTaskWithExpirationHandler: ^ {
-                    [application endBackgroundTask:background_task]; //Tell the system that we are done with the tasks
-                }];
+        if(self.isRecording){
+            [self stopLocationManagerTimer];
+            [locationManager stopUpdatingHeading];
+            
+            if ([[UIDevice currentDevice] respondsToSelector:@selector(isMultitaskingSupported)]) { //Check if our iOS version supports multitasking I.E iOS 4
+                if ([[UIDevice currentDevice] isMultitaskingSupported]) { //Check if device supports mulitasking
                     
-                self.backgroundLocationUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:locationManagerTick target:self
-                                                                                        selector:@selector(startTrackingPosition) userInfo:nil repeats:YES];
+                    UIApplication *application = [UIApplication sharedApplication]; //Get the shared application instance
+                    
+                    background_task = [application beginBackgroundTaskWithExpirationHandler: ^ {
+                        [application endBackgroundTask:background_task]; //Tell the system that we are done with the tasks
+                    }];
+                    
+                    self.backgroundLocationUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:locationManagerTick target:self
+                                                                                        selector:@selector(startTrackingPosition) userInfo:nil
+                                                                                         repeats:YES];
+                }
             }
         }
-                
+        
     }else{
         
         TripManager *tripManager = [TripManager sharedManager];
-        
         background_task = UIBackgroundTaskInvalid; //Set the task to be invalid
+        
+        [self.backgroundLocationUpdateTimer invalidate];
+        self.backgroundLocationUpdateTimer = nil;
         
         if([tripManager.currentTrip.recordingState isEqualToString:[[TripManager sharedManager] recordingStateForState:GTTripStateRecording]]){
             [self startLocationManagerTimer];

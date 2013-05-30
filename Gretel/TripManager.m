@@ -88,6 +88,7 @@ const float desiredDistanceBetweenPoints = 5.0;
 }
 
 -(void)updateDistance {
+    
     self.currentTrip.totalDistance = [NSNumber numberWithFloat:[TripUtilities calculateDistanceForPointsInMetres:self.currentTrip]];
     [[NSNotificationCenter defaultCenter] postNotificationName:GTTripUpdatedDistance object:nil];
 }
@@ -234,10 +235,13 @@ const float desiredDistanceBetweenPoints = 5.0;
 
 -(void)updateLocation {
     
+    NSLog(@"Updating location");
+    
     if(self.tripState == GTTripStateRecording){
         //Store the data point
         [self storeLocation];
     }
+    
 }
 
 -(void)saveTrip {
@@ -246,6 +250,7 @@ const float desiredDistanceBetweenPoints = 5.0;
     if (![self.managedObjectContext save:&error]) {
         // Handle the error.
     }
+    
 }
 
 -(void)pauseRecording {
@@ -320,45 +325,39 @@ const float desiredDistanceBetweenPoints = 5.0;
     CLLocation *location = [GeoManager sharedManager].currentLocation;
     CLLocation *previousLocation = [GeoManager sharedManager].previousLocation;
 
+    //If there is no previous point, store the new one regardless as we are just starting
     if(!previousLocation){
         
-        // Create and configure a new instance of the GPS entity.
-        GPSPoint *point = (GPSPoint *)[NSEntityDescription insertNewObjectForEntityForName:@"GPSPoint" inManagedObjectContext:self.managedObjectContext];
-        point.altitude = [NSNumber numberWithDouble:location.altitude];
-        point.lat = [NSNumber numberWithDouble:location.coordinate.latitude];
-        point.lon = [NSNumber numberWithDouble:location.coordinate.longitude];
-        point.timestamp = [NSDate date];
-        point.pointID = [NSNumber numberWithInt:currentPointId++];
+        NSLog(@"Storing first location");
+        [self createNewGPSPointFromLocation:location];
         
-        //Add it to the current trip for storage
-        [self.currentTrip addPointsObject:point];
-        [self.pointsForDrawing addObject:point];
         
-        [self saveTrip];
-        
-        //Only store the location if it far enough away from the old one
+    //Only store the location if it far enough away from the old one
     }else if([location distanceFromLocation:previousLocation] > desiredDistanceBetweenPoints){
         
-        // Create and configure a new instance of the GPS entity.
-        GPSPoint *point = (GPSPoint *)[NSEntityDescription insertNewObjectForEntityForName:@"GPSPoint" inManagedObjectContext:self.managedObjectContext];
-        point.altitude = [NSNumber numberWithDouble:location.altitude];
-        point.lat = [NSNumber numberWithDouble:location.coordinate.latitude];
-        point.lon = [NSNumber numberWithDouble:location.coordinate.longitude];
-        point.timestamp = [NSDate date];
-        point.pointID = [NSNumber numberWithInt:currentPointId++];
-        
-        //Add it to the current trip for storage
-        [self.currentTrip addPointsObject:point];
-        [self.pointsForDrawing addObject:point];
-        
-        [self saveTrip];
-        
-    }else{
-        
-        DLog(@"Not a large enough distance between here and the previous location. Skipping.");
-        
+        NSLog(@"Storing new location");
+        [self createNewGPSPointFromLocation:location];
+                
     }
     
+}
+
+-(void)createNewGPSPointFromLocation:(CLLocation *)location {
+    // Create and configure a new instance of the GPS entity.
+    GPSPoint *point = (GPSPoint *)[NSEntityDescription insertNewObjectForEntityForName:@"GPSPoint" inManagedObjectContext:self.managedObjectContext];
+    point.altitude = [NSNumber numberWithDouble:location.altitude];
+    point.lat = [NSNumber numberWithDouble:location.coordinate.latitude];
+    point.lon = [NSNumber numberWithDouble:location.coordinate.longitude];
+    point.timestamp = [NSDate date];
+    point.pointID = [NSNumber numberWithInt:currentPointId++];
+    
+    //Add it to the current trip for storage
+    [self.currentTrip addPointsObject:point];
+    [self.pointsForDrawing addObject:point];
+    
+    [self saveTrip];
+    
+    [self updateDistance];
 }
 
 -(NSString *)recordingStateForState:(GTTripState)state {

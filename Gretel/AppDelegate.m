@@ -10,6 +10,7 @@
 #import "HistoryViewController.h"
 #import "SettingsMenuViewController.h"
 #import "TripIO.h"
+#import "SettingsManager.h"
 #import <Dropbox/Dropbox.h>
 #import <Instabug/Instabug.h>
 
@@ -17,7 +18,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-        
+    
 #ifdef TESTING
     
     NSString *uuid = [NSString stringWithFormat:@"%@",[[UIDevice currentDevice] identifierForVendor]];
@@ -27,6 +28,9 @@
     [Instabug KickOffWithToken:@"584de8774752975b5f94a0a4c1752d49" CaptureSource:InstabugCaptureSourceUIKit FeedbackEvent:InstabugFeedbackEventShake IsTrackingLocation:YES];
     
 #endif
+    
+    //Check for defaults
+    [[SettingsManager sharedManager] configureDefaults];
     
     UIImage *backgroundInage = [UIImage imageNamed:@"navigationBarBackground.png"];
         

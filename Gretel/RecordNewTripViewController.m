@@ -365,8 +365,6 @@
     NSArray *points = [tripManager fectchPointsForDrawing:NO];
     [self drawRoute:points onMapView:self.mapView willRefreh:YES];
     
-    DLog(@"Drawing on map");
-    
 }
 
 -(void)updateCompassWithHeading {

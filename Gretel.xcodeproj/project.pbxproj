@@ -137,15 +137,15 @@
 		B5A3437D170DE71E0099DD7D /* Gretel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B5A3437B170DE71E0099DD7D /* Gretel.xcdatamodeld */; };
 		B5A365FC1726B85800F8E6FB /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5A365861726B78700F8E6FB /* MainStoryboard_iPad.storyboard */; };
 		B5A7236816EDD0C9006EC062 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A7236716EDD0C9006EC062 /* AboutViewController.m */; };
+		B5ABB2331757544A00460C9D /* Fairview_Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = B5ABB2311757544A00460C9D /* Fairview_Regular.otf */; };
+		B5ABB2341757544A00460C9D /* Fairview_SmallCaps.otf in Resources */ = {isa = PBXBuildFile; fileRef = B5ABB2321757544A00460C9D /* Fairview_SmallCaps.otf */; };
+		B5ABB2371757554C00460C9D /* UILabel+Font.m in Sources */ = {isa = PBXBuildFile; fileRef = B5ABB2361757554C00460C9D /* UILabel+Font.m */; };
 		B5AE901116DF4A0D003A36C6 /* TripHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B5AE901016DF4A0D003A36C6 /* TripHistoryTableViewCell.m */; };
 		B5C1572E171F095400F9773B /* RootSlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C1572D171F095400F9773B /* RootSlidingViewController.m */; };
 		B5C15731171F0BE200F9773B /* SettingsMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C15730171F0BE200F9773B /* SettingsMenuViewController.m */; };
 		B5C15734171F49AB00F9773B /* SettingsMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C15733171F49AA00F9773B /* SettingsMenuCell.m */; };
-		B5D1AF19173C0F3C00D57963 /* ostrich-black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B5D1AF17173C0F3C00D57963 /* ostrich-black.ttf */; };
-		B5D1AF1A173C0F3C00D57963 /* ostrich-regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B5D1AF18173C0F3C00D57963 /* ostrich-regular.ttf */; };
 		B5E45C23170ECDF500C1B6F6 /* obanglencoe.gpx in Resources */ = {isa = PBXBuildFile; fileRef = B5E45C22170ECDF500C1B6F6 /* obanglencoe.gpx */; };
 		B5E45C25170EE98400C1B6F6 /* 05-04-2013 10:32.gpx in Resources */ = {isa = PBXBuildFile; fileRef = B5E45C24170EE98400C1B6F6 /* 05-04-2013 10:32.gpx */; };
-		B5F095C31723DC9C00BC88D6 /* Bariol_Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = B5F095C21723DC9C00BC88D6 /* Bariol_Regular.otf */; };
 		B5F6165916DD4224005BDB7C /* deleteSymbol.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F6165316DD4224005BDB7C /* deleteSymbol.png */; };
 		B5F6165A16DD4224005BDB7C /* deleteSymbol@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F6165416DD4224005BDB7C /* deleteSymbol@2x.png */; };
 		B5F6165B16DD4224005BDB7C /* infoSymbol.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F6165516DD4224005BDB7C /* infoSymbol.png */; };
@@ -327,6 +327,10 @@
 		B5A365871726B78700F8E6FB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = Gretel/en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		B5A7236616EDD0C9006EC062 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		B5A7236716EDD0C9006EC062 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		B5ABB2311757544A00460C9D /* Fairview_Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fairview_Regular.otf; sourceTree = "<group>"; };
+		B5ABB2321757544A00460C9D /* Fairview_SmallCaps.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fairview_SmallCaps.otf; sourceTree = "<group>"; };
+		B5ABB2351757554C00460C9D /* UILabel+Font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Font.h"; sourceTree = "<group>"; };
+		B5ABB2361757554C00460C9D /* UILabel+Font.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Font.m"; sourceTree = "<group>"; };
 		B5AE900F16DF4A0D003A36C6 /* TripHistoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripHistoryTableViewCell.h; sourceTree = "<group>"; };
 		B5AE901016DF4A0D003A36C6 /* TripHistoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripHistoryTableViewCell.m; sourceTree = "<group>"; };
 		B5C1572C171F095400F9773B /* RootSlidingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootSlidingViewController.h; sourceTree = "<group>"; };
@@ -335,11 +339,8 @@
 		B5C15730171F0BE200F9773B /* SettingsMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsMenuViewController.m; sourceTree = "<group>"; };
 		B5C15732171F49AA00F9773B /* SettingsMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsMenuCell.h; sourceTree = "<group>"; };
 		B5C15733171F49AA00F9773B /* SettingsMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsMenuCell.m; sourceTree = "<group>"; };
-		B5D1AF17173C0F3C00D57963 /* ostrich-black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ostrich-black.ttf"; sourceTree = "<group>"; };
-		B5D1AF18173C0F3C00D57963 /* ostrich-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ostrich-regular.ttf"; sourceTree = "<group>"; };
 		B5E45C22170ECDF500C1B6F6 /* obanglencoe.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obanglencoe.gpx; sourceTree = "<group>"; };
 		B5E45C24170EE98400C1B6F6 /* 05-04-2013 10:32.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "05-04-2013 10:32.gpx"; sourceTree = "<group>"; };
-		B5F095C21723DC9C00BC88D6 /* Bariol_Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Bariol_Regular.otf; sourceTree = "<group>"; };
 		B5F6165316DD4224005BDB7C /* deleteSymbol.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = deleteSymbol.png; sourceTree = "<group>"; };
 		B5F6165416DD4224005BDB7C /* deleteSymbol@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deleteSymbol@2x.png"; sourceTree = "<group>"; };
 		B5F6165516DD4224005BDB7C /* infoSymbol.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = infoSymbol.png; sourceTree = "<group>"; };
@@ -512,7 +513,6 @@
 				3A8C9773167B2F3D000E2259 /* ShareManager.m */,
 				3A072B6E167F699C00349316 /* BRDateUtils.h */,
 				3A072B6F167F699C00349316 /* BRDateUtils.m */,
-				3A92499B16A00855000F62AD /* BRMap */,
 				B568976816DDFC2300A07DFC /* SettingsManager.h */,
 				B568976916DDFC2300A07DFC /* SettingsManager.m */,
 				3AE64CA416E4B08000C830AF /* TripManager.h */,
@@ -530,6 +530,7 @@
 		3A8C9771167B1EC8000E2259 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3A92499B16A00855000F62AD /* BRMap */,
 				B53596811725B2F40033FDAD /* Table Cells */,
 				3A8C974D167A1A18000E2259 /* HistoryViewController.h */,
 				3A8C974E167A1A18000E2259 /* HistoryViewController.m */,
@@ -558,6 +559,8 @@
 		3A8C9777167B455D000E2259 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				B5ABB2351757554C00460C9D /* UILabel+Font.h */,
+				B5ABB2361757554C00460C9D /* UILabel+Font.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -744,9 +747,8 @@
 		B5F095C11723DC9000BC88D6 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				B5D1AF17173C0F3C00D57963 /* ostrich-black.ttf */,
-				B5D1AF18173C0F3C00D57963 /* ostrich-regular.ttf */,
-				B5F095C21723DC9C00BC88D6 /* Bariol_Regular.otf */,
+				B5ABB2311757544A00460C9D /* Fairview_Regular.otf */,
+				B5ABB2321757544A00460C9D /* Fairview_SmallCaps.otf */,
 			);
 			name = Fonts;
 			sourceTree = "<group>";
@@ -894,7 +896,6 @@
 				B53905C71717F09E00B02190 /* Instabug.bundle in Resources */,
 				B580CC93171BE32200D5ADB9 /* settings.png in Resources */,
 				B580CC95171BE3CF00D5ADB9 /* settings@2x.png in Resources */,
-				B5F095C31723DC9C00BC88D6 /* Bariol_Regular.otf in Resources */,
 				B5291260172A611F00806B90 /* .gitignore in Resources */,
 				B5291262172A611F00806B90 /* status-bar-pattern-black.jpg in Resources */,
 				B5291263172A611F00806B90 /* status-bar-pattern-black@2x.jpg in Resources */,
@@ -902,8 +903,8 @@
 				B5291265172A611F00806B90 /* status-bar-pattern-default@2x.jpg in Resources */,
 				B5291266172A611F00806B90 /* status-bar-progress.png in Resources */,
 				B5291267172A611F00806B90 /* status-bar-progress@2x.png in Resources */,
-				B5D1AF19173C0F3C00D57963 /* ostrich-black.ttf in Resources */,
-				B5D1AF1A173C0F3C00D57963 /* ostrich-regular.ttf in Resources */,
+				B5ABB2331757544A00460C9D /* Fairview_Regular.otf in Resources */,
+				B5ABB2341757544A00460C9D /* Fairview_SmallCaps.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -964,6 +965,7 @@
 				B53B2A21173B7D0300111790 /* TripIO.m in Sources */,
 				B53B2A27173B80EC00111790 /* TripUtilities.m in Sources */,
 				B58AAACF17460BFA00FEE8A8 /* GTThemeManager.m in Sources */,
+				B5ABB2371757554C00460C9D /* UILabel+Font.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1073,7 +1075,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "67D28525-3BC6-4413-89E6-8FDBD48A8307";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "67D28525-3BC6-4413-89E6-8FDBD48A8307";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1096,7 +1098,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "E2662933-0ABC-4423-9CD3-8A41754C30E8";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E2662933-0ABC-4423-9CD3-8A41754C30E8";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

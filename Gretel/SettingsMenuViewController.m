@@ -241,7 +241,6 @@ NSString * const GTViewControllerHelp = @"help";
                     historyViewController.isInInboxMode = NO;
                 }
             }
-            
         }
         
         self.slidingViewController.topViewController = [self.viewControllers objectForKey:identifier];

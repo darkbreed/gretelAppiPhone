@@ -79,10 +79,7 @@
         self.noResultsToDisplay = NO;
     }
     
-    [self.tableView reloadData];
-
-    self.tableView.contentOffset = CGPointMake(0.0, 44.0);
-    
+    [self.tableView reloadData];    
 }
 
 -(void)hideNotificationView {
@@ -104,7 +101,6 @@
         [self.navigationController setToolbarHidden:NO animated:YES];
     }else{
         [self.navigationController setToolbarHidden:YES animated:YES];
-        self.tableView.contentOffset = CGPointMake(0.0, 44.0);
     }
     
 }
@@ -293,7 +289,7 @@
     
     switch (type) {
         case NSFetchedResultsChangeDelete:
-            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationBottom];
+            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
         case NSFetchedResultsChangeInsert:
            [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -302,7 +298,6 @@
             
         case NSFetchedResultsChangeUpdate:
             [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
-            //[self.tableView reloadData];
             break;
             
         case NSFetchedResultsChangeMove:
@@ -319,7 +314,6 @@
     
     BOOL tripIsRecording = NO;
    
-    
     if([trip.recordingState isEqualToString:[tripManager recordingStateForState:GTTripStateRecording]]){
         tripIsRecording = YES;
     }
@@ -408,7 +402,6 @@
     [self.shareButton setTitle:@"Share"];
     [self.tableView setEditing:NO animated:YES];
     [self setEditing:NO animated:YES];
-    
     [self.notificationView hideAnimatedAfter:2.0];
     [self hideNotificationView];
     
@@ -427,7 +420,7 @@
         [tripManager deleteTrips:[self.tableView indexPathsForSelectedRows]];
         [self.notificationView hideAnimated];
         [self hideNotificationView];
-        [self setEditing:NO animated:YES];
+        [self setEditing:NO animated:NO];
     });
    
 }

@@ -26,6 +26,7 @@ extern float const SMMilesSpeedMultiplier;
 extern float const SMKmSpeedMultiplier;
 extern float const SMFeetToMetersMultiplier;
 extern float const SMMetersToFeetMultiplier;
+extern int const SMLocationCheckIntervalValue;
 
 extern NSString *const SMUnitLabelSpeed;
 extern NSString *const SMUnitLabelDistance;
@@ -36,6 +37,7 @@ extern NSString *const SMSettingsUpdated;
 extern NSString *const SMLocationCheckInterval;
 extern NSString *const SMHeightMultiplier;
 extern NSString *const SMDesiredAccuracy;
+extern NSString *const SMDistanceFilter;
 
 extern NSString * const GTAppSettingsCurrentUnitType;
 extern NSString * const GTApplicationUsageTypeKey;
@@ -49,8 +51,9 @@ extern NSString * const GTApplicationDidUpdateInterval;
 @property (nonatomic, readwrite) GTAppSettingsUnitType unitType;
 @property (nonatomic, readwrite) GTAppSettingsUsageType usageType;
 @property (nonatomic, readwrite) float distanceMultiplier;
+@property (nonatomic, readwrite) float distanceFilter;
 @property (nonatomic, readwrite) float speedMultiplier;
-@property (nonatomic, readwrite) float locationCheckInterval;
+@property (nonatomic, readwrite) int locationCheckInterval;
 @property (nonatomic, readwrite) float heightMultiplier;
 @property (nonatomic, strong) NSString *unitLabelSpeed;
 @property (nonatomic, strong) NSString *unitLabelDistance;
@@ -58,6 +61,8 @@ extern NSString * const GTApplicationDidUpdateInterval;
 @property (nonatomic, readwrite) CLLocationAccuracy desiredAccuracy;
 
 +(SettingsManager*)sharedManager;
+
+-(void)configureDefaults;
 
 /**
  * Set the application unit type to Miles or KM
@@ -90,7 +95,7 @@ extern NSString * const GTApplicationDidUpdateInterval;
  * @param float interval
  * @return void
  */
--(void)setApplicationLocationCheckInterval:(float)interval;
+-(void)setApplicationLocationCheckInterval:(int)interval;
 
 /**
  * Sets the Accuracy type

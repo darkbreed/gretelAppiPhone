@@ -52,6 +52,7 @@ extern NSNumber *const GTDistanceFilterInMetres;
 @property (nonatomic, readwrite) float speed;
 @property (nonatomic, readwrite) float elevation;
 @property (nonatomic, strong) NSTimer *backgroundLocationUpdateTimer;
+@property (nonatomic, readwrite) BOOL isRecording;
 
 /**
  * Singleton init method
